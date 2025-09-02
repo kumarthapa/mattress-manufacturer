@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-// ================================= SLEEP COMPANY ROUTES ================================
+// ================================= PRODUCTS PLANNING ROUTES ================================ //
 
 Route::get('/products', $controller_path . '\products\ProductsController@index')->name('products')->middleware('permission:products,view.products');
 Route::get('/products/list', $controller_path . '\products\ProductsController@list')->name('products.list')->middleware('permission:products,view.products');
@@ -81,5 +81,10 @@ Route::get('/products/productImportFormat', $controller_path . '\products\Produc
 Route::get('/products/export-products', $controller_path . '\products\ProductsController@exportProducts')->name('products.exportProducts');
 
 // AJAX routes
-Route::post('/products/save/{id?}', [ProductsController::class, 'save'])->name('products.save')->middleware('permission:products,create.products');
-Route::post('/products/delete/{id?}', [ProductsController::class, 'delete'])->name('delete.products')->middleware('permission:products,delete.products');
+Route::post('/products/save/{id?}', $controller_path . '\products\ProductsController@save')->name('products.save')->middleware('permission:products,create.products');
+Route::post('/products/delete/{id?}', $controller_path . '\products\ProductsController@delete')->name('delete.products')->middleware('permission:products,delete.products');
+
+// ================================= ALL TYPES OF REPORTS ROUTES ================================ //
+Route::get('/reports', $controller_path . '\reports\ReportsController@index')->name('reports');
+Route::post('/reports/list', $controller_path . '\reports\ReportsController@list')->name('reports.list');
+// Route::post('/reports/list', $controller_path . '\reports\ReportsController@list')->name('reports.list');

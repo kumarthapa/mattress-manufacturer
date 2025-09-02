@@ -69,4 +69,49 @@ class Products extends Model
     {
         return $this->search($search)->count();
     }
+
+
+    /**
+     * Fetch Stock Report data with filters, sorting, and pagination
+     */
+    public function getStockReport($search = '', $filters = [], $limit = 100, $offset = 0, $sort = 'created_at', $order = 'desc')
+    {
+        $query = DB::table($this->table)
+            ->select('product_name', 'sku', 'quantity', 'qc_status')
+            ->when($search, function ($q) use ($search) {
+                $q->where('product_name', 'like', "%$search%")
+                    ->orWhere('sku', 'like', "%$search%");
+            })
+            ->when(!empty($filters['status']) && $filters['status'] !== 'all', function ($q) use ($filters) {
+                $q->where('qc_status', $filters['status']);
+            })
+            ->when(!empty($filters['start_date']) && !empty($filters['end_date']), function ($q) use ($filters) {
+                $q->whereBetween('created_at', [$filters['start_date'], $filters['end_date']]);
+            })
+            ->orderBy($sort, $order)
+            ->limit($limit)
+            ->offset($offset);
+
+        return $query->get();
+    }
+
+    /**
+     * Count total rows for Stock Report matching search and filters
+     */
+    public function getStockReportCount($search = '', $filters = [])
+    {
+        $query = DB::table($this->table)
+            ->when($search, function ($q) use ($search) {
+                $q->where('product_name', 'like', "%$search%")
+                    ->orWhere('sku', 'like', "%$search%");
+            })
+            ->when(!empty($filters['status']) && $filters['status'] !== 'all', function ($q) use ($filters) {
+                $q->where('qc_status', $filters['status']);
+            })
+            ->when(!empty($filters['start_date']) && !empty($filters['end_date']), function ($q) use ($filters) {
+                $q->whereBetween('created_at', [$filters['start_date'], $filters['end_date']]);
+            });
+
+        return $query->count();
+    }
 }

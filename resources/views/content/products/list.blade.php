@@ -4,12 +4,6 @@
 @section("page-style")
     <link rel="stylesheet" href="{{ asset("assets/css/datatables.bootstrap5.css") }}">
     <style>
-        .tour-direction-custom-line {
-            width: 70px;
-            height: 1px;
-            background-color: #b3b9be;
-            margin: 0 auto;
-        }
     </style>
 @endsection
 @section("content")
@@ -29,8 +23,8 @@
                                         </h3>
                                         <p class="mb-0">Total Products</p>
                                     </div>
-                                    <span class="badge bg-label-primary me-sm-4 rounded p-2">
-                                        <i class="bx bx-user bx-sm"></i>
+                                    <span class="badge bg-label-success me-sm-4 rounded p-2">
+                                        <i class="bx bx-store-alt bx-sm"></i>
                                     </span>
                                 </div>
                                 <hr class="d-none d-sm-block d-lg-none me-4">
@@ -44,8 +38,8 @@
                                         </h3>
                                         <p class="mb-0">Total RFID Tags</p>
                                     </div>
-                                    <span class="badge bg-label-success me-lg-4 rounded p-2">
-                                        <i class="bx bx-user-check bx-sm"></i>
+                                    <span class="badge bg-label-warning me-lg-4 rounded p-2">
+                                        <i class="bx bx bx-crown bx-sm"></i>
                                     </span>
                                 </div>
                                 <hr class="d-none d-sm-block d-lg-none">
@@ -59,8 +53,8 @@
                                         </h3>
                                         <p class="mb-0">PASS Products</p>
                                     </div>
-                                    <span class="badge bg-label-danger me-sm-4 rounded p-2">
-                                        <i class="bx bx-info-circle bx-sm"></i>
+                                    <span class="badge bg-label-success me-sm-4 rounded p-2">
+                                        <i class="bx bx-check-circle bx-sm"></i>
                                     </span>
                                 </div>
                             </div>
@@ -73,8 +67,8 @@
                                         </h3>
                                         <p class="mb-0">FAILED Products</p>
                                     </div>
-                                    <span class="badge bg-label-success me-sm-4 rounded p-2">
-                                        <i class="bx bx-info-circle bx-sm"></i>
+                                    <span class="badge bg-label-danger me-sm-4 rounded p-2">
+                                        <i class="bx bx-error bx-sm"></i>
                                     </span>
                                 </div>
                             </div>
@@ -110,25 +104,11 @@
         </div>
     </div>
 
-    <!-- This goes in your main blade layout or the products list view -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="productEditCanvas" aria-labelledby="productCanvasLabel">
-        <div class="offcanvas-header">
-            <h5 id="productCanvasLabel" class="offcanvas-title">Edit Product</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body" id="productCanvasContent">
-            <!-- AJAX loaded edit form will appear here -->
-        </div>
-    </div>
-
-
 @endsection
 @php
     $is_export = 1;
 @endphp
 @section("page-script")
-    {{-- @include("content.products.offcanvasEdit") --}}
-
     @include("content.products.modal.bulkProductImport")
     @include("content.partial.datatable")
     @include("content.common.scripts.daterangePicker", [

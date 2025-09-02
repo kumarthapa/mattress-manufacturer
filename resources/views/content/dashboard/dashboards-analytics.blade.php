@@ -25,11 +25,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
-                            <span class="avatar-initial bg-label-primary rounded"><i class="bx bxs-truck"></i></span>
+                            <span class="avatar-initial bg-label-primary rounded"><i class="bx bx-store-alt"></i></span>
                         </div>
                         <h4 class="mb-0 ms-1">42</h4>
                     </div>
-                    <p class="mb-1">On route vehicles</p>
+                    <p class="mb-1">Total Floor Stock Report</p>
                     <p class="mb-0">
                         <span class="fw-medium me-1">+18.2%</span>
                         <small class="text-muted">than last week</small>
@@ -44,9 +44,9 @@
                         <div class="avatar me-2">
                             <span class="avatar-initial bg-label-warning rounded"><i class="bx bx-error"></i></span>
                         </div>
-                        <h4 class="mb-0 ms-1">8</h4>
+                        <h4 class="mb-0 ms-1">20</h4>
                     </div>
-                    <p class="mb-1">Vehicles with errors</p>
+                    <p class="mb-1">Total Daily Tapedge</p>
                     <p class="mb-0">
                         <span class="fw-medium me-1">-8.7%</span>
                         <small class="text-muted">than last week</small>
@@ -59,12 +59,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
-                            <span class="avatar-initial bg-label-danger rounded"><i
-                                    class="bx bx-git-repo-forked"></i></span>
+                            <span class="avatar-initial bg-label-danger rounded"><i class="bx bx bx-package"></i></span>
                         </div>
-                        <h4 class="mb-0 ms-1">27</h4>
+                        <h4 class="mb-0 ms-1">20</h4>
                     </div>
-                    <p class="mb-1">Deviated from route</p>
+                    <p class="mb-1">Total Daily Zip Cover</p>
                     <p class="mb-0">
                         <span class="fw-medium me-1">+4.3%</span>
                         <small class="text-muted">than last week</small>
@@ -77,11 +76,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2 pb-1">
                         <div class="avatar me-2">
-                            <span class="avatar-initial bg-label-info rounded"><i class="bx bx-time-five"></i></span>
+                            <span class="avatar-initial bg-label-info rounded"><i class="bx bx-archive"></i></span>
                         </div>
                         <h4 class="mb-0 ms-1">13</h4>
                     </div>
-                    <p class="mb-1">Late vehicles</p>
+                    <p class="mb-1">Total Daily Packing Report</p>
                     <p class="mb-0">
                         <span class="fw-medium me-1">-2.5%</span>
                         <small class="text-muted">than last week</small>
@@ -587,7 +586,7 @@
                     </div>
                 </div>
                 <!-- </div>
-                                                                                                    <div class="row"> -->
+                                                                                                                                                        <div class="row"> -->
                 <div class="col-12 mb-4">
                     <div class="card">
                         <div class="card-body">

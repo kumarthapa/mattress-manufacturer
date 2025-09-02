@@ -8,7 +8,6 @@
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset("assets/js/main.js") }}"></script>
-<script src="{{ asset("assets/js/geo-location.js") }}"></script>
 <script src="{{ asset("assets/js/jquery.validate.js") }}"></script>
 <script src="{{ asset("assets/js/jquery.form.min.js") }}"></script>
 <script src="{{ asset("assets/js/select2.js") }}"></script>

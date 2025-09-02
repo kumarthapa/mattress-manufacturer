@@ -13,14 +13,11 @@
 <link rel="stylesheet" href="{{ asset("assets/css/custom.css") }}" />
 <link rel="stylesheet" href="{{ asset("assets/vendor/css/theme-default.css") }}" />
 <link rel="stylesheet" href="{{ asset("assets/css/demo.css") }}" />
+{{-- <link rel="stylesheet" href="{{ asset("assets/css/corePro.css") }}" /> --}}
 <link rel="stylesheet" href="{{ asset("assets/css/tagify.css") }}" />
 <link rel="stylesheet" href="{{ asset("assets/css/timeline.css") }}" />
 <!-- Vendors CSS -->
 <link rel="stylesheet" href="{{ asset("assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css") }}" />
-
-{{-- <link rel="stylesheet"
-    href="{{ asset("assets/vendor/libs/DataTables/DataTables-1.13.5/css/jquery.dataTables.min.css") }}">
-<link rel="stylesheet" href="{{ asset("assets/vendor/libs/DataTables/Buttons-2.4.1/css/buttons.dataTables.min.css") }}"> --}}
 
 <!-- Vendor Styles -->
 @yield("vendor-style")
