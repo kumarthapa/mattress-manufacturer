@@ -22,29 +22,18 @@
                 <form id="role_edit_form" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework role_edit_form"
                     novalidate="novalidate">
                     {{ csrf_field() }}
-                    <div class="col-12 mb-2 fv-plugins-icon-container">
+                    <div class="col-12 fv-plugins-icon-container mb-2">
                         <div id="nameError" class="text-danger"></div> <!-- Placeholder for validation error -->
                         <label class="form-label" for="edit_role_name">Role Name</label>
                         <input type="text" id="edit_role_name" name="RoleName" class="form-control"
                             placeholder="Enter a role name" tabindex="-1" required>
-                        <div class="form-check me-3 me-lg-5 py-3">
+                        <div class="form-check me-lg-5 me-3 py-3">
                             <input class="form-check-input" type="checkbox" name="status" value="1"
                                 id="edit_role_status">
                             <label class="form-check-label" for="status">Status</label>
                         </div>
                         <div
                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="user-roles">User Type</label>
-                            <select class="form-select" id="user_type" name="user_type" required>
-                                <option value="">Select an option</option>
-                                @foreach ($userTypes as $key => $type)
-                                    <option value="{{ $key }}">
-                                        {{ $type }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback"> Please select a user type </div>
                         </div>
                     </div>
                     <div class="col-12 text-end">
@@ -64,7 +53,7 @@
     function EditPermissions() {
         let roleid = $('#edit_role_id').val();
         if (!roleid) return false;
-        window.location.href = "{{ route('roles.create') }}" + '/' + roleid;
+        window.location.href = "{{ route("roles.create") }}" + '/' + roleid;
     }
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var bsValidationForms = document.querySelectorAll(".role_edit_form");
@@ -82,14 +71,14 @@
                     // AJAX submission if validation passes
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('roles.save') }}" + '/' +
+                        url: "{{ route("roles.save") }}" + '/' +
                             role_id, // Replace 'submit.form' with your actual route name
                         data: $(form).serialize(),
                         success: function(response) {
                             // Show success notification
                             if (response.success) {
                                 toastr.success(response.message);
-                                window.location.href = "{{ route('roles') }}";
+                                window.location.href = "{{ route("roles") }}";
                             } else {
                                 toastr.error(response.message);
                             }

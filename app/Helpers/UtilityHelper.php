@@ -168,7 +168,7 @@ class UtilityHelper
     return $randomString;
   }
 
-  public static function generateCustomerCode($name)
+  public static function generateCustomCode($name)
   {
     // Normalize the name: remove special characters and convert to uppercase
     $normalized = preg_replace('/[^a-zA-Z0-9\s]/', '', $name);
@@ -689,18 +689,6 @@ class UtilityHelper
     return $apiKey;
   }
   /**
-   * Get all users by user type.
-   */
-  public static function getAllUsersByUserType($user_type = '')
-  {
-    $query = UsersModel::select('*');
-    if ($user_type) {
-      $query->where('user_type', $user_type);
-    }
-    $result = $query->get();
-    return $result;
-  }
-  /**
    * Get Bank Account types.
    */
   public static function get_bank_accountypes()
@@ -783,22 +771,7 @@ class UtilityHelper
       return 'Unknown';
     }
   }
-  public static function getCustomerRateCardInfo($id = '', $customer_code = '')
-  {
-    $ratecards = false;
-    if ($id) {
-      $ratecards = CustomerRateCards::find($id);
-      return $ratecards;
-    } elseif ($customer_code) {
-      $ratecards = CustomerRateCards::select('*')->where('customer_code', $customer_code)
-        ->get();
-      return $ratecards;
-    } else {
-      $ratecards = CustomerRateCards::select('*');
-      return $ratecards;
-    }
-    return $ratecards;
-  }
+
   public static function getUserInfo($user_type = '')
   {
     $users = false;

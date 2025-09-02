@@ -19,7 +19,7 @@ class Role extends Model
 	protected  $table = "roles";
 	protected $primaryKey = 'role_id';
 	public $timestamps = false;
-	protected $fillable = ['role_name', 'role_code', 'status', 'created_at', 'updated_at', 'deleted', 'user_type'];
+	protected $fillable = ['role_name', 'role_code', 'status', 'created_at', 'updated_at', 'deleted'];
 
 	/*
 	Performs a search on Roles

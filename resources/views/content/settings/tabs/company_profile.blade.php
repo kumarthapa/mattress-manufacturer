@@ -186,14 +186,6 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="company_account_details" class="col-md-2 col-form-label">Account Details</label>
-                <div class="col-md-10">
-                    <textarea class="form-control" id="company_account_details" rows="4" placeholder="Enter Account Details"
-                        name="company_account_details">{{ $UtilityHelper->getConfigValue("company_account_details") }}</textarea>
-                    <div class="invalid-feedback"> This field is required. </div>
-                </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col-md-12 text-end">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>

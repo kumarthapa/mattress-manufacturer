@@ -31,7 +31,6 @@ class Roles extends Controller
       // array('id' => 'ID'),
       array('role_name' => 'Role Name'),
       array('role_code' => 'Role Code'),
-      array('user_type' => 'User Type'),
       array('created_at' => 'Create Date'),
       array('status' => 'Status'),
       array('actions' => 'Actions'),
@@ -93,7 +92,6 @@ class Roles extends Controller
     $data['role_name'] =  $userNameHtml;
     $data['created_at'] =  $row->created_at;
     $data['role_code'] =  $row->role_code;
-    $data['user_type'] =  $row->user_type ? __('common_lang.' . $row->user_type) : '--';
     if ($row->status == 1) {
       $statusHTML = '<span class="badge rounded bg-label-success " title="Active">Active</span>';
     } else {
@@ -179,7 +177,6 @@ class Roles extends Controller
 
       $data['role_name'] = $role_info->role_name;
       $data['role_id'] = $role_info->role_id;
-      $data['user_type'] = $role_info->user_type;
       $data['status'] = $role_info->status;
 
       // Get Selected grants permission_id
@@ -247,7 +244,6 @@ class Roles extends Controller
       $status = $request->post('status');
       $post_updatedata = array(
         'role_name' => $roleName,
-        'user_type' => $request->post('user_type'),
         'status' => $status ? $status : 0,
       );
       $roleModel = Role::find($roleId);
@@ -264,12 +260,12 @@ class Roles extends Controller
     $role_name = $request->post('RoleName');
     $post_data = array(
       'role_name' => $role_name,
-      'user_type' => $request->post('user_type'),
       'status' => $request->post('status') ? $request->post('status') : 0 //!= NULL,
     );
     if (!$role_id) {
       $post_data['created_at'] = date('Y-m-d H:i:s');
-      $post_data['role_code'] = UtilityHelper::generateRandomString(6, 'RL-', true, true, true);
+      $_code = UtilityHelper::generateCustomCode($role_name);
+      $post_data['role_code'] = UtilityHelper::generateRandomString(3, 'ROL-' . $_code, true, true, true);
     } else {
       $post_data['updated_at'] = date('Y-m-d H:i:s');
     }
@@ -341,7 +337,6 @@ class Roles extends Controller
       $roleData = [
         'role_name' => $post_data['role_name'] ?? '',
         'role_code' => $update_data['role_code'] ?? '',
-        'user_type' => $post_data['user_type'] ?? '',
         'status' => $post_data['status'] ?? '',
       ];
       $action = 'Edit';
@@ -389,7 +384,6 @@ class Roles extends Controller
       $roleData = [
         'role_name' =>  $Model->role_name ?? '',
         'role_code' => $Model->role_code ?? '',
-        'user_type' => $Model->user_type ?? '',
       ];
 
       $this->UserActivityLog(

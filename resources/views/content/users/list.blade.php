@@ -13,14 +13,14 @@
                         <div class="row gy-4 gy-sm-1">
                             <div class="col-sm-6 col-lg-3">
                                 <div
-                                    class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+                                    class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-sm-0 pb-3">
                                     <div>
                                         <h3 class="mb-1">
                                             {{ isset($usersOverview["total_users"]) ? $usersOverview["total_users"] : "0" }}
                                         </h3>
                                         <p class="mb-0">Total Users</p>
                                     </div>
-                                    <span class="avatar-initial rounded bg-label-primary p-2 me-sm-4">
+                                    <span class="avatar-initial bg-label-primary me-sm-4 rounded p-2">
                                         <i class="bx bx-user bx-sm"></i>
                                     </span>
                                 </div>
@@ -28,14 +28,14 @@
                             </div>
                             <div class="col-sm-6 col-lg-3">
                                 <div
-                                    class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
+                                    class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-sm-0 pb-3">
                                     <div>
                                         <h3 class="mb-1">
                                             {{ isset($usersOverview["total_active"]) ? $usersOverview["total_active"] : "0" }}
                                         </h3>
                                         <p class="mb-0">Active Users</p>
                                     </div>
-                                    <span class="avatar-initial rounded bg-label-success p-2 me-sm-4">
+                                    <span class="avatar-initial bg-label-success me-sm-4 rounded p-2">
                                         <i class="bx bx-user-check bx-sm"></i>
                                     </span>
                                 </div>
@@ -43,14 +43,14 @@
                             </div>
                             <div class="col-sm-6 col-lg-3">
                                 <div
-                                    class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
+                                    class="d-flex justify-content-between align-items-start border-end pb-sm-0 card-widget-3 pb-3">
                                     <div>
                                         <h3 class="mb-1">
                                             {{ isset($usersOverview["total_pending"]) ? $usersOverview["total_pending"] : "0" }}
                                         </h3>
                                         <p class="mb-0">Pending Users</p>
                                     </div>
-                                    <span class="badge bg-label-danger rounded p-2 me-sm-4">
+                                    <span class="badge bg-label-danger me-sm-4 rounded p-2">
                                         <i class="bx bx-info-circle bx-sm"></i>
                                     </span>
                                 </div>
@@ -71,7 +71,7 @@
                     <!-- Add more options as needed -->
                 </select> --}}
                 <div class="card-datatable table-responsive pt-0">
-                    <table class="datatables-basic table border-top" id="DataTables2024">
+                    <table class="datatables-basic border-top table" id="DataTables2024">
                     </table>
                 </div>
             </div>
@@ -87,10 +87,6 @@
         $(document).ready(function() {
             var tableHeaders = {!! $table_headers !!};
             var filterData = {
-                'userTypes': {
-                    'data': @json($userTypes),
-                    'filter_name': 'Filter By User Type',
-                },
                 'status': {
                     'data': {
                         'all': 'ALL',
@@ -165,7 +161,6 @@
                         $('#viewRowDetails #role_name').text(user.role_id);
                         $('#viewRowDetails #username').text(user.username);
                         $('#viewRowDetails #created_at').text(user.created_at);
-                        $('#viewRowDetails #user_type').text(user.user_type);
                         if (user.status == 1) {
                             $('#viewRowDetails #status').html(
                                 '<span class="badge bg-label-success">Active</span>');

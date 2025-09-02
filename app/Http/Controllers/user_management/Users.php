@@ -40,7 +40,6 @@ class Users extends Controller
       array('contact' => 'Contact'),
       array('roles_name' => 'Role'),
       array('user_code' => 'User Code'),
-      array('user_type' => 'User Type'),
       array('status' => 'Status'),
       array('actions' => 'Actions'),
     ];
@@ -117,8 +116,7 @@ class Users extends Controller
     }
     $data['roles_name'] =  $role_name;
     $data['user_code'] =  ($row->user_code) ? $row->user_code : '-';
-    $data['user_type'] =  ($row->user_type) ? __('common_lang.' . $row->user_type) : '-';
-    if ($row->status == 'active') {
+    if ($row->status == 'Active') {
       $statusHTML = '<span class="badge rounded bg-label-success" title="Active">Active</span>';
     } else {
       $statusHTML = '<span class="badge rounded bg-label-danger" title="Pending">Pending</span>';
@@ -179,137 +177,129 @@ class Users extends Controller
 
   public function save(Request $request, $id = '')
   {
-    // Validate form data
-    $validator = Validator::make($request->all(), [
-      'fullName' => 'required|string|max:255', // Add more validation rules as needed
-      'userName' => 'required|string|max:255', // Add more validation rules as needed
-      'userPassWord' => 'required|string|min:6', // Password validation rules
-    ]);
-    if ($id) {
-      // conform password validation
-      $request->validate([
-        'userPassWord' => 'required|string|min:6', // Password validation rules
-        //'confirmPassWord' => 'required|string|same:userPassWord', // Confirm password validation rules
-      ]);
-    }
-    // If validation fails, return error response
+    // Validation rules: password required only on create, optional on update
+    $rules = [
+      'fullName' => 'required|string|max:255',
+      'userName' => ['required', 'string', 'max:255', 'regex:/^\S*$/u'], // no spaces allowed
+      'userEmail' => ['nullable', 'email', 'max:255'],
+      'userPassWord' => $id ? 'nullable|string|min:5' : 'required|string|min:5',
+      'user_role_id' => 'nullable|exists:roles,role_id',
+      'userContact' => 'nullable|string|max:50',
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+
     if ($validator->fails()) {
       return response()->json(['errors' => $validator->errors()->all()], 422);
     }
-    $post_data = $request->all();
 
-    //Users codes --
-    $user_code = '';
-    $user_code = isset($post_data['user_code']) ? $post_data['user_code'] : '';
-    $save_post_data = [];
-    $save_post_data = array(
-      'fullname' => isset($post_data['fullName']) ? $post_data['fullName'] : '',
-      'username' => $post_data['userName'],
-      'email' => $post_data['userEmail'],
-      'contact' => $post_data['userContact'],
-      'status' => isset($post_data['status']) ? $post_data['status'] : 'pending',
-      'password' => Hash::make($request->input('userPassWord')),
-      // 'password' => password_hash($get_post_data['userPassWord'], PASSWORD_DEFAULT),
-    );
-    if (isset($post_data['user_role_id']) && $post_data['user_role_id']) $save_post_data['role_id'] = $post_data['user_role_id'];
-    if (!$id) {
-      $save_post_data['created_at'] = date('Y-m-d H:i:s');
-      $save_post_data['remember_token'] = $post_data['_token'];
-      $save_post_data['api_key'] = UtilityHelper::generateUniqueApiKey(60);
-      $save_post_data['user_code'] = $user_code[$post_data['UserType']];
-    } else {
-      $save_post_data['updated_at'] = date('Y-m-d H:i:s');
+    // Gather inputs
+    $input = $request->only(['fullName', 'userName', 'userEmail', 'userContact', 'status', 'user_role_id']);
+    $input['status'] = $input['status'] ?? 'Active';
+
+    // Prepare data for saving
+    $saveData = [
+      'fullname' => $input['fullName'],
+      'username' => $input['userName'],
+      'email' => $input['userEmail'],
+      'contact' => $input['userContact'],
+      'status' => $input['status'],
+    ];
+
+    if (!empty($input['user_role_id'])) {
+      $saveData['role_id'] = $input['user_role_id'];
     }
-    $save_post_data['user_type'] = isset($post_data['UserType']) ? $post_data['UserType'] : '';
-    // Process form submission
+
+    // Hash password if provided (required on create, optional on update)
+    if ($request->filled('userPassWord')) {
+      $saveData['password'] = Hash::make($request->input('userPassWord'));
+    } elseif (!$id) {
+      return response()->json(['success' => false, 'message' => 'Password is required.']);
+    }
+
+    $now = now();
+    if (!$id) {
+      $saveData['created_at'] = $now;
+      $saveData['remember_token'] = $request->_token;
+      $saveData['api_key'] = UtilityHelper::generateUniqueApiKey(60);
+      $_code = UtilityHelper::generateCustomCode($input['fullName']);
+      $saveData['user_code'] = UtilityHelper::generateRandomString(3, 'USR-' . $_code, true, true, true);
+    } else {
+      $saveData['updated_at'] = $now;
+    }
+
     DB::beginTransaction();
+
     try {
+      $authUser = Auth::user();
+
       if (!$id) {
-        $user = Auth::user();
-        $save_post_data['created_by'] =  $user->user_code;
-        // username and email cannot duplicate ----------
-        if ($save_post_data['user_type'] != 'drivers') {
-          if (!empty($save_post_data['email'])) {
-            $is_exist = UsersModel::where('email', $save_post_data['email'])->first();
-            if ($is_exist) {
-              return response()->json(['success' => false, 'message' => 'Email is already exists!']);
-            }
-          }
-        } else {
-          if (!empty($save_post_data['username'])) {
-            $is_exist = UsersModel::where('username', $save_post_data['username'])->first();
-            if ($is_exist) {
-              return response()->json(['success' => false, 'message' => 'Username is already exists!']);
-            }
-          }
+        if (UsersModel::where('username', $saveData['username'])->exists()) {
+          return response()->json(['success' => false, 'message' => 'Username already exists!']);
+        }
+        if (!empty($saveData['email']) && UsersModel::where('email', $saveData['email'])->exists()) {
+          return response()->json(['success' => false, 'message' => 'Email already exists!']);
         }
 
-        $roleModel = UsersModel::create($save_post_data);
-        if (!$roleModel) {
+        $saveData['created_by'] = $authUser->user_code ?? null;
+        $userModel = UsersModel::create($saveData);
+
+        if (!$userModel) {
           return response()->json(['success' => false, 'message' => 'Form submission failed']);
         }
 
-        // Send registration email
         $email_data = [
           'type' => 'user_registration',
-          'name' => $save_post_data['fullname'] ?? '',
-          'code' => $save_post_data['user_code'] ?? '',
-          'user_email' => $save_post_data['email'] ?? '',
-          'username' => $save_post_data['username'] ?? '',
+          'name' => $saveData['fullname'] ?? '',
+          'code' => $saveData['user_code'] ?? '',
+          'user_email' => $saveData['email'] ?? '',
+          'username' => $saveData['username'] ?? '',
           'password' => $request->input('userPassWord') ?? '',
-          'role_name' => Role::find($save_post_data['role_id'])->role_name ?? '',
-          'date' => date('Y-m-d H:i:s'),
-          'status' => $save_post_data['status'] ?? '',
+          'role_name' => Role::find($saveData['role_id'])->role_name ?? '',
+          'date' => $now->toDateTimeString(),
+          'status' => $saveData['status'] ?? '',
         ];
         EmailHelper::sendRegistrationEmail($email_data);
       } else {
-        $user = Auth::user();
-        $save_post_data['updated_by'] =  $user->user_code;
-        $userModel = UsersModel::find($id);
-        $userModel->update($save_post_data);
+        $userModel = UsersModel::findOrFail($id);
+        $saveData['updated_by'] = $authUser->user_code ?? null;
+        $userModel->update($saveData);
       }
 
-      // Insert user activity --------------------- START ---------------------
       $userData = [
-        'fullname' =>  $save_post_data['fullname'] ?? '',
-        'username' => $save_post_data['username'] ?? '',
-        'email' =>  $save_post_data['email'] ?? '',
-        'user_code' => $save_post_data['user_code'] ?? '',
-        'user_type' => $save_post_data['user_type'] ?? '',
+        'fullname' => $saveData['fullname'] ?? '',
+        'username' => $saveData['username'] ?? '',
+        'email' => $saveData['email'] ?? '',
+        'user_code' => $saveData['user_code'] ?? ($userModel->user_code ?? ''),
       ];
-      $action = 'Edit';
-      if (!$id) {
-        $action = 'Create';
-      } else {
-        $Model = UsersModel::find($id);
-        $userData['user_code'] = $Model->user_code ?? '';
-        $userData['user_type'] = $Model->user_type ?? '';
-      }
+      $action = $id ? 'Edit' : 'Create';
+
       $this->UserActivityLog(
         $request,
         [
           'module' => 'users',
           'activity_type' => $action,
-          'message' => $action . ' user : ' . $userData['fullname'],
+          'message' => "{$action} user : {$userData['fullname']}",
           'application' => 'web',
-          'data' => $userData
+          'data' => $userData,
         ]
       );
-      // Insert user activity --------------------- END ----------------------
 
       DB::commit();
-      // Return success response
-      return response()->json(['success' => TRUE, 'message' => 'Form submitted successfully']);
-    } catch (\Exception $e) {
 
+      return response()->json(['success' => true, 'message' => 'Form submitted successfully']);
+    } catch (\Exception $e) {
       DB::rollBack();
+
       return response()->json([
-        'success' => FALSE,
+        'success' => false,
         'message' => $e->getMessage(),
-        "bg_color" => 'bg-danger'
+        'bg_color' => 'bg-danger',
       ]);
     }
   }
+
+
 
   public function create(Request $request, $id = '')
   {
@@ -326,11 +316,9 @@ class Users extends Controller
       if (!$info) {
         return view('content.common.no-data-found', ['message' => 'User Not Found!']);
       }
-      if (isset($info->user_type) && $info->user_type == 'employees') {
-        $roles_info = Role::where('user_type', 'employees')->get();
-      } else {
-        $roles_info = Role::select('*')->get();
-      }
+
+      $roles_info = Role::where('user_type', 'employees')->get();
+
       $data['roles_info'] = $roles_info ?? null;
       $data['info'] = $info;
       $data['user_id'] = $info->id;
@@ -368,7 +356,6 @@ class Users extends Controller
         'fullname' =>  $Model->fullname ?? '',
         'username' => $Model->username ?? '',
         'user_code' => $Model->user_code ?? '',
-        'user_type' => $Model->user_type ?? '',
       ];
 
       $this->UserActivityLog(
@@ -400,22 +387,7 @@ class Users extends Controller
     $data['role_info'] = $role_info;
     return view('content.user-profile.profile', $data);
   }
-  /* ------------------  Get User Type From Roles ----------------------- */
-  public function getRolesUserType(Request $request, $role_id = '')
-  {
-    $role_id = ($role_id) ? $role_id : $request->get('role_id');
-    $result = [];
-    if ($role_id) {
-      // 'Employees' => 'Employees',
-      // 'Suppliers' => 'Suppliers',
-      // 'Drivers' => 'Drivers',
-      // 'Customers' => 'Customers',
-      $user_type = Role::find($role_id)->user_type;
-      $result['user_type'] = $user_type;
-    }
-    return response()->json($result);
-  }
-
+  /* ------------------  Get changePassword ----------------------- */
   public function changePassword(Request $request)
   {
     Log::info($request->all());

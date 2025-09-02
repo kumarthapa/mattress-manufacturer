@@ -35,14 +35,6 @@
                                     Designation</a>
                             </li>
 
-
-                            <li class="nav-item py-1">
-                                <a class="nav-link" id="online_intergration_link" role="tab" data-bs-toggle="tab"
-                                    href="#online_intergration">
-                                    <span class="px-1 text-lg">
-                                        <i class='bx bxs-check-shield'></i></span>
-                                    Online Intergration</a>
-                            </li>
                             <li class="nav-item py-1">
                                 <a class="nav-link" id="email_configuration_link" role="tab" data-bs-toggle="tab"
                                     href="#email_configuration">
@@ -70,10 +62,6 @@
                     @include("content.settings.tabs.designation")
                 </div>
 
-
-                <div class="tab-pane fade" id="online_intergration">
-                    @include("content.settings.tabs.online_intergration")
-                </div>
                 <div class="tab-pane fade" id="email_configuration">
                     @include("content.settings.tabs.email_config")
                 </div>

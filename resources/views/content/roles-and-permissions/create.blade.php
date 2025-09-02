@@ -32,20 +32,7 @@
                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                             </div>
                         </div>
-                        <div class="col-12 fv-plugins-icon-container mb-4">
-                            <label class="form-label" for="user-roles">User Type</label>
-                            <select class="form-select" id="user_type" name="user_type" required>
-                                <option value="">Select an option</option>
-                                @foreach ($userTypes as $key => $type)
-                                    <option value="{{ $key }}"
-                                        @if (isset($user_type)) {{ $user_type == $key ? "selected" : "" }} @endif>
-                                        {{ $type }}</option>
-                                @endforeach
-                            </select>
-                            <div
-                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                            </div>
-                        </div>
+
 
 
                         <div class="col-12 fv-plugins-icon-container mb-2">

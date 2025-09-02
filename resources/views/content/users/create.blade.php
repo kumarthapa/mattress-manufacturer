@@ -1,6 +1,7 @@
 @extends("layouts/contentNavbarLayout")
 
-@section("title", " Users - Form")
+@section("title", "Users - Form")
+
 @section("page-style")
     <style>
         .invalid-feedback {
@@ -10,269 +11,196 @@
         .is-invalid .invalid-feedback {
             display: block;
         }
+
+        /* Password toggle icon */
+        .password-toggle {
+            cursor: pointer;
+        }
     </style>
 @endsection
+
 @section("content")
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h5 class="card-title">{{ isset($user_id) ? "Update User Information" : "Add User Information" }}</h5>
+                    <h5 class="card-title">{{ isset($user_id) ? "Update User Information" : "Add New User" }}</h5>
                 </div>
                 <div class="card-body">
                     <form class="needs-validation" novalidate>
                         {{ csrf_field() }}
                         <div class="row px-3 py-3" id="users_form">
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="user_role_id">User Role</label>
-                                    <select class="form-select" id="user_role_id" name="user_role_id"
-                                        @if (isset($info->id) && $info->user_type != "employees") disabled @endif required>
-                                        <option value="">Select Role</option>
-                                        @if (isset($roles_info) && $roles_info)
-                                            @foreach ($roles_info as $roles)
-                                                <option value="{{ $roles->role_id }}"
-                                                    @if (isset($role_id)) {{ $role_id == $roles->role_id ? "selected" : "" }} @endif>
-                                                    {{ $roles->role_name }}
-                                                </option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <div class="invalid-feedback"> Please select a role </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="fullName">Full Name</label>
-                                    <input type="text" id="fullName" class="form-control" name="fullName"
-                                        placeholder="full name" aria-label="full name"
-                                        value="{{ isset($info->fullname) ? $info->fullname : "" }}" required />
-                                    <div class="invalid-feedback"> Please enter the full name </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="userEmail">Email</label>
-                                    <input type="email" id="userEmail" class="form-control" name="userEmail"
-                                        placeholder="treewalker@example.com"
-                                        value="{{ isset($info->email) ? $info->email : "" }}"
-                                        aria-label="treewalker@example.com" />
 
-                                    <div class="invalid-feedback"> Please enter a valid email </div>
-                                </div>
+                            <!-- Full Name -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" class="form-control"
+                                    placeholder="Full name" value="{{ $info->fullname ?? "" }}" required />
+                                <div class="invalid-feedback">Please enter the full name</div>
                             </div>
 
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="userContact">Contact</label>
-                                    <input type="text" id="userContact" class="form-control phone-mask"
-                                        name="userContact" placeholder="+1 (609) 988-44-11"
-                                        value="{{ isset($info->contact) ? $info->contact : "" }}"
-                                        aria-label="userContact" />
-
-                                    <div class="invalid-feedback"> Please enter a valid contact </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="userName">Username</label>
-                                    <input type="text" id="userName" class="form-control" name="userName"
-                                        placeholder="username" aria-label="username"
-                                        value="{{ isset($info->username) ? $info->username : "" }}" required />
-
-                                    <div class="invalid-feedback"> Please enter a username</div>
-                                </div>
+                            <!-- User Role -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="user_role_id" class="form-label">User Role</label>
+                                <select id="user_role_id" name="user_role_id" class="form-select"
+                                    @if (isset($info->id) && $info->user_type != "employees") disabled @endif required>
+                                    <option value="">Select Role</option>
+                                    @foreach ($roles_info ?? [] as $roles)
+                                        <option value="{{ $roles->role_id }}"
+                                            {{ isset($role_id) && $role_id == $roles->role_id ? "selected" : "" }}>
+                                            {{ $roles->role_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Please select a role</div>
                             </div>
 
-                            {{-- <div class="col-md-6 col-12 d-none">
-                            <div class="mb-3 form-password-toggle">
-                                <label class="form-label" for="confirmPassWord">Confirm Password</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="password" id="confirmPassWord" name="confirmPassWord" value="nikkou123"
-                                        class="form-control"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        required />
-                                    <span class="input-group-text cursor-pointer" id="basic-default-confirmPassword4s"><i
-                                            class="bx bx-hide"></i></span>
-                                </div>
-                                <div class="valid-feedback"> Looks good! </div>
-                                <div class="invalid-feedback"> Please enter your password. </div>
+                            <!-- Email -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="userEmail" class="form-label">Email</label>
+                                <input type="email" id="userEmail" name="userEmail" class="form-control"
+                                    placeholder="treewalker@example.com" value="{{ $info->email ?? "" }}" />
+                                <div class="invalid-feedback">Please enter a valid email</div>
                             </div>
-                        </div> --}}
 
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="user-roles">User Type</label>
-                                    <input type="text" id="UserType" class="form-control" name="UserType"
-                                        value="{{ isset($info->user_type) ? $info->user_type : "" }}" aria-label="UserType"
-                                        readonly required />
-                                </div>
+                            <!-- Contact -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="userContact" class="form-label">Contact</label>
+                                <input type="text" id="userContact" name="userContact" class="form-control phone-mask"
+                                    placeholder="+1 (609) 988-44-11" value="{{ $info->contact ?? "" }}" />
+                                <div class="invalid-feedback">Please enter a valid contact</div>
                             </div>
-                            <div class="col-md-6 col-12">
-                                {{-- value="{{ isset($hashed_password) ? $hashed_password : '' }}" --}}
-                                <div class="form-password-toggle mb-3">
-                                    <label class="form-label" for="userPassWord">Enter Password
-                                        {{-- <a href="javascript:;" class="badge bg-label-primary me-3 p-2 d-none"
-                                        data-bs-target="#createPasswordModal" data-bs-toggle="modal"><strong>Create
-                                            Password</strong></a> --}}
-                                    </label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="userPassWord" name="userPassWord" class="form-control"
-                                            value="nikkou123" aria-describedby="password"
-                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                            required />
-                                        <span class="input-group-text password-eye cursor-pointer" id="password4s"><i
-                                                class="bx bx-hide"></i></span>
-                                    </div>
 
-                                    <div class="invalid-feedback"> Please enter your password. </div>
-                                </div>
+                            <!-- Username -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="userName" class="form-label">Username</label>
+                                <input type="text" id="userName" name="userName" class="form-control"
+                                    placeholder="Username" value="{{ $info->username ?? "" }}" required />
+                                <div class="invalid-feedback">Please enter a username and avoid spaces</div>
                             </div>
-                            <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="Status">Status</label>
-                                    <div class="form-check form-switch mx-3">
-                                        <input class="form-check-input fs-4" type="checkbox" value="active" name="status"
-                                            id="status" name="status"
-                                            @if (isset($info->status) && $info->status == "active") checked @endif>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                {{-- ====================================== User Type details ======================================== ************ ==================================== --}}
-                                @if (!isset($info->user_type))
-                                    @include("content.users.userTypesDetails", [
-                                        "user_code" => isset($info->user_code) ? $info->user_code : "",
-                                        "user_type" => isset($info->user_type) ? $info->user_type : "",
-                                    ])
-                                @endif
-                                {{-- @if (isset($info->user_type))
-                                    <div class="card shadow-none bg-transparent border border-secondary mb-4">
-                                        <div class="card-header">
-                                            {{ isset($info->user_type) ? __('roles.' . $info->user_type) : '' }}
-                                            details
-                                            <span class="text-primary"><i class='bx bxs-message-alt-detail'></i></span>
-                                        </div>
-                                        <div class="card-body text-secondary">
-                                            <div class="mb-0">
-                                                <p class="card-text">
-                                                    Name : {{ isset($info->fullname) ? $info->fullname : '' }}
-                                                </p>
-                                                <p class="card-text">
-                                                    User Code :
-                                                    {{ isset($info->user_code) ? $info->user_code : '' }}
-                                                </p>
-                                                <p class="card-text">
-                                                    Company/Organization :
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                            <!-- Password Change Section -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label class="form-label d-flex align-items-center" for="userPassWord">
+                                    Password
+                                    @if (isset($user_id))
+                                        <i class="bx bx-edit-alt password-toggle ms-2" id="togglePassword"
+                                            title="Change Password" style="font-size: 1.25rem;"></i>
+                                    @endif
+                                </label>
+
+                                {{-- New user: visible and required password input --}}
+                                @if (!isset($user_id))
+                                    <input type="password" id="userPassWord" name="userPassWord" class="form-control"
+                                        placeholder="Enter password" autocomplete="new-password" required />
                                 @else
-                                    @include('content.users.userTypesDetails', [
-                                        'user_code' => isset($info->user_code) ? $info->user_code : '',
-                                        'user_type' => isset($info->user_type) ? $info->user_type : '',
-                                    ])
-                                @endif --}}
+                                    {{-- Update user: hidden and disabled password input initially --}}
+                                    <input type="password" id="userPassWord" name="userPassWord" class="form-control d-none"
+                                        placeholder="Enter new password" autocomplete="new-password" disabled />
+                                @endif
 
+                                <div class="invalid-feedback">Please enter your password.</div>
                             </div>
+
+                            <!-- Status Switch -->
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="status" class="form-label d-block">Status Is Active</label>
+                                <div class="form-check form-switch ms-3">
+                                    <input type="checkbox" id="status" name="status" class="form-check-input fs-4"
+                                        value="1"
+                                        {{ isset($info->status) && strtolower($info->status) === "Active" ? "checked" : "checked" }}>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-12 text-end">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary me-2"
-                                    aria-label="Back">
-                                    Back</button>
+                                    aria-label="Back">Back</button>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </form>
-
-                </div> {{-- // card body end --}}
-            </div> {{-- // card end --}}
-
-
+                </div>{{-- card-body end --}}
+            </div>{{-- card end --}}
         </div>
-    </div> {{-- // row end --}}
+    </div>{{-- row end --}}
 @endsection
-@section("page-script")
-    {{-- @include('content.users.createPasswordModal') --}}
-    <script>
-        var employeesListUrl = "{{ route("employees.getList") }}";
-        var suppliersListUrl = "{{ route("suppliers.getList") }}";
-        var customersListUrl = "{{ route("customers.getList") }}";
-        var driversListUrl = "{{ route("suppliers.getDriversList") }}";
-    </script>
 
+@section("page-script")
     <script>
         $(document).ready(function() {
-            $(".password-eye").click(() => {
-                let type = $("#userPassWord").attr('type');
-                $("#userPassWord").attr('type', type == 'password' ? 'text' : 'password');
-            })
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var bsValidationForms = document.querySelectorAll(".needs-validation");
-            Array.prototype.slice.call(bsValidationForms).forEach(function(form) {
-                form.addEventListener(
-                    "submit",
-                    function(event) {
-                        event.preventDefault(); // Prevent default form submission behavior
+            @if (isset($user_id))
+                // Password toggle click handler for update user form
+                $("#togglePassword").click(function() {
+                    let input = $("#userPassWord");
+                    if (input.hasClass("d-none")) {
+                        input.removeClass("d-none").prop("disabled", false).val('').focus();
+                    } else {
+                        input.addClass("d-none").prop("disabled", true).val('');
+                    }
+                });
+            @endif
 
-                        if (!form.checkValidity()) {
-                            event.stopPropagation();
-                        } else {
+            // Bootstrap form validation and AJAX submission including username space check
+            var forms = document.querySelectorAll(".needs-validation");
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault();
 
-                            // Get the value of the Password and Confirm Password fields
-                            // var password = $('#userPassWord').val();
-                            // var confirmPassword = $('#confirmPassWord').val();
-                            // // Check if the passwords match
-                            // if (password != confirmPassword) {
-                            //     alert("Please check Confirm passwords is not matching!")
-                            //     event.preventDefault();
-                            //     return false;
-                            // }
-                            var submitButton = $(form).find('button[type="submit"]');
-                            submitButton.prop('disabled', true).text('Submitting...');
-                            let user_id = "{{ isset($user_id) ? $user_id : "" }}";
-                            // AJAX submission if validation passes
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route("users.save") }}" + '/' +
-                                    user_id, // Replace 'submit.form' with your actual route name
-                                data: $(form).serialize(),
-                                success: function(response) {
-                                    console.log(response)
-                                    // Show success notification
-                                    if (response.success) {
-                                        toastr.success(response.message ??
-                                            'Form submitted successfully');
-                                        window.location.href = "{{ route("users") }}";
-                                    } else {
-                                        toastr.error(response.message ?? 'Submit Failed!');
-                                        submitButton.prop('disabled', false).text('Submit');
-                                    }
-                                },
-                                error: function(xhr, status, error) {
-                                    // Handle server-side validation errors
-                                    var errors = xhr.responseJSON.errors;
-                                    if (errors) {
-                                        toastr.error(errors.join('<br>'));
-                                    } else {
-                                        toastr.error(
-                                            'An error occurred while submitting the form.'
-                                        );
-                                    }
-                                    submitButton.prop('disabled', false).text('Submit');
-                                }
-                            });
+                    const userNameInput = form.querySelector('input[name="userName"]');
+                    if (/\s/.test(userNameInput.value)) {
+                        event.stopPropagation();
+                        userNameInput.classList.add('is-invalid');
+                        userNameInput.nextElementSibling.textContent =
+                            "Username cannot contain spaces";
+                        return;
+                    } else {
+                        userNameInput.classList.remove('is-invalid');
+                        userNameInput.nextElementSibling.textContent =
+                            "Please enter a username and avoid spaces";
+                    }
+
+                    if (!form.checkValidity()) {
+                        event.stopPropagation();
+                        return;
+                    }
+
+                    var submitButton = $(form).find('button[type="submit"]');
+                    submitButton.prop('disabled', true).text('Submitting...');
+                    let user_id = "{{ $user_id ?? "" }}";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route("users.save") }}" + '/' + user_id,
+                        data: $(form).serialize(),
+                        success: function(response) {
+                            if (response.success) {
+                                toastr.success(response.message ??
+                                    'Form submitted successfully');
+                                window.location.href = "{{ route("users") }}";
+                            } else {
+                                toastr.error(response.message ?? 'Submit Failed!');
+                                submitButton.prop('disabled', false).text('Submit');
+                            }
+                        },
+                        error: function(xhr) {
+                            var errors = xhr.responseJSON?.errors;
+                            if (errors) {
+                                toastr.error(Object.values(errors).flat().join("<br>"));
+                            } else {
+                                toastr.error(
+                                    "An error occurred while submitting the form.");
+                            }
+                            submitButton.prop('disabled', false).text('Submit');
                         }
+                    });
 
-                        form.classList.add("was-validated");
-                    },
-                    false
-                );
+                    form.classList.add("was-validated");
+                }, false);
             });
-        }); // end jquery document dot write
+        });
     </script>
     @include("content.users.script")
 @endsection

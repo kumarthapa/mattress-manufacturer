@@ -9,30 +9,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    @if ($user_types)
-                        <div class="mb-3">
-                            <label for="usertype" class="form-label">Filter User Type</label>
-                            <select id="user_type_filter" class="select2 form-select form-select-lg user_type_filter"
-                                data-allow-clear="true">
-                                <option value="">Select an option</option>
-                                @foreach ($user_types as $key => $item)
-                                    <option value="{{ $key }}">{{ $item }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endif
-                </div>
-                {{-- <div class="row g-2">
-                    <div class="col mb-0">
-                        <label for="emailSlideTop" class="form-label">Email</label>
-                        <input type="email" id="emailSlideTop" class="form-control" placeholder="xxxx@xxx.xx">
-                    </div>
-                    <div class="col mb-0">
-                        <label for="dobSlideTop" class="form-label">DOB</label>
-                        <input type="date" id="dobSlideTop" class="form-control">
-                    </div>
-                </div> --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-label-danger" data-bs-dismiss="modal">Cancle</button>

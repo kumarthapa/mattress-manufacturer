@@ -27,7 +27,6 @@ class UsersModel extends Model
     'email',
     'contact',
     'role_id',
-    'user_type',
     'user_code',
     'status',
     'remember_token',
@@ -52,11 +51,9 @@ class UsersModel extends Model
       ->select('*')
       ->where(function ($q) use ($search) {
         $q->where('fullname', 'like', "%$search%")
-          ->orWhere('first_name', 'like', "%$search%")
           ->orWhere('user_code', 'like', "%$search%")
           ->orWhere('email', 'like', "%$search%")
-          ->orWhere('username', 'like', "%$search%")
-          ->orWhere('last_name', 'like', "%$search%");
+          ->orWhere('username', 'like', "%$search%");
       });
 
     // print_r($order); exit;
@@ -95,8 +92,8 @@ class UsersModel extends Model
       ->pluck('count', 'status');
 
     // Adjust keys based on actual status values
-    $totalActive = $statusCounts->get('active', 0);
-    $total_pending = $statusCounts->get('pending', 0);
+    $totalActive = $statusCounts->get('Active', 0);
+    $total_pending = $statusCounts->get('Pending', 0);
 
     // Calculate the total number of users
     $totalUsers = $statusCounts->sum();
