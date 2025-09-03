@@ -1,0 +1,12 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color sc_primary
+color white
+drawable ic_logo
+id webview
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.SleepCompanyWeb
