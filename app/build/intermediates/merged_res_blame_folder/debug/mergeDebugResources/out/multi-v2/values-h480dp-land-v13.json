@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.webview.app-mergeDebugResources-30:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-47:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
             "map": [
                 {
                     "source": "/home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/res/values-h480dp-land-v13/values-h480dp-land-v13.xml",

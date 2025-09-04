@@ -1,6 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#21808D" android:pathData="M54,10a44,44 0,1 1,0 88a44,44 0,1 1,0 -88z"/>
-    <path android:fillColor="#FFFFFFFF" android:pathData="M38,58c0,-11 7,-20 16,-20s16,9 16,20h-6c0,-8 -4,-14 -10,-14s-10,6 -10,14z"/>
-    <path android:fillColor="#FFFFFFFF" android:pathData="M44,66h20v6H44z"/>
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background Circle with Gradient -->
+    <path
+        android:fillColor="#88C0D0"
+        android:pathData="M54,54m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+
+    <!-- Inner Gradient Circle -->
+    <path
+        android:fillColor="#81A1C1"
+        android:pathData="M54,54m-42,0a42,42 0,1 1,84 0a42,42 0,1 1,-84 0" />
+
+    <!-- White Border -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@color/white"
+        android:strokeWidth="3"
+        android:pathData="M54,54m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0" />
+
+    <!-- Sleep Company Text -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M30,35 L30,45 L45,45 L45,40 L35,40 L35,35 Z
+                         M35,50 L35,55 L45,55 L45,60 L50,60 L50,50 Z
+                         M55,35 L55,60 L65,60 L65,50 L75,50 L75,45 L65,45 L65,40 L75,40 L75,35 Z" />
+
+    <!-- Sleep Symbols (Z Z Z) -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M70,25 L75,25 L70,30 L75,30 L75,32 L68,32 L68,30 L73,25 L68,25 L68,23 L75,23 Z
+                         M77,20 L80,20 L77,23 L80,23 L80,24 L75,24 L75,23 L78,20 L75,20 L75,19 L80,19 Z
+                         M82,15 L84,15 L82,17 L84,17 L84,18 L80,18 L80,17 L82,15 L80,15 L80,14 L84,14 Z"
+        android:alpha="0.9" />
+
 </vector>

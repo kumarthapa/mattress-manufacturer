@@ -3,21 +3,41 @@ plugins {
 }
 
 android {
-    namespace 'com.sleepcompany.webview'
-    compileSdk 34
+    // Use centralized properties from gradle.properties
+    namespace findProperty('app.namespace') ?: 'com.sleepcompany.rfidapp'
+    compileSdk findProperty('app.compileSdk') as Integer ?: 34
 
     defaultConfig {
-        applicationId 'com.sleepcompany.webview'
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        // Application ID (Package Name) from gradle.properties
+        applicationId findProperty('app.packageName') ?: 'com.sleepcompany.rfidapp'
+
+        // SDK versions from gradle.properties
+        minSdk findProperty('app.minSdk') as Integer ?: 24
+        targetSdk findProperty('app.targetSdk') as Integer ?: 34
+
+        // Version information from gradle.properties
+        versionCode findProperty('app.versionCode') as Integer ?: 1
+        versionName findProperty('app.versionName') ?: '1.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        // Generate BuildConfig fields for runtime access
+        buildConfigField "String", "PACKAGE_NAME", "\"${findProperty('app.packageName')}\""
+        buildConfigField "String", "APP_NAMESPACE", "\"${findProperty('app.namespace')}\""
+        buildConfigField "String", "APP_DISPLAY_NAME", "\"${findProperty('app.displayName')}\""
+
+        // Generate string resources dynamically
+        resValue "string", "app_name", findProperty('app.displayName') ?: 'RFID App'
     }
 
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -28,13 +48,41 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+    }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.webkit:webkit:1.8.0'
+    // Material Design Components (Latest)
     implementation 'com.google.android.material:material:1.12.0'
+
+    // AndroidX Core Libraries
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity-ktx:1.8.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+
+    // Lifecycle Components
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+
+    // WebView (if you need it for your app)
+    implementation 'androidx.webkit:webkit:1.8.0'
+
+    // Navigation Components (optional, for better navigation)
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.6'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.6'
+
+    // Testing Dependencies
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
 }

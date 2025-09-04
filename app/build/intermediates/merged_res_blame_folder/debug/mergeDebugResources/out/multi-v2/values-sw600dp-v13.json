@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.webview.app-mergeDebugResources-30:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-47:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
                     "source": "/home/treewalker/.gradle/caches/8.12/transforms/b147c14bc766654b56b428fe545773e2/transformed/appcompat-1.7.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",

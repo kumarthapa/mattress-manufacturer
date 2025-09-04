@@ -1,5 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="sc_primary">#21808D</color>
+    <!-- Sleep Company Brand Colors -->
+    <color name="sleep_primary">#2E3440</color>
+    <color name="sleep_primary_dark">#1A1F2E</color>
+    <color name="sleep_secondary">#88C0D0</color>
+    <color name="sleep_accent">#81A1C1</color>
+
+    <!-- Legacy compatibility -->
+    <color name="sc_primary">#2E3440</color>
+    <color name="sc_primary_dark">#1A1F2E</color>
+    <color name="sc_accent">#81A1C1</color>
+    <color name="teal_700">#2E3440</color>
+    <color name="teal_500">#88C0D0</color>
+    <color name="teal_300">#81A1C1</color>
+
+    <!-- Status Colors -->
+    <color name="red_700">#BF616A</color>
+    <color name="green_700">#A3BE8C</color>
+    <color name="amber_600">#EBCB8B</color>
+    <color name="grey_600">#4C566A</color>
+
+    <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="black">#2E3440</color>
+    <color name="light_grey">#ECEFF4</color>
+    <color name="dark_grey">#3B4252</color>
+    <color name="card_background">#F8F9FA</color>
 </resources>

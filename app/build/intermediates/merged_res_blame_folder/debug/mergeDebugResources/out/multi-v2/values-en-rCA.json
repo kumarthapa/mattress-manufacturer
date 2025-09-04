@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.webview.app-mergeDebugResources-30:/values-en-rCA/values-en-rCA.xml",
+            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-47:/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
                     "source": "/home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/res/values-en-rCA/values-en-rCA.xml",
