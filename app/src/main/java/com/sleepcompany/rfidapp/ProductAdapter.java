@@ -3,78 +3,128 @@ package com.sleepcompany.rfidapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sleepcompany.rfidapp.model.Product;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    public interface OnItemClickListener {
-        void onItemClick(Product product);
+    private List<Product> products;
+    private OnProductClickListener listener;
+
+    public interface OnProductClickListener {
+        void onProductClick(Product product);
     }
 
-    public static class Product {
-        public String id, name, currentStage;
-        public int progress; // 0-100
-
-        public Product(String id, String name, String currentStage, int progress) {
-            this.id = id;
-            this.name = name;
-            this.currentStage = currentStage;
-            this.progress = progress;
-        }
-    }
-
-    private List<Product> productList;
-    private OnItemClickListener listener;
-
-    public ProductAdapter(List<Product> products, OnItemClickListener listener) {
-        this.productList = products;
+    public ProductAdapter(List<Product> products, OnProductClickListener listener) {
+        this.products = products;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_product, parent, false);
-        return new ViewHolder(view);
+        return new ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.productName.setText(product.name);
-        holder.productId.setText("ID: " + product.id);
-        holder.productProgress.setProgress(product.progress);
-        holder.currentStage.setText("Current Stage: " + product.currentStage);
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        Product product = products.get(position);
+        holder.bind(product);
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick(product);
+                listener.onProductClick(product);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return products != null ? products.size() : 0;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView productName, productId, currentStage;
-        public ProgressBar productProgress;
+    public void updateProducts(List<Product> newProducts) {
+        this.products = newProducts;
+        notifyDataSetChanged();
+    }
 
-        public ViewHolder(View itemView) {
+    public void addProducts(List<Product> newProducts) {
+        if (this.products != null && newProducts != null) {
+            this.products.addAll(newProducts);
+            notifyDataSetChanged();
+        }
+    }
+
+    static class ProductViewHolder extends RecyclerView.ViewHolder {
+        private TextView productName, sku, size, quantity, qcStatus, createdAt;
+
+        public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            productName = itemView.findViewById(R.id.productName);
-            productId = itemView.findViewById(R.id.productId);
-            productProgress = itemView.findViewById(R.id.productProgress);
-            currentStage = itemView.findViewById(R.id.currentStage);
+            productName = itemView.findViewById(R.id.tvProductName);
+            sku = itemView.findViewById(R.id.tvSku);
+            size = itemView.findViewById(R.id.tvSize);
+            quantity = itemView.findViewById(R.id.tvQuantity);
+            qcStatus = itemView.findViewById(R.id.tvQcStatus);
+            createdAt = itemView.findViewById(R.id.tvCreatedAt);
+        }
+
+        public void bind(Product product) {
+            productName.setText(product.getProductName());
+            sku.setText("SKU: " + product.getSku());
+            size.setText("Size: " + product.getSize());
+            quantity.setText("Qty: " + product.getQuantity());
+            qcStatus.setText(product.getQcStatus());
+
+            // Set QC status color based on status
+            switch (product.getQcStatus()) {
+                case "PASS":
+                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_green_dark));
+                    break;
+                case "FAILED":
+                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_red_dark));
+                    break;
+                case "PENDING":
+                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_orange_dark));
+                    break;
+                default:
+                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.darker_gray));
+                    break;
+            }
+
+            // Format and display created date
+            if (product.getCreatedAt() != null && !product.getCreatedAt().isEmpty()) {
+                try {
+                    // Assuming the date comes in format "2023-01-01 12:00:00"
+                    String formattedDate = formatDate(product.getCreatedAt());
+                    createdAt.setText(formattedDate);
+                } catch (Exception e) {
+                    createdAt.setText(product.getCreatedAt());
+                }
+            } else {
+                createdAt.setText("N/A");
+            }
+        }
+
+        private String formatDate(String dateString) {
+            try {
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                Date date = inputFormat.parse(dateString);
+                return outputFormat.format(date);
+            } catch (Exception e) {
+                return dateString; // Return original if parsing fails
+            }
         }
     }
 }

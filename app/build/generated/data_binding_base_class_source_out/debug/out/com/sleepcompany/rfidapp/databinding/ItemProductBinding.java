@@ -4,13 +4,13 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -18,33 +18,42 @@ import java.lang.String;
 
 public final class ItemProductBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final MaterialCardView rootView;
 
   @NonNull
-  public final TextView currentStage;
+  public final MaterialTextView tvCreatedAt;
 
   @NonNull
-  public final TextView productId;
+  public final MaterialTextView tvProductName;
 
   @NonNull
-  public final TextView productName;
+  public final Chip tvQcStatus;
 
   @NonNull
-  public final ProgressBar productProgress;
+  public final MaterialTextView tvQuantity;
 
-  private ItemProductBinding(@NonNull LinearLayout rootView, @NonNull TextView currentStage,
-      @NonNull TextView productId, @NonNull TextView productName,
-      @NonNull ProgressBar productProgress) {
+  @NonNull
+  public final MaterialTextView tvSize;
+
+  @NonNull
+  public final MaterialTextView tvSku;
+
+  private ItemProductBinding(@NonNull MaterialCardView rootView,
+      @NonNull MaterialTextView tvCreatedAt, @NonNull MaterialTextView tvProductName,
+      @NonNull Chip tvQcStatus, @NonNull MaterialTextView tvQuantity,
+      @NonNull MaterialTextView tvSize, @NonNull MaterialTextView tvSku) {
     this.rootView = rootView;
-    this.currentStage = currentStage;
-    this.productId = productId;
-    this.productName = productName;
-    this.productProgress = productProgress;
+    this.tvCreatedAt = tvCreatedAt;
+    this.tvProductName = tvProductName;
+    this.tvQcStatus = tvQcStatus;
+    this.tvQuantity = tvQuantity;
+    this.tvSize = tvSize;
+    this.tvSku = tvSku;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public MaterialCardView getRoot() {
     return rootView;
   }
 
@@ -69,32 +78,44 @@ public final class ItemProductBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.currentStage;
-      TextView currentStage = ViewBindings.findChildViewById(rootView, id);
-      if (currentStage == null) {
+      id = R.id.tvCreatedAt;
+      MaterialTextView tvCreatedAt = ViewBindings.findChildViewById(rootView, id);
+      if (tvCreatedAt == null) {
         break missingId;
       }
 
-      id = R.id.productId;
-      TextView productId = ViewBindings.findChildViewById(rootView, id);
-      if (productId == null) {
+      id = R.id.tvProductName;
+      MaterialTextView tvProductName = ViewBindings.findChildViewById(rootView, id);
+      if (tvProductName == null) {
         break missingId;
       }
 
-      id = R.id.productName;
-      TextView productName = ViewBindings.findChildViewById(rootView, id);
-      if (productName == null) {
+      id = R.id.tvQcStatus;
+      Chip tvQcStatus = ViewBindings.findChildViewById(rootView, id);
+      if (tvQcStatus == null) {
         break missingId;
       }
 
-      id = R.id.productProgress;
-      ProgressBar productProgress = ViewBindings.findChildViewById(rootView, id);
-      if (productProgress == null) {
+      id = R.id.tvQuantity;
+      MaterialTextView tvQuantity = ViewBindings.findChildViewById(rootView, id);
+      if (tvQuantity == null) {
         break missingId;
       }
 
-      return new ItemProductBinding((LinearLayout) rootView, currentStage, productId, productName,
-          productProgress);
+      id = R.id.tvSize;
+      MaterialTextView tvSize = ViewBindings.findChildViewById(rootView, id);
+      if (tvSize == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSku;
+      MaterialTextView tvSku = ViewBindings.findChildViewById(rootView, id);
+      if (tvSku == null) {
+        break missingId;
+      }
+
+      return new ItemProductBinding((MaterialCardView) rootView, tvCreatedAt, tvProductName,
+          tvQcStatus, tvQuantity, tvSize, tvSku);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -4,13 +4,16 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.navigation.NavigationView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -18,10 +21,16 @@ import java.lang.String;
 
 public final class ActivityQcBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final DrawerLayout rootView;
 
   @NonNull
-  public final Button approveQCBtn;
+  public final MaterialButton approveQCBtn;
+
+  @NonNull
+  public final DrawerLayout drawerLayout;
+
+  @NonNull
+  public final NavigationView navView;
 
   @NonNull
   public final LinearLayout qcChecklistContainer;
@@ -33,22 +42,30 @@ public final class ActivityQcBinding implements ViewBinding {
   public final Spinner qcProductSpinner;
 
   @NonNull
-  public final Button rejectQCBtn;
+  public final MaterialButton rejectQCBtn;
 
-  private ActivityQcBinding(@NonNull LinearLayout rootView, @NonNull Button approveQCBtn,
+  @NonNull
+  public final Toolbar toolbar;
+
+  private ActivityQcBinding(@NonNull DrawerLayout rootView, @NonNull MaterialButton approveQCBtn,
+      @NonNull DrawerLayout drawerLayout, @NonNull NavigationView navView,
       @NonNull LinearLayout qcChecklistContainer, @NonNull LinearLayout qcItemsLayout,
-      @NonNull Spinner qcProductSpinner, @NonNull Button rejectQCBtn) {
+      @NonNull Spinner qcProductSpinner, @NonNull MaterialButton rejectQCBtn,
+      @NonNull Toolbar toolbar) {
     this.rootView = rootView;
     this.approveQCBtn = approveQCBtn;
+    this.drawerLayout = drawerLayout;
+    this.navView = navView;
     this.qcChecklistContainer = qcChecklistContainer;
     this.qcItemsLayout = qcItemsLayout;
     this.qcProductSpinner = qcProductSpinner;
     this.rejectQCBtn = rejectQCBtn;
+    this.toolbar = toolbar;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -74,8 +91,16 @@ public final class ActivityQcBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.approveQCBtn;
-      Button approveQCBtn = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton approveQCBtn = ViewBindings.findChildViewById(rootView, id);
       if (approveQCBtn == null) {
+        break missingId;
+      }
+
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
         break missingId;
       }
 
@@ -98,13 +123,19 @@ public final class ActivityQcBinding implements ViewBinding {
       }
 
       id = R.id.rejectQCBtn;
-      Button rejectQCBtn = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton rejectQCBtn = ViewBindings.findChildViewById(rootView, id);
       if (rejectQCBtn == null) {
         break missingId;
       }
 
-      return new ActivityQcBinding((LinearLayout) rootView, approveQCBtn, qcChecklistContainer,
-          qcItemsLayout, qcProductSpinner, rejectQCBtn);
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
+      return new ActivityQcBinding((DrawerLayout) rootView, approveQCBtn, drawerLayout, navView,
+          qcChecklistContainer, qcItemsLayout, qcProductSpinner, rejectQCBtn, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

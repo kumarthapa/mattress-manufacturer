@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.navigation.NavigationView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -19,7 +21,7 @@ import java.lang.String;
 
 public final class ActivityDashboardBinding implements ViewBinding {
   @NonNull
-  private final NestedScrollView rootView;
+  private final DrawerLayout rootView;
 
   @NonNull
   public final MaterialButton btnQCCheck;
@@ -31,44 +33,66 @@ public final class ActivityDashboardBinding implements ViewBinding {
   public final MaterialButton btnViewProducts;
 
   @NonNull
-  public final TextView completed;
+  public final MaterialCardView defectCard;
 
   @NonNull
-  public final MaterialCardView completedCard;
+  public final DrawerLayout drawerLayout;
 
   @NonNull
-  public final TextView inProgress;
+  public final MaterialCardView efficiencyCard;
 
   @NonNull
-  public final MaterialCardView inProgressCard;
+  public final NavigationView navView;
 
   @NonNull
-  public final TextView totalProducts;
+  public final MaterialCardView satisfactionCard;
 
   @NonNull
-  public final MaterialCardView totalProductsCard;
+  public final Toolbar toolbar;
 
-  private ActivityDashboardBinding(@NonNull NestedScrollView rootView,
+  @NonNull
+  public final MaterialCardView totalProductionCard;
+
+  @NonNull
+  public final TextView tvDefects;
+
+  @NonNull
+  public final TextView tvEfficiency;
+
+  @NonNull
+  public final TextView tvSatisfaction;
+
+  @NonNull
+  public final TextView tvTotalProduction;
+
+  private ActivityDashboardBinding(@NonNull DrawerLayout rootView,
       @NonNull MaterialButton btnQCCheck, @NonNull MaterialButton btnScanRFID,
-      @NonNull MaterialButton btnViewProducts, @NonNull TextView completed,
-      @NonNull MaterialCardView completedCard, @NonNull TextView inProgress,
-      @NonNull MaterialCardView inProgressCard, @NonNull TextView totalProducts,
-      @NonNull MaterialCardView totalProductsCard) {
+      @NonNull MaterialButton btnViewProducts, @NonNull MaterialCardView defectCard,
+      @NonNull DrawerLayout drawerLayout, @NonNull MaterialCardView efficiencyCard,
+      @NonNull NavigationView navView, @NonNull MaterialCardView satisfactionCard,
+      @NonNull Toolbar toolbar, @NonNull MaterialCardView totalProductionCard,
+      @NonNull TextView tvDefects, @NonNull TextView tvEfficiency, @NonNull TextView tvSatisfaction,
+      @NonNull TextView tvTotalProduction) {
     this.rootView = rootView;
     this.btnQCCheck = btnQCCheck;
     this.btnScanRFID = btnScanRFID;
     this.btnViewProducts = btnViewProducts;
-    this.completed = completed;
-    this.completedCard = completedCard;
-    this.inProgress = inProgress;
-    this.inProgressCard = inProgressCard;
-    this.totalProducts = totalProducts;
-    this.totalProductsCard = totalProductsCard;
+    this.defectCard = defectCard;
+    this.drawerLayout = drawerLayout;
+    this.efficiencyCard = efficiencyCard;
+    this.navView = navView;
+    this.satisfactionCard = satisfactionCard;
+    this.toolbar = toolbar;
+    this.totalProductionCard = totalProductionCard;
+    this.tvDefects = tvDefects;
+    this.tvEfficiency = tvEfficiency;
+    this.tvSatisfaction = tvSatisfaction;
+    this.tvTotalProduction = tvTotalProduction;
   }
 
   @Override
   @NonNull
-  public NestedScrollView getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -111,45 +135,71 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.completed;
-      TextView completed = ViewBindings.findChildViewById(rootView, id);
-      if (completed == null) {
+      id = R.id.defectCard;
+      MaterialCardView defectCard = ViewBindings.findChildViewById(rootView, id);
+      if (defectCard == null) {
         break missingId;
       }
 
-      id = R.id.completedCard;
-      MaterialCardView completedCard = ViewBindings.findChildViewById(rootView, id);
-      if (completedCard == null) {
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
+      id = R.id.efficiencyCard;
+      MaterialCardView efficiencyCard = ViewBindings.findChildViewById(rootView, id);
+      if (efficiencyCard == null) {
         break missingId;
       }
 
-      id = R.id.inProgress;
-      TextView inProgress = ViewBindings.findChildViewById(rootView, id);
-      if (inProgress == null) {
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
         break missingId;
       }
 
-      id = R.id.inProgressCard;
-      MaterialCardView inProgressCard = ViewBindings.findChildViewById(rootView, id);
-      if (inProgressCard == null) {
+      id = R.id.satisfactionCard;
+      MaterialCardView satisfactionCard = ViewBindings.findChildViewById(rootView, id);
+      if (satisfactionCard == null) {
         break missingId;
       }
 
-      id = R.id.totalProducts;
-      TextView totalProducts = ViewBindings.findChildViewById(rootView, id);
-      if (totalProducts == null) {
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
         break missingId;
       }
 
-      id = R.id.totalProductsCard;
-      MaterialCardView totalProductsCard = ViewBindings.findChildViewById(rootView, id);
-      if (totalProductsCard == null) {
+      id = R.id.totalProductionCard;
+      MaterialCardView totalProductionCard = ViewBindings.findChildViewById(rootView, id);
+      if (totalProductionCard == null) {
         break missingId;
       }
 
-      return new ActivityDashboardBinding((NestedScrollView) rootView, btnQCCheck, btnScanRFID,
-          btnViewProducts, completed, completedCard, inProgress, inProgressCard, totalProducts,
-          totalProductsCard);
+      id = R.id.tvDefects;
+      TextView tvDefects = ViewBindings.findChildViewById(rootView, id);
+      if (tvDefects == null) {
+        break missingId;
+      }
+
+      id = R.id.tvEfficiency;
+      TextView tvEfficiency = ViewBindings.findChildViewById(rootView, id);
+      if (tvEfficiency == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSatisfaction;
+      TextView tvSatisfaction = ViewBindings.findChildViewById(rootView, id);
+      if (tvSatisfaction == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTotalProduction;
+      TextView tvTotalProduction = ViewBindings.findChildViewById(rootView, id);
+      if (tvTotalProduction == null) {
+        break missingId;
+      }
+
+      return new ActivityDashboardBinding((DrawerLayout) rootView, btnQCCheck, btnScanRFID,
+          btnViewProducts, defectCard, drawerLayout, efficiencyCard, navView, satisfactionCard,
+          toolbar, totalProductionCard, tvDefects, tvEfficiency, tvSatisfaction, tvTotalProduction);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

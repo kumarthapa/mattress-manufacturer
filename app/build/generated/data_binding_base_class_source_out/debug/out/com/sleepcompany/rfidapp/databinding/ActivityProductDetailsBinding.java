@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
@@ -20,10 +22,16 @@ import java.lang.String;
 
 public final class ActivityProductDetailsBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final DrawerLayout rootView;
+
+  @NonNull
+  public final DrawerLayout drawerLayout;
 
   @NonNull
   public final MaterialCardView infoCard;
+
+  @NonNull
+  public final NavigationView navView;
 
   @NonNull
   public final MaterialTextView productId;
@@ -49,14 +57,20 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
   @NonNull
   public final LinearLayout stagesTimelineLayout;
 
-  private ActivityProductDetailsBinding(@NonNull ScrollView rootView,
-      @NonNull MaterialCardView infoCard, @NonNull MaterialTextView productId,
+  @NonNull
+  public final Toolbar toolbar;
+
+  private ActivityProductDetailsBinding(@NonNull DrawerLayout rootView,
+      @NonNull DrawerLayout drawerLayout, @NonNull MaterialCardView infoCard,
+      @NonNull NavigationView navView, @NonNull MaterialTextView productId,
       @NonNull MaterialTextView productName, @NonNull LinearProgressIndicator productProgressBar,
       @NonNull MaterialTextView productProgressText, @NonNull MaterialTextView productRfid,
       @NonNull MaterialTextView productSize, @NonNull MaterialTextView productStatus,
-      @NonNull LinearLayout stagesTimelineLayout) {
+      @NonNull LinearLayout stagesTimelineLayout, @NonNull Toolbar toolbar) {
     this.rootView = rootView;
+    this.drawerLayout = drawerLayout;
     this.infoCard = infoCard;
+    this.navView = navView;
     this.productId = productId;
     this.productName = productName;
     this.productProgressBar = productProgressBar;
@@ -65,11 +79,12 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
     this.productSize = productSize;
     this.productStatus = productStatus;
     this.stagesTimelineLayout = stagesTimelineLayout;
+    this.toolbar = toolbar;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -94,9 +109,17 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
       id = R.id.infoCard;
       MaterialCardView infoCard = ViewBindings.findChildViewById(rootView, id);
       if (infoCard == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
         break missingId;
       }
 
@@ -148,9 +171,15 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityProductDetailsBinding((ScrollView) rootView, infoCard, productId,
-          productName, productProgressBar, productProgressText, productRfid, productSize,
-          productStatus, stagesTimelineLayout);
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
+      return new ActivityProductDetailsBinding((DrawerLayout) rootView, drawerLayout, infoCard,
+          navView, productId, productName, productProgressBar, productProgressText, productRfid,
+          productSize, productStatus, stagesTimelineLayout, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

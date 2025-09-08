@@ -1151,6 +1151,7 @@ attr suffixText
 attr suffixTextAppearance
 attr suffixTextColor
 attr suggestionRowLayout
+attr swipeRefreshLayoutProgressSpinnerBackgroundColor
 attr switchMinWidth
 attr switchPadding
 attr switchStyle
@@ -2246,6 +2247,8 @@ dimen abc_text_size_subhead_material
 dimen abc_text_size_subtitle_material_toolbar
 dimen abc_text_size_title_material
 dimen abc_text_size_title_material_toolbar
+dimen activity_horizontal_margin
+dimen activity_vertical_margin
 dimen appcompat_dialog_background_inset
 dimen cardview_compat_inset_shadow
 dimen cardview_default_elevation
@@ -2309,6 +2312,7 @@ dimen design_tab_text_size_2line
 dimen design_textinput_caption_translate_y
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen fab_margin
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -2945,6 +2949,8 @@ dimen mtrl_tooltip_minHeight
 dimen mtrl_tooltip_minWidth
 dimen mtrl_tooltip_padding
 dimen mtrl_transition_shared_axis_slide_distance
+dimen nav_header_height
+dimen nav_header_vertical_spacing
 dimen notification_action_icon_size
 dimen notification_action_text_size
 dimen notification_big_circle_margin
@@ -3065,6 +3071,8 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_add_24dp
+drawable ic_android_black_24dp
 drawable ic_arrow_back_black_24
 drawable ic_call_answer
 drawable ic_call_answer_low
@@ -3072,24 +3080,37 @@ drawable ic_call_answer_video
 drawable ic_call_answer_video_low
 drawable ic_call_decline
 drawable ic_call_decline_low
+drawable ic_cancel
 drawable ic_check
+drawable ic_check_circle
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_close
+drawable ic_dashboard
+drawable ic_defects
+drawable ic_inventory
 drawable ic_keyboard_black_24dp
 drawable ic_logo
+drawable ic_logout
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
 drawable ic_menu
+drawable ic_menu_24dp
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_nfc
+drawable ic_production
+drawable ic_products
+drawable ic_quality
 drawable ic_refresh
+drawable ic_refresh_24dp
 drawable ic_scan
+drawable ic_search_24dp
 drawable ic_search_black_24
+drawable ic_settings
 drawable ic_visibility
 drawable ic_visibility_off
 drawable indeterminate_static
@@ -3297,8 +3318,6 @@ id clip_vertical
 id clockwise
 id closest
 id collapseActionView
-id completed
-id completedCard
 id compress
 id confirm_button
 id constraint
@@ -3311,7 +3330,6 @@ id coordinator
 id cos
 id counterclockwise
 id cradle
-id currentStage
 id currentState
 id custom
 id customPanel
@@ -3321,6 +3339,7 @@ id decelerate
 id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
+id defectCard
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3344,6 +3363,7 @@ id dragLeft
 id dragRight
 id dragStart
 id dragUp
+id drawer_layout
 id dropdown_menu
 id easeIn
 id easeInOut
@@ -3352,6 +3372,7 @@ id east
 id edge
 id edit_query
 id edit_text_id
+id efficiencyCard
 id elastic
 id embed
 id end
@@ -3362,6 +3383,7 @@ id escape
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fabAddProduct
 id fade
 id fill
 id fill_horizontal
@@ -3400,9 +3422,8 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageView
 id immediateStop
-id inProgress
-id inProgressCard
 id included
 id indeterminate
 id info
@@ -3490,7 +3511,16 @@ id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
 id nav_controller_view_tag
+id nav_dashboard
+id nav_defects
 id nav_host_fragment_container
+id nav_logout
+id nav_production
+id nav_products
+id nav_quality_control
+id nav_rfid_scan
+id nav_settings
+id nav_view
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3548,7 +3578,6 @@ id postLayout
 id pressed
 id productId
 id productName
-id productProgress
 id productProgressBar
 id productProgressText
 id productRfid
@@ -3575,6 +3604,7 @@ id right_side
 id rounded
 id row_index_key
 id rtl
+id satisfactionCard
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -3590,6 +3620,7 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id searchInput
 id search_badge
 id search_bar
 id search_button
@@ -3648,6 +3679,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id swipeRefresh
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3669,6 +3701,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
+id textView
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3683,10 +3716,10 @@ id title
 id titleDividerNoCustom
 id title_template
 id toggle
+id toolbar
 id top
 id topPanel
-id totalProducts
-id totalProductsCard
+id totalProductionCard
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -3699,6 +3732,18 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvActiveProducts
+id tvCreatedAt
+id tvDefects
+id tvEfficiency
+id tvPassedProducts
+id tvProductName
+id tvQcStatus
+id tvQuantity
+id tvSatisfaction
+id tvSize
+id tvSku
+id tvTotalProduction
 id unchecked
 id uniform
 id unlabeled
@@ -3716,7 +3761,6 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
-id webview
 id west
 id withText
 id with_icon
@@ -3919,6 +3963,7 @@ layout mtrl_picker_text_input_date
 layout mtrl_picker_text_input_date_range
 layout mtrl_search_bar
 layout mtrl_search_view
+layout nav_header
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big
@@ -3929,6 +3974,8 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu drawer_menu
+menu navigation_menu2
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
@@ -4090,6 +4137,10 @@ string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
 string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
+string nav_header_subtitle
+string nav_header_title
+string navigation_drawer_close
+string navigation_drawer_open
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -5381,6 +5432,7 @@ styleable State android_id constraints
 styleable StateListDrawable android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable StateListDrawableItem android_drawable
 styleable StateSet defaultState
+styleable SwipeRefreshLayout swipeRefreshLayoutProgressSpinnerBackgroundColor
 styleable SwitchCompat android_textOn android_textOff android_thumb showText splitTrack switchMinWidth switchPadding switchTextAppearance thumbTextPadding thumbTint thumbTintMode track trackTint trackTintMode
 styleable SwitchMaterial useMaterialThemeColors
 styleable TabItem android_icon android_layout android_text

@@ -1,0 +1,394 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:1:1-37:12
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:1:1-37:12
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:1:1-37:12
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:1:1-37:12
+MERGED from [androidx.databinding:viewbinding:8.5.2] /home/treewalker/.gradle/caches/8.12/transforms/065a056a9310894a8fa32c620bb033d2/transformed/viewbinding-8.5.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-common:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/40618b2abeaa5dea0e4640aae64ec958/transformed/navigation-common-2.7.6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e4c569ab19e09d79233171088c2f8439/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/5c468ba94da7e7d7569a444d4e46f048/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/1ba170a08fbfee33401a63471c6b76b5/transformed/navigation-runtime-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-fragment:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e8cf794d6c8ef7b44a047ae4a17b1a81/transformed/navigation-fragment-2.7.6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/6342d3d6bef53211339df25b4b2dcb3e/transformed/navigation-fragment-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-ui-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/5142ce67f79a39bef0a61ea3baf2a3f0/transformed/navigation-ui-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-ui:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e9308c2669529d20fca44abcdf164ec4/transformed/navigation-ui-2.7.6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/treewalker/.gradle/caches/8.12/transforms/f06f6defd4cc180058f530ec08a726aa/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /home/treewalker/.gradle/caches/8.12/transforms/a57335bfb9fb770c2b34af57c14c4d66/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.appcompat:appcompat:1.7.0] /home/treewalker/.gradle/caches/8.12/transforms/b147c14bc766654b56b428fe545773e2/transformed/appcompat-1.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/8b834632f8385743f1f4a5e117d59628/transformed/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.6.2] /home/treewalker/.gradle/caches/8.12/transforms/85a083ebd4422fa5895469f23219fc03/transformed/fragment-1.6.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment-ktx:1.6.2] /home/treewalker/.gradle/caches/8.12/transforms/29165e242f849c47a7dc0c3b1d7b4118/transformed/fragment-ktx-1.6.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.8.2] /home/treewalker/.gradle/caches/8.12/transforms/f35010c57e6a7e0ed983c4356992c3c7/transformed/activity-1.8.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity-ktx:1.8.2] /home/treewalker/.gradle/caches/8.12/transforms/69f1b723994bb2e06f30aed8827980e3/transformed/activity-ktx-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/aa685a22c7ee6cb6bb39e0c5a0f9c87b/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.webkit:webkit:1.8.0] /home/treewalker/.gradle/caches/8.12/transforms/265217a4222bf900789c83403a5bd12e/transformed/webkit-1.8.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/6edd74ad0167f7b6941ffcf09e60dd49/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/e044bfb2711f88e8338a765c924b7371/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /home/treewalker/.gradle/caches/8.12/transforms/608c01c61dee02c6be1d1ba3929f624f/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.5.0] /home/treewalker/.gradle/caches/8.12/transforms/3ffe00b6a2227ba635e6d6ccdcf9ede1/transformed/transition-1.5.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/cfc82a582483f03d09948facd97c77f8/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/3b4a64f697c36836b48bf96112b2e372/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/2b87b2f1503486f5e3c0975f6f237cb4/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/471b9ed5cbbc58056e3a603270b4195e/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/e07593c50465b3cba57c7f15ae618de5/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/ce29ed3bd41a006178bf2d1d1dda7804/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/c4e38070d869cc40aa7dd170f622ffa8/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/b2db0ebe08e0372c9ed4e144914f1d1f/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/43098debe70819a65822b0f3a89c8ea6/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/3e32ffe38aef94aa56b63dcd852a31d1/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/f39891436c0049415eb94326737b3763/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/0b562b05fe691048548ef56fd98f1c93/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/eecafb4150791235d977d648ae6d9450/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/dd6f3d44bef0b2b3cf676bfa42d1e08e/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f42d45f887d2a5038a0c9a32e7684b99/transformed/lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/4375a468e003576ca5b46993037338c1/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/50245a4391822a3364dfbb978fc71ac8/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/529b5be18cdc498ae0caf3026ae800cc/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/c51df5fe3a2f482d8e81ef5adf3aaadc/transformed/lifecycle-livedata-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/1339a56df52bbad2cf39fbca6a4444ad/transformed/lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/e53a3b38d1037254f894a524495da0b4/transformed/core-ktx-1.13.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.cardview:cardview:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/01d5b723b23b3d76539392988131841f/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/77486232755341b85bc5b36e0726bf7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c3fec4cfb76dc801c115739aa1d1830c/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/590a2af294db7a2b35528cc51ab38c2e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/1e8380872679af02acc8d9f20add59cd/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/treewalker/.gradle/caches/8.12/transforms/78f7a881f7f5f4e598cd8833ce71e89e/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/3b86f8b78e03f31ff604e305b692ac7b/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/4bd6ab6436170c98d51035ad7268d3e0/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/bb1c24c271b6977b43cf391a98a91e6f/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/ee85d13548f4a29551acf0a013917413/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
+	package
+		INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:3:5-67
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:3:22-64
+application
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:5:5-36:19
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:5:5-36:19
+MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/treewalker/.gradle/caches/8.12/transforms/f06f6defd4cc180058f530ec08a726aa/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/treewalker/.gradle/caches/8.12/transforms/f06f6defd4cc180058f530ec08a726aa/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/590a2af294db7a2b35528cc51ab38c2e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/590a2af294db7a2b35528cc51ab38c2e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:10:9-35
+	android:label
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:7:9-41
+	android:roundIcon
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:9:9-54
+	android:icon
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:8:9-43
+	android:allowBackup
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:11:9-53
+activity#com.sleepcompany.rfidapp.LoginActivity
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:14:9-19:20
+	android:exported
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:14:49-72
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:14:19-48
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:15:13-18:29
+action#android.intent.action.MAIN
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:17:17-77
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:17:27-74
+activity#com.sleepcompany.rfidapp.DashboardActivity
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:9-80
+	android:exported
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:53-77
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:19-52
+activity#com.sleepcompany.rfidapp.ProductsActivity
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:25:9-79
+	android:exported
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:25:52-76
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:25:19-51
+activity#com.sleepcompany.rfidapp.ProductDetailsActivity
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:9-85
+	android:exported
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:58-82
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:19-57
+activity#com.sleepcompany.rfidapp.ScannerActivity
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:9-78
+	android:exported
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:51-75
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:19-50
+activity#com.sleepcompany.rfidapp.QcActivity
+ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:34:9-73
+	android:exported
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:34:46-70
+	android:name
+		ADDED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:34:19-45
+uses-sdk
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:8.5.2] /home/treewalker/.gradle/caches/8.12/transforms/065a056a9310894a8fa32c620bb033d2/transformed/viewbinding-8.5.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:viewbinding:8.5.2] /home/treewalker/.gradle/caches/8.12/transforms/065a056a9310894a8fa32c620bb033d2/transformed/viewbinding-8.5.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-common:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/40618b2abeaa5dea0e4640aae64ec958/transformed/navigation-common-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/40618b2abeaa5dea0e4640aae64ec958/transformed/navigation-common-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e4c569ab19e09d79233171088c2f8439/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e4c569ab19e09d79233171088c2f8439/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/5c468ba94da7e7d7569a444d4e46f048/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/5c468ba94da7e7d7569a444d4e46f048/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/1ba170a08fbfee33401a63471c6b76b5/transformed/navigation-runtime-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/1ba170a08fbfee33401a63471c6b76b5/transformed/navigation-runtime-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e8cf794d6c8ef7b44a047ae4a17b1a81/transformed/navigation-fragment-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e8cf794d6c8ef7b44a047ae4a17b1a81/transformed/navigation-fragment-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/6342d3d6bef53211339df25b4b2dcb3e/transformed/navigation-fragment-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/6342d3d6bef53211339df25b4b2dcb3e/transformed/navigation-fragment-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-ui-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/5142ce67f79a39bef0a61ea3baf2a3f0/transformed/navigation-ui-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-ui-ktx:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/5142ce67f79a39bef0a61ea3baf2a3f0/transformed/navigation-ui-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-ui:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e9308c2669529d20fca44abcdf164ec4/transformed/navigation-ui-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-ui:2.7.6] /home/treewalker/.gradle/caches/8.12/transforms/e9308c2669529d20fca44abcdf164ec4/transformed/navigation-ui-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/treewalker/.gradle/caches/8.12/transforms/f06f6defd4cc180058f530ec08a726aa/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/treewalker/.gradle/caches/8.12/transforms/f06f6defd4cc180058f530ec08a726aa/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /home/treewalker/.gradle/caches/8.12/transforms/a57335bfb9fb770c2b34af57c14c4d66/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /home/treewalker/.gradle/caches/8.12/transforms/a57335bfb9fb770c2b34af57c14c4d66/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.7.0] /home/treewalker/.gradle/caches/8.12/transforms/b147c14bc766654b56b428fe545773e2/transformed/appcompat-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.7.0] /home/treewalker/.gradle/caches/8.12/transforms/b147c14bc766654b56b428fe545773e2/transformed/appcompat-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/8b834632f8385743f1f4a5e117d59628/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/8b834632f8385743f1f4a5e117d59628/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.6.2] /home/treewalker/.gradle/caches/8.12/transforms/85a083ebd4422fa5895469f23219fc03/transformed/fragment-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.6.2] /home/treewalker/.gradle/caches/8.12/transforms/85a083ebd4422fa5895469f23219fc03/transformed/fragment-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.6.2] /home/treewalker/.gradle/caches/8.12/transforms/29165e242f849c47a7dc0c3b1d7b4118/transformed/fragment-ktx-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.6.2] /home/treewalker/.gradle/caches/8.12/transforms/29165e242f849c47a7dc0c3b1d7b4118/transformed/fragment-ktx-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.2] /home/treewalker/.gradle/caches/8.12/transforms/f35010c57e6a7e0ed983c4356992c3c7/transformed/activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.2] /home/treewalker/.gradle/caches/8.12/transforms/f35010c57e6a7e0ed983c4356992c3c7/transformed/activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.2] /home/treewalker/.gradle/caches/8.12/transforms/69f1b723994bb2e06f30aed8827980e3/transformed/activity-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.2] /home/treewalker/.gradle/caches/8.12/transforms/69f1b723994bb2e06f30aed8827980e3/transformed/activity-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/aa685a22c7ee6cb6bb39e0c5a0f9c87b/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/aa685a22c7ee6cb6bb39e0c5a0f9c87b/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.8.0] /home/treewalker/.gradle/caches/8.12/transforms/265217a4222bf900789c83403a5bd12e/transformed/webkit-1.8.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.webkit:webkit:1.8.0] /home/treewalker/.gradle/caches/8.12/transforms/265217a4222bf900789c83403a5bd12e/transformed/webkit-1.8.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/6edd74ad0167f7b6941ffcf09e60dd49/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/6edd74ad0167f7b6941ffcf09e60dd49/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/e044bfb2711f88e8338a765c924b7371/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/e044bfb2711f88e8338a765c924b7371/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /home/treewalker/.gradle/caches/8.12/transforms/608c01c61dee02c6be1d1ba3929f624f/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /home/treewalker/.gradle/caches/8.12/transforms/608c01c61dee02c6be1d1ba3929f624f/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.5.0] /home/treewalker/.gradle/caches/8.12/transforms/3ffe00b6a2227ba635e6d6ccdcf9ede1/transformed/transition-1.5.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.transition:transition:1.5.0] /home/treewalker/.gradle/caches/8.12/transforms/3ffe00b6a2227ba635e6d6ccdcf9ede1/transformed/transition-1.5.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/cfc82a582483f03d09948facd97c77f8/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/cfc82a582483f03d09948facd97c77f8/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/3b4a64f697c36836b48bf96112b2e372/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/3b4a64f697c36836b48bf96112b2e372/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/2b87b2f1503486f5e3c0975f6f237cb4/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/2b87b2f1503486f5e3c0975f6f237cb4/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/471b9ed5cbbc58056e3a603270b4195e/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/471b9ed5cbbc58056e3a603270b4195e/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/e07593c50465b3cba57c7f15ae618de5/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/e07593c50465b3cba57c7f15ae618de5/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/ce29ed3bd41a006178bf2d1d1dda7804/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/ce29ed3bd41a006178bf2d1d1dda7804/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/c4e38070d869cc40aa7dd170f622ffa8/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/c4e38070d869cc40aa7dd170f622ffa8/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/b2db0ebe08e0372c9ed4e144914f1d1f/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/b2db0ebe08e0372c9ed4e144914f1d1f/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/43098debe70819a65822b0f3a89c8ea6/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/43098debe70819a65822b0f3a89c8ea6/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/3e32ffe38aef94aa56b63dcd852a31d1/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/3e32ffe38aef94aa56b63dcd852a31d1/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/f39891436c0049415eb94326737b3763/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/f39891436c0049415eb94326737b3763/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/0b562b05fe691048548ef56fd98f1c93/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/0b562b05fe691048548ef56fd98f1c93/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/eecafb4150791235d977d648ae6d9450/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/eecafb4150791235d977d648ae6d9450/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/dd6f3d44bef0b2b3cf676bfa42d1e08e/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/dd6f3d44bef0b2b3cf676bfa42d1e08e/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f42d45f887d2a5038a0c9a32e7684b99/transformed/lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f42d45f887d2a5038a0c9a32e7684b99/transformed/lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/4375a468e003576ca5b46993037338c1/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/4375a468e003576ca5b46993037338c1/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/50245a4391822a3364dfbb978fc71ac8/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/50245a4391822a3364dfbb978fc71ac8/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/529b5be18cdc498ae0caf3026ae800cc/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/529b5be18cdc498ae0caf3026ae800cc/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/c51df5fe3a2f482d8e81ef5adf3aaadc/transformed/lifecycle-livedata-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/c51df5fe3a2f482d8e81ef5adf3aaadc/transformed/lifecycle-livedata-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/1339a56df52bbad2cf39fbca6a4444ad/transformed/lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/1339a56df52bbad2cf39fbca6a4444ad/transformed/lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/e53a3b38d1037254f894a524495da0b4/transformed/core-ktx-1.13.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/e53a3b38d1037254f894a524495da0b4/transformed/core-ktx-1.13.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/01d5b723b23b3d76539392988131841f/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/01d5b723b23b3d76539392988131841f/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/77486232755341b85bc5b36e0726bf7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/77486232755341b85bc5b36e0726bf7e/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c3fec4cfb76dc801c115739aa1d1830c/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c3fec4cfb76dc801c115739aa1d1830c/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/590a2af294db7a2b35528cc51ab38c2e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/590a2af294db7a2b35528cc51ab38c2e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/1e8380872679af02acc8d9f20add59cd/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/1e8380872679af02acc8d9f20add59cd/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/treewalker/.gradle/caches/8.12/transforms/78f7a881f7f5f4e598cd8833ce71e89e/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/treewalker/.gradle/caches/8.12/transforms/78f7a881f7f5f4e598cd8833ce71e89e/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/3b86f8b78e03f31ff604e305b692ac7b/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/3b86f8b78e03f31ff604e305b692ac7b/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/4bd6ab6436170c98d51035ad7268d3e0/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/4bd6ab6436170c98d51035ad7268d3e0/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/bb1c24c271b6977b43cf391a98a91e6f/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/bb1c24c271b6977b43cf391a98a91e6f/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/ee85d13548f4a29551acf0a013917413/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/ee85d13548f4a29551acf0a013917413/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+	android:targetSdkVersion
+		INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/da4c020fe31b24af26cfc17377ae2ccb/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/e9b2d9ddebd254ba68ff9b0b1ddefa19/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/c86050b39e58c9b3973624756c1aced4/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+permission#com.sleepcompany.rfidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+uses-permission#com.sleepcompany.rfidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/treewalker/.gradle/caches/8.12/transforms/f4e3b055c661ab97ea16ae9fd4d76026/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/treewalker/.gradle/caches/8.12/transforms/29051ee6afcfcaf4fb8752d619278227/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92

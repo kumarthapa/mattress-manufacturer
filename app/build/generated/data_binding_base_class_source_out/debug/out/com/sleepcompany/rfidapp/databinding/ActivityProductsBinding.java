@@ -6,11 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -18,7 +24,16 @@ import java.lang.String;
 
 public final class ActivityProductsBinding implements ViewBinding {
   @NonNull
-  private final NestedScrollView rootView;
+  private final DrawerLayout rootView;
+
+  @NonNull
+  public final DrawerLayout drawerLayout;
+
+  @NonNull
+  public final ExtendedFloatingActionButton fabAddProduct;
+
+  @NonNull
+  public final NavigationView navView;
 
   @NonNull
   public final RecyclerView productsRecyclerView;
@@ -26,16 +41,43 @@ public final class ActivityProductsBinding implements ViewBinding {
   @NonNull
   public final MaterialButton refreshProducts;
 
-  private ActivityProductsBinding(@NonNull NestedScrollView rootView,
-      @NonNull RecyclerView productsRecyclerView, @NonNull MaterialButton refreshProducts) {
+  @NonNull
+  public final TextInputEditText searchInput;
+
+  @NonNull
+  public final SwipeRefreshLayout swipeRefresh;
+
+  @NonNull
+  public final MaterialToolbar toolbar;
+
+  @NonNull
+  public final MaterialTextView tvActiveProducts;
+
+  @NonNull
+  public final MaterialTextView tvPassedProducts;
+
+  private ActivityProductsBinding(@NonNull DrawerLayout rootView,
+      @NonNull DrawerLayout drawerLayout, @NonNull ExtendedFloatingActionButton fabAddProduct,
+      @NonNull NavigationView navView, @NonNull RecyclerView productsRecyclerView,
+      @NonNull MaterialButton refreshProducts, @NonNull TextInputEditText searchInput,
+      @NonNull SwipeRefreshLayout swipeRefresh, @NonNull MaterialToolbar toolbar,
+      @NonNull MaterialTextView tvActiveProducts, @NonNull MaterialTextView tvPassedProducts) {
     this.rootView = rootView;
+    this.drawerLayout = drawerLayout;
+    this.fabAddProduct = fabAddProduct;
+    this.navView = navView;
     this.productsRecyclerView = productsRecyclerView;
     this.refreshProducts = refreshProducts;
+    this.searchInput = searchInput;
+    this.swipeRefresh = swipeRefresh;
+    this.toolbar = toolbar;
+    this.tvActiveProducts = tvActiveProducts;
+    this.tvPassedProducts = tvPassedProducts;
   }
 
   @Override
   @NonNull
-  public NestedScrollView getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -60,6 +102,20 @@ public final class ActivityProductsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
+      id = R.id.fabAddProduct;
+      ExtendedFloatingActionButton fabAddProduct = ViewBindings.findChildViewById(rootView, id);
+      if (fabAddProduct == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
+        break missingId;
+      }
+
       id = R.id.productsRecyclerView;
       RecyclerView productsRecyclerView = ViewBindings.findChildViewById(rootView, id);
       if (productsRecyclerView == null) {
@@ -72,8 +128,39 @@ public final class ActivityProductsBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityProductsBinding((NestedScrollView) rootView, productsRecyclerView,
-          refreshProducts);
+      id = R.id.searchInput;
+      TextInputEditText searchInput = ViewBindings.findChildViewById(rootView, id);
+      if (searchInput == null) {
+        break missingId;
+      }
+
+      id = R.id.swipeRefresh;
+      SwipeRefreshLayout swipeRefresh = ViewBindings.findChildViewById(rootView, id);
+      if (swipeRefresh == null) {
+        break missingId;
+      }
+
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
+      id = R.id.tvActiveProducts;
+      MaterialTextView tvActiveProducts = ViewBindings.findChildViewById(rootView, id);
+      if (tvActiveProducts == null) {
+        break missingId;
+      }
+
+      id = R.id.tvPassedProducts;
+      MaterialTextView tvPassedProducts = ViewBindings.findChildViewById(rootView, id);
+      if (tvPassedProducts == null) {
+        break missingId;
+      }
+
+      return new ActivityProductsBinding((DrawerLayout) rootView, drawerLayout, fabAddProduct,
+          navView, productsRecyclerView, refreshProducts, searchInput, swipeRefresh, toolbar,
+          tvActiveProducts, tvPassedProducts);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

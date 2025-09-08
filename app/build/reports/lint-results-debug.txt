@@ -1,0 +1,626 @@
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:47: Error: Unexpected implicit cast to MaterialTextView: layout tag was TextView [WrongViewCast]
+        tvTotalProduction = findViewById(R.id.tvTotalProduction);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:48: Error: Unexpected implicit cast to MaterialTextView: layout tag was TextView [WrongViewCast]
+        tvEfficiency = findViewById(R.id.tvEfficiency);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:49: Error: Unexpected implicit cast to MaterialTextView: layout tag was TextView [WrongViewCast]
+        tvDefects = findViewById(R.id.tvDefects);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:50: Error: Unexpected implicit cast to MaterialTextView: layout tag was TextView [WrongViewCast]
+        tvSatisfaction = findViewById(R.id.tvSatisfaction);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/QcActivity.java:51: Error: Unexpected implicit cast to AppCompatSpinner: layout tag was Spinner [WrongViewCast]
+        qcProductSpinner = findViewById(R.id.qcProductSpinner);
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "WrongViewCast":
+   Keeps track of the view types associated with ids and if it finds a usage
+   of the id in the Java code it ensures that it is treated as the same type.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductDetailsActivity.java:90: Warning: Implicitly using the default locale is a common source of bugs: Use toUpperCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
+            status = status.substring(0, 1).toUpperCase() + status.substring(1);
+                                            ~~~~~~~~~~~
+
+   Explanation for issues of type "DefaultLocale":
+   Calling String#toLowerCase() or #toUpperCase() without specifying an
+   explicit locale is a common source of bugs. The reason for that is that
+   those methods will use the current locale on the user's device, and even
+   though the code appears to work correctly when you are developing the app,
+   it will fail in some locales. For example, in the Turkish locale, the
+   uppercase replacement for i is not I.
+
+   If you want the methods to just perform ASCII replacement, for example to
+   convert an enum name, call String#toUpperCase(Locale.ROOT) instead. If you
+   really want to use the current locale, call
+   String#toUpperCase(Locale.getDefault()) instead.
+
+   https://developer.android.com/reference/java/util/Locale.html#default_locale
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:60: Warning: A newer version of com.google.android.material:material than 1.12.0 is available: 1.13.0 [GradleDependency]
+    implementation 'com.google.android.material:material:1.12.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:63: Warning: A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.7.1 [GradleDependency]
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:64: Warning: A newer version of androidx.core:core-ktx than 1.12.0 is available: 1.17.0 [GradleDependency]
+    implementation 'androidx.core:core-ktx:1.12.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:65: Warning: A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.1 [GradleDependency]
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:66: Warning: A newer version of androidx.activity:activity-ktx than 1.8.2 is available: 1.10.1 [GradleDependency]
+    implementation 'androidx.activity:activity-ktx:1.8.2'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:67: Warning: A newer version of androidx.fragment:fragment-ktx than 1.6.2 is available: 1.8.9 [GradleDependency]
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:72: Warning: A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.7.0 is available: 2.9.3 [GradleDependency]
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:73: Warning: A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.7.0 is available: 2.9.3 [GradleDependency]
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:74: Warning: A newer version of androidx.lifecycle:lifecycle-livedata-ktx than 2.7.0 is available: 2.9.3 [GradleDependency]
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:77: Warning: A newer version of androidx.webkit:webkit than 1.8.0 is available: 1.14.0 [GradleDependency]
+    implementation 'androidx.webkit:webkit:1.8.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:80: Warning: A newer version of androidx.navigation:navigation-fragment-ktx than 2.7.6 is available: 2.9.3 [GradleDependency]
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.6'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:81: Warning: A newer version of androidx.navigation:navigation-ui-ktx than 2.7.6 is available: 2.9.3 [GradleDependency]
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.6'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:84: Warning: A newer version of com.squareup.retrofit2:retrofit than 2.9.0 is available: 2.11.0 [GradleDependency]
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:85: Warning: A newer version of com.squareup.retrofit2:converter-gson than 2.9.0 is available: 2.11.0 [GradleDependency]
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:88: Warning: A newer version of com.squareup.okhttp3:logging-interceptor than 4.11.0 is available: 4.12.0 [GradleDependency]
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:92: Warning: A newer version of androidx.test.ext:junit than 1.2.1 is available: 1.3.0 [GradleDependency]
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:93: Warning: A newer version of androidx.test.espresso:espresso-core than 3.6.1 is available: 3.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:94: Warning: A newer version of androidx.test:core than 1.5.0 is available: 1.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test:core:1.5.0'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:95: Warning: A newer version of androidx.test:runner than 1.5.2 is available: 1.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/build.gradle:96: Warning: A newer version of androidx.test:rules than 1.5.0 is available: 1.7.0 [GradleDependency]
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:59: Warning: It will always be more efficient to use more specific change events if you can. Rely on notifyDataSetChanged as a last resort. [NotifyDataSetChanged]
+        notifyDataSetChanged();
+        ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:65: Warning: It will always be more efficient to use more specific change events if you can. Rely on notifyDataSetChanged as a last resort. [NotifyDataSetChanged]
+            notifyDataSetChanged();
+            ~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NotifyDataSetChanged":
+   The RecyclerView adapter's onNotifyDataSetChanged method does not specify
+   what about the data set has changed, forcing any observers to assume that
+   all existing items and structure may no longer be valid. `LayoutManager`s
+   will be forced to fully rebind and relayout all visible views.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_settings.xml:9: Warning: Very long vector path (904 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector. [VectorPath]
+        android:pathData="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.12,-0.61l-1.92,-3.32c-0.12,-0.22 -0.37,-0.29 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94L14.4,2.81c-0.04,-0.24 -0.24,-0.41 -0.48,-0.41h-3.84c-0.24,0 -0.43,0.17 -0.47,0.41L9.25,5.35C8.66,5.59 8.12,5.92 7.63,6.29L5.24,5.33c-0.22,-0.08 -0.47,0 -0.59,0.22L2.74,8.87C2.62,9.08 2.66,9.34 2.86,9.48l2.03,1.58C4.84,11.36 4.8,11.69 4.8,12s0.02,0.64 0.07,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.41 -0.12,0.61l1.92,3.32c0.12,0.22 0.37,0.29 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.05,0.24 0.24,0.41 0.48,0.41h3.84c0.24,0 0.44,-0.17 0.47,-0.41l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.08 0.47,0 0.59,-0.22l1.92,-3.32c0.12,-0.22 0.07,-0.47 -0.12,-0.61L19.14,12.94zM12,15.6c-1.98,0 -3.6,-1.62 -3.6,-3.6s1.62,-3.6 3.6,-3.6s3.6,1.62 3.6,3.6S13.98,15.6 12,15.6z"/>
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "VectorPath":
+   Using long vector paths is bad for performance. There are several ways to
+   make the pathData shorter:
+   * Using less precision
+   * Removing some minor details
+   * Using the Android Studio vector conversion tool
+   * Rasterizing the image (converting to PNG)
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_qc.xml:80: Warning: Nested weights are bad for performance [NestedWeights]
+                        android:layout_weight="1"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NestedWeights":
+   Layout weights require a widget to be measured twice. When a LinearLayout
+   with non-zero weights is nested inside another LinearLayout with non-zero
+   weights, then the number of measurements increase exponentially.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:8: Warning: Possible overdraw: Root element paints background @color/sc_primary with a theme that also paints a background (inferred theme is @style/Theme.SleepCompanyWeb) [Overdraw]
+    android:background="@color/sc_primary">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/nav_header.xml:5: Warning: Possible overdraw: Root element paints background @color/sc_primary with a theme that also paints a background (inferred theme is @style/Theme.SleepCompanyWeb) [Overdraw]
+    android:background="@color/sc_primary"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "Overdraw":
+   If you set a background drawable on a root view, then you should use a
+   custom theme where the theme background is null. Otherwise, the theme
+   background will be painted first, only to have your custom background
+   completely cover it; this is called "overdraw".
+
+   NOTE: This detector relies on figuring out which layouts are associated
+   with which activities based on scanning the Java code, and it's currently
+   doing that using an inexact pattern matching algorithm. Therefore, it can
+   incorrectly conclude which activity the layout is associated with and then
+   wrongly complain that a background-theme is hidden.
+
+   If you want your custom background on multiple pages, then you should
+   consider making a custom theme with your custom background and just using
+   that theme instead of a root element background.
+
+   Of course it's possible that your custom drawable is translucent and you
+   want it to be mixed with the background. However, you will get better
+   performance if you pre-mix the background with your drawable and use that
+   resulting image or color as a custom theme background instead.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_main.xml:2: Warning: The resource R.layout.activity_main appears to be unused [UnusedResources]
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/button_background.xml:2: Warning: The resource R.drawable.button_background appears to be unused [UnusedResources]
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/card_background.xml:1: Warning: The resource R.drawable.card_background appears to be unused [UnusedResources]
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:4: Warning: The resource R.color.sleep_primary appears to be unused [UnusedResources]
+    <color name="sleep_primary">#2E3440</color>
+           ~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:5: Warning: The resource R.color.sleep_primary_dark appears to be unused [UnusedResources]
+    <color name="sleep_primary_dark">#1A1F2E</color>
+           ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:11: Warning: The resource R.color.sc_primary_dark appears to be unused [UnusedResources]
+    <color name="sc_primary_dark">#1A1F2E</color>
+           ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:12: Warning: The resource R.color.sc_accent appears to be unused [UnusedResources]
+    <color name="sc_accent">#81A1C1</color>
+           ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:13: Warning: The resource R.color.teal_700 appears to be unused [UnusedResources]
+    <color name="teal_700">#2E3440</color>
+           ~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:14: Warning: The resource R.color.teal_500 appears to be unused [UnusedResources]
+    <color name="teal_500">#88C0D0</color>
+           ~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:15: Warning: The resource R.color.teal_300 appears to be unused [UnusedResources]
+    <color name="teal_300">#81A1C1</color>
+           ~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/colors.xml:27: Warning: The resource R.color.dark_grey appears to be unused [UnusedResources]
+    <color name="dark_grey">#3B4252</color>
+           ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/values/dimens.xml:4: Warning: The resource R.dimen.fab_margin appears to be unused [UnusedResources]
+    <dimen name="fab_margin">16dp</dimen>
+           ~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_android_black_24dp.xml:1: Warning: The resource R.drawable.ic_android_black_24dp appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_check.xml:1: Warning: The resource R.drawable.ic_check appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_close.xml:1: Warning: The resource R.drawable.ic_close appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_menu.xml:1: Warning: The resource R.drawable.ic_menu appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_nfc.xml:1: Warning: The resource R.drawable.ic_nfc appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_production.xml:1: Warning: The resource R.drawable.ic_production appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_refresh.xml:1: Warning: The resource R.drawable.ic_refresh appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_visibility.xml:1: Warning: The resource R.drawable.ic_visibility appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/ic_visibility_off.xml:1: Warning: The resource R.drawable.ic_visibility_off appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/logo_circle_bg.xml:2: Warning: The resource R.drawable.logo_circle_bg appears to be unused [UnusedResources]
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:2: Warning: The resource R.menu.navigation_menu2 appears to be unused [UnusedResources]
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/rounded_edittext_bg.xml:1: Warning: The resource R.drawable.rounded_edittext_bg appears to be unused [UnusedResources]
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/drawable/scanner_area_bg.xml:1: Warning: The resource R.drawable.scanner_area_bg appears to be unused [UnusedResources]
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+^
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests =true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests =true.
+   ,
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:80: Warning: activity_products.xml has more than 10 levels, bad for performance [TooDeepLayout]
+                                    <com.google.android.material.textview.MaterialTextView
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "TooDeepLayout":
+   Layouts with too much nesting is bad for performance. Consider using a
+   flatter layout (such as RelativeLayout or GridLayout).The default maximum
+   depth is 10 but can be configured with the environment variable
+   ANDROID_LINT_MAX_DEPTH.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml:1: Warning: The application adaptive icon is missing a monochrome tag [MonochromeLauncherIcon]
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+^
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml:1: Warning: The application adaptive roundIcon is missing a monochrome tag [MonochromeLauncherIcon]
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+^
+
+   Explanation for issues of type "MonochromeLauncherIcon":
+   If android:roundIcon and android:icon are both in your manifest, you must
+   either remove the reference to android:roundIcon if it is not needed; or,
+   supply the monochrome icon in the drawable defined by the android:roundIcon
+   and android:icon attribute.
+
+   For example, if android:roundIcon and android:icon are both in the
+   manifest, a launcher might choose to use android:roundIcon over
+   android:icon to display the adaptive app icon. Therefore, your themed
+   application iconwill not show if your monochrome attribute is not also
+   specified in android:roundIcon.
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:23: Warning: Missing contentDescription attribute on image [ContentDescription]
+        <ImageView
+         ~~~~~~~~~
+
+   Explanation for issues of type "ContentDescription":
+   Non-textual widgets like ImageViews and ImageButtons should use the
+   contentDescription attribute to specify a textual description of the widget
+   such that screen readers and other accessibility tools can adequately
+   describe the user interface.
+
+   Note that elements in application screens that are purely decorative and do
+   not provide any content or enable a user action should not have
+   accessibility content descriptions. In this case, set their descriptions to
+   @null. If your app's minSdkVersion is 16 or higher, you can instead set
+   these graphical elements' android:importantForAccessibility attributes to
+   no.
+
+   Note that for text fields, you should not set both the hint and the
+   contentDescription attributes since the hint will never be shown. Just set
+   the hint.
+
+   https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:83: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        tvTotalProduction.setText("1,245");
+                                  ~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:84: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        tvEfficiency.setText("87%");
+                             ~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/DashboardActivity.java:86: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        tvSatisfaction.setText("48%");
+                               ~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:84: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+            sku.setText("SKU: " + product.getSku());
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:84: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+            sku.setText("SKU: " + product.getSku());
+                        ~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:85: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+            size.setText("Size: " + product.getSize());
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:85: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+            size.setText("Size: " + product.getSize());
+                         ~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:86: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+            quantity.setText("Qty: " + product.getQuantity());
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductAdapter.java:86: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+            quantity.setText("Qty: " + product.getQuantity());
+                             ~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductDetailsActivity.java:66: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+        productProgressTextTv.setText(progressExtra + "%");
+                                      ~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductsActivity.java:222: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        refreshButton.setText("Loading...");
+                              ~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductsActivity.java:241: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+                refreshButton.setText("Refresh");
+                                      ~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ProductsActivity.java:300: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+                refreshButton.setText("Refresh");
+                                      ~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ScannerActivity.java:63: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        scannedTag.setText("RF1234567890");
+                           ~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ScannerActivity.java:64: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        scannedProduct.setText("Premium Memory Foam Mattress");
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/java/com/sleepcompany/rfidapp/ScannerActivity.java:65: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        scannedStage.setText("Assembly");
+                             ~~~~~~~~~~
+
+   Explanation for issues of type "SetTextI18n":
+   When calling TextView#setText
+   * Never call Number#toString() to format numbers; it will not handle
+   fraction separators and locale-specific digits properly. Consider using
+   String#format with proper format specifications (%d or %f) instead.
+   * Do not pass a string literal (e.g. "Hello") to display text. Hardcoded
+   text can not be properly translated to other languages. Consider using
+   Android resource strings instead.
+   * Do not build messages by concatenating text chunks. Such messages can not
+   be properly translated.
+
+   https://developer.android.com/guide/topics/resources/localization.html
+
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:73: Warning: Hardcoded string "1,245", should use @string resource [HardcodedText]
+                                android:text="1,245"
+                                ~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:81: Warning: Hardcoded string "Total Production", should use @string resource [HardcodedText]
+                                android:text="Total Production"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:111: Warning: Hardcoded string "87%", should use @string resource [HardcodedText]
+                                android:text="87%"
+                                ~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:119: Warning: Hardcoded string "Production Efficiency", should use @string resource [HardcodedText]
+                                android:text="Production Efficiency"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:158: Warning: Hardcoded string "3.2%", should use @string resource [HardcodedText]
+                                android:text="3.2%"
+                                ~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:166: Warning: Hardcoded string "Defect Rate", should use @string resource [HardcodedText]
+                                android:text="Defect Rate"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:196: Warning: Hardcoded string "4.7/5", should use @string resource [HardcodedText]
+                                android:text="4.7/5"
+                                ~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:204: Warning: Hardcoded string "Quality control", should use @string resource [HardcodedText]
+                                android:text="Quality control"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:231: Warning: Hardcoded string "Quick Actions", should use @string resource [HardcodedText]
+                            android:text="Quick Actions"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:247: Warning: Hardcoded string "Scan RFID", should use @string resource [HardcodedText]
+                                android:text="Scan RFID"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:256: Warning: Hardcoded string "View Products", should use @string resource [HardcodedText]
+                                android:text="View Products"
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:266: Warning: Hardcoded string "Quality Control Check", should use @string resource [HardcodedText]
+                            android:text="Quality Control Check"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:289: Warning: Hardcoded string "Production Status", should use @string resource [HardcodedText]
+                            android:text="Production Status"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:304: Warning: Hardcoded string "Material Cost: 45% of production", should use @string resource [HardcodedText]
+                                android:text="Material Cost: 45% of production" />
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_dashboard.xml:324: Warning: Hardcoded string "First Pass Yield: 92%", should use @string resource [HardcodedText]
+                                android:text="First Pass Yield: 92%" />
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:33: Warning: Hardcoded string "Sleep Company", should use @string resource [HardcodedText]
+            android:text="Sleep Company"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:42: Warning: Hardcoded string "Manufacturing Tracker", should use @string resource [HardcodedText]
+            android:text="Manufacturing Tracker"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:72: Warning: Hardcoded string "Username", should use @string resource [HardcodedText]
+                android:hint="Username"
+                ~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:89: Warning: Hardcoded string "Password", should use @string resource [HardcodedText]
+                android:hint="Password"
+                ~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:106: Warning: Hardcoded string "Remember me", should use @string resource [HardcodedText]
+                android:text="Remember me"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:116: Warning: Hardcoded string "Sign In", should use @string resource [HardcodedText]
+                android:text="Sign In" />
+                ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_login.xml:122: Warning: Hardcoded string "Demo credentials: admin / admin123", should use @string resource [HardcodedText]
+                android:text="Demo credentials: admin / admin123"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:40: Warning: Hardcoded string "Product Name", should use @string resource [HardcodedText]
+                    android:text="Product Name"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:65: Warning: Hardcoded string "Product ID:", should use @string resource [HardcodedText]
+                            android:text="Product ID:"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:77: Warning: Hardcoded string "Size:", should use @string resource [HardcodedText]
+                            android:text="Size:"
+                            ~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:89: Warning: Hardcoded string "RFID Tag:", should use @string resource [HardcodedText]
+                            android:text="RFID Tag:"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:101: Warning: Hardcoded string "Status:", should use @string resource [HardcodedText]
+                            android:text="Status:"
+                            ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:113: Warning: Hardcoded string "Production Progress", should use @string resource [HardcodedText]
+                    android:text="Production Progress"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_product_details.xml:138: Warning: Hardcoded string "Stages Timeline", should use @string resource [HardcodedText]
+                    android:text="Stages Timeline"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:83: Warning: Hardcoded string "Production Overview", should use @string resource [HardcodedText]
+                                        android:text="Production Overview"
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:91: Warning: Hardcoded string "Track mattress production stages", should use @string resource [HardcodedText]
+                                        android:text="Track mattress production stages"
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:103: Warning: Hardcoded string "Refresh", should use @string resource [HardcodedText]
+                                    android:text="Refresh"
+                                    ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:129: Warning: Hardcoded string "0", should use @string resource [HardcodedText]
+                                        android:text="0"
+                                        ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:137: Warning: Hardcoded string "Total Products", should use @string resource [HardcodedText]
+                                        android:text="Total Products"
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:159: Warning: Hardcoded string "0", should use @string resource [HardcodedText]
+                                        android:text="0"
+                                        ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:167: Warning: Hardcoded string "QC Passed", should use @string resource [HardcodedText]
+                                        android:text="QC Passed"
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:193: Warning: Hardcoded string "Search products, SKU...", should use @string resource [HardcodedText]
+                            android:hint="Search products, SKU..."
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:214: Warning: Hardcoded string "Products in Production", should use @string resource [HardcodedText]
+                        android:text="Products in Production"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_products.xml:244: Warning: Hardcoded string "Add Product", should use @string resource [HardcodedText]
+            android:text="Add Product"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_qc.xml:40: Warning: Hardcoded string "Quality Control", should use @string resource [HardcodedText]
+                    android:text="Quality Control"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_qc.xml:49: Warning: Hardcoded string "Select Product for QC", should use @string resource [HardcodedText]
+                    android:text="Select Product for QC"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_qc.xml:71: Warning: Hardcoded string "QC Checklist", should use @string resource [HardcodedText]
+                        android:text="QC Checklist"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_qc.xml:105: Warning: Hardcoded string "Approve", should use @string resource [HardcodedText]
+                            android:text="Approve"
+                            ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_qc.xml:119: Warning: Hardcoded string "Reject", should use @string resource [HardcodedText]
+                            android:text="Reject"
+                            ~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:53: Warning: Hardcoded string "📱", should use @string resource [HardcodedText]
+                            android:text="📱"
+                            ~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:60: Warning: Hardcoded string "Hold device near RFID tag", should use @string resource [HardcodedText]
+                            android:text="Hold device near RFID tag"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:79: Warning: Hardcoded string "Start Scan", should use @string resource [HardcodedText]
+                        android:text="Start Scan"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:87: Warning: Hardcoded string "Stop Scan", should use @string resource [HardcodedText]
+                        android:text="Stop Scan"/>
+                        ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:110: Warning: Hardcoded string "Scan Result", should use @string resource [HardcodedText]
+                            android:text="Scan Result"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:118: Warning: Hardcoded string "RFID Tag:", should use @string resource [HardcodedText]
+                            android:text="RFID Tag:"
+                            ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:125: Warning: Hardcoded string "-", should use @string resource [HardcodedText]
+                            android:text="-"
+                            ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:131: Warning: Hardcoded string "Product:", should use @string resource [HardcodedText]
+                            android:text="Product:"
+                            ~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:138: Warning: Hardcoded string "-", should use @string resource [HardcodedText]
+                            android:text="-"
+                            ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:144: Warning: Hardcoded string "Stage:", should use @string resource [HardcodedText]
+                            android:text="Stage:"
+                            ~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:151: Warning: Hardcoded string "-", should use @string resource [HardcodedText]
+                            android:text="-"
+                            ~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:166: Warning: Hardcoded string "Update", should use @string resource [HardcodedText]
+                                android:text="Update"/>
+                                ~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/activity_scanner.xml:174: Warning: Hardcoded string "Log", should use @string resource [HardcodedText]
+                                android:text="Log"/>
+                                ~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:6: Warning: Hardcoded string "Dashboard", should use @string resource [HardcodedText]
+        android:title="Dashboard"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:11: Warning: Hardcoded string "Products", should use @string resource [HardcodedText]
+        android:title="Products"
+        ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:16: Warning: Hardcoded string "Quality Control", should use @string resource [HardcodedText]
+        android:title="Quality Control"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:21: Warning: Hardcoded string "RFID Scan", should use @string resource [HardcodedText]
+        android:title="RFID Scan"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:26: Warning: Hardcoded string "Defect Tracking", should use @string resource [HardcodedText]
+        android:title="Defect Tracking"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:31: Warning: Hardcoded string "Settings", should use @string resource [HardcodedText]
+        android:title="Settings"
+        ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/drawer_menu.xml:36: Warning: Hardcoded string "Logout", should use @string resource [HardcodedText]
+        android:title="Logout"
+        ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/item_product.xml:31: Warning: Hardcoded string "Product Name", should use @string resource [HardcodedText]
+                android:text="Product Name"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/item_product.xml:40: Warning: Hardcoded string "PENDING", should use @string resource [HardcodedText]
+                android:text="PENDING"
+                ~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/item_product.xml:58: Warning: Hardcoded string "SKU: ABC123", should use @string resource [HardcodedText]
+                android:text="SKU: ABC123"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/item_product.xml:66: Warning: Hardcoded string "Size: Large", should use @string resource [HardcodedText]
+                android:text="Size: Large"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/item_product.xml:85: Warning: Hardcoded string "Qty: 100", should use @string resource [HardcodedText]
+                android:text="Qty: 100"
+                ~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/layout/item_product.xml:94: Warning: Hardcoded string "Jan 15, 2024", should use @string resource [HardcodedText]
+                android:text="Jan 15, 2024"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:10: Warning: Hardcoded string "Dashboard", should use @string resource [HardcodedText]
+            android:title="Dashboard" />
+            ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:15: Warning: Hardcoded string "Production Overview", should use @string resource [HardcodedText]
+            android:title="Production Overview" />
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:20: Warning: Hardcoded string "Quality Control", should use @string resource [HardcodedText]
+            android:title="Quality Control" />
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:27: Warning: Hardcoded string "RFID Scanner", should use @string resource [HardcodedText]
+            android:title="RFID Scanner" />
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:32: Warning: Hardcoded string "View Products", should use @string resource [HardcodedText]
+            android:title="View Products" />
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:37: Warning: Hardcoded string "Defect Tracking", should use @string resource [HardcodedText]
+            android:title="Defect Tracking" />
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:40: Warning: Hardcoded string "Settings", should use @string resource [HardcodedText]
+    <item android:title="Settings">
+          ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:46: Warning: Hardcoded string "Settings", should use @string resource [HardcodedText]
+                    android:title="Settings" />
+                    ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/treewalker/Downloads/SleepCompanyTrackerApp/app/src/main/res/menu/navigation_menu2.xml:51: Warning: Hardcoded string "Logout", should use @string resource [HardcodedText]
+                    android:title="Logout" />
+                    ~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "HardcodedText":
+   Hardcoding text attributes directly in layout files is bad for several
+   reasons:
+
+   * When creating configuration variations (for example for landscape or
+   portrait) you have to repeat the actual text (and keep it up to date when
+   making changes)
+
+   * The application cannot be translated to other languages by just adding
+   new translations for existing string resources.
+
+   There are quickfixes to automatically extract this hardcoded string into a
+   resource lookup.
+
+5 errors, 151 warnings

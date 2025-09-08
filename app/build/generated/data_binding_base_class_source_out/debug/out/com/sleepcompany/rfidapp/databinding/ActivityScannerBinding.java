@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
@@ -19,10 +21,16 @@ import java.lang.String;
 
 public final class ActivityScannerBinding implements ViewBinding {
   @NonNull
-  private final NestedScrollView rootView;
+  private final DrawerLayout rootView;
+
+  @NonNull
+  public final DrawerLayout drawerLayout;
 
   @NonNull
   public final MaterialButton logProcessBtn;
+
+  @NonNull
+  public final NavigationView navView;
 
   @NonNull
   public final MaterialCardView scanInstructionCard;
@@ -46,16 +54,22 @@ public final class ActivityScannerBinding implements ViewBinding {
   public final MaterialButton stopScanBtn;
 
   @NonNull
+  public final Toolbar toolbar;
+
+  @NonNull
   public final MaterialButton updateStageBtn;
 
-  private ActivityScannerBinding(@NonNull NestedScrollView rootView,
-      @NonNull MaterialButton logProcessBtn, @NonNull MaterialCardView scanInstructionCard,
-      @NonNull MaterialCardView scanResultCard, @NonNull MaterialTextView scannedProduct,
-      @NonNull MaterialTextView scannedStage, @NonNull MaterialTextView scannedTag,
-      @NonNull MaterialButton startScanBtn, @NonNull MaterialButton stopScanBtn,
+  private ActivityScannerBinding(@NonNull DrawerLayout rootView, @NonNull DrawerLayout drawerLayout,
+      @NonNull MaterialButton logProcessBtn, @NonNull NavigationView navView,
+      @NonNull MaterialCardView scanInstructionCard, @NonNull MaterialCardView scanResultCard,
+      @NonNull MaterialTextView scannedProduct, @NonNull MaterialTextView scannedStage,
+      @NonNull MaterialTextView scannedTag, @NonNull MaterialButton startScanBtn,
+      @NonNull MaterialButton stopScanBtn, @NonNull Toolbar toolbar,
       @NonNull MaterialButton updateStageBtn) {
     this.rootView = rootView;
+    this.drawerLayout = drawerLayout;
     this.logProcessBtn = logProcessBtn;
+    this.navView = navView;
     this.scanInstructionCard = scanInstructionCard;
     this.scanResultCard = scanResultCard;
     this.scannedProduct = scannedProduct;
@@ -63,12 +77,13 @@ public final class ActivityScannerBinding implements ViewBinding {
     this.scannedTag = scannedTag;
     this.startScanBtn = startScanBtn;
     this.stopScanBtn = stopScanBtn;
+    this.toolbar = toolbar;
     this.updateStageBtn = updateStageBtn;
   }
 
   @Override
   @NonNull
-  public NestedScrollView getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -93,9 +108,17 @@ public final class ActivityScannerBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
       id = R.id.logProcessBtn;
       MaterialButton logProcessBtn = ViewBindings.findChildViewById(rootView, id);
       if (logProcessBtn == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
         break missingId;
       }
 
@@ -141,15 +164,21 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
       id = R.id.updateStageBtn;
       MaterialButton updateStageBtn = ViewBindings.findChildViewById(rootView, id);
       if (updateStageBtn == null) {
         break missingId;
       }
 
-      return new ActivityScannerBinding((NestedScrollView) rootView, logProcessBtn,
-          scanInstructionCard, scanResultCard, scannedProduct, scannedStage, scannedTag,
-          startScanBtn, stopScanBtn, updateStageBtn);
+      return new ActivityScannerBinding((DrawerLayout) rootView, drawerLayout, logProcessBtn,
+          navView, scanInstructionCard, scanResultCard, scannedProduct, scannedStage, scannedTag,
+          startScanBtn, stopScanBtn, toolbar, updateStageBtn);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

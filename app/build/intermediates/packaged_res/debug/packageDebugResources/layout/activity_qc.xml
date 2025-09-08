@@ -1,89 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:fitsSystemWindows="true">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quality Control"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp" />
-
-    <!-- Product Selection -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Product for QC:"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp" />
-
-    <Spinner
-        android:id="@+id/qcProductSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="20dp" />
-
-    <!-- QC Checklist Container (Hidden by default) -->
+    <!-- Main vertical container -->
     <LinearLayout
-        android:id="@+id/qcChecklistContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="QC Checklist"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
-
-        <!-- Scrollable Checklist Area -->
-        <ScrollView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#F5F5F5"
-            android:padding="16dp"
-            android:layout_marginBottom="20dp">
+            android:layout_height="?attr/actionBarSize"
+            app:title="Quality Control"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp"
+            android:background="?android:attr/windowBackground"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
-                android:id="@+id/qcItemsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+                android:orientation="vertical">
 
-        <!-- Action Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <!-- Your existing QC layout content here -->
 
-            <Button
-                android:id="@+id/approveQCBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="✅ Approve"
-                android:textColor="@android:color/white"
-                android:background="#4CAF50"
-                android:layout_marginRight="8dp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quality Control"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary"
+                    android:layout_marginBottom="24dp" />
 
-            <Button
-                android:id="@+id/rejectQCBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="❌ Reject"
-                android:textColor="@android:color/white"
-                android:background="#F44336" />
-        </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Product for QC"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginBottom="8dp" />
+
+                <Spinner
+                    android:id="@+id/qcProductSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp" />
+
+                <LinearLayout
+                    android:id="@+id/qcChecklistContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QC Checklist"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:layout_marginBottom="16dp" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/colorSurface"
+                        android:padding="16dp"
+                        android:clipToPadding="false">
+
+                        <LinearLayout
+                            android:id="@+id/qcItemsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+                    </androidx.core.widget.NestedScrollView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/approveQCBtn"
+                            style="@style/Widget.MaterialComponents.Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:text="Approve"
+                            android:textAllCaps="false"
+                            app:icon="@drawable/ic_check_circle"
+                            app:iconTint="@android:color/white"
+                            app:iconPadding="8dp"
+                            app:iconGravity="textStart"
+                            app:backgroundTint="?attr/colorPrimary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/rejectQCBtn"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Reject"
+                            android:textAllCaps="false"
+                            app:icon="@drawable/ic_cancel"
+                            app:iconTint="?attr/colorPrimary"
+                            app:iconPadding="8dp"
+                            app:iconGravity="textStart" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-</LinearLayout>
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
