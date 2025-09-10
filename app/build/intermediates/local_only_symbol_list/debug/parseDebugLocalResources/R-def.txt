@@ -40,6 +40,7 @@ drawable edittext_border
 drawable et
 drawable ic_add_24dp
 drawable ic_android_black_24dp
+drawable ic_arrow_back
 drawable ic_cancel
 drawable ic_check
 drawable ic_check_circle

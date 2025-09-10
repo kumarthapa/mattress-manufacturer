@@ -1,13 +1,13 @@
 package com.sleepcompany.rfidapp;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.tabs.TabLayout;
 import com.seuic.uhf.UHFService;
 import com.sleepcompany.rfidapp.databinding.ActivityScannerBinding;
 
@@ -26,49 +26,43 @@ public class ScannerActivity extends BaseDrawerActivity {
 
         mDevice = UHFService.getInstance();
 
-        // Toolbar setup
+        // Setup toolbar as the ActionBar
         setSupportActionBar(binding.toolbar);
 
-        // TabLayout setup
+        // Show the back arrow icon in toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);         // Show back button
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back); // Your back arrow icon
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        // Handle back navigation icon click
+        binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        // Setup fragment manager & load default fragment
         fm = getSupportFragmentManager();
         setupTabs();
-
-        // Setup FloatingActionButton click listener
-//        binding.fabAction.setOnClickListener(v -> {
-//            // TODO: Handle FAB action, e.g., open Add Item screen or dialog
-//            Toast.makeText(this, "Add Item clicked", Toast.LENGTH_SHORT).show();
-//        });
     }
 
     private void setupTabs() {
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.inventory)));
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.config)));
-
-        // Default fragment
+        // Default fragment on start
         replaceFragment(InventoryFragment.getInstance());
-
-//        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if (tab.getPosition() == 0) {
-//                    replaceFragment(InventoryFragment.getInstance());
-//                } else {
-//                    replaceFragment(SettingsFragment.getInstance());
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) { }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) { }
-//        });
     }
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frl_content, fragment);
         ft.commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle toolbar button clicks; back button triggers finish or fragment backstack pop
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

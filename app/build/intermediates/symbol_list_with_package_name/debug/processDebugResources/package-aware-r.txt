@@ -3085,6 +3085,7 @@ drawable edittext_border
 drawable et
 drawable ic_add_24dp
 drawable ic_android_black_24dp
+drawable ic_arrow_back
 drawable ic_arrow_back_black_24
 drawable ic_call_answer
 drawable ic_call_answer_low

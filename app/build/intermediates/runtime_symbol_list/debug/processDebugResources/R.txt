@@ -3084,6 +3084,7 @@ int drawable edittext_border 0x7f08008c
 int drawable et 0x7f08008d
 int drawable ic_add_24dp 0x7f08008e
 int drawable ic_android_black_24dp 0x7f08008f
+int drawable ic_arrow_back 0x7f08010c
 int drawable ic_arrow_back_black_24 0x7f080090
 int drawable ic_call_answer 0x7f080091
 int drawable ic_call_answer_low 0x7f080092
