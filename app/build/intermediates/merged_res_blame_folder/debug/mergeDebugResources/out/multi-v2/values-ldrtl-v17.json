@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-47:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-50:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
-                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/res/values-ldrtl-v17/values-ldrtl-v17.xml",
+                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/27299f3df4a83da684c8851318156087/transformed/material-1.12.0/res/values-ldrtl-v17/values-ldrtl-v17.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

@@ -4,16 +4,15 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -27,58 +26,26 @@ public final class ActivityScannerBinding implements ViewBinding {
   public final DrawerLayout drawerLayout;
 
   @NonNull
-  public final MaterialButton logProcessBtn;
+  public final FrameLayout frlContent;
 
   @NonNull
   public final NavigationView navView;
 
   @NonNull
-  public final MaterialCardView scanInstructionCard;
+  public final SwipeRefreshLayout swipeRefreshLayout;
 
   @NonNull
-  public final MaterialCardView scanResultCard;
-
-  @NonNull
-  public final MaterialTextView scannedProduct;
-
-  @NonNull
-  public final MaterialTextView scannedStage;
-
-  @NonNull
-  public final MaterialTextView scannedTag;
-
-  @NonNull
-  public final MaterialButton startScanBtn;
-
-  @NonNull
-  public final MaterialButton stopScanBtn;
-
-  @NonNull
-  public final Toolbar toolbar;
-
-  @NonNull
-  public final MaterialButton updateStageBtn;
+  public final MaterialToolbar toolbar;
 
   private ActivityScannerBinding(@NonNull DrawerLayout rootView, @NonNull DrawerLayout drawerLayout,
-      @NonNull MaterialButton logProcessBtn, @NonNull NavigationView navView,
-      @NonNull MaterialCardView scanInstructionCard, @NonNull MaterialCardView scanResultCard,
-      @NonNull MaterialTextView scannedProduct, @NonNull MaterialTextView scannedStage,
-      @NonNull MaterialTextView scannedTag, @NonNull MaterialButton startScanBtn,
-      @NonNull MaterialButton stopScanBtn, @NonNull Toolbar toolbar,
-      @NonNull MaterialButton updateStageBtn) {
+      @NonNull FrameLayout frlContent, @NonNull NavigationView navView,
+      @NonNull SwipeRefreshLayout swipeRefreshLayout, @NonNull MaterialToolbar toolbar) {
     this.rootView = rootView;
     this.drawerLayout = drawerLayout;
-    this.logProcessBtn = logProcessBtn;
+    this.frlContent = frlContent;
     this.navView = navView;
-    this.scanInstructionCard = scanInstructionCard;
-    this.scanResultCard = scanResultCard;
-    this.scannedProduct = scannedProduct;
-    this.scannedStage = scannedStage;
-    this.scannedTag = scannedTag;
-    this.startScanBtn = startScanBtn;
-    this.stopScanBtn = stopScanBtn;
+    this.swipeRefreshLayout = swipeRefreshLayout;
     this.toolbar = toolbar;
-    this.updateStageBtn = updateStageBtn;
   }
 
   @Override
@@ -110,9 +77,9 @@ public final class ActivityScannerBinding implements ViewBinding {
     missingId: {
       DrawerLayout drawerLayout = (DrawerLayout) rootView;
 
-      id = R.id.logProcessBtn;
-      MaterialButton logProcessBtn = ViewBindings.findChildViewById(rootView, id);
-      if (logProcessBtn == null) {
+      id = R.id.frl_content;
+      FrameLayout frlContent = ViewBindings.findChildViewById(rootView, id);
+      if (frlContent == null) {
         break missingId;
       }
 
@@ -122,63 +89,20 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.scanInstructionCard;
-      MaterialCardView scanInstructionCard = ViewBindings.findChildViewById(rootView, id);
-      if (scanInstructionCard == null) {
-        break missingId;
-      }
-
-      id = R.id.scanResultCard;
-      MaterialCardView scanResultCard = ViewBindings.findChildViewById(rootView, id);
-      if (scanResultCard == null) {
-        break missingId;
-      }
-
-      id = R.id.scannedProduct;
-      MaterialTextView scannedProduct = ViewBindings.findChildViewById(rootView, id);
-      if (scannedProduct == null) {
-        break missingId;
-      }
-
-      id = R.id.scannedStage;
-      MaterialTextView scannedStage = ViewBindings.findChildViewById(rootView, id);
-      if (scannedStage == null) {
-        break missingId;
-      }
-
-      id = R.id.scannedTag;
-      MaterialTextView scannedTag = ViewBindings.findChildViewById(rootView, id);
-      if (scannedTag == null) {
-        break missingId;
-      }
-
-      id = R.id.startScanBtn;
-      MaterialButton startScanBtn = ViewBindings.findChildViewById(rootView, id);
-      if (startScanBtn == null) {
-        break missingId;
-      }
-
-      id = R.id.stopScanBtn;
-      MaterialButton stopScanBtn = ViewBindings.findChildViewById(rootView, id);
-      if (stopScanBtn == null) {
+      id = R.id.swipeRefreshLayout;
+      SwipeRefreshLayout swipeRefreshLayout = ViewBindings.findChildViewById(rootView, id);
+      if (swipeRefreshLayout == null) {
         break missingId;
       }
 
       id = R.id.toolbar;
-      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
       if (toolbar == null) {
         break missingId;
       }
 
-      id = R.id.updateStageBtn;
-      MaterialButton updateStageBtn = ViewBindings.findChildViewById(rootView, id);
-      if (updateStageBtn == null) {
-        break missingId;
-      }
-
-      return new ActivityScannerBinding((DrawerLayout) rootView, drawerLayout, logProcessBtn,
-          navView, scanInstructionCard, scanResultCard, scannedProduct, scannedStage, scannedTag,
-          startScanBtn, stopScanBtn, toolbar, updateStageBtn);
+      return new ActivityScannerBinding((DrawerLayout) rootView, drawerLayout, frlContent, navView,
+          swipeRefreshLayout, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

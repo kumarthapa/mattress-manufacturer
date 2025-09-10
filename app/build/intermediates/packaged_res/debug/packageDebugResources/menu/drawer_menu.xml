@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/nav_rfid_scan"
-        android:title="RFID Scan"
+        android:title="Scan RFID Tag"
         android:icon="@drawable/ic_scan" />
 
     <item

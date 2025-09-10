@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -58,7 +58,7 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
   public final LinearLayout stagesTimelineLayout;
 
   @NonNull
-  public final Toolbar toolbar;
+  public final MaterialToolbar toolbar;
 
   private ActivityProductDetailsBinding(@NonNull DrawerLayout rootView,
       @NonNull DrawerLayout drawerLayout, @NonNull MaterialCardView infoCard,
@@ -66,7 +66,7 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
       @NonNull MaterialTextView productName, @NonNull LinearProgressIndicator productProgressBar,
       @NonNull MaterialTextView productProgressText, @NonNull MaterialTextView productRfid,
       @NonNull MaterialTextView productSize, @NonNull MaterialTextView productStatus,
-      @NonNull LinearLayout stagesTimelineLayout, @NonNull Toolbar toolbar) {
+      @NonNull LinearLayout stagesTimelineLayout, @NonNull MaterialToolbar toolbar) {
     this.rootView = rootView;
     this.drawerLayout = drawerLayout;
     this.infoCard = infoCard;
@@ -172,7 +172,7 @@ public final class ActivityProductDetailsBinding implements ViewBinding {
       }
 
       id = R.id.toolbar;
-      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
       if (toolbar == null) {
         break missingId;
       }

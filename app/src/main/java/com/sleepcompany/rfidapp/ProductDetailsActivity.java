@@ -15,7 +15,7 @@ public class ProductDetailsActivity extends BaseDrawerActivity {
 
     public static class Stage {
         String name;
-        String status; // "completed", "in-progress", "pending"
+        String status; // "completed", "in-proMyApp.javagress", "pending"
         String timestamp;
 
         public Stage(String name, String status, String timestamp) {

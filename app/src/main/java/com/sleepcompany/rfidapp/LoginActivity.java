@@ -1,9 +1,12 @@
 package com.sleepcompany.rfidapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -120,7 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                         passwordLayout.setError(loginResponse.getMessage());
                     }
                 } else {
-                    passwordLayout.setError("Login failed: " + response.message());
+                    Log.d(TAG, "Login failed: Login API not responding.");
+                    passwordLayout.setError("Login failed please try again later. " + response.message());
                 }
             }
 

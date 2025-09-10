@@ -18,7 +18,8 @@ public class ApiClient {
     private static Retrofit retrofit = null;
 
     private static final String BASE_URL_PRODUCTION = "https://yourproductionbackend.com/api/";
-    private static final String BASE_URL_DEVELOPMENT = "https://96976ab0d067.ngrok-free.app/api/";
+    private static final String ngrokUrl = " https://2e30fdec3343.ngrok-free.app";
+    private static final String BASE_URL_DEVELOPMENT = ngrokUrl + "/api/";
     private static boolean IS_PRODUCTION = false;
 
     private static final String PREFS_NAME = "app_prefs";

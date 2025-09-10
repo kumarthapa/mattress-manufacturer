@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+                                                                   
+
+    
+                 
+                     
+                                                               
+
+                 
+                           
+                                                                            
+
+           
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" android:tag="layout/fragment_settings_0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#88000000"
+            android:text="@string/powertitle"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/tv_power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/power_value"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/et_power"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tv_power"
+                android:background="@drawable/et"
+                android:tag="binding_1"    />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/et_power"
+                android:text="@string/dbm"
+                android:textColor="#66000000"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/bt_readpower"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/getpower"
+                android:textSize="15dp"
+                android:tag="binding_2"                     />
+
+            <Button
+                android:id="@+id/bt_writepower"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/bt_readpower"
+                android:text="@string/setpower"
+                android:textSize="15dp"
+                android:tag="binding_3"                     />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#66000000"
+            android:text="@string/regiontitle"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/tv_region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/region"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/et_region"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tv_region"
+                android:background="@drawable/et"
+                android:tag="binding_4"     />
+
+            <Button
+                android:id="@+id/bt_getregion"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/getregion"
+                android:textSize="15dp"
+                android:tag="binding_5"                      />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#66000000"
+            android:text="@string/temptitle"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/tv_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/temptitle"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/et_temperature"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tv_temperature"
+                android:background="@drawable/et"
+                android:tag="binding_6"   />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/et_temperature"
+                android:text="@string/c"
+                android:textColor="#66000000"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/bt_gettemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/gettemp"
+                android:textSize="15dp"
+                android:tag="binding_7"                           />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#66000000"
+            android:text="@string/tagtypetitle"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+
+
+            <Spinner
+                android:id="@+id/tagtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/edittext_border"
+                android:focusable="true"
+                android:entries="@array/tagtypeoptions"
+                />
+
+
+
+            <Button
+                android:id="@+id/bt_settagetype"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/settagtype"
+                android:textSize="15dp"
+                android:tag="binding_8"                       />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:background="#66000000"
+            android:gravity="center_vertical"
+            android:tag="binding_9"      
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+         

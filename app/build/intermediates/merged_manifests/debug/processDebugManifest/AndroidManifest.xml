@@ -17,6 +17,7 @@
     <uses-permission android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
+        android:name="com.sleepcompany.rfidapp.MyApp"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -28,7 +29,7 @@
         android:testOnly="true"
         android:theme="@style/Theme.SleepCompanyWeb" >
 
-        <!-- Login Activity as the Launcher -->
+        <!-- Login Activity (Launcher) -->
         <activity
             android:name="com.sleepcompany.rfidapp.LoginActivity"
             android:exported="true" >
@@ -57,7 +58,8 @@
         <!-- RFID Scanner Activity -->
         <activity
             android:name="com.sleepcompany.rfidapp.ScannerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Scanner" />
 
         <!-- Quality Control Activity -->
         <activity

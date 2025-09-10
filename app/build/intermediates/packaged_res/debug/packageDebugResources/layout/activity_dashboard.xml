@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/sc_primary"
+                android:elevation="4dp"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -46,7 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    android:weightSum="2">
 
                     <!-- Total Production Card -->
                     <com.google.android.material.card.MaterialCardView
@@ -131,7 +133,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    android:weightSum="2">
 
                     <!-- Defect Rate Card -->
                     <com.google.android.material.card.MaterialCardView
@@ -211,7 +214,7 @@
 
                 </LinearLayout>
 
-                <!-- Quick Action Buttons -->
+                <!-- Quick Action Buttons (fixed) -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -233,38 +236,66 @@
                             android:textStyle="bold"
                             android:layout_marginBottom="16dp" />
 
+                        <!-- Row of two equally sized buttons -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginBottom="8dp">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnScanRFID"
                                 android:layout_width="0dp"
                                 android:layout_height="48dp"
                                 android:layout_weight="1"
-                                android:layout_margin="4dp"
+                                android:layout_marginEnd="8dp"
                                 android:text="Scan RFID"
-                                app:icon="@drawable/ic_scan" />
+                                android:textAllCaps="false"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                app:icon="@drawable/ic_scan"
+                                app:iconGravity="textStart"
+                                app:iconPadding="8dp"
+                                app:cornerRadius="8dp" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnViewProducts"
                                 android:layout_width="0dp"
                                 android:layout_height="48dp"
                                 android:layout_weight="1"
-                                android:layout_margin="4dp"
+                                android:layout_marginStart="8dp"
                                 android:text="View Products"
-                                app:icon="@drawable/ic_products" />
+                                android:textAllCaps="false"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                app:icon="@drawable/ic_products"
+                                app:iconGravity="textStart"
+                                app:iconPadding="8dp"
+                                app:cornerRadius="8dp" />
 
                         </LinearLayout>
 
+                        <!-- Full-width quick action -->
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnQCCheck"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_margin="4dp"
+                            android:layout_marginTop="4dp"
                             android:text="Quality Control Check"
-                            app:icon="@drawable/ic_quality" />
+                            android:textAllCaps="false"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            app:icon="@drawable/ic_quality"
+                            app:iconGravity="textStart"
+                            app:iconPadding="8dp"
+                            app:cornerRadius="8dp" />
 
                     </LinearLayout>
 

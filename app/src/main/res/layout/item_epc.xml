@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="epc"
+            type="com.seuic.uhf.EPC" />
+
+        <variable
+            name="handler"
+            type="com.sleepcompany.rfidapp.InventoryFragment.HandlerClick" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- EPC -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="@{epc.getId()}"
+            android:id="@+id/tv_epc" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#6000" />
+
+        <!-- Nums -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:id="@+id/tv_nums"
+            android:text="@{String.valueOf(epc.count)}"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#6000" />
+
+        <!-- RSSI -->
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="0.8"-->
+<!--            android:id="@+id/tv_rssi"-->
+<!--            android:text="@{String.valueOf(epc.rssi)}"-->
+<!--            android:gravity="center" />-->
+
+        <Button
+            android:id="@+id/btn_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Map"
+            android:onClick="@{() -> handler.onTagClick(epc.id)}"
+
+            />
+
+        <TextView
+            android:id="@+id/label_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mapped"
+            android:visibility="gone"
+            android:textColor="#FF5722"
+
+            />
+
+
+    </LinearLayout>
+</layout>

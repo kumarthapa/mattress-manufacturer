@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-47:/values-th/values-th.xml",
+            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-50:/values-th/values-th.xml",
             "map": [
                 {
-                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/e9308c2669529d20fca44abcdf164ec4/transformed/navigation-ui-2.7.6/res/values-th/values-th.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,159",
-                        "endColumns": "103,113",
-                        "endOffsets": "154,268"
-                    },
-                    "to": {
-                        "startLines": "111,112",
-                        "startColumns": "4,4",
-                        "startOffsets": "9252,9356",
-                        "endColumns": "103,113",
-                        "endOffsets": "9351,9465"
-                    }
-                },
-                {
-                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/d1ad108f2a55af50dd6975b8c541b703/transformed/material-1.12.0/res/values-th/values-th.xml",
+                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/27299f3df4a83da684c8851318156087/transformed/material-1.12.0/res/values-th/values-th.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -40,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/b147c14bc766654b56b428fe545773e2/transformed/appcompat-1.7.0/res/values-th/values-th.xml",
+                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/f70d15261402aed6a13b8a0808b64859/transformed/appcompat-1.7.0/res/values-th/values-th.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -57,7 +40,24 @@
                     }
                 },
                 {
-                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/270296b9d0825708365a9a6e1686226c/transformed/core-1.13.0/res/values-th/values-th.xml",
+                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/472b310c8a87d499037a93c34bcdf8f6/transformed/navigation-ui-2.8.2/res/values-th/values-th.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,159",
+                        "endColumns": "103,113",
+                        "endOffsets": "154,268"
+                    },
+                    "to": {
+                        "startLines": "111,112",
+                        "startColumns": "4,4",
+                        "startOffsets": "9252,9356",
+                        "endColumns": "103,113",
+                        "endOffsets": "9351,9465"
+                    }
+                },
+                {
+                    "source": "/home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/res/values-th/values-th.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

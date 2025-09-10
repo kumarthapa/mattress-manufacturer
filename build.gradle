@@ -1,14 +1,15 @@
 // Top-level build.gradle
 
 buildscript {
+    ext.kotlin_version = '1.9.23' // Declare the Kotlin version
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        // ✅ Android Gradle Plugin
-        classpath "com.android.tools.build:gradle:8.5.2"
-
+        // ✅ Android Gradle Plugin - Updated to support API 35
+        classpath "com.android.tools.build:gradle:8.7.0"  // Updated from 8.5.2
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
