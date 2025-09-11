@@ -248,18 +248,18 @@ class Users extends Controller
           return response()->json(['success' => false, 'message' => 'Form submission failed']);
         }
 
-        $email_data = [
-          'type' => 'user_registration',
-          'name' => $saveData['fullname'] ?? '',
-          'code' => $saveData['user_code'] ?? '',
-          'user_email' => $saveData['email'] ?? '',
-          'username' => $saveData['username'] ?? '',
-          'password' => $request->input('userPassWord') ?? '',
-          'role_name' => Role::find($saveData['role_id'])->role_name ?? '',
-          'date' => $now->toDateTimeString(),
-          'status' => $saveData['status'] ?? '',
-        ];
-        EmailHelper::sendRegistrationEmail($email_data);
+        // $email_data = [
+        //   'type' => 'user_registration',
+        //   'name' => $saveData['fullname'] ?? '',
+        //   'code' => $saveData['user_code'] ?? '',
+        //   'user_email' => $saveData['email'] ?? '',
+        //   'username' => $saveData['username'] ?? '',
+        //   'password' => $request->input('userPassWord') ?? '',
+        //   'role_name' => Role::find($saveData['role_id'])->role_name ?? '',
+        //   'date' => $now->toDateTimeString(),
+        //   'status' => $saveData['status'] ?? '',
+        // ];
+        // EmailHelper::sendRegistrationEmail($email_data);
       } else {
         $userModel = UsersModel::findOrFail($id);
         $saveData['updated_by'] = $authUser->user_code ?? null;
@@ -317,7 +317,7 @@ class Users extends Controller
         return view('content.common.no-data-found', ['message' => 'User Not Found!']);
       }
 
-      $roles_info = Role::where('user_type', 'employees')->get();
+      $roles_info = Role::all();
 
       $data['roles_info'] = $roles_info ?? null;
       $data['info'] = $info;

@@ -1,15 +1,15 @@
-@extends("layouts/blankLayout")
+@extends('layouts/blankLayout')
 
-@section("title", "")
+@section('title', '')
 
-@section("page-style")
+@section('page-style')
     <!-- Page -->
-    <link rel="stylesheet" href="{{ asset("assets/vendor/css/pages/page-auth.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/css/animate.css") }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset("assets/css/sweetalert2.css") }}"> --}}
 @endsection
 
-@section("content")
+@section('content')
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
@@ -18,23 +18,16 @@
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
-                            <a href="{{ url("/") }}" class="app-brand-link gap-2">
+                            <a href="{{ url('/') }}" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    {{-- @include("_partials.macros", [
-                                    "width" => 25,
-                                    "withbg" => "var(--bs-primary)",
-                                ]) --}}
-                                    @include("_partials.logo")
+                                    @include('_partials.logo')
                                 </span>
-                                {{-- <span class="app-brand-text demo text-body fw-bold">{{ config('company_name') }}</span> --}}
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Welcome to {{ config("company_name") ?? config("variables.templateName") }}!
+                        <h4 class="mb-2">Welcome to {{ config('company_name') ?? config('variables.templateName') }}!
                         </h4>
-                        {{-- <p class="mb-4">Please sign-in to your account and start the adventure</p> --}}
-
-                        <form id="login-form" class="mb-3" action="{{ route("user-login") }}" method="POST">
+                        <form id="login-form" class="mb-3" action="{{ route('user-login') }}" method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Email or Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
@@ -43,7 +36,7 @@
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
-                                    <a href="{{ url("auth/forgot-password-basic") }}">
+                                    <a href="{{ url('auth/forgot-password-basic') }}">
                                         <small>Forgot Password?</small>
                                     </a>
                                 </div>
@@ -73,7 +66,7 @@
                             <div class="mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember-me" name="rememberMe"
-                                        value="1" @if (Session::get("rememberMe")) checked @endif>
+                                        value="1" @if (Session::get('rememberMe')) checked @endif>
                                     <label class="form-check-label" for="remember-me">
                                         Remember Me
                                     </label>
@@ -90,28 +83,15 @@
                             <tbody>
                                 <tr>
                                     <td class="text-truncate">
-                                        <i class='bx bx-sm bxs-truck'></i>
-                                        <span class="text-heading">Driver</span>
-                                    </td>
-                                    <td class="text-truncate">
-                                        <a class="btn btn-primary"
-                                            href="{{ asset("assets/apk/drive/NikkouDriveApp.apk") }}">
-                                            <span>Download</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-truncate">
                                         <i class='bx bx-sm bx-user-pin'></i>
-                                        <span class="text-heading">Employees</span>
+                                        <span class="text-heading">Download RFID APP</span>
                                     </td>
                                     <td class="text-truncate">
-                                        <a class="btn btn-primary" href="{{ asset("assets/apk/app/NikkouApp.apk") }}">
+                                        <a class="btn btn-primary" href="{{ asset('assets/apk/rfidapp/RFIDapp.apk') }}">
                                             <span>Download</span>
                                         </a>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -124,10 +104,9 @@
 
 @endsection
 
-@section("page-scripts")
+@section('page-scripts')
     {{-- <script src="{{ asset("assets/js/sweetalert2.js") }}"></script>
     <script src="{{ asset("assets/js/extended-ui-sweetalert2.js") }}"></script> --}}
-
     <script>
         $(document).ready(function() {
             $(".password-eye").click(() => {

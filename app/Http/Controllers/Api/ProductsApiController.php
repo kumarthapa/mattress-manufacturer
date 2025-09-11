@@ -24,6 +24,7 @@ class ProductsApiController extends Controller
      */
     public function getPlanProducts(Request $request)
     {
+        Log::info("getPlanProducts: ".json_encode($request->all()));
         try {
             // Validate incoming request
             $validator = Validator::make($request->all(), [

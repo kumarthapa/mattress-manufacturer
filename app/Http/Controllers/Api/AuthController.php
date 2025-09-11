@@ -2,348 +2,116 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Helpers\UtilityHelper;
-use App\Http\Controllers\Api\RestController;
-use App\Models\Employees;
-use App\Models\Suppliers\Drivers;
-use App\Models\Suppliers\Suppliers;
+use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\user_management\PasswordResetTokens;
 use App\Models\user_management\Role;
-use App\Services\FCMService;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
-class AuthController extends RestController
+class AuthController extends Controller
 {
+    public function userLogin(Request $request)
+    {
+        // Validate request data
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|alpha_num|max:255',
+            'password' => 'required|string|min:4|max:255',
+        ]);
+        if ($validator->fails()) {
+            Log::info("Login validation failed", ['errors' => $validator->errors()]);
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-  public function __construct() {}
+        $username = $request->input('username');
+        $password = $request->input('password');
 
-  public function userLogin(Request $request)
-  {
-    $post_data = $request->all();
-    $ipAddress = request()->ip();
-    $device =   $request->header('User-Agent');
+        // Find user
+        $user = User::where('username', $username)->first();
 
-    try {
-      $response = [];
-      // $response['ipAddress'] =  $ipAddress;
-      // $response['device'] =  $device;
+        // Validate user existence and password
+        if (!$user || !Hash::check($password, $user->password)) {
+            Log::warning("Login attempt failed", ['username' => $username]);
+            return response()->json([
+                'success' => false,
+                'message' => "Invalid credentials",
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
-      // $response  ['method'] = 'userLogin';
-      // $response['post_data'] = $post_data;
+        // Check if user is active
+        if ($user->status !== 'Active') {
+            Log::info("Inactive user login blocked", ['user_id' => $user->id]);
+            return response()->json([
+                'success' => false,
+                'message' => "User account is not active",
+            ], Response::HTTP_FORBIDDEN);
+        }
 
-      $type = isset($post_data['type']) ? $post_data['type'] : 'app';
-      $username = isset($post_data['username']) ? $post_data['username'] : null;
-      $token = isset($post_data['token']) ? $post_data['token'] : null;
-      $password = isset($post_data['password']) ? $post_data['password'] : null;
-      if (!$username || !$password) {
-        return $this->response([
-          'success' => false,
-          'message' => "Please enter fields"
-        ], RestController::HTTP_BAD_REQUEST);
-      }
-      $user = User::where(['username' => $username])->first();
+        // Create Sanctum personal access token
+        $tokenResult = $user->createToken('api-token');
 
-      if (!$user) {
-        return $this->response([
-          'success' => false,
-          'message' => "Enter Correct Credentials"
-        ], RestController::HTTP_OK);
-      }
+        // Get role information
+        $user_role = Role::select('role_id', 'role_name', 'role_code')->find($user->role_id);
 
-      // ** This condition is to check if users other than 'drivers'/'suppliers' try to login from 'Nikkou Drive' application
-      if ($post_data['type'] == 'app' && $user->user_type != 'employees') {
-        return $this->response([
-          'success' => false,
-          'message' => "This application is for Nikkou organization employees only"
-        ], RestController::HTTP_OK);
-      }
+        // Prepare response data
+        $data = [
+            "user" => [
+                'name'      => $user->fullname,
+                'email'     => $user->email,
+                'user_code' => $user->user_code,
+                'role'      => $user_role,
+                'api_key'   => $user->api_key,
+            ],
+            "permissions" => $user->getUserPermissions(),
+            "token" => $tokenResult->plainTextToken,
+        ];
 
-      // ** This condition is to check if driver/suppliers login from 'Nikkou' application
-      if ($post_data['type'] == 'drive' && !($user->user_type == 'drivers' || $user->user_type == 'suppliers')) {
-        return $this->response([
-          'success' => false,
-          'message' => "This application is for Nikkou organization drivers only"
-        ], RestController::HTTP_OK);
-      }
+        Log::info("User login successful", ['user_id' => $user->id]);
+        Log::info("Sanctum token generated", ['token' => $tokenResult->plainTextToken]);
 
-      if (!password_verify($password, $user->password)) {
-        return $this->response([
-          'success' => false,
-          'message' => "User Password wrong"
-        ], RestController::HTTP_OK);
-      }
-
-      if ($user->status == 'pending') {
-        $response['success'] = false;
-        $response['message'] = "User activation pending";
-        return $this->response($response, RestController::HTTP_OK);
-      } else if ($user->status == 'suspended') {
-        $response['success'] = false;
-        $response['message'] = "User account is suspended";
-        return $this->response($response, RestController::HTTP_OK);
-      }
-
-      // update FCM token in db which is used to send notification
-      $user->fcm_token = $token;
-      // Save the changes
-      $user->save();
-
-      $data = [];
-      $user_role = Role::select('role_id', 'role_name', 'user_type',  'role_code')->where('role_id', $user->role_id)->first();
-      $_user = [
-        'name' => $user->fullname,
-        'email' => $user->email,
-        'user_code' => $user->user_code,
-        // 'user' => $user->user,
-        'user_type' => $user->user_type,
-        'role' => $user_role,
-        'api_key' => $user->api_key
-      ];
-
-      $data["user_type"] = $user->user_type;
-      $data["user"] = $_user;
-      $data['permissions'] = $user->getUserPermissions();
-      switch (strtolower($user->user_type)) {
-        case 'employees':
-          $data['employee'] = Employees::where('employee_code', $user->user_code)
-            ->with('documents')->with('emp_locations')
-            ->with('todaysAttendance')
-            ->first();
-
-          break;
-        case 'supplier':
-          $data['supplier'] = Suppliers::where('supplier_code', $user->user_code)->first();
-          break;
-        case 'driver':
-          $data['driver'] = Drivers::where('driver_code', $user->user_code)->first();
-          break;
-        default:
-          # code...
-          break;
-      }
-
-      $response['success'] = true;
-      $response['data'] = $data;
-      $response['message'] = "User Loggin successfull";
-
-      // password_verify
-      return $this->response($response, RestController::HTTP_OK);
-    } catch (Exception $e) {
-      $response['success'] = true;
-      $response['message'] = "Server Error";
-      $response['error'] = $e->getMessage();
-      return $this->serverError([
-        'message' => "Error while user login",
-        'error' => $e->getMessage()
-      ]);
+        return response()->json([
+            'success' => true,
+            'message' => "Login successful",
+            'data'    => $data,
+        ], Response::HTTP_OK);
     }
-  }
 
-  // public function updateFCMToken(Request $request)
-  // {
-  //   $post_data = $request->post();
-  //   try {
-  //     $response = [];
-  //     // password_verify
-  //     return $this->response($response, RestController::HTTP_OK);
-  //   } catch (Exception $e) {
-  //     Log::error("Exception Error while updateFCMToken : " . $e->getMessage() . "\n File: " . $e->getFile() . "\n Line: " . $e->getLine());
-  //     return $this->serverError([
-  //       'message' => "Error while updating token",
-  //       'error' => $e->getMessage()
-  //     ]);
-  //   }
-  // }
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email|max:255',
+            'newpass'  => 'required|string|min:8|max:255',
+        ]);
+        if ($validator->fails()) {
+            Log::info("Password reset validation failed", ['errors' => $validator->errors()]);
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-  public function verifyEmail(Request $request)
-  {
-    $post_data = $request->all();
-    try {
-      $ipAddress = $request->ip();
-      $device = $request->header('User-Agent');
-      // $location = geoip($ipAddress); // Assuming you have a geoip package installed
-      $timeOfRequest = now();
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            Log::warning("Password reset attempted for non-existent email", ['email' => $request->email]);
+            return response()->json([
+                'success' => false,
+                'message' => "User not found",
+            ], Response::HTTP_NOT_FOUND);
+        }
 
-      $userAgentData = [
-        'ip_address' => $ipAddress,
-        'device' => $device,
-        // 'location' => $location,
-        'time_of_request' => $timeOfRequest,
-      ];
+        $user->password = Hash::make($request->newpass);
+        $user->save();
 
-      // Store the user agent data in the database or log it
-      Log::info('User Agent Data: ', $userAgentData);
-      // return $this->response(['success' => false, 'userAgentData' => $userAgentData], RestController::HTTP_OK);
-
-      $username = $post_data['username'];
-
-      $otp = random_int(1000, 9999);
-      $token = UtilityHelper::generateRandomString(24, 'fwp', true, false, false);
-      // $user = User::where('email', $post_data['email'])->first();
-      $user = User::where('username', $post_data['username'])->first();
-
-      if (!$user) {
-        $response['success'] = false;
-        $response['data'] = null;
-        $response['message'] = "Username not found";
-        return $this->response($response, RestController::HTTP_OK);
-      }
-
-      // return $this->response(['success' => false, 'user' => $user], RestController::HTTP_OK);
-
-      $_data = [
-        "username" => $username,
-        "email" => $user->email,
-        "otp" => $otp,
-        "token" => $token,
-        "expiry_at" => date("Y-m-d H:i:s", strtotime('+1 hour')),
-      ];
-
-      $_added = PasswordResetTokens::insert($_data);
-      if (!$_added) {
-        throw new Exception("Error while sending OTP : 121");
-      }
-      // ** send email to the user
-      $emaildetails = [
-        'email' =>  $user->email,
-        'otp' => $otp,
-        'name' => $user->fullname,
-        'subject' => __('OTP - Nikkou'),
-        'mailclass' => "App\Mail\User\ForgotPwd",
-      ];
-      $emailJob = (new   \App\Jobs\SendEmailJob($emaildetails, $user)); //->delay(Carbon::now()->addMinutes(1));
-      dispatch($emailJob);
-
-
-      $data = ['email' => $user->email, 'token' => $token];
-      $response['success'] = true;
-      $response['data'] = $data;
-      $response['message'] = "OTP Sent Successfully";
-
-
-      return $this->response($response, RestController::HTTP_OK);
-    } catch (Exception $e) {
-      Log::error("Exception Error while verifyEmail : Message" . $e->getMessage() . " File: " . $e->getFile() . " Line: " . $e->getLine());
-
-      return $this->serverError([
-        'message' => "Error while user verify username",
-        'error' => $e->getMessage()
-      ]);
+        Log::info("Password changed successfully", ['user_id' => $user->id]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => "Password changed successfully",
+        ], Response::HTTP_OK);
     }
-  }
-
-  public function verifyOtp(Request $request)
-  {
-    $post_data = $request->all();
-    try {
-      // ['email', $post_data['email']],
-      $password_resets = PasswordResetTokens::where([['token', $post_data['token']]])->orderBy('created_at', 'desc')->first();
-
-      if (!$password_resets) {
-        $response['success'] = false;
-        $response['message'] = "Invalid Token";
-        return $this->response($response, RestController::HTTP_OK);
-      }
-
-      //  if it is more than the present time then the token is valid
-      if (strtotime($password_resets->expiry_at) < strtotime(now())) {
-        $response['success'] = false;
-        $response['message'] = "OTP Expired";
-        return $this->response($response, RestController::HTTP_OK);
-      }
-
-      if ($password_resets->otp == $post_data['otp']) {
-        $response['success'] = true;
-        $response['message'] = "OTP is Correct";
-      } else {
-        $response['success'] = false;
-        $response['message'] = "Incorrect OTP";
-      }
-
-      return $this->response($response, RestController::HTTP_OK);
-    } catch (Exception $e) {
-      Log::error("Exception Error while verifyOtp : Message" . $e->getMessage()  . " File: " . $e->getFile() . " Line: " . $e->getLine());
-
-      return $this->serverError([
-        'messsage' => "Error while user verify otp",
-        'error' => $e->getMessage()
-      ]);
-    }
-  }
-
-  public function resetPassword(Request $request)
-  {
-    $post_data = $request->all();
-
-    try {
-      $user = User::where('email', $post_data['email'])->first();
-
-      if (isset($post_data['newpass']) && $post_data['newpass']) {
-        $user->update(["password" => $post_data['newpass']]);
-        $response['success'] = true;
-        $response['message'] = "Password changed successfully";
-      } else {
-        $response['success'] = false;
-        $response['message'] = "Error occured";
-      }
-      Log::info($response);
-      return $this->response($response, RestController::HTTP_OK);
-    } catch (Exception $e) {
-      Log::error("Exception Error while verifyOtp : Message" . $e->getMessage()  . " File: " . $e->getFile() . " Line: " . $e->getLine());
-
-      return $this->serverError([
-        'messsage' => "Error while user verify otp",
-        'error' => $e->getMessage()
-      ]);
-    }
-  }
-
-  public function testApi(Request $request)
-  {
-    $post_data = $request->all();
-    Log::info("data::" . json_encode($post_data));
-    $response = ['success' => true, 'message' => 'test api', 'post_data' => $post_data];
-    return $this->successResponse($response);
-    // return $this->response($response);
-  }
-
-  public function testNotification(Request $request)
-  {
-    $post_data = $request->all();
-    try {
-      $user = User::where('user_code', $post_data['user_code'])->first();
-      $u_token = $user->fcm_token;
-      $msg = FCMService::sendFCMNotification(
-        $u_token,
-        // 'dhqZT2_DTDCKavvROFKCe1:APA91bGSHArfMP6pYtehm7gooGxKTu0xydXqyTbE0zrEAi_NE-_rS-f1L5k_pAoZu2yVSnacrACCwdpefvq43ikirDNd4vCGKBZC-X8kE9w35MQR4ZBIfII',
-        [
-          'title' => 'Test notification',
-          'body' => 'test body',
-          'data' => [
-            'click_action' => 'FLUTTER_NOTIFICATION_CLICK', // Ensures it opens the app
-            'extra_info' => $data['extra_info'] ?? 'default_value',
-          ],
-        ],
-        'drive'
-      );
-      Log::info("data::" . json_encode($post_data));
-      $response = ['success' => true, 'message' => $msg, 'post_data' => $post_data];
-      // return $this->successResponse($response);
-
-      Log::info($response);
-      return $this->response($response, RestController::HTTP_OK);
-    } catch (Exception $e) {
-      Log::error("Exception Error while testNotification : Message" . $e->getMessage()  . " File: " . $e->getFile() . " Line: " . $e->getLine());
-
-      return $this->serverError([
-        'messsage' => "Error while user verify otp",
-        'error' => $e->getMessage()
-      ]);
-    }
-    // return $this->response($response);
-  }
 }

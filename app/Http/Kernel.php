@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
     ],
 
     'api' => [
-      // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+      \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,  // Enable Sanctum middleware here
       \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
       \Illuminate\Routing\Middleware\SubstituteBindings::class,
       // \App\Http\Middleware\CaptureRequestDetails::class,
@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
     'auth' => \App\Http\Middleware\Authenticate::class,
     'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
     'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+    'auth:sanctum' => \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class, // Add this alias
     'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
     'can' => \Illuminate\Auth\Middleware\Authorize::class,
     'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
@@ -72,6 +73,6 @@ class Kernel extends HttpKernel
     // Other middleware...
     'permission' => \App\Http\Middleware\CheckPermission::class,
     'auth.api' => \App\Http\Middleware\ApiAuthValidate::class,
-
+    // You can add other route middleware aliases here if needed
   ];
 }

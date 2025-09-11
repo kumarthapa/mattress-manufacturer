@@ -1,19 +1,19 @@
 @php
-    $containerNav = $containerNav ?? "container-fluid";
-    $navbarDetached = $navbarDetached ?? "";
+    $containerNav = $containerNav ?? 'container-fluid';
+    $navbarDetached = $navbarDetached ?? '';
     $user = \Auth::user();
     $role_info = \App\Helpers\UtilityHelper::getUserRoleInfo($user->role_id);
-    $setting_permission = App\Helpers\UtilityHelper::CheckModulePermissions("config_settings", "view.config_settings");
+    $setting_permission = App\Helpers\UtilityHelper::CheckModulePermissions('config_settings', 'view.config_settings');
     $punchOutDetails = \App\Helpers\UtilityHelper::isAlreadyPunchOut($user->user_code);
 
 @endphp
 
 <!-- Navbar -->
-@if (isset($navbarDetached) && $navbarDetached == "navbar-detached")
+@if (isset($navbarDetached) && $navbarDetached == 'navbar-detached')
     <nav class="layout-navbar {{ $containerNav }} navbar navbar-expand-xl {{ $navbarDetached }} align-items-center bg-navbar-theme"
         id="layout-navbar">
 @endif
-@if (isset($navbarDetached) && $navbarDetached == "")
+@if (isset($navbarDetached) && $navbarDetached == '')
     <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
         <div class="{{ $containerNav }}">
 @endif
@@ -21,9 +21,9 @@
 <!--  Brand demo (display only for navbar-full and hide on below xl) -->
 @if (isset($navbarFull))
     <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-        <a href="{{ url("/") }}" class="app-brand-link gap-2">
-            <span class="app-brand-logo demo">@include("_partials.macros", ["width" => 25, "withbg" => "var(--bs-primary)"])</span>
-            <span class="app-brand-text demo menu-text fw-bold">{{ config("company_brand_name") }}</span>
+        <a href="{{ url('/') }}" class="app-brand-link gap-2">
+            <span class="app-brand-logo demo">@include('_partials.macros', ['width' => 25, 'withbg' => 'var(--bs-primary)'])</span>
+            <span class="app-brand-text demo menu-text fw-bold">{{ config('company_brand_name') }}</span>
         </a>
     </div>
 @endif
@@ -31,7 +31,7 @@
 <!-- ! Not required for layout-without-menu -->
 @if (!isset($navbarHideToggle))
     <div
-        class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0{{ isset($menuHorizontal) ? " d-xl-none " : "" }} {{ isset($contentNavbar) ? " d-xl-none " : "" }}">
+        class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0{{ isset($menuHorizontal) ? ' d-xl-none ' : '' }} {{ isset($contentNavbar) ? ' d-xl-none ' : '' }}">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
             <i class="bx bx-menu bx-sm"></i>
         </a>
@@ -99,8 +99,8 @@
                             </div> --}}
                             <div class="flex-grow-1">
                                 <span
-                                    class="fw-medium d-block">{{ isset($user->fullname) ? $user->fullname : "" }}</span>
-                                <small class="text-muted">{{ isset($user->username) ? $user->username : "" }}</small>
+                                    class="fw-medium d-block">{{ isset($user->fullname) ? $user->fullname : '' }}</span>
+                                <small class="text-muted">{{ isset($user->username) ? $user->username : '' }}</small>
                             </div>
                         </div>
                     </a>
@@ -109,14 +109,14 @@
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route("profile", ["user_code" => $user->user_code]) }}">
+                    <a class="dropdown-item" href="{{ route('profile', ['user_code' => $user->user_code]) }}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                     </a>
                 </li>
                 @if ($setting_permission)
                     <li>
-                        <a class="dropdown-item" href="{{ route("settings") }}">
+                        <a class="dropdown-item" href="{{ route('settings') }}">
                             <i class='bx bx-cog me-2'></i>
                             <span class="align-middle">Settings</span>
                         </a>
@@ -136,7 +136,7 @@
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <a class="dropdown-item text-danger" href="{{ route("user-logout") }}">
+                    <a class="dropdown-item text-danger" href="{{ route('user-logout') }}">
                         <i class='bx bx-power-off me-2'></i>
                         <span class="align-middle">Log Out</span>
                     </a>
@@ -146,12 +146,12 @@
                     <li>
                         <a class="dropdown-item text-success" href="javascript:;">
                             <span>Already PunchOut :
-                                {{ \App\Helpers\LocaleHelper::formatDateWithTime($punchOutDetails->punch_out_time) ?? "" }}</span>
+                                {{ \App\Helpers\LocaleHelper::formatDateWithTime($punchOutDetails->punch_out_time) ?? '' }}</span>
                         </a>
                     </li>
                 @else
                     <li>
-                        <form action="{{ route("user-punchout-logout") }}" method="GET">
+                        <form action="{{ route('user-punchout-logout') }}" method="GET">
                             <input type="hidden" name="latitude" id="user-punchout-logout-latitude">
                             <input type="hidden" name="longitude" id="user-punchout-logout-longitude">
                             <button type="submit" class="dropdown-item text-danger">
