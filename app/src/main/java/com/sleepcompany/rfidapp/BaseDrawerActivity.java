@@ -1,4 +1,3 @@
-// BaseDrawerActivity.java
 package com.sleepcompany.rfidapp;
 
 import android.content.Intent;
@@ -23,8 +22,6 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     protected Toolbar toolbar;
-
-    // Holds DataBinding reference if used
     protected ViewDataBinding binding;
 
     @Override
@@ -34,19 +31,21 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
         int layoutId = getLayoutResourceId();
         if (layoutId != 0) {
             if (useDataBinding()) {
-                // Use DataBinding
                 binding = DataBindingUtil.setContentView(this, layoutId);
             } else {
-                // Normal setContentView
                 setContentView(layoutId);
             }
         }
 
-        // Initialize drawer components (if they exist in layout)
-        drawerLayout   = findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        toolbar        = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
+        setupToolbarAndDrawer();
+        setupNavigationDrawer();
+    }
+
+    private void setupToolbarAndDrawer() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
 
@@ -65,36 +64,27 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-        // Set toolbar title from child activity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getToolbarTitle());
         }
     }
 
-    /**
-     * Child activities must return their layout resource.
-     * Return 0 if you want to handle layout inflation manually.
-     */
+    protected void setupNavigationDrawer() {
+        // default implementation: nothing extra
+        // child activities can override if needed
+    }
+
     @LayoutRes
     protected abstract int getLayoutResourceId();
 
-    /**
-     * Override this in child activity if you want DataBinding.
-     */
     protected boolean useDataBinding() {
         return false;
     }
 
-    /**
-     * Override to set custom toolbar title in child activities.
-     */
     protected String getToolbarTitle() {
         return getString(R.string.app_name);
     }
 
-    /**
-     * Utility method to navigate to another activity safely.
-     */
     protected void navigateTo(Class<?> activityClass) {
         if (!activityClass.isInstance(this)) {
             Intent intent = new Intent(this, activityClass);
@@ -105,45 +95,38 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Allow child activities to handle custom items first
+        if (handleNavigationItem(item)) return true;
+
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
             navigateTo(DashboardActivity.class);
-
-        } else if (id == R.id.nav_production) {
-            // TODO: Implement ProductionOverviewActivity
-            // navigateTo(ProductionOverviewActivity.class);
-
-        } else if (id == R.id.nav_quality_control) {
-            navigateTo(QcActivity.class);
-
-        } else if (id == R.id.nav_rfid_scan) {
-            navigateTo(ScannerActivity.class);
-
         } else if (id == R.id.nav_products) {
             navigateTo(ProductsActivity.class);
-
+        } else if (id == R.id.nav_quality_control) {
+            navigateTo(QcActivity.class);
+        } else if (id == R.id.nav_rfid_scan) {
+            navigateTo(ScannerActivity.class);
         } else if (id == R.id.nav_defects) {
-            // TODO: Implement DefectTrackingActivity
-            // navigateTo(DefectTrackingActivity.class);
-
+            // TODO: navigateTo(DefectTrackingActivity.class);
         } else if (id == R.id.nav_settings) {
-            // TODO: Implement SettingsActivity
-            // navigateTo(SettingsActivity.class);
-
+            // TODO: navigateTo(SettingsActivity.class);
         } else if (id == R.id.nav_logout) {
             getSharedPreferences("app_prefs", MODE_PRIVATE).edit().clear().apply();
-
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
 
-        if (drawerLayout != null) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
+        if (drawerLayout != null) drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    protected boolean handleNavigationItem(@NonNull MenuItem item) {
+        return false; // default: not handled
     }
 
     @Override

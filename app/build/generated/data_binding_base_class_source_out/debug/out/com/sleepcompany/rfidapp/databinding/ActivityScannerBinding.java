@@ -4,15 +4,18 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.AutoCompleteTextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -23,29 +26,79 @@ public final class ActivityScannerBinding implements ViewBinding {
   private final DrawerLayout rootView;
 
   @NonNull
-  public final DrawerLayout drawerLayout;
+  public final MaterialButton clearBtn;
 
   @NonNull
-  public final FrameLayout frlContent;
+  public final DrawerLayout drawerLayout;
 
   @NonNull
   public final NavigationView navView;
 
   @NonNull
-  public final SwipeRefreshLayout swipeRefreshLayout;
+  public final MaterialCardView scanInstructionCard;
+
+  @NonNull
+  public final CircularProgressIndicator scanProgress;
+
+  @NonNull
+  public final MaterialCardView scanResultCard;
+
+  @NonNull
+  public final MaterialTextView scanStatusText;
+
+  @NonNull
+  public final MaterialTextView scannedProduct;
+
+  @NonNull
+  public final AutoCompleteTextView scannedQcStatus;
+
+  @NonNull
+  public final MaterialTextView scannedSize;
+
+  @NonNull
+  public final AutoCompleteTextView scannedStage;
+
+  @NonNull
+  public final MaterialTextView scannedStatus;
+
+  @NonNull
+  public final MaterialTextView scannedTag;
+
+  @NonNull
+  public final MaterialButton startScanBtn;
 
   @NonNull
   public final MaterialToolbar toolbar;
 
-  private ActivityScannerBinding(@NonNull DrawerLayout rootView, @NonNull DrawerLayout drawerLayout,
-      @NonNull FrameLayout frlContent, @NonNull NavigationView navView,
-      @NonNull SwipeRefreshLayout swipeRefreshLayout, @NonNull MaterialToolbar toolbar) {
+  @NonNull
+  public final MaterialButton updateStageBtn;
+
+  private ActivityScannerBinding(@NonNull DrawerLayout rootView, @NonNull MaterialButton clearBtn,
+      @NonNull DrawerLayout drawerLayout, @NonNull NavigationView navView,
+      @NonNull MaterialCardView scanInstructionCard,
+      @NonNull CircularProgressIndicator scanProgress, @NonNull MaterialCardView scanResultCard,
+      @NonNull MaterialTextView scanStatusText, @NonNull MaterialTextView scannedProduct,
+      @NonNull AutoCompleteTextView scannedQcStatus, @NonNull MaterialTextView scannedSize,
+      @NonNull AutoCompleteTextView scannedStage, @NonNull MaterialTextView scannedStatus,
+      @NonNull MaterialTextView scannedTag, @NonNull MaterialButton startScanBtn,
+      @NonNull MaterialToolbar toolbar, @NonNull MaterialButton updateStageBtn) {
     this.rootView = rootView;
+    this.clearBtn = clearBtn;
     this.drawerLayout = drawerLayout;
-    this.frlContent = frlContent;
     this.navView = navView;
-    this.swipeRefreshLayout = swipeRefreshLayout;
+    this.scanInstructionCard = scanInstructionCard;
+    this.scanProgress = scanProgress;
+    this.scanResultCard = scanResultCard;
+    this.scanStatusText = scanStatusText;
+    this.scannedProduct = scannedProduct;
+    this.scannedQcStatus = scannedQcStatus;
+    this.scannedSize = scannedSize;
+    this.scannedStage = scannedStage;
+    this.scannedStatus = scannedStatus;
+    this.scannedTag = scannedTag;
+    this.startScanBtn = startScanBtn;
     this.toolbar = toolbar;
+    this.updateStageBtn = updateStageBtn;
   }
 
   @Override
@@ -75,13 +128,13 @@ public final class ActivityScannerBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      DrawerLayout drawerLayout = (DrawerLayout) rootView;
-
-      id = R.id.frl_content;
-      FrameLayout frlContent = ViewBindings.findChildViewById(rootView, id);
-      if (frlContent == null) {
+      id = R.id.clearBtn;
+      MaterialButton clearBtn = ViewBindings.findChildViewById(rootView, id);
+      if (clearBtn == null) {
         break missingId;
       }
+
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
 
       id = R.id.nav_view;
       NavigationView navView = ViewBindings.findChildViewById(rootView, id);
@@ -89,9 +142,69 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.swipeRefreshLayout;
-      SwipeRefreshLayout swipeRefreshLayout = ViewBindings.findChildViewById(rootView, id);
-      if (swipeRefreshLayout == null) {
+      id = R.id.scanInstructionCard;
+      MaterialCardView scanInstructionCard = ViewBindings.findChildViewById(rootView, id);
+      if (scanInstructionCard == null) {
+        break missingId;
+      }
+
+      id = R.id.scanProgress;
+      CircularProgressIndicator scanProgress = ViewBindings.findChildViewById(rootView, id);
+      if (scanProgress == null) {
+        break missingId;
+      }
+
+      id = R.id.scanResultCard;
+      MaterialCardView scanResultCard = ViewBindings.findChildViewById(rootView, id);
+      if (scanResultCard == null) {
+        break missingId;
+      }
+
+      id = R.id.scanStatusText;
+      MaterialTextView scanStatusText = ViewBindings.findChildViewById(rootView, id);
+      if (scanStatusText == null) {
+        break missingId;
+      }
+
+      id = R.id.scannedProduct;
+      MaterialTextView scannedProduct = ViewBindings.findChildViewById(rootView, id);
+      if (scannedProduct == null) {
+        break missingId;
+      }
+
+      id = R.id.scannedQcStatus;
+      AutoCompleteTextView scannedQcStatus = ViewBindings.findChildViewById(rootView, id);
+      if (scannedQcStatus == null) {
+        break missingId;
+      }
+
+      id = R.id.scannedSize;
+      MaterialTextView scannedSize = ViewBindings.findChildViewById(rootView, id);
+      if (scannedSize == null) {
+        break missingId;
+      }
+
+      id = R.id.scannedStage;
+      AutoCompleteTextView scannedStage = ViewBindings.findChildViewById(rootView, id);
+      if (scannedStage == null) {
+        break missingId;
+      }
+
+      id = R.id.scannedStatus;
+      MaterialTextView scannedStatus = ViewBindings.findChildViewById(rootView, id);
+      if (scannedStatus == null) {
+        break missingId;
+      }
+
+      id = R.id.scannedTag;
+      MaterialTextView scannedTag = ViewBindings.findChildViewById(rootView, id);
+      if (scannedTag == null) {
+        break missingId;
+      }
+
+      id = R.id.startScanBtn;
+      MaterialButton startScanBtn = ViewBindings.findChildViewById(rootView, id);
+      if (startScanBtn == null) {
         break missingId;
       }
 
@@ -101,8 +214,16 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityScannerBinding((DrawerLayout) rootView, drawerLayout, frlContent, navView,
-          swipeRefreshLayout, toolbar);
+      id = R.id.updateStageBtn;
+      MaterialButton updateStageBtn = ViewBindings.findChildViewById(rootView, id);
+      if (updateStageBtn == null) {
+        break missingId;
+      }
+
+      return new ActivityScannerBinding((DrawerLayout) rootView, clearBtn, drawerLayout, navView,
+          scanInstructionCard, scanProgress, scanResultCard, scanStatusText, scannedProduct,
+          scannedQcStatus, scannedSize, scannedStage, scannedStatus, scannedTag, startScanBtn,
+          toolbar, updateStageBtn);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

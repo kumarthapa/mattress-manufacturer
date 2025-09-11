@@ -1,5 +1,7 @@
 R_DEF: Internal format may change without notice
 local
+array current_stage_options
+array qc_status_options
 array tagtypeoptions
 color amber_600
 color black
@@ -44,6 +46,7 @@ drawable ic_arrow_back
 drawable ic_cancel
 drawable ic_check
 drawable ic_check_circle
+drawable ic_clear
 drawable ic_close
 drawable ic_dashboard
 drawable ic_defects
@@ -88,6 +91,7 @@ id btnQCCheck
 id btnScanRFID
 id btnViewProducts
 id btn_map
+id clearBtn
 id defectCard
 id drawer_layout
 id efficiencyCard
@@ -100,7 +104,6 @@ id et_power
 id et_region
 id et_temperature
 id fabAddProduct
-id frl_content
 id imageView
 id infoCard
 id label_map
@@ -136,13 +139,24 @@ id refreshProducts
 id rejectQCBtn
 id rememberMe
 id satisfactionCard
+id scanInstructionCard
+id scanProgress
+id scanResultCard
+id scanStatusText
+id scannedProduct
+id scannedQcStatus
+id scannedSize
+id scannedStage
+id scannedStatus
+id scannedTag
 id searchInput
 id stageDetails
 id stageName
 id stagesTimelineLayout
+id startScanBtn
 id swipeRefresh
-id swipeRefreshLayout
 id tagtype
+id text1
 id textView
 id toolbar
 id totalProductionCard
@@ -165,6 +179,7 @@ id tv_region
 id tv_temperature
 id tv_total
 id tv_version
+id updateStageBtn
 id usernameInput
 id usernameLayout
 layout activity_dashboard
@@ -179,6 +194,7 @@ layout fragment_settings
 layout item_epc
 layout item_product
 layout item_stage
+layout list_item
 layout loader
 layout nav_header
 menu drawer_menu

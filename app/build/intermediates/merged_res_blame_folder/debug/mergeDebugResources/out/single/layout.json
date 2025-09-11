@@ -28,12 +28,12 @@
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-54:/layout/fragment_settings.xml"
     },
     {
-        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-51:/layout/activity_scanner.xml",
-        "source": "com.sleepcompany.rfidapp-main-54:/layout/activity_scanner.xml"
-    },
-    {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-51:/layout/item_epc.xml",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-54:/layout/item_epc.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-51:/layout/list_item.xml",
+        "source": "com.sleepcompany.rfidapp-main-54:/layout/list_item.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-51:/layout/activity_products.xml",

@@ -85,6 +85,8 @@ animator nav_default_enter_anim
 animator nav_default_exit_anim
 animator nav_default_pop_enter_anim
 animator nav_default_pop_exit_anim
+array current_stage_options
+array qc_status_options
 array tagtypeoptions
 attr SharedValue
 attr SharedValueId
@@ -3096,6 +3098,7 @@ drawable ic_call_decline_low
 drawable ic_cancel
 drawable ic_check
 drawable ic_check_circle
+drawable ic_clear
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_close
@@ -3343,6 +3346,7 @@ id checkbox
 id checked
 id chronometer
 id circle_center
+id clearBtn
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -3439,7 +3443,6 @@ id flip
 id floating
 id forever
 id fragment_container_view_tag
-id frl_content
 id frost
 id fullscreen_header
 id ghost_view
@@ -3655,6 +3658,16 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id scanInstructionCard
+id scanProgress
+id scanResultCard
+id scanStatusText
+id scannedProduct
+id scannedQcStatus
+id scannedSize
+id scannedStage
+id scannedStatus
+id scannedTag
 id screen
 id scroll
 id scrollIndicatorDown
@@ -3709,6 +3722,7 @@ id stagesTimelineLayout
 id standard
 id start
 id startHorizontal
+id startScanBtn
 id startToEnd
 id startVertical
 id staticLayout
@@ -3719,7 +3733,6 @@ id submenuarrow
 id submit_area
 id supportScrollUp
 id swipeRefresh
-id swipeRefreshLayout
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3736,6 +3749,7 @@ id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
 id tagtype
 id text
+id text1
 id text2
 id textEnd
 id textSpacerNoButtons
@@ -3797,6 +3811,7 @@ id unchecked
 id uniform
 id unlabeled
 id up
+id updateStageBtn
 id useLogo
 id usernameInput
 id usernameLayout
@@ -3964,6 +3979,7 @@ layout ime_secondary_split_test_activity
 layout item_epc
 layout item_product
 layout item_stage
+layout list_item
 layout loader
 layout m3_alert_dialog
 layout m3_alert_dialog_actions

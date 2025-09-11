@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.io.IOException;
+
 /**
  * Retrofit API client with AuthInterceptor and logging.
+ * Optimized for speed and memory caching of token.
  */
 public class ApiClient {
 
@@ -18,68 +24,78 @@ public class ApiClient {
     private static Retrofit retrofit = null;
 
     private static final String BASE_URL_PRODUCTION = "https://yourproductionbackend.com/api/";
-    private static final String ngrokUrl = "https://83c2fe06b746.ngrok-free.app";
-    private static final String BASE_URL_DEVELOPMENT = ngrokUrl + "/api/";
+    private static final String NGROK_URL = "https://7b19afb5881a.ngrok-free.app/api/";
     private static boolean IS_PRODUCTION = false;
 
     private static final String PREFS_NAME = "app_prefs";
     private static final String KEY_TOKEN = "auth_token";
 
-    /** Save token to SharedPreferences and reset Retrofit. */
+    // In-memory cache for token to avoid repeated SharedPreferences reads
+    private static String cachedToken = null;
+
+    /** Save token to SharedPreferences and memory cache */
     public static void setToken(Context context, String authToken) {
         if (authToken != null && !authToken.isEmpty()) {
             SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             prefs.edit().putString(KEY_TOKEN, authToken).apply();
+            cachedToken = authToken;
             Log.d(TAG, "Token saved ✅: " + authToken);
-            retrofit = null; // reset Retrofit to include auth header next time
         } else {
             Log.e(TAG, "Token is null or empty, not saved ❌");
         }
     }
 
-
-    /** Get saved token from SharedPreferences. */
+    /** Get token from memory cache or SharedPreferences */
     public static String getToken(Context context) {
+        if (cachedToken != null) return cachedToken;
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(KEY_TOKEN, null);
+        cachedToken = prefs.getString(KEY_TOKEN, null);
+        return cachedToken;
     }
 
-    /** Check if a token exists in SharedPreferences. */
-    public static boolean hasToken(Context context) {
-        return getToken(context) != null && !getToken(context).isEmpty();
-    }
-
-    /** Clear token (logout) and reset Retrofit. */
+    /** Clear token on logout */
     public static void clearToken(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().remove(KEY_TOKEN).apply();
+        cachedToken = null;
         Log.d(TAG, "Token cleared");
-        retrofit = null;
     }
 
-    /** Switch between production and development environments. */
+    /** Switch environment */
     public static void setProduction(boolean isProd) {
         if (IS_PRODUCTION != isProd) {
             IS_PRODUCTION = isProd;
+            retrofit = null; // rebuild Retrofit with new base URL
             Log.d(TAG, "Environment switched. Production: " + IS_PRODUCTION);
-            retrofit = null;
         }
     }
 
-    /** Get Retrofit client instance with AuthInterceptor and logging. */
+    /** Get Retrofit instance */
     public static Retrofit getClient(Context context) {
         if (retrofit == null) {
+            // Logging only in development
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d(TAG, message));
-            logging.setLevel(IS_PRODUCTION
-                    ? HttpLoggingInterceptor.Level.NONE
-                    : HttpLoggingInterceptor.Level.BODY);
+            logging.setLevel(IS_PRODUCTION ? HttpLoggingInterceptor.Level.NONE : HttpLoggingInterceptor.Level.BODY);
+
+            // Auth Interceptor
+            Interceptor authInterceptor = chain -> {
+                Request original = chain.request();
+                Request.Builder requestBuilder = original.newBuilder();
+
+                String token = getToken(context);
+                if (token != null) {
+                    requestBuilder.addHeader("Authorization", "Bearer " + token);
+                }
+
+                return chain.proceed(requestBuilder.build());
+            };
 
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(logging)
-                    .addInterceptor(new AuthInterceptor(context))
+                    .addInterceptor(authInterceptor)
                     .build();
 
-            String baseUrl = IS_PRODUCTION ? BASE_URL_PRODUCTION : BASE_URL_DEVELOPMENT;
+            String baseUrl = IS_PRODUCTION ? BASE_URL_PRODUCTION : NGROK_URL;
             Log.d(TAG, "Building Retrofit with baseUrl: " + baseUrl);
 
             retrofit = new Retrofit.Builder()

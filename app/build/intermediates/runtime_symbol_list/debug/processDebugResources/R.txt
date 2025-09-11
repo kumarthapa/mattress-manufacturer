@@ -84,6 +84,8 @@ int animator nav_default_enter_anim 0x7f020022
 int animator nav_default_exit_anim 0x7f020023
 int animator nav_default_pop_enter_anim 0x7f020024
 int animator nav_default_pop_exit_anim 0x7f020025
+int array current_stage_options 0x7f030001
+int array qc_status_options 0x7f030002
 int array tagtypeoptions 0x7f030000
 int attr SharedValue 0x7f040000
 int attr SharedValueId 0x7f040001
@@ -3095,6 +3097,7 @@ int drawable ic_call_decline_low 0x7f080096
 int drawable ic_cancel 0x7f080097
 int drawable ic_check 0x7f080098
 int drawable ic_check_circle 0x7f080099
+int drawable ic_clear 0x7f08010d
 int drawable ic_clear_black_24 0x7f08009a
 int drawable ic_clock_black_24dp 0x7f08009b
 int drawable ic_close 0x7f08009c
@@ -3342,6 +3345,7 @@ int id checkbox 0x7f090081
 int id checked 0x7f090082
 int id chronometer 0x7f090083
 int id circle_center 0x7f090084
+int id clearBtn 0x7f09026c
 int id clear_text 0x7f090085
 int id clip_horizontal 0x7f090086
 int id clip_vertical 0x7f090087
@@ -3438,7 +3442,6 @@ int id flip 0x7f0900e1
 int id floating 0x7f0900e2
 int id forever 0x7f0900e3
 int id fragment_container_view_tag 0x7f0900e4
-int id frl_content 0x7f0900e5
 int id frost 0x7f0900e6
 int id fullscreen_header 0x7f0900e7
 int id ghost_view 0x7f0900e8
@@ -3654,6 +3657,16 @@ int id save_non_transition_alpha 0x7f0901b9
 int id save_overlay_view 0x7f0901ba
 int id sawtooth 0x7f0901bb
 int id scale 0x7f0901bc
+int id scanInstructionCard 0x7f090263
+int id scanProgress 0x7f090264
+int id scanResultCard 0x7f090265
+int id scanStatusText 0x7f090266
+int id scannedProduct 0x7f090267
+int id scannedQcStatus 0x7f09026f
+int id scannedSize 0x7f09026e
+int id scannedStage 0x7f090268
+int id scannedStatus 0x7f090270
+int id scannedTag 0x7f090269
 int id screen 0x7f0901bd
 int id scroll 0x7f0901be
 int id scrollIndicatorDown 0x7f0901bf
@@ -3708,6 +3721,7 @@ int id stagesTimelineLayout 0x7f0901ef
 int id standard 0x7f0901f0
 int id start 0x7f0901f1
 int id startHorizontal 0x7f0901f2
+int id startScanBtn 0x7f09026a
 int id startToEnd 0x7f0901f3
 int id startVertical 0x7f0901f4
 int id staticLayout 0x7f0901f5
@@ -3718,7 +3732,6 @@ int id submenuarrow 0x7f0901f9
 int id submit_area 0x7f0901fa
 int id supportScrollUp 0x7f0901fb
 int id swipeRefresh 0x7f0901fc
-int id swipeRefreshLayout 0x7f090261
 int id tabMode 0x7f0901fe
 int id tag_accessibility_actions 0x7f0901ff
 int id tag_accessibility_clickable_spans 0x7f090200
@@ -3735,6 +3748,7 @@ int id tag_unhandled_key_listeners 0x7f09020a
 int id tag_window_insets_animation_callback 0x7f09020b
 int id tagtype 0x7f09020c
 int id text 0x7f09020d
+int id text1 0x7f090271
 int id text2 0x7f09020e
 int id textEnd 0x7f09020f
 int id textSpacerNoButtons 0x7f090210
@@ -3796,6 +3810,7 @@ int id unchecked 0x7f090247
 int id uniform 0x7f090248
 int id unlabeled 0x7f090249
 int id up 0x7f09024a
+int id updateStageBtn 0x7f09026b
 int id useLogo 0x7f09024b
 int id usernameInput 0x7f09024c
 int id usernameLayout 0x7f09024d
@@ -3963,6 +3978,7 @@ int layout ime_secondary_split_test_activity 0x7f0c0036
 int layout item_epc 0x7f0c0037
 int layout item_product 0x7f0c0038
 int layout item_stage 0x7f0c0039
+int layout list_item 0x7f0c0079
 int layout loader 0x7f0c003a
 int layout m3_alert_dialog 0x7f0c003b
 int layout m3_alert_dialog_actions 0x7f0c003c

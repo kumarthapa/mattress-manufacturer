@@ -79,4 +79,22 @@
 
     <string name="map">Map</string>
     <string name="mapped">Mapped</string>
+    <string-array name="current_stage_options">
+        <item>Bonding</item>
+        <item>Tapedge</item>
+        <item>Zip Cover</item>
+        <item>QC</item>
+        <item>Packing</item>
+        <item>Ready for Shipment</item>
+        <item>Shipped</item>
+        <item>Returned</item>
+        <item>Cancelled</item>
+    </string-array>
+
+    <string-array name="qc_status_options">
+        <item>PENDING</item>
+        <item>PASS</item>
+        <item>FAILED</item>
+    </string-array>
+
 </resources>
