@@ -44,8 +44,6 @@ class Users extends Controller
       array('actions' => 'Actions'),
     ];
     $data = [];
-    $userTypes = UtilityHelper::getUserTypes();
-    $userTypes = array_merge(['all' => 'ALL'], $userTypes);
     $usersOverview = $this->users->getUserOverview();
     $users_info = UsersModel::select('*')->get();
     $roles_info = Role::select('*')->get();
@@ -63,7 +61,6 @@ class Users extends Controller
       ->with('users_info', $users_info)
       ->with('createPermissions', $createPermissions)
       ->with('usersOverview', $usersOverview)
-      ->with('userTypes', $userTypes)
       ->with('roles_info', $roles_info);
   }
 

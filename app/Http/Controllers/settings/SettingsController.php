@@ -30,27 +30,39 @@ class SettingsController extends Controller
   {
     $this->roles = new Role;
   }
-  public function index(Request $request)
-  {
-    $data = [];
-    $data['module_name_array'] = LocaleHelper::getModuleNames();
-    $docs = [];
-    $company_code = UtilityHelper::get_company_code();
-
-    if (isset($docs_info) && count($docs_info)) {
-      $docs = UtilityHelper::loadDocumentsPath($docs_info, 'company_docs/'); // Get uploaded documents path from cloude
-      $data['view_company_docs'] = $docs;
+public function index(Request $request)
+{
+    // ---------------- Product Process Stages ----------------
+    $product_process_stages = [];
+    $config = UtilityHelper::getConfig('product_process_stages');
+    if (!empty($config->value)) {
+        $product_process_stages = json_decode($config->value, true);
     }
-    $data['company_code'] = $company_code;
+
+    // ---------------- Product Status ----------------
+    $product_status = [];
+    $config_status = UtilityHelper::getConfig('product_status');
+    if (!empty($config_status->value)) {
+        $product_status = json_decode($config_status->value, true);
+    }
+
+    // ---------------- Pass to view ----------------
+    $data = [];
+    $data['product_process_stages'] = $product_process_stages;
+    $data['product_status'] = $product_status;
+    $data['module_name_array'] = LocaleHelper::getModuleNames();
+    $data['company_code'] = UtilityHelper::get_company_code();
     $data['UtilityHelper'] = new UtilityHelper;
 
     return view('content.settings.list', $data);
-  }
+}
+
 
   public function save(Request $request)
   {
     $post_data = $request->all();
     $submit_form_name = $request->post('submit_form_name');
+
     $user_id = UtilityHelper::getLoginUserInfo()->id;
     $config_data = [];
     switch ($submit_form_name) {
@@ -67,6 +79,17 @@ class SettingsController extends Controller
         $config_data = $result['form_data'];
         break;
 
+        case 'save_product_process_stages':
+        $result = $this->save_product_process_stages($request);
+        if (!$result['success']) return response()->json(['success' => FALSE, 'message' => $result['error_msg']]);
+        $config_data = $result['form_data'];
+        break;
+
+        case 'save_product_status':
+        $result = $this->save_product_status($request);
+        if (!$result['success']) return response()->json(['success' => FALSE, 'message' => $result['error_msg']]);
+        $config_data = $result['form_data'];
+        break;
 
       case 'save_api_integration_details':
         $result = $this->save_api_integration_details($request);
@@ -90,6 +113,10 @@ class SettingsController extends Controller
     try {
       $success = false;
       if ($config_data) {
+        // Insert or update each config setting
+        // Using updateOrInsert to avoid duplicates based on 'key' and 'name'
+        Log::info("config_data :" . json_encode($config_data));
+        
         foreach ($config_data as $data) {
           Configsetting::updateOrInsert(
             ['key' => $data['key'], 'name' => $data['name']], // where clause for update
@@ -339,7 +366,87 @@ class SettingsController extends Controller
     }
     return $response;
   }
+public function save_product_process_stages($request)
+  {
+    $user_id = UtilityHelper::getLoginUserInfo()->id;
+    $post_data = [];
+    $post_data = $request->all();
+    $response = [];
+    $form_data = [];
+    unset($post_data['_token']);
+    unset($post_data['submit_form_name']);
+    if (isset($post_data) && $post_data) {
+      $setting_key = $post_data['setting_key'];
+      $setting_key_name = $post_data['setting_key_name'];
+      $post_values = [];
 
+      if (isset($post_data['product_process_stages']) && $post_data['product_process_stages']) {
+        foreach ($post_data['product_process_stages'] as $_key => $_value) {
+          $post_values[] = [
+            'name' =>  $_value['name'],
+            'value' => $_value['value'],
+          ];
+
+        }
+      }
+      $form_data[] = [
+        'key' => $setting_key,
+        'name' =>  $setting_key_name,
+        'value' => json_encode($post_values),
+        'user_id' => $user_id
+      ];
+      // print_r($form_data);
+      // exit;
+      $response['form_data'] = $form_data;
+      $response['success'] = true;
+      return $response;
+    } else {
+      // If the fields is empty
+      $response['success'] = false;
+      $response['error_msg'] = 'Save Failed! Something went wrong.';
+      return $response;
+    }
+  }
+public function save_product_status($request)
+{
+    $user_id = UtilityHelper::getLoginUserInfo()->id;
+    $post_data = $request->all();
+    $response = [];
+    $form_data = [];
+
+    unset($post_data['_token']);
+    unset($post_data['submit_form_name']);
+
+    if (!empty($post_data)) {
+        $setting_key = $post_data['setting_key']; // expected: 'product_status'
+        $setting_key_name = $post_data['setting_key_name']; // expected: 'Product Status'
+        $post_values = [];
+
+        if (!empty($post_data['product_status'])) {
+            foreach ($post_data['product_status'] as $_key => $_value) {
+                $post_values[] = [
+                    'name'  => $_value['name'],
+                    'value' => $_value['value'],
+                ];
+            }
+        }
+
+        $form_data[] = [
+            'key'     => $setting_key,
+            'name'    => $setting_key_name,
+            'value'   => json_encode($post_values),
+            'user_id' => $user_id,
+        ];
+
+        $response['form_data'] = $form_data;
+        $response['success'] = true;
+        return $response;
+    } else {
+        $response['success'] = false;
+        $response['error_msg'] = 'Save Failed! Something went wrong.';
+        return $response;
+    }
+}
 
   public function save_designation_details($request)
   {
@@ -368,8 +475,6 @@ class SettingsController extends Controller
         'value' => json_encode($vehicle_values),
         'user_id' => $user_id
       ];
-      // print_r($form_data);
-      // exit;
       $response['form_data'] = $form_data;
       $response['success'] = true;
       return $response;
@@ -400,6 +505,8 @@ class SettingsController extends Controller
         'user_id' => $user_id
       ];
     }
+          print_r($form_data);
+      exit;
     $response['form_data'] = $form_data;
     $response['success'] = true;
     return $response;

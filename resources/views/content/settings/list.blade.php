@@ -1,13 +1,13 @@
-@extends("layouts/contentNavbarLayout")
+@extends('layouts/contentNavbarLayout')
 
-@section("title", " Settings - View")
-@section("page-style")
-    <link rel="stylesheet" href="{{ asset("assets/css/fileinput.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/css/lightbox.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/css/datatables.bootstrap5.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/vendor/libs/flatpickr/flatpickr.css") }}">
+@section('title', ' Settings - View')
+@section('page-style')
+    <link rel="stylesheet" href="{{ asset('assets/css/fileinput.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/datatables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}">
 @endsection
-@section("content")
+@section('content')
     <h4 class="mb-4 py-3">
         <span class="text-muted fw-light">Config Setting/</span>
         Management
@@ -25,7 +25,13 @@
                                         <i class='bx bxs-buildings'></i></span>
                                     Company Profile</a>
                             </li>
-
+                            <li class="nav-item py-1">
+                                <a class="nav-link" id="productsetting_link" role="tab" data-bs-toggle="tab"
+                                    href="#productsetting">
+                                    <span class="px-1 text-lg">
+                                        <i class='bx bx-spreadsheet'></i></span>
+                                    Product Setting</a>
+                            </li>
 
                             <li class="nav-item py-1">
                                 <a class="nav-link" id="designation_link" role="tab" data-bs-toggle="tab"
@@ -34,6 +40,8 @@
                                         <i class='bx bxs-user-rectangle'></i></span>
                                     Designation</a>
                             </li>
+
+
 
                             <li class="nav-item py-1">
                                 <a class="nav-link" id="email_configuration_link" role="tab" data-bs-toggle="tab"
@@ -54,16 +62,22 @@
             <div class="tab-content px-0 pt-0">
 
                 <div class="tab-pane fade show active" id="company_profile">
-                    @include("content.settings.tabs.company_profile")
+                    @include('content.settings.tabs.company_profile')
+                </div>
+
+                {{-- Product Setting --}}
+                <div class="tab-pane fade" id="productsetting">
+                    @include('content.settings.tabs.product_setting')
                 </div>
 
                 {{-- Designation --}}
                 <div class="tab-pane fade" id="designation">
-                    @include("content.settings.tabs.designation")
+                    @include('content.settings.tabs.designation')
                 </div>
 
+
                 <div class="tab-pane fade" id="email_configuration">
-                    @include("content.settings.tabs.email_config")
+                    @include('content.settings.tabs.email_config')
                 </div>
 
             </div>
@@ -71,14 +85,14 @@
     </div>
 @endsection
 
-@section("page-script")
-    @include("content.settings.scripts")
-    @include("content.settings.modal.uploadCompanyLogo")
-    <script src="{{ asset("assets/js/fileinput.min.js") }}"></script>
-    <script src="{{ asset("assets/js/tab-hash.js") }}"></script>
-    <script src="{{ asset("assets/js/jquery-repeater.js") }}"></script>
-    <script src="{{ asset("assets/js/lightbox.min.js") }}"></script>
-    <script src="{{ asset("assets/vendor/libs/flatpickr/flatpickr.js") }}"></script>
+@section('page-script')
+    @include('content.settings.scripts')
+    @include('content.settings.modal.uploadCompanyLogo')
+    <script src="{{ asset('assets/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('assets/js/tab-hash.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-repeater.js') }}"></script>
+    <script src="{{ asset('assets/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
     <script>
         $(document).ready(function() {
             // Settings Globel form submit Ajax ------ Start -----------------
@@ -96,7 +110,7 @@
                             // AJAX submission if validation passes
                             $.ajax({
                                 type: 'POST',
-                                url: "{{ route("settings.save") }}",
+                                url: "{{ route('settings.save') }}",
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 },

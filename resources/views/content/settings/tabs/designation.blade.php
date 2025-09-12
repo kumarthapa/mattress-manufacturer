@@ -4,7 +4,7 @@
 @endphp
 {{-- ------------------------------------------------------ Designation ------------------------------------------------------------- --}}
 <div class="card mb-3">
-    <h4 class="card-header"><span><i class='bx bxs-user-rectangle'></i></span>Designation Settings</h4>
+    <h4 class="card-header"><span><i class='bx bxs-user-rectangle'></i></span>Designation Setting</h4>
     <div class="card-body">
 
         <div class="py-2">
@@ -46,8 +46,7 @@
                                             name="designation_details_fields[{{ $key }}][name]">
                                     </td>
                                     <td class="text-nowrap">
-                                        <input type="text"
-                                            class="form-control bg-label-primary designation_keyname"
+                                        <input type="text" class="form-control bg-label-primary designation_keyname"
                                             value="{{ $values['value'] }}"
                                             name="designation_details_fields[{{ $key }}][value]">
                                     </td>

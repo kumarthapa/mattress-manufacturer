@@ -330,4 +330,27 @@ class LocaleHelper
             'total_failed' => $totalFailed
         ];
     }
+public static function getProductStageAndStatus()
+{
+    $data = [];
+
+    // Hardcoded keys
+    $status_key = 'product_status';
+    $stages_key = 'product_process_stages';
+
+    // Fetch and decode product status
+    $status_config = UtilityHelper::getConfig($status_key);
+    $data['product_status'] = ($status_config && !empty($status_config->value))
+        ? json_decode($status_config->value, true)
+        : [];
+
+    // Fetch and decode product process stages
+    $stages_config = UtilityHelper::getConfig($stages_key);
+    $data['product_process_stages'] = ($stages_config && !empty($stages_config->value))
+        ? json_decode($stages_config->value, true)
+        : [];
+
+    return $data;
+}
+
 }

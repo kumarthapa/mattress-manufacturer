@@ -113,53 +113,14 @@
                 let type = $("#password").attr('type');
                 $("#password").attr('type', type == 'password' ? 'text' : 'password');
             })
-            let geo_position;
-            // Corrected function name: getUser GeoLocation
-            function getUserGeoLocation() {
-                return new Promise((resolve, reject) => {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                            (position) => {
-                                resolve({
-                                    latitude: position.coords.latitude,
-                                    longitude: position.coords.longitude,
-                                });
-                            },
-                            (error) => {
-                                reject(error);
-                            }
-                        );
-                    } else {
-                        reject(new Error("Geolocation is not supported by this browser."));
-                    }
-                });
-            }
 
-            function getLocation() {
-                getUserGeoLocation().then((result) => {
-                    console.log("result: ", result);
-                    geo_position = result;
-                }).catch((err) => {
-                    console.error("error getUserGeoLocation:", err);
-                });
-            }
-            getLocation();
+
             $("#login-form").on('submit', function(event) {
                 event.preventDefault();
-                // Check if geo_position is available
-                if (!geo_position) {
-                    alert("Please enable location access");
-                    getLocation();
-                    return;
-                }
                 $("#message_alert_div").addClass('d-none');
                 $("#login-failed-message").html('');
-
                 // Create a FormData object to hold the form data and additional data
                 let formData = new FormData(this);
-                formData.append('latitude', geo_position.latitude);
-                formData.append('longitude', geo_position.longitude);
-
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',

@@ -82,6 +82,7 @@ class ProductsApiController extends Controller
                     'product_name' => $product->product_name,
                     'sku' => $product->sku,
                     'size' => $product->size,
+                    'tag_id' => $product->rfid_tag,
                     'quantity' => $product->quantity,
                     'qc_status' => $product->qc_status,
                     'created_at' => $product->created_at->toDateTimeString(),
@@ -108,6 +109,27 @@ class ProductsApiController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to fetch products',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    // Fetch product stages
+    public function getProductStages(Request $request)
+    {
+        Log::info("getProductStages: ".json_encode($request->all()));
+        try {
+            $stages = $this->products->getProductStages();
+            return response()->json([
+                'success' => true,
+                'message' => 'Product stages fetched successfully',
+                'data' => $stages,
+            ]);
+        } catch (Exception $e) {
+            Log::error("Error fetching product stages: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch product stages',
                 'error' => $e->getMessage(),
             ], 500);
         }

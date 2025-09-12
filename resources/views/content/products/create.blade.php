@@ -1,8 +1,8 @@
-@extends("layouts/contentNavbarLayout")
+@extends('layouts/contentNavbarLayout')
 
-@section("title", "Create Product")
+@section('title', 'Create Product')
 
-@section("content")
+@section('content')
     <div class="row">
         <div class="col-md-12 col-12">
             <div class="card">
@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route("products.save") }}" id="product-create-form"
+                    <form method="POST" action="{{ route('products.save') }}" id="product-create-form"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -26,9 +26,9 @@
                                     <label for="product_name" class="form-label">Product Name <span
                                             class="text-danger">*</span></label>
                                     <input type="text" id="product_name" name="product_name"
-                                        class="form-control @error("product_name") is-invalid @enderror" required
-                                        value="{{ old("product_name") }}">
-                                    @error("product_name")
+                                        class="form-control @error('product_name') is-invalid @enderror" required
+                                        value="{{ old('product_name') }}">
+                                    @error('product_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -39,9 +39,9 @@
                                 <div class="mb-3">
                                     <label for="sku" class="form-label">SKU <span class="text-danger">*</span></label>
                                     <input type="text" id="sku" name="sku"
-                                        class="form-control @error("sku") is-invalid @enderror" required
-                                        value="{{ old("sku") }}">
-                                    @error("sku")
+                                        class="form-control @error('sku') is-invalid @enderror" required
+                                        value="{{ old('sku') }}">
+                                    @error('sku')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -52,7 +52,7 @@
                                 <div class="mb-3">
                                     <label for="reference_code" class="form-label">Reference Code</label>
                                     <input type="text" id="reference_code" name="reference_code" class="form-control"
-                                        value="{{ old("reference_code") }}">
+                                        value="{{ old('reference_code') }}">
                                 </div>
                             </div>
 
@@ -61,9 +61,9 @@
                                 <div class="mb-3">
                                     <label for="size" class="form-label">Size <span class="text-danger">*</span></label>
                                     <input type="text" id="size" name="size"
-                                        class="form-control @error("size") is-invalid @enderror" required
-                                        value="{{ old("size") }}">
-                                    @error("size")
+                                        class="form-control @error('size') is-invalid @enderror" required
+                                        value="{{ old('size') }}">
+                                    @error('size')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -75,7 +75,7 @@
                                 <div class="mb-3">
                                     <label for="quantity" class="form-label">Quantity</label>
                                     <input type="number" id="quantity" name="quantity" min="0" class="form-control"
-                                        value="{{ old("quantity", 0) }}">
+                                        value="{{ old('quantity', 0) }}">
                                 </div>
                             </div>
 
@@ -87,9 +87,9 @@
                                     <div class="row">
                                         <div class="col-md-8 col-12">
                                             <input type="text" id="rfid_tag" name="rfid_tag"
-                                                class="form-control @error("rfid_tag") is-invalid @enderror" required
-                                                value="{{ old("rfid_tag") }}">
-                                            @error("rfid_tag")
+                                                class="form-control @error('rfid_tag') is-invalid @enderror" required
+                                                value="{{ old('rfid_tag') }}">
+                                            @error('rfid_tag')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -131,7 +131,7 @@
     </div>
 @endsection
 
-@section("page-script")
+@section('page-script')
     <script>
         $(document).ready(function() {
             // Setup jQuery validation for product form
@@ -203,7 +203,7 @@
                                 setTimeout(function() {
                                     // Redirect or reload page
                                     window.location.href = response.return_url ||
-                                        "{{ route("products") }}";
+                                        "{{ route('products') }}";
                                 }, 1500);
                             } else {
                                 $("#submit-button").attr('disabled', false).html(
@@ -234,7 +234,7 @@
             let sku = $('#sku').val().trim();
             let size = $('#size').val().trim();
             if (!productName || !sku || !size) {
-                toastr.error('Please enter Product Name, SKU and Size before generating RFID tag');
+                toastr.warning('Please enter Product Name, SKU and Size before generating RFID tag');
                 return;
             }
             // Simple random tag generation logic (can be customized as needed)

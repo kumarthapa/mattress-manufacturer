@@ -1,11 +1,8 @@
-@extends("layouts/contentNavbarLayout")
-@section("title", " Role and Permission - Form")
-@section("page-style")
+@extends('layouts/contentNavbarLayout')
+@section('title', ' Role and Permission - Form')
+@section('page-style')
 @endsection
-@section("content")
-    @php
-        $userTypes = App\Helpers\UtilityHelper::getUserTypes();
-    @endphp
+@section('content')
 
     <div class="row mx-0">
         <div class="card">
@@ -19,7 +16,7 @@
 
 
                         <div class="mb-4 text-center">
-                            <h3 class="role-title">{{ $role_id ? "Update Role" : "Add New Role" }}</h3>
+                            <h3 class="role-title">{{ $role_id ? 'Update Role' : 'Add New Role' }}</h3>
                             <p>Set role permissions</p>
                         </div>
                         <!-- Add role form -->
@@ -27,7 +24,7 @@
                             <h4 for="RoleName">Enter Role Name</h4>
                             <input type="text" id="RoleName" name="RoleName" class="form-control"
                                 placeholder="Enter a role name" tabindex="-1"
-                                value="{{ isset($role_name) ? $role_name : "" }}">
+                                value="{{ isset($role_name) ? $role_name : '' }}">
                             <div
                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                             </div>
@@ -79,7 +76,7 @@
                                                             <input class="form-check-input all_permissions" type="checkbox"
                                                                 value="all">
                                                             <label class="form-check-label" for="all_permission">
-                                                                @lang("modules." . $module_id)
+                                                                @lang('modules.' . $module_id)
                                                             </label>
                                                         </div>
                                                     </td>
@@ -89,7 +86,7 @@
                                                                 @foreach ($permission as $permission_id => $permission_name)
                                                                     <div class="col-6 col-md-3 form-check mb-1">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            @if ($module_id == "roles" && $permission_id == "create.roles") onclick="return false" @endif
+                                                                            @if ($module_id == 'roles' && $permission_id == 'create.roles') onclick="return false" @endif
                                                                             name="{{ $module_id }}[]"
                                                                             value="{{ $permission_id }}"
                                                                             @if (isset($grants_permission[$module_id][$permission_id]) &&
@@ -131,8 +128,8 @@
 
     </div> {{-- // row end --}}
 @endsection
-@section("page-script")
-    @include("content.modals.addPermission")
+@section('page-script')
+    @include('content.modals.addPermission')
     <script>
         $(document).ready(function() {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -146,11 +143,11 @@
                         if (!form.checkValidity()) {
                             event.stopPropagation();
                         } else {
-                            let role_id = "{{ isset($role_id) ? $role_id : "" }}";
+                            let role_id = "{{ isset($role_id) ? $role_id : '' }}";
                             // AJAX submission if validation passes
                             $.ajax({
                                 type: 'POST',
-                                url: "{{ route("roles.save") }}" + '/' +
+                                url: "{{ route('roles.save') }}" + '/' +
                                     role_id, // Replace 'submit.form' with your actual route name
                                 data: $(form).serialize(),
                                 success: function(response) {
@@ -158,7 +155,7 @@
 
                                     if (response.success) {
                                         toastr.success(response.message);
-                                        window.location.href = "{{ route("roles") }}";
+                                        window.location.href = "{{ route('roles') }}";
                                     } else {
                                         toastr.error(response.message);
                                     }

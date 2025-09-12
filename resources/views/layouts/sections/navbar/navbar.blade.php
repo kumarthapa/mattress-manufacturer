@@ -4,8 +4,6 @@
     $user = \Auth::user();
     $role_info = \App\Helpers\UtilityHelper::getUserRoleInfo($user->role_id);
     $setting_permission = App\Helpers\UtilityHelper::CheckModulePermissions('config_settings', 'view.config_settings');
-    $punchOutDetails = \App\Helpers\UtilityHelper::isAlreadyPunchOut($user->user_code);
-
 @endphp
 
 <!-- Navbar -->
@@ -141,26 +139,6 @@
                         <span class="align-middle">Log Out</span>
                     </a>
                 </li>
-
-                @if (isset($punchOutDetails) && $punchOutDetails->count() > 0 && isset($punchOutDetails->punch_out_time))
-                    <li>
-                        <a class="dropdown-item text-success" href="javascript:;">
-                            <span>Already PunchOut :
-                                {{ \App\Helpers\LocaleHelper::formatDateWithTime($punchOutDetails->punch_out_time) ?? '' }}</span>
-                        </a>
-                    </li>
-                @else
-                    <li>
-                        <form action="{{ route('user-punchout-logout') }}" method="GET">
-                            <input type="hidden" name="latitude" id="user-punchout-logout-latitude">
-                            <input type="hidden" name="longitude" id="user-punchout-logout-longitude">
-                            <button type="submit" class="dropdown-item text-danger">
-                                <i class='bx bxs-hand-up'></i>
-                                <span>Punch Out And Logout</span>
-                            </button>
-                        </form>
-                    </li>
-                @endif
             </ul>
         </li>
         <!--/ User -->

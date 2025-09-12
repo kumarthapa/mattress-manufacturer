@@ -149,9 +149,14 @@ public function updateProductStage(Request $request)
             'message' => 'Product stage updated successfully',
             'product' => [
                 'id' => $product->id,
-                'rfid_tag' => $product->rfid_tag,
-                'current_stage' => $product->current_stage,
+                'product_name' => $product->product_name,
+                'sku' => $product->sku,
+                'size' => $product->size,
+                'tag_id' => $product->rfid_tag,
+                'quantity' => $product->quantity,
                 'qc_status' => $product->qc_status,
+                'current_stage' => $product->current_stage,
+                'created_at' => $product->created_at->toDateTimeString(),
             ]
         ]);
     } catch (Exception $e) {
