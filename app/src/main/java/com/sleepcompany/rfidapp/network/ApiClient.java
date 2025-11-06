@@ -15,16 +15,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 /**
- * Retrofit API client with AuthInterceptor and logging.
- * Optimized for speed and memory caching of token.
+ * Retrofit API client with AuthInterceptor and detailed logging.
+ * Provides:
+ *  - getClient(context)    -> includes Authorization header when token saved
+ *  - getPublicClient()     -> public client WITHOUT Authorization header (for verifyLicense, login)
+ *
+ * Note: call ApiClient.getPublicClient().create(ApiService.class) for public endpoints.
  */
 public class ApiClient {
 
     private static final String TAG = "ApiClient";
-    private static Retrofit retrofit = null;
 
-    private static final String BASE_URL_PRODUCTION = "https://yourproductionbackend.com/api/";
-    private static final String NGROK_URL = "https://7b19afb5881a.ngrok-free.app/api/";
+    // Two separate Retrofit instances: one that injects auth header, one public for unauthenticated endpoints
+    private static Retrofit retrofitWithAuth = null;
+    private static Retrofit retrofitPublic = null;
+
+    // Real production API path
+    private static final String BASE_URL_PRODUCTION = "https://apps.galla.ai/sleepcompany/api/";
+    private static final String NGROK_URL = "https://657f965ffd0c.ngrok-free.app/api/";
     private static boolean IS_PRODUCTION = false;
 
     private static final String PREFS_NAME = "app_prefs";
@@ -40,6 +48,8 @@ public class ApiClient {
             prefs.edit().putString(KEY_TOKEN, authToken).apply();
             cachedToken = authToken;
             Log.d(TAG, "Token saved ✅: " + authToken);
+            // Ensure retrofitWithAuth will be rebuilt to pick up new token (if needed)
+            retrofitWithAuth = null;
         } else {
             Log.e(TAG, "Token is null or empty, not saved ❌");
         }
@@ -58,36 +68,57 @@ public class ApiClient {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().remove(KEY_TOKEN).apply();
         cachedToken = null;
+        retrofitWithAuth = null;
         Log.d(TAG, "Token cleared");
     }
 
-    /** Switch environment */
+    /** Switch environment (production / dev-ngrok) */
     public static void setProduction(boolean isProd) {
         if (IS_PRODUCTION != isProd) {
             IS_PRODUCTION = isProd;
-            retrofit = null; // rebuild Retrofit with new base URL
+            retrofitWithAuth = null; // rebuild Retrofit with new base URL
+            retrofitPublic = null;
             Log.d(TAG, "Environment switched. Production: " + IS_PRODUCTION);
         }
     }
 
-    /** Get Retrofit instance */
-    public static Retrofit getClient(Context context) {
-        if (retrofit == null) {
-            // Logging only in development
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d(TAG, message));
-            logging.setLevel(IS_PRODUCTION ? HttpLoggingInterceptor.Level.NONE : HttpLoggingInterceptor.Level.BODY);
+    private static String getBaseUrl() {
+        return IS_PRODUCTION ? BASE_URL_PRODUCTION : NGROK_URL;
+    }
 
-            // Auth Interceptor
+    /** Get Retrofit instance that includes Authorization header (reads token from prefs) */
+    public static Retrofit getClient(final Context context) {
+        if (retrofitWithAuth == null) {
+            // Logging interceptor (BODY) — useful for debugging
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d(TAG, message));
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            // Auth Interceptor that attaches Bearer token if available
             Interceptor authInterceptor = chain -> {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder();
 
                 String token = getToken(context);
-                if (token != null) {
+                if (token != null && !token.isEmpty()) {
                     requestBuilder.addHeader("Authorization", "Bearer " + token);
                 }
 
-                return chain.proceed(requestBuilder.build());
+                Request newRequest = requestBuilder.build();
+                Log.d(TAG, "➡️ Requesting URL: " + newRequest.url());
+                Log.d(TAG, "➡️ Headers: " + newRequest.headers());
+
+                Response response;
+                try {
+                    response = chain.proceed(newRequest);
+                } catch (IOException e) {
+                    Log.e(TAG, "❌ Network call failed: " + e.getMessage(), e);
+                    throw e;
+                }
+
+                if (!response.isSuccessful()) {
+                    Log.e(TAG, "⚠️ API Error: " + response.code() + " - " + response.message());
+                }
+                return response;
             };
 
             OkHttpClient client = new OkHttpClient.Builder()
@@ -95,15 +126,60 @@ public class ApiClient {
                     .addInterceptor(authInterceptor)
                     .build();
 
-            String baseUrl = IS_PRODUCTION ? BASE_URL_PRODUCTION : NGROK_URL;
-            Log.d(TAG, "Building Retrofit with baseUrl: " + baseUrl);
+            String baseUrl = getBaseUrl();
+            Log.d(TAG, "Building Retrofit (with auth) with baseUrl: " + baseUrl);
 
-            retrofit = new Retrofit.Builder()
+            retrofitWithAuth = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
         }
-        return retrofit;
+        return retrofitWithAuth;
+    }
+
+    /**
+     * Get Retrofit instance for public endpoints (NO Authorization header).
+     * Use this for: device/verify-license, user/login (before token is issued), any public route.
+     *
+     * Example: ApiClient.getPublicClient().create(ApiService.class)
+     */
+    public static Retrofit getPublicClient() {
+        if (retrofitPublic == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d(TAG, message));
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            // Public client: no auth interceptor, only logging (and optionally default headers)
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .addInterceptor(chain -> {
+                        // optional small interceptor to log URL/headers consistently
+                        Request req = chain.request();
+                        Log.d(TAG, "➡️ Public Request URL: " + req.url());
+                        Log.d(TAG, "➡️ Public Request Headers: " + req.headers());
+                        Response resp;
+                        try {
+                            resp = chain.proceed(req);
+                        } catch (IOException e) {
+                            Log.e(TAG, "❌ Public network call failed: " + e.getMessage(), e);
+                            throw e;
+                        }
+                        if (!resp.isSuccessful()) {
+                            Log.e(TAG, "⚠️ Public API Error: " + resp.code() + " - " + resp.message());
+                        }
+                        return resp;
+                    })
+                    .build();
+
+            String baseUrl = getBaseUrl();
+            Log.d(TAG, "Building Retrofit (public) with baseUrl: " + baseUrl);
+
+            retrofitPublic = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofitPublic;
     }
 }

@@ -1,0 +1,587 @@
+package com.sleepcompany.rfidapp;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.BroadcastReceiver;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.seuic.uhf.UHFService;
+import com.sleepcompany.rfidapp.adapter.BluetoothDeviceAdapter;
+import com.sleepcompany.rfidapp.util.PrefHelper;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * SettingsActivity - updated to show paired devices and scan on button press.
+ */
+public class SettingsActivity extends AppCompatActivity implements BluetoothDeviceAdapter.Callback {
+    private static final String TAG = "SettingsActivity";
+
+    private static final int REQ_BLUETOOTH_PERMISSIONS = 3001;
+    private static final int REQ_ENABLE_BT = 3002;
+
+    private MaterialToolbar toolbar;
+    private MaterialAutoCompleteTextView acRfidPower, acPrinter;
+    private MaterialButton btnScan;
+    private RecyclerView rvDevices;
+    private BluetoothDeviceAdapter adapter;
+    private android.widget.TextView tvScanInfo;
+    private MaterialButton btnApplySavedPower;
+    private MaterialButton btnTestPower;
+
+    private UHFService mDevice;
+    private SharedPreferences prefs;
+    private static final String PREFS = "app_prefs";
+
+    private final String[] powerLabels = new String[]{"5 dBm", "10 dBm", "15 dBm", "20 dBm", "25 dBm", "30 dBm"};
+    private final int[] powerValues = new int[]{5, 10, 15, 20, 25, 30};
+
+    private BluetoothAdapter btAdapter;
+    private final ArrayList<BluetoothDevice> deviceList = new ArrayList<>();
+    private final Set<String> deviceAddressesSet = new HashSet<>();
+
+    private BroadcastReceiver btReceiver;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+        toolbar = findViewById(R.id.toolbar_settings);
+        acRfidPower = findViewById(R.id.acRfidPower);
+        acPrinter = findViewById(R.id.acPrinter);
+        btnScan = findViewById(R.id.btnScan);
+        rvDevices = findViewById(R.id.rvBluetoothDevices);
+        tvScanInfo = findViewById(R.id.tvScanInfo);
+
+        // Make sure these IDs exist in the layout you include for RFID card
+        btnApplySavedPower = findViewById(R.id.btnApplySavedPower);
+        btnTestPower = findViewById(R.id.btnTestPower);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Settings");
+        }
+
+        prefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+
+        try {
+            mDevice = UHFService.getInstance();
+        } catch (Exception e) {
+            mDevice = null;
+            Log.w(TAG, "UHFService not available: " + e.getMessage());
+        }
+
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        setupRfidDropdown();
+        setupRecyclerView();
+        setupButtonHandlers();
+        loadSavedPrefs();
+
+        // Load paired devices (will request runtime permission if needed)
+        ensurePermissionsForPairedLoad();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (btAdapter != null && btAdapter.isDiscovering()) btAdapter.cancelDiscovery();
+        } catch (Exception ignored) {}
+        if (btReceiver != null) {
+            try { unregisterReceiver(btReceiver); } catch (Exception ignored) {}
+            btReceiver = null;
+        }
+        executor.shutdownNow();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /* ---------- RFID dropdown ---------- */
+    private void setupRfidDropdown() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                powerLabels
+        );
+        acRfidPower.setAdapter(adapter);
+        acRfidPower.setThreshold(0);
+
+        // When user selects a power level from dropdown
+        acRfidPower.setOnItemClickListener((parent, view, position, id) -> {
+            int power = powerValues[position];
+            PrefHelper.saveRfidPower(this, power);
+            applyRfidPower(power);
+            Toast.makeText(this, "RFID Power set to " + power + " dBm", Toast.LENGTH_SHORT).show();
+        });
+
+        // Load saved RFID power or fallback to default (30 dBm)
+        int savedPower = PrefHelper.getRfidPower(this);
+        if (savedPower <= 0) {
+            savedPower = 30;
+            PrefHelper.saveRfidPower(this, savedPower);
+        }
+
+        // Match saved power to label and set text
+        String selectedLabel = "30 dBm";
+        for (int i = 0; i < powerValues.length; i++) {
+            if (powerValues[i] == savedPower) {
+                selectedLabel = powerLabels[i];
+                break;
+            }
+        }
+        acRfidPower.setText(selectedLabel, false);
+
+        // Show dropdown when tapped
+        acRfidPower.setOnClickListener(v -> acRfidPower.showDropDown());
+    }
+
+    /**
+     * Try various reflection-based methods on UHF SDK to apply power.
+     * Keeps local logging and toast for feedback.
+     */
+    private void applyRfidPower(int power) {
+        if (mDevice == null) {
+            Toast.makeText(this, "RFID hardware not available", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean applied = false;
+        String appliedMethod = "";
+
+        String[] candidateMethods = new String[]{
+                "setPower",
+                "setOutputPower",
+                "setRfPower",
+                "setTxPower",
+                "setPowerDbm"
+        };
+
+        for (String name : candidateMethods) {
+            try {
+                Method m = mDevice.getClass().getMethod(name, int.class);
+                m.setAccessible(true);
+                m.invoke(mDevice, power);
+                applied = true;
+                appliedMethod = name;
+                Log.d(TAG, "Applied power using: " + name);
+                break;
+            } catch (NoSuchMethodException e) {
+                // not present, continue
+            } catch (Exception e) {
+                Log.w(TAG, "applyRfidPower failed using " + name + ": " + e.getMessage());
+            }
+        }
+
+        if (!applied) {
+            // fallback to setParameters(id, value) if available
+            try {
+                Method m = mDevice.getClass().getMethod("setParameters", int.class, int.class);
+                // some SDKs expect different parameter id for power; 0 is a best-effort fallback
+                m.invoke(mDevice, 0, power);
+                applied = true;
+                appliedMethod = "setParameters";
+                Log.d(TAG, "Applied power using setParameters");
+            } catch (Exception e) {
+                Log.w(TAG, "Fallback setParameters failed: " + e.getMessage());
+            }
+        }
+
+        // read-back if possible
+        Integer currentPower = null;
+        try {
+            Method gp = mDevice.getClass().getMethod("getPower");
+            Object res = gp.invoke(mDevice);
+            if (res instanceof Integer) currentPower = (Integer) res;
+            else if (res != null) currentPower = Integer.parseInt(String.valueOf(res));
+        } catch (Exception ignored) {}
+
+        String msg;
+        if (applied) {
+            msg = "RFID power requested: " + power + " dBm" + (appliedMethod.isEmpty() ? "" : " via " + appliedMethod);
+            if (currentPower != null) msg += " | current: " + currentPower + " dBm";
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Failed to set RFID power (SDK unsupported)", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /* ---------- RecyclerView & adapter ---------- */
+    private void setupRecyclerView() {
+        rvDevices.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new BluetoothDeviceAdapter(this);
+        rvDevices.setAdapter(adapter);
+        adapter.setItems(deviceList); // initially empty
+
+        String savedMac = PrefHelper.getPrinterMac(this);
+        if (savedMac != null) adapter.setSelectedMac(savedMac);
+    }
+
+    private void setupButtonHandlers() {
+        btnScan.setOnClickListener(v -> {
+            if (btAdapter == null) {
+                Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            ensurePermissionsThenScan();
+        });
+
+        btnApplySavedPower.setOnClickListener(v -> {
+            int savedPower = PrefHelper.getRfidPower(SettingsActivity.this);
+            if (savedPower <= 0) savedPower = 30;
+            applyRfidPower(savedPower);
+        });
+
+        // <-- FIX: call existing method name showCurrentPower()
+        btnTestPower.setOnClickListener(v -> showCurrentPower());
+
+        acPrinter.setOnClickListener(v -> {
+            String savedMac = PrefHelper.getPrinterMac(this);
+            if (savedMac != null) acPrinter.setText(savedMac, false);
+            else acPrinter.setText("", false);
+        });
+    }
+
+    /* ---------- Permissions helpers ---------- */
+    private boolean hasBluetoothPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    private void requestBluetoothPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            ArrayList<String> needed = new ArrayList<>();
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                needed.add(Manifest.permission.BLUETOOTH_SCAN);
+            }
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                needed.add(Manifest.permission.BLUETOOTH_CONNECT);
+            }
+            if (!needed.isEmpty()) {
+                ActivityCompat.requestPermissions(this, needed.toArray(new String[0]), REQ_BLUETOOTH_PERMISSIONS);
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQ_BLUETOOTH_PERMISSIONS);
+            }
+        }
+    }
+
+    private void ensurePermissionsForPairedLoad() {
+        if (!hasBluetoothPermissions()) {
+            requestBluetoothPermissions();
+        } else {
+            loadPairedDevices();
+        }
+    }
+
+    private void ensurePermissionsThenScan() {
+        if (!hasBluetoothPermissions()) {
+            requestBluetoothPermissions();
+            return;
+        }
+        if (!isBluetoothEnabled()) {
+            Intent enableBt = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBt, REQ_ENABLE_BT);
+            return;
+        }
+        startScan();
+    }
+
+    private boolean isBluetoothEnabled() {
+        try {
+            return btAdapter != null && btAdapter.isEnabled();
+        } catch (SecurityException se) {
+            return false;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_ENABLE_BT) {
+            if (isBluetoothEnabled()) {
+                startScan();
+            } else {
+                Toast.makeText(this, "Bluetooth is required for scanning", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    // permission callback
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQ_BLUETOOTH_PERMISSIONS) {
+            boolean allGranted = true;
+            if (grantResults.length == 0) allGranted = false;
+            for (int r : grantResults) {
+                if (r != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false;
+                    break;
+                }
+            }
+            if (allGranted) {
+                loadPairedDevices();
+            } else {
+                Toast.makeText(this, "Bluetooth permissions are required to list devices", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void loadPairedDevices() {
+        tvScanInfo.setText("Status: Loading paired devices...");
+        deviceList.clear();
+        deviceAddressesSet.clear();
+
+        executor.execute(() -> {
+            if (!hasBluetoothPermissions()) {
+                mainHandler.post(() -> tvScanInfo.setText("Status: Permission required to load paired devices"));
+                return;
+            }
+            try {
+                Set<BluetoothDevice> paired = btAdapter != null ? btAdapter.getBondedDevices() : null;
+                if (paired != null && !paired.isEmpty()) {
+                    for (BluetoothDevice d : paired) {
+                        if (d == null) continue;
+                        String addr = d.getAddress();
+                        if (addr == null) continue;
+                        if (deviceAddressesSet.add(addr)) {
+                            deviceList.add(d);
+                        }
+                    }
+                }
+            } catch (SecurityException se) {
+                Log.w(TAG, "loadPairedDevices: permission missing: " + se.getMessage());
+            }
+            mainHandler.post(() -> {
+                adapter.setItems(new ArrayList<>(deviceList));
+                tvScanInfo.setText("Status: Found " + deviceList.size() + " paired device(s)");
+            });
+        });
+    }
+
+    @SuppressLint("MissingPermission")
+    private void startScan() {
+        if (!hasBluetoothPermissions()) {
+            Toast.makeText(this, "Bluetooth permissions required", Toast.LENGTH_SHORT).show();
+            requestBluetoothPermissions();
+            return;
+        }
+        if (btAdapter == null) {
+            Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        tvScanInfo.setText("Status: Scanning...");
+        if (btReceiver == null) registerDiscoveryReceiver();
+        try { if (btAdapter.isDiscovering()) btAdapter.cancelDiscovery(); } catch (Exception ignored) {}
+        boolean started = false;
+        try { started = btAdapter.startDiscovery(); } catch (SecurityException se) { Log.w(TAG, "startDiscovery failed: " + se.getMessage()); }
+        if (!started) {
+            tvScanInfo.setText("Status: Discovery not started");
+            Toast.makeText(this, "Failed to start discovery or discovery already running", Toast.LENGTH_SHORT).show();
+        } else {
+            tvScanInfo.setText("Status: Scanning nearby devices...");
+        }
+    }
+
+    private void registerDiscoveryReceiver() {
+        if (btReceiver != null) return;
+        btReceiver = new BroadcastReceiver() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    if (device == null) return;
+                    String addr = device.getAddress();
+                    if (addr == null) return;
+                    if (deviceAddressesSet.contains(addr)) return;
+                    deviceAddressesSet.add(addr);
+                    deviceList.add(device);
+                    mainHandler.post(() -> {
+                        adapter.updateDevice(device);
+                        tvScanInfo.setText("Status: Found " + deviceList.size() + " device(s)");
+                    });
+                } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                    mainHandler.post(() -> {
+                        tvScanInfo.setText("Status: Scan finished. " + deviceList.size() + " device(s) listed");
+                        Toast.makeText(SettingsActivity.this, "Scan finished", Toast.LENGTH_SHORT).show();
+                    });
+                } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
+                    BluetoothDevice dev = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.BOND_NONE);
+                    if (dev != null) {
+                        mainHandler.post(() -> {
+                            adapter.updateDevice(dev);
+                            if (state == BluetoothDevice.BOND_BONDED) {
+                                Toast.makeText(SettingsActivity.this, "Paired: " + dev.getAddress(), Toast.LENGTH_SHORT).show();
+                            } else if (state == BluetoothDevice.BOND_NONE) {
+                                Toast.makeText(SettingsActivity.this, "Pairing failed or removed: " + dev.getAddress(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            }
+        };
+
+        IntentFilter f = new IntentFilter();
+        f.addAction(BluetoothDevice.ACTION_FOUND);
+        f.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        f.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        try { registerReceiver(btReceiver, f); } catch (Exception e) { Log.w(TAG, "registerReceiver failed: " + e.getMessage()); }
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onPairRequested(BluetoothDevice device) {
+        if (device == null) return;
+        if (!hasBluetoothPermissions()) {
+            requestBluetoothPermissions();
+            Toast.makeText(this, "Bluetooth permission required to pair", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            int state = device.getBondState();
+            if (state == BluetoothDevice.BOND_BONDED) {
+                Toast.makeText(this, "Already paired", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            boolean started = false;
+            try { started = device.createBond(); } catch (Exception e) {
+                try { Method m = device.getClass().getMethod("createBond"); started = (Boolean) m.invoke(device); }
+                catch (Exception ex) { Log.w(TAG, "createBond reflection failed: " + ex.getMessage()); }
+            }
+            if (!started) Toast.makeText(this, "Failed to start pairing", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(this, "Pairing started...", Toast.LENGTH_SHORT).show();
+        } catch (SecurityException se) {
+            Toast.makeText(this, "Missing permission to pair", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onConnectRequested(BluetoothDevice device) {
+        if (device == null) return;
+        if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+            Toast.makeText(this, "Device not paired. Please pair first.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        connectToDevice(device);
+    }
+
+    @SuppressLint("MissingPermission")
+    private void connectToDevice(final BluetoothDevice device) {
+        if (!hasBluetoothPermissions()) {
+            requestBluetoothPermissions();
+            Toast.makeText(this, "Bluetooth permission required to connect", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "Connecting to " + (device.getName() == null ? device.getAddress() : device.getName()), Toast.LENGTH_SHORT).show();
+        executor.execute(() -> {
+            BluetoothSocket socket = null;
+            try {
+                UUID spp = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                socket = device.createRfcommSocketToServiceRecord(spp);
+                try { if (btAdapter != null && btAdapter.isDiscovering()) btAdapter.cancelDiscovery(); } catch (Exception ignored) {}
+                socket.connect();
+                mainHandler.post(() -> {
+                    PrefHelper.savePrinterMac(SettingsActivity.this, device.getAddress());
+                    String label = (device.getName() == null ? "Unknown" : device.getName()) + " (" + device.getAddress() + ")";
+                    acPrinter.setText(label, false);
+                    Toast.makeText(SettingsActivity.this, "Connected to " + label, Toast.LENGTH_LONG).show();
+                    if (adapter != null) adapter.setSelectedMac(device.getAddress());
+                });
+            } catch (IOException ioe) {
+                Log.e(TAG, "Connect failed: " + ioe.getMessage());
+                mainHandler.post(() -> Toast.makeText(SettingsActivity.this, "Connect failed: " + ioe.getMessage(), Toast.LENGTH_LONG).show());
+                try { if (socket != null) socket.close(); } catch (IOException ignored) {}
+            } catch (SecurityException se) {
+                Log.e(TAG, "Missing permission: " + se.getMessage());
+                mainHandler.post(() -> Toast.makeText(SettingsActivity.this, "Missing permission to connect", Toast.LENGTH_LONG).show());
+            }
+        });
+    }
+
+    private void loadSavedPrefs() {
+        int savedPower = PrefHelper.getRfidPower(this);
+        if (savedPower != -1) {
+            for (int i = 0; i < powerValues.length; i++) {
+                if (powerValues[i] == savedPower) {
+                    acRfidPower.setText(powerLabels[i], false);
+                    break;
+                }
+            }
+        }
+        String savedMac = PrefHelper.getPrinterMac(this);
+        if (savedMac != null) {
+            acPrinter.setText(savedMac, false);
+            if (adapter != null) adapter.setSelectedMac(savedMac);
+        }
+    }
+
+    // call to read and show current power
+    private void showCurrentPower() {
+        if (mDevice == null) {
+            Toast.makeText(this, "RFID hardware not available", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        PrefHelper.PowerResult r = PrefHelper.readCurrentRfidPower(mDevice);
+        if (r != null && r.power != null) {
+            Toast.makeText(this, "Current RFID power: " + r.power + " dBm (via " + r.method + ")", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Unable to read current RFID power (SDK does not expose readable API)", Toast.LENGTH_LONG).show();
+        }
+    }
+}

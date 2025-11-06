@@ -67,13 +67,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        private TextView productName, sku, size, quantity, qcStatus, createdAt;
+        private TextView productName, sku, size, quantity, qcStatus, currentStage, createdAt;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.tvProductName);
             sku = itemView.findViewById(R.id.tvSku);
             size = itemView.findViewById(R.id.tvSize);
+            currentStage = itemView.findViewById(R.id.tvCurrentStage);
             quantity = itemView.findViewById(R.id.tvQuantity);
             qcStatus = itemView.findViewById(R.id.tvQcStatus);
             createdAt = itemView.findViewById(R.id.tvCreatedAt);
@@ -85,13 +86,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             size.setText("Size: " + product.getSize());
             quantity.setText("Qty: " + product.getQuantity());
             qcStatus.setText(product.getQcStatus());
-
+            currentStage.setText("Current Stage: " + product.getStage());
             // Set QC status color based on status
             switch (product.getQcStatus()) {
                 case "PASS":
                     qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_green_dark));
                     break;
-                case "FAILED":
+                case "FAIL":
                     qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_red_dark));
                     break;
                 case "PENDING":

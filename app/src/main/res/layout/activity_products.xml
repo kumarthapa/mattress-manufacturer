@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- App Bar with Material Design 3 styling -->
+        <!-- App Bar -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,226 +36,202 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Main content with improved spacing and visual hierarchy -->
-            <androidx.core.widget.NestedScrollView
+            <!-- Use vertical LinearLayout: header + fixed search + label + RecyclerView (fill) -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorSurfaceVariant"
-                android:fillViewport="true">
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="?attr/colorSurfaceVariant">
 
-                <LinearLayout
+                <!-- Header card (fixed) -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_marginBottom="12dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainer">
 
-                    <!-- Enhanced header card -->
-                    <com.google.android.material.card.MaterialCardView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardElevation="2dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                        style="@style/Widget.Material3.CardView.Elevated">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="20dp">
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Production Overview"
+                                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnSurface" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/refreshProducts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Refresh"
+                                app:icon="@drawable/ic_refresh_24dp"
+                                app:iconGravity="textStart"
+                                android:textAllCaps="false" />
+                        </LinearLayout>
+
+                        <!-- Simple stats row (keeps original ids) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginTop="12dp">
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical">
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
 
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical">
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Production Overview"
-                                        android:textAppearance="?attr/textAppearanceHeadlineSmall"
-                                        android:textColor="?attr/colorOnSurface"
-                                        android:textStyle="bold" />
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Track mattress production stages"
-                                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                                        android:textColor="?attr/colorOnSurfaceVariant"
-                                        android:layout_marginTop="4dp" />
-
-                                </LinearLayout>
-
-                                <com.google.android.material.button.MaterialButton
-                                    android:id="@+id/refreshProducts"
-                                    style="@style/Widget.Material3.Button.TonalButton"
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tvActiveProducts"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="48dp"
-                                    android:text="Refresh"
-                                    app:icon="@drawable/ic_refresh_24dp"
-                                    app:iconGravity="textStart"
-                                    android:textAllCaps="false" />
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                                    android:textColor="?attr/colorPrimary"
+                                    android:textStyle="bold" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Products"
+                                    android:textAppearance="?attr/textAppearanceBodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                             </LinearLayout>
 
-                            <!-- Stats row -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="40dp"
+                                android:background="?attr/colorOutlineVariant" />
+
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center"
-                                android:layout_marginTop="16dp">
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
 
-                                <LinearLayout
-                                    android:layout_width="0dp"
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tvPassedProducts"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:gravity="center">
+                                    android:text="0"
+                                    android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                                    android:textColor="?attr/colorSecondary"
+                                    android:textStyle="bold" />
 
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:id="@+id/tvActiveProducts"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="0"
-                                        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-                                        android:textColor="?attr/colorPrimary"
-                                        android:textStyle="bold" />
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Total Products"
-                                        android:textAppearance="?attr/textAppearanceBodySmall"
-                                        android:textColor="?attr/colorOnSurfaceVariant" />
-
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="1dp"
-                                    android:layout_height="40dp"
-                                    android:background="?attr/colorOutlineVariant" />
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:gravity="center">
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:id="@+id/tvPassedProducts"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="0"
-                                        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-                                        android:textColor="?attr/colorSecondary"
-                                        android:textStyle="bold" />
-
-                                    <com.google.android.material.textview.MaterialTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="QC Passed"
-                                        android:textAppearance="?attr/textAppearanceBodySmall"
-                                        android:textColor="?attr/colorOnSurfaceVariant" />
-
-                                </LinearLayout>
+                                    android:text="QC Passed"
+                                    android:textAppearance="?attr/textAppearanceBodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                             </LinearLayout>
 
                         </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    </com.google.android.material.card.MaterialCardView>
+                <!-- Search input card (fixed) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardElevation="1dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="?attr/colorSurface">
 
-                    <!-- Search input card -->
-                    <com.google.android.material.card.MaterialCardView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardElevation="1dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardBackgroundColor="?attr/colorSurface"
-                        style="@style/Widget.Material3.CardView.Filled">
+                        android:layout_margin="12dp"
+                        android:hint="Search products, SKU..."
+                        app:startIconDrawable="@drawable/ic_search_24dp"
+                        app:endIconMode="clear_text">
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/searchInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:hint="Search products, SKU..."
-                            app:startIconDrawable="@drawable/ic_search_24dp"
-                            app:endIconMode="clear_text"
-                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1" />
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/searchInput"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:imeOptions="actionSearch"
-                                android:inputType="text"
-                                android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    </com.google.android.material.card.MaterialCardView>
+                <!-- Section title (fixed above list) -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Production Products"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_marginBottom="8dp" />
 
-                    <!-- Section title -->
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Products in Production"
-                        android:textAppearance="?attr/textAppearanceTitleMedium"
-                        android:textColor="?attr/colorOnSurface"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginStart="4dp" />
+                <!-- RecyclerView fills remaining area and scrolls -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:overScrollMode="always"
+                    android:scrollbars="vertical"
+                    android:clipToPadding="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                    <!-- Enhanced RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/productsRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
-                        android:clipToPadding="false"
-                        android:scrollbars="none"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:nestedScrollingEnabled="false" />
+                <!-- No-results message (shown when empty) -->
+                <TextView
+                    android:id="@+id/tvNoResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No products found."
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:padding="24dp" />
 
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
+            </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <!-- FAB for adding new products -->
+        <!-- FAB -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/fabAddProduct"
+            android:id="@+id/scaneTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:text="Add Product"
-            app:icon="@drawable/ic_add_24dp"
-            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary" />
+            android:text="Scan Tag"
+            app:icon="@drawable/ic_scan" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- Enhanced Navigation Drawer -->
+    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu"
-        style="@style/Widget.Material3.NavigationView" />
+        app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

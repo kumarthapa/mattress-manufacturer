@@ -4,16 +4,18 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -24,13 +26,16 @@ public final class ActivityDashboardBinding implements ViewBinding {
   private final DrawerLayout rootView;
 
   @NonNull
-  public final MaterialButton btnQCCheck;
-
-  @NonNull
   public final MaterialButton btnScanRFID;
 
   @NonNull
   public final MaterialButton btnViewProducts;
+
+  @NonNull
+  public final MaterialButton btnWriteTag;
+
+  @NonNull
+  public final ChipGroup chipGroupStages;
 
   @NonNull
   public final MaterialCardView defectCard;
@@ -45,6 +50,9 @@ public final class ActivityDashboardBinding implements ViewBinding {
   public final NavigationView navView;
 
   @NonNull
+  public final RecyclerView rvRecentActivities;
+
+  @NonNull
   public final MaterialCardView satisfactionCard;
 
   @NonNull
@@ -54,33 +62,36 @@ public final class ActivityDashboardBinding implements ViewBinding {
   public final MaterialCardView totalProductionCard;
 
   @NonNull
-  public final TextView tvDefects;
+  public final MaterialTextView tvDefects;
 
   @NonNull
-  public final TextView tvEfficiency;
+  public final MaterialTextView tvEfficiency;
 
   @NonNull
-  public final TextView tvSatisfaction;
+  public final MaterialTextView tvSatisfaction;
 
   @NonNull
-  public final TextView tvTotalProduction;
+  public final MaterialTextView tvTotalProduction;
 
   private ActivityDashboardBinding(@NonNull DrawerLayout rootView,
-      @NonNull MaterialButton btnQCCheck, @NonNull MaterialButton btnScanRFID,
-      @NonNull MaterialButton btnViewProducts, @NonNull MaterialCardView defectCard,
-      @NonNull DrawerLayout drawerLayout, @NonNull MaterialCardView efficiencyCard,
-      @NonNull NavigationView navView, @NonNull MaterialCardView satisfactionCard,
+      @NonNull MaterialButton btnScanRFID, @NonNull MaterialButton btnViewProducts,
+      @NonNull MaterialButton btnWriteTag, @NonNull ChipGroup chipGroupStages,
+      @NonNull MaterialCardView defectCard, @NonNull DrawerLayout drawerLayout,
+      @NonNull MaterialCardView efficiencyCard, @NonNull NavigationView navView,
+      @NonNull RecyclerView rvRecentActivities, @NonNull MaterialCardView satisfactionCard,
       @NonNull Toolbar toolbar, @NonNull MaterialCardView totalProductionCard,
-      @NonNull TextView tvDefects, @NonNull TextView tvEfficiency, @NonNull TextView tvSatisfaction,
-      @NonNull TextView tvTotalProduction) {
+      @NonNull MaterialTextView tvDefects, @NonNull MaterialTextView tvEfficiency,
+      @NonNull MaterialTextView tvSatisfaction, @NonNull MaterialTextView tvTotalProduction) {
     this.rootView = rootView;
-    this.btnQCCheck = btnQCCheck;
     this.btnScanRFID = btnScanRFID;
     this.btnViewProducts = btnViewProducts;
+    this.btnWriteTag = btnWriteTag;
+    this.chipGroupStages = chipGroupStages;
     this.defectCard = defectCard;
     this.drawerLayout = drawerLayout;
     this.efficiencyCard = efficiencyCard;
     this.navView = navView;
+    this.rvRecentActivities = rvRecentActivities;
     this.satisfactionCard = satisfactionCard;
     this.toolbar = toolbar;
     this.totalProductionCard = totalProductionCard;
@@ -117,12 +128,6 @@ public final class ActivityDashboardBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnQCCheck;
-      MaterialButton btnQCCheck = ViewBindings.findChildViewById(rootView, id);
-      if (btnQCCheck == null) {
-        break missingId;
-      }
-
       id = R.id.btnScanRFID;
       MaterialButton btnScanRFID = ViewBindings.findChildViewById(rootView, id);
       if (btnScanRFID == null) {
@@ -132,6 +137,18 @@ public final class ActivityDashboardBinding implements ViewBinding {
       id = R.id.btnViewProducts;
       MaterialButton btnViewProducts = ViewBindings.findChildViewById(rootView, id);
       if (btnViewProducts == null) {
+        break missingId;
+      }
+
+      id = R.id.btnWriteTag;
+      MaterialButton btnWriteTag = ViewBindings.findChildViewById(rootView, id);
+      if (btnWriteTag == null) {
+        break missingId;
+      }
+
+      id = R.id.chipGroupStages;
+      ChipGroup chipGroupStages = ViewBindings.findChildViewById(rootView, id);
+      if (chipGroupStages == null) {
         break missingId;
       }
 
@@ -155,6 +172,12 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.rvRecentActivities;
+      RecyclerView rvRecentActivities = ViewBindings.findChildViewById(rootView, id);
+      if (rvRecentActivities == null) {
+        break missingId;
+      }
+
       id = R.id.satisfactionCard;
       MaterialCardView satisfactionCard = ViewBindings.findChildViewById(rootView, id);
       if (satisfactionCard == null) {
@@ -174,32 +197,33 @@ public final class ActivityDashboardBinding implements ViewBinding {
       }
 
       id = R.id.tvDefects;
-      TextView tvDefects = ViewBindings.findChildViewById(rootView, id);
+      MaterialTextView tvDefects = ViewBindings.findChildViewById(rootView, id);
       if (tvDefects == null) {
         break missingId;
       }
 
       id = R.id.tvEfficiency;
-      TextView tvEfficiency = ViewBindings.findChildViewById(rootView, id);
+      MaterialTextView tvEfficiency = ViewBindings.findChildViewById(rootView, id);
       if (tvEfficiency == null) {
         break missingId;
       }
 
       id = R.id.tvSatisfaction;
-      TextView tvSatisfaction = ViewBindings.findChildViewById(rootView, id);
+      MaterialTextView tvSatisfaction = ViewBindings.findChildViewById(rootView, id);
       if (tvSatisfaction == null) {
         break missingId;
       }
 
       id = R.id.tvTotalProduction;
-      TextView tvTotalProduction = ViewBindings.findChildViewById(rootView, id);
+      MaterialTextView tvTotalProduction = ViewBindings.findChildViewById(rootView, id);
       if (tvTotalProduction == null) {
         break missingId;
       }
 
-      return new ActivityDashboardBinding((DrawerLayout) rootView, btnQCCheck, btnScanRFID,
-          btnViewProducts, defectCard, drawerLayout, efficiencyCard, navView, satisfactionCard,
-          toolbar, totalProductionCard, tvDefects, tvEfficiency, tvSatisfaction, tvTotalProduction);
+      return new ActivityDashboardBinding((DrawerLayout) rootView, btnScanRFID, btnViewProducts,
+          btnWriteTag, chipGroupStages, defectCard, drawerLayout, efficiencyCard, navView,
+          rvRecentActivities, satisfactionCard, toolbar, totalProductionCard, tvDefects,
+          tvEfficiency, tvSatisfaction, tvTotalProduction);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

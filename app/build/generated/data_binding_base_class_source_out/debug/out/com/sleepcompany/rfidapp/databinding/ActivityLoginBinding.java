@@ -4,6 +4,7 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,9 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final MaterialCardView loginCard;
 
   @NonNull
+  public final ImageView logoImage;
+
+  @NonNull
   public final LinearLayout logoSection;
 
   @NonNull
@@ -49,13 +53,14 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final TextInputLayout usernameLayout;
 
   private ActivityLoginBinding(@NonNull ConstraintLayout rootView, @NonNull MaterialButton loginBtn,
-      @NonNull MaterialCardView loginCard, @NonNull LinearLayout logoSection,
-      @NonNull TextInputEditText passwordInput, @NonNull TextInputLayout passwordLayout,
-      @NonNull MaterialCheckBox rememberMe, @NonNull TextInputEditText usernameInput,
-      @NonNull TextInputLayout usernameLayout) {
+      @NonNull MaterialCardView loginCard, @NonNull ImageView logoImage,
+      @NonNull LinearLayout logoSection, @NonNull TextInputEditText passwordInput,
+      @NonNull TextInputLayout passwordLayout, @NonNull MaterialCheckBox rememberMe,
+      @NonNull TextInputEditText usernameInput, @NonNull TextInputLayout usernameLayout) {
     this.rootView = rootView;
     this.loginBtn = loginBtn;
     this.loginCard = loginCard;
+    this.logoImage = logoImage;
     this.logoSection = logoSection;
     this.passwordInput = passwordInput;
     this.passwordLayout = passwordLayout;
@@ -103,6 +108,12 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.logoImage;
+      ImageView logoImage = ViewBindings.findChildViewById(rootView, id);
+      if (logoImage == null) {
+        break missingId;
+      }
+
       id = R.id.logoSection;
       LinearLayout logoSection = ViewBindings.findChildViewById(rootView, id);
       if (logoSection == null) {
@@ -139,8 +150,8 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityLoginBinding((ConstraintLayout) rootView, loginBtn, loginCard, logoSection,
-          passwordInput, passwordLayout, rememberMe, usernameInput, usernameLayout);
+      return new ActivityLoginBinding((ConstraintLayout) rootView, loginBtn, loginCard, logoImage,
+          logoSection, passwordInput, passwordLayout, rememberMe, usernameInput, usernameLayout);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

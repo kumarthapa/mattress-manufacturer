@@ -136,6 +136,7 @@ attr alertDialogButtonGroupStyle
 attr alertDialogCenterButtons
 attr alertDialogStyle
 attr alertDialogTheme
+attr alignmentMode
 attr allowStacking
 attr alpha
 attr alphabeticModifiers
@@ -397,6 +398,8 @@ attr colorTertiary
 attr colorTertiaryContainer
 attr colorTertiaryFixed
 attr colorTertiaryFixedDim
+attr columnCount
+attr columnOrderPreserved
 attr commitIcon
 attr compatShadowEnabled
 attr constraintRotate
@@ -732,6 +735,9 @@ attr layout_anchorGravity
 attr layout_behavior
 attr layout_collapseMode
 attr layout_collapseParallaxMultiplier
+attr layout_column
+attr layout_columnSpan
+attr layout_columnWeight
 attr layout_constrainedHeight
 attr layout_constrainedWidth
 attr layout_constraintBaseline_creator
@@ -788,10 +794,14 @@ attr layout_goneMarginLeft
 attr layout_goneMarginRight
 attr layout_goneMarginStart
 attr layout_goneMarginTop
+attr layout_gravity
 attr layout_insetEdge
 attr layout_keyline
 attr layout_marginBaseline
 attr layout_optimizationLevel
+attr layout_row
+attr layout_rowSpan
+attr layout_rowWeight
 attr layout_scrollEffect
 attr layout_scrollFlags
 attr layout_scrollInterpolator
@@ -968,6 +978,7 @@ attr onPositiveCross
 attr onShow
 attr onStateTransition
 attr onTouchUp
+attr orientation
 attr overlapAnchor
 attr overlay
 attr paddingBottomNoButtons
@@ -1046,6 +1057,8 @@ attr rotationCenterId
 attr round
 attr roundPercent
 attr route
+attr rowCount
+attr rowOrderPreserved
 attr saturation
 attr scaleFromTextSize
 attr scrimAnimationDuration
@@ -1342,6 +1355,7 @@ attr ttcIndex
 attr upDuration
 attr uri
 attr useCompatPadding
+attr useDefaultMargins
 attr useDrawerArrowDrawable
 attr useMaterialThemeColors
 attr values
@@ -2147,6 +2161,7 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color red_600
 color red_700
 color ripple_material_dark
 color ripple_material_light
@@ -2161,6 +2176,8 @@ color sleep_accent
 color sleep_primary
 color sleep_primary_dark
 color sleep_secondary
+color snackbar_error
+color snackbar_success
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2271,6 +2288,7 @@ dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
 dimen def_drawer_elevation
+dimen default_gap
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_item_min_width
@@ -3089,6 +3107,8 @@ drawable ic_add_24dp
 drawable ic_android_black_24dp
 drawable ic_arrow_back
 drawable ic_arrow_back_black_24
+drawable ic_arrow_blue
+drawable ic_brand_logo
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -3102,6 +3122,7 @@ drawable ic_clear
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_close
+drawable ic_company_logo
 drawable ic_dashboard
 drawable ic_defects
 drawable ic_inventory
@@ -3121,17 +3142,21 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_nfc
+drawable ic_print
 drawable ic_production
 drawable ic_products
 drawable ic_quality
 drawable ic_refresh
 drawable ic_refresh_24dp
+drawable ic_rework
+drawable ic_rfid_tag_scan
 drawable ic_scan
 drawable ic_search_24dp
 drawable ic_search_black_24
 drawable ic_settings
 drawable ic_visibility
 drawable ic_visibility_off
+drawable ic_write
 drawable indeterminate_static
 drawable logo_circle_bg
 drawable m3_avd_hide_password
@@ -3207,6 +3232,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable rounded_edittext_bg
+drawable rounded_gray_bg
 drawable scanner_area_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -3227,6 +3253,8 @@ id SHOW_PROGRESS
 id SYM
 id TOP_END
 id TOP_START
+id acPrinter
+id acRfidPower
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -3285,6 +3313,8 @@ id actions
 id activity_chooser_view_content
 id add
 id alertTitle
+id alignBounds
+id alignMargins
 id aligned
 id all
 id allStates
@@ -3294,6 +3324,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id appBar
 id approveQCBtn
 id arc
 id asConfigured
@@ -3325,14 +3356,27 @@ id bt_settagetype
 id bt_stop
 id bt_write
 id bt_writepower
-id btnQCCheck
+id btnAction
+id btnApplySavedPower
+id btnCancelProductEdit
+id btnCancelSkuEdit
+id btnSaveProduct
+id btnSaveSku
+id btnScan
 id btnScanRFID
+id btnSearch
+id btnTestPower
 id btnViewProducts
+id btnWrite
+id btnWriteTag
 id btn_map
 id buttonPanel
 id cache_measures
 id callMeasure
 id cancel_button
+id cardGeneral
+id cardPrinter
+id cardRFID
 id carryVelocity
 id center
 id centerCrop
@@ -3344,9 +3388,9 @@ id chain2
 id chains
 id checkbox
 id checked
+id chipGroupStages
 id chronometer
 id circle_center
-id clearBtn
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -3362,9 +3406,11 @@ id contentPanel
 id contiguous
 id continuousVelocity
 id coordinator
+id coordinatorLayout
 id cos
 id counterclockwise
 id cradle
+id createLicenseBtn
 id currentState
 id custom
 id customPanel
@@ -3376,6 +3422,7 @@ id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
 id defectCard
+id defectsCard
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3416,6 +3463,11 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id escape
+id etExtraDetails
+id etProductNameEdit
+id etProductSkuEdit
+id etRemarks
+id etSearch
 id et_address
 id et_bank
 id et_data
@@ -3427,8 +3479,14 @@ id et_temperature
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id fabAddProduct
 id fade
+id failedProduct
+id failedQaCode
+id failedQcStatus
+id failedRemarks
+id failedResultCard
+id failedSize
+id failedStage
 id fill
 id fill_horizontal
 id fill_vertical
@@ -3459,6 +3517,7 @@ id hideable
 id home
 id homeAsUp
 id honorRequest
+id horizontal
 id horizontal_only
 id icon
 id icon_group
@@ -3466,7 +3525,6 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
-id imageView
 id immediateStop
 id included
 id indeterminate
@@ -3476,6 +3534,13 @@ id invisible
 id inward
 id italic
 id item_touch_helper_previous_elevation
+id ivCardClear
+id ivCardPrint
+id ivEditProduct
+id ivEditProductSKU
+id ivFailedCardClear
+id ivFailedCardPrint
+id ivFailedCardRework
 id jumpToEnd
 id jumpToStart
 id label_map
@@ -3484,15 +3549,19 @@ id layout
 id left
 id leftToRight
 id legacy
+id licenseInput
 id line1
 id line3
 id linear
 id listMode
 id list_item
+id llDefectsContainer
+id llFailedDefectsContainer
 id loading_message
 id locale
 id loginBtn
 id loginCard
+id logoImage
 id logoSection
 id ltr
 id lv_id
@@ -3558,15 +3627,13 @@ id mtrl_view_tag_bottom_padding
 id multiply
 id nav_controller_view_tag
 id nav_dashboard
-id nav_defects
 id nav_host_fragment_container
 id nav_logout
-id nav_production
 id nav_products
-id nav_quality_control
 id nav_rfid_scan
 id nav_settings
 id nav_view
+id nav_write_tags
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3624,17 +3691,24 @@ id pin
 id position
 id postLayout
 id pressed
+id productEditButtons
+id productEditLayout
 id productId
 id productName
 id productProgressBar
 id productProgressText
 id productRfid
 id productSize
+id productSkuEditButtons
+id productSkuEditLayout
 id productStatus
 id productsRecyclerView
 id progress
+id progressBar
+id progressIndicator
 id progress_circular
 id progress_horizontal
+id qaCode
 id qcChecklistContainer
 id qcItemsLayout
 id qcProductSpinner
@@ -3642,6 +3716,7 @@ id radio
 id ratio
 id rectangles
 id refreshProducts
+id rejectBtn
 id rejectQCBtn
 id rememberMe
 id report_drawn
@@ -3650,9 +3725,14 @@ id right
 id rightToLeft
 id right_icon
 id right_side
+id rootCard
+id rootCoordinator
 id rounded
 id row_index_key
 id rtl
+id rvBluetoothDevices
+id rvRecentActivities
+id rvSearchResults
 id satisfactionCard
 id save_non_transition_alpha
 id save_overlay_view
@@ -3662,12 +3742,13 @@ id scanInstructionCard
 id scanProgress
 id scanResultCard
 id scanStatusText
+id scaneTag
 id scannedProduct
+id scannedProductSKU
 id scannedQcStatus
 id scannedSize
 id scannedStage
 id scannedStatus
-id scannedTag
 id screen
 id scroll
 id scrollIndicatorDown
@@ -3688,6 +3769,7 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id serialNumber
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3767,12 +3849,14 @@ id textinput_helper_text
 id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
+id tilExtra
 id time
 id title
 id titleDividerNoCustom
 id title_template
 id toggle
 id toolbar
+id toolbar_settings
 id top
 id topPanel
 id totalProductionCard
@@ -3789,17 +3873,33 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvActiveProducts
+id tvChangedAt
 id tvCreatedAt
+id tvCurrentStage
 id tvDefects
+id tvDeviceMac
+id tvDeviceName
 id tvEfficiency
+id tvNoResults
+id tvPaired
 id tvPassedProducts
+id tvProductModel
 id tvProductName
+id tvQaCode
 id tvQcStatus
 id tvQuantity
 id tvSatisfaction
+id tvScanInfo
+id tvScanStatus
+id tvScannedTag
 id tvSize
 id tvSku
+id tvStageStatus
+id tvTitleModel
+id tvTitleName
+id tvTitleQaCode
 id tvTotalProduction
+id tvValidation
 id tv_epc
 id tv_nums
 id tv_power
@@ -3815,6 +3915,7 @@ id updateStageBtn
 id useLogo
 id usernameInput
 id usernameLayout
+id vertical
 id vertical_only
 id view_offset_helper
 id view_transition
@@ -3956,6 +4057,9 @@ layout activity_product_details
 layout activity_products
 layout activity_qc
 layout activity_scanner
+layout activity_settings
+layout activity_write_tag_detail
+layout activity_write_tags
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3972,13 +4076,21 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_license
 layout fragment_inventory
 layout fragment_settings
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_bluetooth_device
 layout item_epc
 layout item_product
+layout item_product_list
+layout item_product_search
+layout item_recent_activity
 layout item_stage
+layout layout_general
+layout layout_printer_settings
+layout layout_rfid_settings
 layout list_item
 layout loader
 layout m3_alert_dialog
@@ -4044,7 +4156,6 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu drawer_menu
-menu navigation_menu2
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
@@ -5479,6 +5590,8 @@ styleable FragmentContainerView android_name android_tag
 styleable FragmentNavigator android_name
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
 styleable GradientColorItem android_color android_offset
+styleable GridLayout alignmentMode columnCount columnOrderPreserved orientation rowCount rowOrderPreserved useDefaultMargins
+styleable GridLayout_Layout android_layout_width android_layout_height android_layout_margin android_layout_marginLeft android_layout_marginTop android_layout_marginRight android_layout_marginBottom layout_column layout_columnSpan layout_columnWeight layout_gravity layout_row layout_rowSpan layout_rowWeight
 styleable ImageFilterView altSrc blendSrc brightness contrast crossfade imagePanX imagePanY imageRotate imageZoom overlay round roundPercent saturation warmth
 styleable Insets marginLeftSystemWindowInsets marginRightSystemWindowInsets marginTopSystemWindowInsets paddingBottomSystemWindowInsets paddingLeftSystemWindowInsets paddingRightSystemWindowInsets paddingStartSystemWindowInsets paddingTopSystemWindowInsets
 styleable KeyAttribute android_alpha android_transformPivotX android_transformPivotY android_translationX android_translationY android_scaleX android_scaleY android_rotation android_rotationX android_rotationY android_translationZ android_elevation curveFit framePosition motionProgress motionTarget transformPivotTarget transitionEasing transitionPathRotate
@@ -5584,3 +5697,4 @@ styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
 xml file_paths
+xml network_security_config

@@ -92,7 +92,7 @@ dependencies {
     // ✅ Navigation - Updated to latest stable versions
     implementation 'androidx.navigation:navigation-fragment-ktx:2.8.2' // Updated from 2.7.6
     implementation 'androidx.navigation:navigation-ui-ktx:2.8.2'       // Updated from 2.7.6
-
+    implementation "androidx.gridlayout:gridlayout:1.0.0"
     // ✅ Retrofit networking - Updated to latest stable versions
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'            // Updated from 2.9.0
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'      // Updated from 2.9.0

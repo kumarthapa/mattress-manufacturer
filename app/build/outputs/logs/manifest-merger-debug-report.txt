@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-53:12
-INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-53:12
-INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-53:12
-INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-53:12
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-61:12
+INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-61:12
+INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-61:12
+INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:1-61:12
 MERGED from [androidx.databinding:databinding-adapters:8.7.0] /home/treewalker/.gradle/caches/8.12/transforms/9586570d270ea2b942f652d948e1a82d/transformed/databinding-adapters-8.7.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-runtime:8.7.0] /home/treewalker/.gradle/caches/8.12/transforms/92f69c906258184debd37a52beeda4b4/transformed/databinding-runtime-8.7.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:viewbinding:8.7.0] /home/treewalker/.gradle/caches/8.12/transforms/e35794dd31c1fb8a3e911e987cb3404f/transformed/viewbinding-8.7.0/AndroidManifest.xml:2:1-7:12
@@ -24,6 +24,8 @@ MERGED from [androidx.fragment:fragment:1.8.4] /home/treewalker/.gradle/caches/8
 MERGED from [androidx.fragment:fragment-ktx:1.8.4] /home/treewalker/.gradle/caches/8.12/transforms/63c92319250ccb06b344337f55c22fca/transformed/fragment-ktx-1.8.4/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.activity:activity-ktx:1.10.1] /home/treewalker/.gradle/caches/8.12/transforms/dc90d7a9fe29801003dcacfffb135a8c/transformed/activity-ktx-1.10.1/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.activity:activity:1.10.1] /home/treewalker/.gradle/caches/8.12/transforms/002c80fae7694b0c4b98a9939c0bf763/transformed/activity-1.10.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.gridlayout:gridlayout:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/97e982a2cf0a52eb8c0dff0215e6027b/transformed/gridlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/9f59df794b69acff3ef292b9580490dc/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/ce11604ddcd2d0388d420470153c369d/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/ffa2634b596569cc0e8c35e317529d08/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /home/treewalker/.gradle/caches/8.12/transforms/6c1e3057afe797a75aefd44364f47fed/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
@@ -39,6 +41,7 @@ MERGED from [androidx.viewpager:viewpager:1.0.0] /home/treewalker/.gradle/caches
 MERGED from [androidx.customview:customview:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/f891a3a325ce69dc7147d90bd5246670/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/aced43bdef7d794219856721acfe846b/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/ccb7d73b161d4491b1dc631af11cfa72/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/d32b2aa6066755c93fb1fedee81a10bf/transformed/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/treewalker/.gradle/caches/8.12/transforms/d8a2693068107b15a83707f3e490ad47/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
@@ -77,12 +80,56 @@ MERGED from [androidx.core:core-viewtree:1.0.0] /home/treewalker/.gradle/caches/
 	xmlns:android
 		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:4:5-67
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:5:5-67
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:4:22-64
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:5:22-64
+uses-permission#android.permission.BLUETOOTH
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:7:5-95
+	android:maxSdkVersion
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:7:66-92
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:7:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:8:5-101
+	android:maxSdkVersion
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:8:72-98
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:8:22-71
+uses-permission#android.permission.BLUETOOTH_CONNECT
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:10:5-76
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:10:22-73
+uses-permission#android.permission.BLUETOOTH_SCAN
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:11:5-73
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:11:22-70
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:13:5-79
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:13:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:14:5-81
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:14:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:16:5-77
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:16:22-74
+uses-feature#android.hardware.bluetooth
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:19:5-87
+	android:required
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:19:61-84
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:19:19-60
+uses-feature#android.hardware.bluetooth_le
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:20:5-91
+	android:required
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:20:64-88
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:20:19-63
 application
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:6:5-51:19
-INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:6:5-51:19
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:5-60:19
+INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:5-60:19
 MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/27299f3df4a83da684c8851318156087/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /home/treewalker/.gradle/caches/8.12/transforms/27299f3df4a83da684c8851318156087/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/treewalker/.gradle/caches/8.12/transforms/d4f069931dab857d8982437f4c336b6c/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -106,67 +153,99 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/treew
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:12:9-35
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:30:9-35
 	android:label
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:10:9-41
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:29:9-41
 	android:roundIcon
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:11:9-54
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:9-52
 	android:icon
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:9:9-43
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:27:9-47
 	android:allowBackup
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:8:9-35
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:26:9-35
 	android:theme
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:13:9-53
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:9-53
+	android:networkSecurityConfig
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:24:9-69
+	android:usesCleartextTraffic
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:25:9-44
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:7:9-30
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:23:9-30
 activity#com.sleepcompany.rfidapp.LoginActivity
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:16:9-23:20
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:34:9-41:20
 	android:exported
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:18:13-36
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:36:13-36
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:17:13-42
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:35:13-42
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:19:13-22:29
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:37:13-40:29
 action#android.intent.action.MAIN
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:20:17-69
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:38:17-69
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:20:25-66
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:38:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:21:17-77
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:39:17-77
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:21:27-74
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:39:27-74
 activity#com.sleepcompany.rfidapp.DashboardActivity
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:26:9-28:40
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:9-80
 	android:exported
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:13-37
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:53-77
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:27:13-46
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:19-52
 activity#com.sleepcompany.rfidapp.ProductsActivity
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:9-33:40
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:45:9-79
 	android:exported
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:33:13-37
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:45:52-76
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:32:13-45
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:45:19-51
 activity#com.sleepcompany.rfidapp.ProductDetailsActivity
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:36:9-38:40
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:9-85
 	android:exported
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:38:13-37
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:58-82
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:37:13-51
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:19-57
 activity#com.sleepcompany.rfidapp.ScannerActivity
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:41:9-44:39
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:9-102
 	android:label
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:13-36
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:76-99
 	android:exported
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:43:13-37
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:51-75
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:42:13-44
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:19-50
 activity#com.sleepcompany.rfidapp.QcActivity
-ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:9-49:40
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:9-73
 	android:exported
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:13-37
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:46-70
 	android:name
-		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:13-39
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:19-45
+activity#com.sleepcompany.rfidapp.WriteTagsActivity
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:9-80
+	android:exported
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:53-77
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:19-52
+activity#com.sleepcompany.rfidapp.WriteTagDetailActivity
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:50:9-85
+	android:exported
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:50:58-82
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:50:19-57
+activity#com.sleepcompany.rfidapp.SettingsActivity
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:51:9-79
+	android:exported
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:51:52-76
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:51:19-51
+activity#com.sleepcompany.rfidapp.BtConfigActivity
+ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:54:9-58:60
+	android:label
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:57:13-45
+	android:exported
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:56:13-37
+	android:theme
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:58:13-57
+	android:name
+		ADDED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:55:13-45
 uses-sdk
 INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml
@@ -211,6 +290,10 @@ MERGED from [androidx.activity:activity-ktx:1.10.1] /home/treewalker/.gradle/cac
 MERGED from [androidx.activity:activity-ktx:1.10.1] /home/treewalker/.gradle/caches/8.12/transforms/dc90d7a9fe29801003dcacfffb135a8c/transformed/activity-ktx-1.10.1/AndroidManifest.xml:5:5-44
 MERGED from [androidx.activity:activity:1.10.1] /home/treewalker/.gradle/caches/8.12/transforms/002c80fae7694b0c4b98a9939c0bf763/transformed/activity-1.10.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.10.1] /home/treewalker/.gradle/caches/8.12/transforms/002c80fae7694b0c4b98a9939c0bf763/transformed/activity-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.gridlayout:gridlayout:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/97e982a2cf0a52eb8c0dff0215e6027b/transformed/gridlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.gridlayout:gridlayout:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/97e982a2cf0a52eb8c0dff0215e6027b/transformed/gridlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/9f59df794b69acff3ef292b9580490dc/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/9f59df794b69acff3ef292b9580490dc/transformed/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/ce11604ddcd2d0388d420470153c369d/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/ce11604ddcd2d0388d420470153c369d/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/treewalker/.gradle/caches/8.12/transforms/ffa2634b596569cc0e8c35e317529d08/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
@@ -241,6 +324,8 @@ MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/treewalker/.
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/aced43bdef7d794219856721acfe846b/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/ccb7d73b161d4491b1dc631af11cfa72/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/ccb7d73b161d4491b1dc631af11cfa72/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/d32b2aa6066755c93fb1fedee81a10bf/transformed/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/d32b2aa6066755c93fb1fedee81a10bf/transformed/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:20:5-44

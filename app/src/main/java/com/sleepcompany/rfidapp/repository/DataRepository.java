@@ -39,8 +39,12 @@ public class DataRepository {
     }
 
     // ------------------ LOGIN ------------------
-    public void loginUser(String email, String password, final LoginCallback callback) {
-        LoginRequest loginRequest = new LoginRequest(email, password);
+
+
+    // change method signature to accept licenseKey
+    public void loginUser(String licenseKey, String username, String password, final LoginCallback callback) {
+        // Build request with licenseKey
+        LoginRequest loginRequest = new LoginRequest(licenseKey, username, password);
 
         apiService.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
@@ -78,12 +82,13 @@ public class DataRepository {
         });
     }
 
+
     // ------------------ FETCH PRODUCTS ------------------
     public void fetchProducts(ProductsRequest productsRequest, final ProductsCallback callback) {
         // Refresh apiService to include the latest token
         apiService = ApiClient.getClient(context).create(ApiService.class);
 
-        apiService.getPlanProducts(productsRequest).enqueue(new Callback<ProductsResponse>() {
+        apiService.getProducts(productsRequest).enqueue(new Callback<ProductsResponse>() {
             @Override
             public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {

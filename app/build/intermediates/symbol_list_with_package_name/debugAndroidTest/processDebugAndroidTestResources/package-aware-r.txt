@@ -1,0 +1,4 @@
+com.sleepcompany.rfidapp.test
+string app_name
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

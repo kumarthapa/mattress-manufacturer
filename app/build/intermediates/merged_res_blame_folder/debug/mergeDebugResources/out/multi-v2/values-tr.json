@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-50:/values-tr/values-tr.xml",
+            "outputFile": "com.sleepcompany.rfidapp-mergeDebugResources-51:/values-tr/values-tr.xml",
             "map": [
                 {
                     "source": "/home/treewalker/.gradle/caches/8.12/transforms/472b310c8a87d499037a93c34bcdf8f6/transformed/navigation-ui-2.8.2/res/values-tr/values-tr.xml",

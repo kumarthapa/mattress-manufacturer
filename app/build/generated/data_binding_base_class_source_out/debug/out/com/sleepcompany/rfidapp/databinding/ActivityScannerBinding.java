@@ -5,16 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
@@ -23,16 +27,100 @@ import java.lang.String;
 
 public final class ActivityScannerBinding implements ViewBinding {
   @NonNull
-  private final DrawerLayout rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final MaterialButton clearBtn;
+  public final MaterialButton btnCancelProductEdit;
 
   @NonNull
-  public final DrawerLayout drawerLayout;
+  public final MaterialButton btnCancelSkuEdit;
 
   @NonNull
-  public final NavigationView navView;
+  public final MaterialButton btnSaveProduct;
+
+  @NonNull
+  public final MaterialButton btnSaveSku;
+
+  @NonNull
+  public final CoordinatorLayout coordinatorLayout;
+
+  @NonNull
+  public final MaterialCardView defectsCard;
+
+  @NonNull
+  public final TextInputEditText etProductNameEdit;
+
+  @NonNull
+  public final TextInputEditText etProductSkuEdit;
+
+  @NonNull
+  public final TextInputEditText etRemarks;
+
+  @NonNull
+  public final MaterialTextView failedProduct;
+
+  @NonNull
+  public final MaterialTextView failedQaCode;
+
+  @NonNull
+  public final MaterialTextView failedQcStatus;
+
+  @NonNull
+  public final MaterialTextView failedRemarks;
+
+  @NonNull
+  public final MaterialCardView failedResultCard;
+
+  @NonNull
+  public final MaterialTextView failedSize;
+
+  @NonNull
+  public final MaterialTextView failedStage;
+
+  @NonNull
+  public final ImageButton ivCardClear;
+
+  @NonNull
+  public final ImageButton ivCardPrint;
+
+  @NonNull
+  public final ImageButton ivEditProduct;
+
+  @NonNull
+  public final ImageButton ivEditProductSKU;
+
+  @NonNull
+  public final ImageButton ivFailedCardClear;
+
+  @NonNull
+  public final ImageButton ivFailedCardPrint;
+
+  @NonNull
+  public final Button ivFailedCardRework;
+
+  @NonNull
+  public final LinearLayout llDefectsContainer;
+
+  @NonNull
+  public final LinearLayout llFailedDefectsContainer;
+
+  @NonNull
+  public final LinearLayout productEditButtons;
+
+  @NonNull
+  public final TextInputLayout productEditLayout;
+
+  @NonNull
+  public final LinearLayout productSkuEditButtons;
+
+  @NonNull
+  public final TextInputLayout productSkuEditLayout;
+
+  @NonNull
+  public final MaterialTextView qaCode;
+
+  @NonNull
+  public final MaterialButton rejectBtn;
 
   @NonNull
   public final MaterialCardView scanInstructionCard;
@@ -50,6 +138,9 @@ public final class ActivityScannerBinding implements ViewBinding {
   public final MaterialTextView scannedProduct;
 
   @NonNull
+  public final MaterialTextView scannedProductSKU;
+
+  @NonNull
   public final AutoCompleteTextView scannedQcStatus;
 
   @NonNull
@@ -62,9 +153,6 @@ public final class ActivityScannerBinding implements ViewBinding {
   public final MaterialTextView scannedStatus;
 
   @NonNull
-  public final MaterialTextView scannedTag;
-
-  @NonNull
   public final MaterialButton startScanBtn;
 
   @NonNull
@@ -73,29 +161,71 @@ public final class ActivityScannerBinding implements ViewBinding {
   @NonNull
   public final MaterialButton updateStageBtn;
 
-  private ActivityScannerBinding(@NonNull DrawerLayout rootView, @NonNull MaterialButton clearBtn,
-      @NonNull DrawerLayout drawerLayout, @NonNull NavigationView navView,
-      @NonNull MaterialCardView scanInstructionCard,
+  private ActivityScannerBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull MaterialButton btnCancelProductEdit, @NonNull MaterialButton btnCancelSkuEdit,
+      @NonNull MaterialButton btnSaveProduct, @NonNull MaterialButton btnSaveSku,
+      @NonNull CoordinatorLayout coordinatorLayout, @NonNull MaterialCardView defectsCard,
+      @NonNull TextInputEditText etProductNameEdit, @NonNull TextInputEditText etProductSkuEdit,
+      @NonNull TextInputEditText etRemarks, @NonNull MaterialTextView failedProduct,
+      @NonNull MaterialTextView failedQaCode, @NonNull MaterialTextView failedQcStatus,
+      @NonNull MaterialTextView failedRemarks, @NonNull MaterialCardView failedResultCard,
+      @NonNull MaterialTextView failedSize, @NonNull MaterialTextView failedStage,
+      @NonNull ImageButton ivCardClear, @NonNull ImageButton ivCardPrint,
+      @NonNull ImageButton ivEditProduct, @NonNull ImageButton ivEditProductSKU,
+      @NonNull ImageButton ivFailedCardClear, @NonNull ImageButton ivFailedCardPrint,
+      @NonNull Button ivFailedCardRework, @NonNull LinearLayout llDefectsContainer,
+      @NonNull LinearLayout llFailedDefectsContainer, @NonNull LinearLayout productEditButtons,
+      @NonNull TextInputLayout productEditLayout, @NonNull LinearLayout productSkuEditButtons,
+      @NonNull TextInputLayout productSkuEditLayout, @NonNull MaterialTextView qaCode,
+      @NonNull MaterialButton rejectBtn, @NonNull MaterialCardView scanInstructionCard,
       @NonNull CircularProgressIndicator scanProgress, @NonNull MaterialCardView scanResultCard,
       @NonNull MaterialTextView scanStatusText, @NonNull MaterialTextView scannedProduct,
-      @NonNull AutoCompleteTextView scannedQcStatus, @NonNull MaterialTextView scannedSize,
-      @NonNull AutoCompleteTextView scannedStage, @NonNull MaterialTextView scannedStatus,
-      @NonNull MaterialTextView scannedTag, @NonNull MaterialButton startScanBtn,
+      @NonNull MaterialTextView scannedProductSKU, @NonNull AutoCompleteTextView scannedQcStatus,
+      @NonNull MaterialTextView scannedSize, @NonNull AutoCompleteTextView scannedStage,
+      @NonNull MaterialTextView scannedStatus, @NonNull MaterialButton startScanBtn,
       @NonNull MaterialToolbar toolbar, @NonNull MaterialButton updateStageBtn) {
     this.rootView = rootView;
-    this.clearBtn = clearBtn;
-    this.drawerLayout = drawerLayout;
-    this.navView = navView;
+    this.btnCancelProductEdit = btnCancelProductEdit;
+    this.btnCancelSkuEdit = btnCancelSkuEdit;
+    this.btnSaveProduct = btnSaveProduct;
+    this.btnSaveSku = btnSaveSku;
+    this.coordinatorLayout = coordinatorLayout;
+    this.defectsCard = defectsCard;
+    this.etProductNameEdit = etProductNameEdit;
+    this.etProductSkuEdit = etProductSkuEdit;
+    this.etRemarks = etRemarks;
+    this.failedProduct = failedProduct;
+    this.failedQaCode = failedQaCode;
+    this.failedQcStatus = failedQcStatus;
+    this.failedRemarks = failedRemarks;
+    this.failedResultCard = failedResultCard;
+    this.failedSize = failedSize;
+    this.failedStage = failedStage;
+    this.ivCardClear = ivCardClear;
+    this.ivCardPrint = ivCardPrint;
+    this.ivEditProduct = ivEditProduct;
+    this.ivEditProductSKU = ivEditProductSKU;
+    this.ivFailedCardClear = ivFailedCardClear;
+    this.ivFailedCardPrint = ivFailedCardPrint;
+    this.ivFailedCardRework = ivFailedCardRework;
+    this.llDefectsContainer = llDefectsContainer;
+    this.llFailedDefectsContainer = llFailedDefectsContainer;
+    this.productEditButtons = productEditButtons;
+    this.productEditLayout = productEditLayout;
+    this.productSkuEditButtons = productSkuEditButtons;
+    this.productSkuEditLayout = productSkuEditLayout;
+    this.qaCode = qaCode;
+    this.rejectBtn = rejectBtn;
     this.scanInstructionCard = scanInstructionCard;
     this.scanProgress = scanProgress;
     this.scanResultCard = scanResultCard;
     this.scanStatusText = scanStatusText;
     this.scannedProduct = scannedProduct;
+    this.scannedProductSKU = scannedProductSKU;
     this.scannedQcStatus = scannedQcStatus;
     this.scannedSize = scannedSize;
     this.scannedStage = scannedStage;
     this.scannedStatus = scannedStatus;
-    this.scannedTag = scannedTag;
     this.startScanBtn = startScanBtn;
     this.toolbar = toolbar;
     this.updateStageBtn = updateStageBtn;
@@ -103,7 +233,7 @@ public final class ActivityScannerBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public DrawerLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -128,17 +258,185 @@ public final class ActivityScannerBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.clearBtn;
-      MaterialButton clearBtn = ViewBindings.findChildViewById(rootView, id);
-      if (clearBtn == null) {
+      id = R.id.btnCancelProductEdit;
+      MaterialButton btnCancelProductEdit = ViewBindings.findChildViewById(rootView, id);
+      if (btnCancelProductEdit == null) {
         break missingId;
       }
 
-      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+      id = R.id.btnCancelSkuEdit;
+      MaterialButton btnCancelSkuEdit = ViewBindings.findChildViewById(rootView, id);
+      if (btnCancelSkuEdit == null) {
+        break missingId;
+      }
 
-      id = R.id.nav_view;
-      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
-      if (navView == null) {
+      id = R.id.btnSaveProduct;
+      MaterialButton btnSaveProduct = ViewBindings.findChildViewById(rootView, id);
+      if (btnSaveProduct == null) {
+        break missingId;
+      }
+
+      id = R.id.btnSaveSku;
+      MaterialButton btnSaveSku = ViewBindings.findChildViewById(rootView, id);
+      if (btnSaveSku == null) {
+        break missingId;
+      }
+
+      CoordinatorLayout coordinatorLayout = (CoordinatorLayout) rootView;
+
+      id = R.id.defectsCard;
+      MaterialCardView defectsCard = ViewBindings.findChildViewById(rootView, id);
+      if (defectsCard == null) {
+        break missingId;
+      }
+
+      id = R.id.etProductNameEdit;
+      TextInputEditText etProductNameEdit = ViewBindings.findChildViewById(rootView, id);
+      if (etProductNameEdit == null) {
+        break missingId;
+      }
+
+      id = R.id.etProductSkuEdit;
+      TextInputEditText etProductSkuEdit = ViewBindings.findChildViewById(rootView, id);
+      if (etProductSkuEdit == null) {
+        break missingId;
+      }
+
+      id = R.id.etRemarks;
+      TextInputEditText etRemarks = ViewBindings.findChildViewById(rootView, id);
+      if (etRemarks == null) {
+        break missingId;
+      }
+
+      id = R.id.failedProduct;
+      MaterialTextView failedProduct = ViewBindings.findChildViewById(rootView, id);
+      if (failedProduct == null) {
+        break missingId;
+      }
+
+      id = R.id.failedQaCode;
+      MaterialTextView failedQaCode = ViewBindings.findChildViewById(rootView, id);
+      if (failedQaCode == null) {
+        break missingId;
+      }
+
+      id = R.id.failedQcStatus;
+      MaterialTextView failedQcStatus = ViewBindings.findChildViewById(rootView, id);
+      if (failedQcStatus == null) {
+        break missingId;
+      }
+
+      id = R.id.failedRemarks;
+      MaterialTextView failedRemarks = ViewBindings.findChildViewById(rootView, id);
+      if (failedRemarks == null) {
+        break missingId;
+      }
+
+      id = R.id.failedResultCard;
+      MaterialCardView failedResultCard = ViewBindings.findChildViewById(rootView, id);
+      if (failedResultCard == null) {
+        break missingId;
+      }
+
+      id = R.id.failedSize;
+      MaterialTextView failedSize = ViewBindings.findChildViewById(rootView, id);
+      if (failedSize == null) {
+        break missingId;
+      }
+
+      id = R.id.failedStage;
+      MaterialTextView failedStage = ViewBindings.findChildViewById(rootView, id);
+      if (failedStage == null) {
+        break missingId;
+      }
+
+      id = R.id.ivCardClear;
+      ImageButton ivCardClear = ViewBindings.findChildViewById(rootView, id);
+      if (ivCardClear == null) {
+        break missingId;
+      }
+
+      id = R.id.ivCardPrint;
+      ImageButton ivCardPrint = ViewBindings.findChildViewById(rootView, id);
+      if (ivCardPrint == null) {
+        break missingId;
+      }
+
+      id = R.id.ivEditProduct;
+      ImageButton ivEditProduct = ViewBindings.findChildViewById(rootView, id);
+      if (ivEditProduct == null) {
+        break missingId;
+      }
+
+      id = R.id.ivEditProductSKU;
+      ImageButton ivEditProductSKU = ViewBindings.findChildViewById(rootView, id);
+      if (ivEditProductSKU == null) {
+        break missingId;
+      }
+
+      id = R.id.ivFailedCardClear;
+      ImageButton ivFailedCardClear = ViewBindings.findChildViewById(rootView, id);
+      if (ivFailedCardClear == null) {
+        break missingId;
+      }
+
+      id = R.id.ivFailedCardPrint;
+      ImageButton ivFailedCardPrint = ViewBindings.findChildViewById(rootView, id);
+      if (ivFailedCardPrint == null) {
+        break missingId;
+      }
+
+      id = R.id.ivFailedCardRework;
+      Button ivFailedCardRework = ViewBindings.findChildViewById(rootView, id);
+      if (ivFailedCardRework == null) {
+        break missingId;
+      }
+
+      id = R.id.llDefectsContainer;
+      LinearLayout llDefectsContainer = ViewBindings.findChildViewById(rootView, id);
+      if (llDefectsContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.llFailedDefectsContainer;
+      LinearLayout llFailedDefectsContainer = ViewBindings.findChildViewById(rootView, id);
+      if (llFailedDefectsContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.productEditButtons;
+      LinearLayout productEditButtons = ViewBindings.findChildViewById(rootView, id);
+      if (productEditButtons == null) {
+        break missingId;
+      }
+
+      id = R.id.productEditLayout;
+      TextInputLayout productEditLayout = ViewBindings.findChildViewById(rootView, id);
+      if (productEditLayout == null) {
+        break missingId;
+      }
+
+      id = R.id.productSkuEditButtons;
+      LinearLayout productSkuEditButtons = ViewBindings.findChildViewById(rootView, id);
+      if (productSkuEditButtons == null) {
+        break missingId;
+      }
+
+      id = R.id.productSkuEditLayout;
+      TextInputLayout productSkuEditLayout = ViewBindings.findChildViewById(rootView, id);
+      if (productSkuEditLayout == null) {
+        break missingId;
+      }
+
+      id = R.id.qaCode;
+      MaterialTextView qaCode = ViewBindings.findChildViewById(rootView, id);
+      if (qaCode == null) {
+        break missingId;
+      }
+
+      id = R.id.rejectBtn;
+      MaterialButton rejectBtn = ViewBindings.findChildViewById(rootView, id);
+      if (rejectBtn == null) {
         break missingId;
       }
 
@@ -172,6 +470,12 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.scannedProductSKU;
+      MaterialTextView scannedProductSKU = ViewBindings.findChildViewById(rootView, id);
+      if (scannedProductSKU == null) {
+        break missingId;
+      }
+
       id = R.id.scannedQcStatus;
       AutoCompleteTextView scannedQcStatus = ViewBindings.findChildViewById(rootView, id);
       if (scannedQcStatus == null) {
@@ -196,12 +500,6 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.scannedTag;
-      MaterialTextView scannedTag = ViewBindings.findChildViewById(rootView, id);
-      if (scannedTag == null) {
-        break missingId;
-      }
-
       id = R.id.startScanBtn;
       MaterialButton startScanBtn = ViewBindings.findChildViewById(rootView, id);
       if (startScanBtn == null) {
@@ -220,10 +518,16 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityScannerBinding((DrawerLayout) rootView, clearBtn, drawerLayout, navView,
+      return new ActivityScannerBinding((CoordinatorLayout) rootView, btnCancelProductEdit,
+          btnCancelSkuEdit, btnSaveProduct, btnSaveSku, coordinatorLayout, defectsCard,
+          etProductNameEdit, etProductSkuEdit, etRemarks, failedProduct, failedQaCode,
+          failedQcStatus, failedRemarks, failedResultCard, failedSize, failedStage, ivCardClear,
+          ivCardPrint, ivEditProduct, ivEditProductSKU, ivFailedCardClear, ivFailedCardPrint,
+          ivFailedCardRework, llDefectsContainer, llFailedDefectsContainer, productEditButtons,
+          productEditLayout, productSkuEditButtons, productSkuEditLayout, qaCode, rejectBtn,
           scanInstructionCard, scanProgress, scanResultCard, scanStatusText, scannedProduct,
-          scannedQcStatus, scannedSize, scannedStage, scannedStatus, scannedTag, startScanBtn,
-          toolbar, updateStageBtn);
+          scannedProductSKU, scannedQcStatus, scannedSize, scannedStage, scannedStatus,
+          startScanBtn, toolbar, updateStageBtn);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -6,7 +6,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import com.sleepcompany.rfidapp.adapter.ProductSearchAdapter;
 import com.sleepcompany.rfidapp.model.Product;
 import com.sleepcompany.rfidapp.network.ApiClient;
 import com.sleepcompany.rfidapp.network.ApiService;
@@ -36,12 +40,13 @@ public class ProductsActivity extends BaseDrawerActivity {
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
     private MaterialButton refreshButton;
-    private ExtendedFloatingActionButton fabAddProduct;
+    private ExtendedFloatingActionButton scaneTag;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextInputEditText searchInput;
 
     private TextView tvActiveProducts;
     private TextView tvPassedProducts;
+    private TextView tvNoResults;
 
     private List<Product> products = new ArrayList<>();
     private int currentPage = 1;
@@ -64,7 +69,7 @@ public class ProductsActivity extends BaseDrawerActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check for token first
+        // Check token
         String token = ApiClient.getToken(this);
         if (token == null || token.isEmpty()) {
             Log.w(TAG, "No token found. Redirecting to LoginActivity.");
@@ -93,48 +98,20 @@ public class ProductsActivity extends BaseDrawerActivity {
     private void initializeViews() {
         recyclerView = findViewById(R.id.productsRecyclerView);
         refreshButton = findViewById(R.id.refreshProducts);
-        fabAddProduct = findViewById(R.id.fabAddProduct);
+        scaneTag = findViewById(R.id.scaneTag);
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         searchInput = findViewById(R.id.searchInput);
 
         tvActiveProducts = findViewById(R.id.tvActiveProducts);
         tvPassedProducts = findViewById(R.id.tvPassedProducts);
-    }
+        tvNoResults = findViewById(R.id.tvNoResults);
 
-    private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        adapter = new ProductAdapter(products, this::onProductClick);
-        recyclerView.setAdapter(adapter);
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView rv, int dx, int dy) {
-                super.onScrolled(rv, dx, dy);
-                LinearLayoutManager layoutManager = (LinearLayoutManager) rv.getLayoutManager();
-                if (layoutManager != null && !isLoading && hasMoreData && dy > 0) {
-                    int visibleItemCount = layoutManager.getChildCount();
-                    int totalItemCount = layoutManager.getItemCount();
-                    int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
-
-                    if (pastVisibleItems + visibleItemCount >= totalItemCount - 3) {
-                        loadProducts(false);
-                    }
-                }
-            }
-        });
-    }
-
-    private void setupClickListeners() {
-        refreshButton.setOnClickListener(v -> refreshData());
-
-        fabAddProduct.setOnClickListener(v -> Snackbar.make(v, "Add Product feature coming soon!", Snackbar.LENGTH_SHORT)
-                .setAnchorView(fabAddProduct)
-                .show());
+        // ensure RecyclerView scrolls independently
+        if (recyclerView != null) {
+            recyclerView.setNestedScrollingEnabled(true);
+        }
 
         if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.setOnRefreshListener(this::refreshData);
             swipeRefreshLayout.setColorSchemeResources(
                     android.R.color.holo_blue_bright,
                     android.R.color.holo_green_light,
@@ -143,35 +120,76 @@ public class ProductsActivity extends BaseDrawerActivity {
         }
     }
 
-    private void setupSearchFunctionality() {
-        if (searchInput != null) {
-            searchInput.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (searchRunnable != null) searchHandler.removeCallbacks(searchRunnable);
-                    searchRunnable = () -> {
-                        String query = s.toString().trim();
-                        if (!query.equals(currentSearchQuery)) {
-                            currentSearchQuery = query;
-                            refreshData();
-                        }
-                    };
-                    searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
-                }
-                @Override
-                public void afterTextChanged(Editable s) {}
-            });
+    private void setupRecyclerView() {
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        if (recyclerView != null) {
+            recyclerView.setLayoutManager(lm);
+            recyclerView.setHasFixedSize(true);
+            adapter = new ProductAdapter(products, this::onProductClick);
+            recyclerView.setAdapter(adapter);
 
-            searchInput.setOnEditorActionListener((v, actionId, event) -> {
-                performSearch();
-                return true;
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView rv, int dx, int dy) {
+                    super.onScrolled(rv, dx, dy);
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) rv.getLayoutManager();
+                    if (layoutManager != null && !isLoading && hasMoreData && dy > 0) {
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+
+                        if (pastVisibleItems + visibleItemCount >= totalItemCount - 3) {
+                            loadProducts(false);
+                        }
+                    }
+                }
             });
         }
     }
 
+    private void setupClickListeners() {
+        if (refreshButton != null) {
+            refreshButton.setOnClickListener(v -> refreshData());
+        }
+
+        if (scaneTag != null) {
+            scaneTag.setOnClickListener(v ->
+                    startActivity(new Intent(ProductsActivity.this, ScannerActivity.class)));
+        }
+
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(this::refreshData);
+        }
+    }
+
+    private void setupSearchFunctionality() {
+        if (searchInput == null) return;
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (searchRunnable != null) searchHandler.removeCallbacks(searchRunnable);
+                final CharSequence text = s;
+                searchRunnable = () -> {
+                    String query = text.toString().trim();
+                    if (!query.equals(currentSearchQuery)) {
+                        currentSearchQuery = query;
+                        refreshData();
+                    }
+                };
+                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY);
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        searchInput.setOnEditorActionListener((v, actionId, event) -> {
+            performSearch();
+            return true;
+        });
+    }
+
     private void performSearch() {
+        Log.d(TAG, "performSearch called");
         String query = searchInput != null ? searchInput.getText().toString().trim() : "";
         if (!query.equals(currentSearchQuery)) {
             currentSearchQuery = query;
@@ -188,13 +206,13 @@ public class ProductsActivity extends BaseDrawerActivity {
         intent.putExtra("size", product.getSize());
         intent.putExtra("quantity", product.getQuantity());
         intent.putExtra("qcStatus", product.getQcStatus());
+        intent.putExtra("currentStage", product.getStage());
         intent.putExtra("createdAt", product.getCreatedAt());
         startActivity(intent);
     }
 
     private void loadProducts(boolean isRefresh) {
         Log.d(TAG, "loadProducts called. Page: " + currentPage + ", Search: " + currentSearchQuery);
-        Log.d(TAG, "Current Token: " + ApiClient.getToken(this));
 
         if (isLoading) return;
         isLoading = true;
@@ -205,8 +223,10 @@ public class ProductsActivity extends BaseDrawerActivity {
             if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(true);
         }
 
-        refreshButton.setEnabled(false);
-        refreshButton.setText("Loading...");
+        if (refreshButton != null) {
+            refreshButton.setEnabled(false);
+            refreshButton.setText("Loading...");
+        }
 
         ProductsRequest request = new ProductsRequest();
         request.setSearch(currentSearchQuery);
@@ -214,37 +234,44 @@ public class ProductsActivity extends BaseDrawerActivity {
         request.setPage(currentPage);
         request.setLimit(20);
 
-        Log.d(TAG, "Request body: " + request.toString());
-
         ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
-        apiService.getPlanProducts(request).enqueue(new Callback<ProductsResponse>() {
+        apiService.getProducts(request).enqueue(new Callback<ProductsResponse>() {
             @Override
             public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
                 isLoading = false;
                 if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
-                refreshButton.setEnabled(true);
-                refreshButton.setText("Refresh");
-
-                Log.d(TAG, "API Response Code: " + response.code());
+                if (refreshButton != null) {
+                    refreshButton.setEnabled(true);
+                    refreshButton.setText("Refresh");
+                }
 
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     ProductsResponse productsResponse = response.body();
                     List<Product> newProducts = productsResponse.getProducts();
-
+Log.d(TAG, "onResponse: " + newProducts);
                     if (isRefresh) products.clear();
                     if (newProducts != null && !newProducts.isEmpty()) {
                         products.addAll(newProducts);
-                        adapter.updateProducts(products);
+                        if (adapter != null) adapter.updateProducts(products);
                         currentPage++;
 
                         ProductsResponse.Pagination pagination = productsResponse.getPagination();
                         hasMoreData = pagination != null && pagination.getCurrent_page() < pagination.getLast_page();
                         updateStats(products, pagination);
+
+                        if (tvNoResults != null) tvNoResults.setVisibility(View.GONE);
+                        if (recyclerView != null) recyclerView.setVisibility(android.view.View.VISIBLE);
                     } else {
+                        Log.w(TAG, "No products found");
                         hasMoreData = false;
                         if (isRefresh && products.isEmpty()) {
-                            showMessage("No products found");
+                            // show no results
+                            if (tvNoResults != null) {
+                                tvNoResults.setVisibility(android.view.View.VISIBLE);
+                                tvNoResults.setText("No products found");
+                            }
                             updateStats(new ArrayList<>(), null);
+                            if (recyclerView != null) recyclerView.setVisibility(android.view.View.GONE);
                         }
                     }
 
@@ -262,7 +289,6 @@ public class ProductsActivity extends BaseDrawerActivity {
                             : "Failed to load products";
 
                     if (response.code() == 401) {
-                        // Token invalid, redirect to login
                         ApiClient.clearToken(ProductsActivity.this);
                         startActivity(new Intent(ProductsActivity.this, LoginActivity.class));
                         finish();
@@ -276,8 +302,10 @@ public class ProductsActivity extends BaseDrawerActivity {
             public void onFailure(Call<ProductsResponse> call, Throwable t) {
                 isLoading = false;
                 if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(false);
-                refreshButton.setEnabled(true);
-                refreshButton.setText("Refresh");
+                if (refreshButton != null) {
+                    refreshButton.setEnabled(true);
+                    refreshButton.setText("Refresh");
+                }
 
                 String errorMsg = "Network error";
                 if (t.getMessage() != null) {
@@ -298,7 +326,16 @@ public class ProductsActivity extends BaseDrawerActivity {
         }
 
         if (tvPassedProducts != null) {
-            long passedCount = productList.stream().filter(p -> "PASS".equals(p.getQcStatus())).count();
+            long passedCount = 0;
+            try {
+                // Java streams may require desugaring; fallback to loop if needed
+                for (Product p : productList) {
+                    if ("PASS".equals(p.getQcStatus())) passedCount++;
+                }
+            } catch (Exception e) {
+                // fallback
+                passedCount = 0;
+            }
             tvPassedProducts.setText(String.valueOf(passedCount));
         }
     }
@@ -309,9 +346,7 @@ public class ProductsActivity extends BaseDrawerActivity {
 
     private void showMessage(String message) {
         if (recyclerView != null && !TextUtils.isEmpty(message)) {
-            Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT)
-                    .setAnchorView(fabAddProduct)
-                    .show();
+            Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -325,5 +360,14 @@ public class ProductsActivity extends BaseDrawerActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

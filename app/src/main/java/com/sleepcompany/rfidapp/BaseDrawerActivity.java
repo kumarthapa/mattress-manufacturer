@@ -2,7 +2,10 @@ package com.sleepcompany.rfidapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -13,11 +16,14 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
+import com.sleepcompany.rfidapp.util.PrefHelper;
+import com.sleepcompany.rfidapp.util.SessionManager;
 
 public abstract class BaseDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "BaseDrawerActivity";
 
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
@@ -70,9 +76,18 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
     }
 
     protected void setupNavigationDrawer() {
-        // default implementation: nothing extra
-        // child activities can override if needed
+        if (navigationView != null) {
+            // get menu and write item
+            Menu menu = navigationView.getMenu();
+            MenuItem writeItem = menu.findItem(R.id.nav_write_tags);
+
+            boolean canWriteBonding = PrefHelper.hasPermission(this, "write.bonding");
+            if (writeItem != null) {
+                writeItem.setVisible(canWriteBonding);
+            }
+        }
     }
+
 
     @LayoutRes
     protected abstract int getLayoutResourceId();
@@ -82,7 +97,7 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
     }
 
     protected String getToolbarTitle() {
-        return getString(R.string.app_name);
+        return "Dashboard";
     }
 
     protected void navigateTo(Class<?> activityClass) {
@@ -90,6 +105,7 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
             Intent intent = new Intent(this, activityClass);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 
@@ -100,20 +116,35 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
+
         if (id == R.id.nav_dashboard) {
             navigateTo(DashboardActivity.class);
         } else if (id == R.id.nav_products) {
             navigateTo(ProductsActivity.class);
-        } else if (id == R.id.nav_quality_control) {
-            navigateTo(QcActivity.class);
-        } else if (id == R.id.nav_rfid_scan) {
+        }
+//        else if (id == R.id.nav_quality_control) {
+//        navigateTo(QcActivity.class);}
+        else if (id == R.id.nav_rfid_scan) {
             navigateTo(ScannerActivity.class);
-        } else if (id == R.id.nav_defects) {
-            // TODO: navigateTo(DefectTrackingActivity.class);
-        } else if (id == R.id.nav_settings) {
-            // TODO: navigateTo(SettingsActivity.class);
+        } else if (id == R.id.nav_write_tags) {
+            navigateTo(WriteTagsActivity.class);
+        }
+//        else if (id == R.id.nav_defects) {
+//            // TODO: navigateTo(DefectTrackingActivity.class);}
+        else if (id == R.id.nav_settings) {
+
+            navigateTo(SettingsActivity.class);
         } else if (id == R.id.nav_logout) {
-            getSharedPreferences("app_prefs", MODE_PRIVATE).edit().clear().apply();
+            // DEBUG DUMP (optional) - uncomment if you want to log prefs before/after:
+            // Log.d(TAG, "PREFS BEFORE LOGOUT:\n" + PrefHelper.dumpAllPrefs(this));
+
+            // Perform safe logout (clears token + session keys but keeps printer & credentials)
+            SessionManager.logoutKeepPreferences(this);
+
+            // DEBUG DUMP (optional) - uncomment if you want to log prefs after logout:
+            // Log.d(TAG, "PREFS AFTER LOGOUT:\n" + PrefHelper.dumpAllPrefs(this));
+
+            // Navigate to login screen and clear activity stack
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -129,12 +160,20 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
         return false; // default: not handled
     }
 
+
+    private long backPressedTime = 0;
     @Override
     public void onBackPressed() {
         if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (System.currentTimeMillis() - backPressedTime < 2000) {
+                super.onBackPressed();
+            } else {
+                backPressedTime = System.currentTimeMillis();
+                Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
 }

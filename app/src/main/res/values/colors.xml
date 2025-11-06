@@ -33,4 +33,10 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="transparent_black_12">#1F000000</color>
     <color name="transparent">#0000</color>
+    <color name="snackbar_success">#2E7D32</color>
+    <color name="snackbar_error">#C62828</color>
+
+    <color name="red_600">#E53935</color>
+
+
 </resources>

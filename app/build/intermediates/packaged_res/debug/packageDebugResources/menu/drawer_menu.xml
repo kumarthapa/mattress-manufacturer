@@ -11,20 +11,25 @@
         android:title="Products"
         android:icon="@drawable/ic_inventory" />
 
-    <item
-        android:id="@+id/nav_quality_control"
-        android:title="Quality Control"
-        android:icon="@drawable/ic_quality" />
+<!--    <item-->
+<!--        android:id="@+id/nav_quality_control"-->
+<!--        android:title="Quality Control"-->
+<!--        android:icon="@drawable/ic_quality" />-->
 
     <item
         android:id="@+id/nav_rfid_scan"
         android:title="Scan RFID Tag"
-        android:icon="@drawable/ic_scan" />
+        android:icon="@drawable/ic_rfid_tag_scan" />
 
     <item
-        android:id="@+id/nav_defects"
-        android:title="Defect Tracking"
-        android:icon="@drawable/ic_defects" />
+        android:id="@+id/nav_write_tags"
+        android:title="Write Tags"
+        android:icon="@drawable/ic_write" />
+
+<!--    <item-->
+<!--        android:id="@+id/nav_defects"-->
+<!--        android:title="Defect Tracking"-->
+<!--        android:icon="@drawable/ic_defects" />-->
 
     <item
         android:id="@+id/nav_settings"

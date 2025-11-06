@@ -1,55 +1,57 @@
 package com.sleepcompany.rfidapp.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 /**
- * Model class representing a Product as returned by the backend API.
- * Includes current stage, QC status, and latest process history.
+ * Represents a Product as returned by backend API.
+ * Includes latest process history and defect points.
  */
 public class Product {
+
     @SerializedName("tag_id")
     private String tagId;
+
     private String id;
     private String product_name;
     private String sku;
     private String size;
+    private String qa_code;
     private int quantity;
-    private String qc_status;
-    private String current_stage;
+    private String status;
 
     // Latest process info (from product_process_history)
+    private String stage;
     private String latest_stage;
     private String latest_status;
-    private String latest_machine_no;
-    private String latest_comments;
+    private String latest_remarks;
+
+    // Latest defect points
+    @SerializedName("latest_defects_points")
+    private List<String> latestDefectsPoints;
 
     private String created_at;
 
-    /** Empty constructor required for Retrofit/Gson JSON mapping */
-    public Product() {}
-
-    /**
-     * Full constructor for manual instantiation if needed.
-     */
     public Product(String id, String product_name, String sku, String size, int quantity,
-                   String qc_status, String current_stage,
-                   String latest_stage, String latest_status, String latest_machine_no, String latest_comments,
-                   String created_at) {
+                   String latest_stage,String stage, String latest_status,String qa_code,
+                   String latest_remarks,
+                   List<String> latestDefectsPoints, String tagId, String created_at) {
         this.id = id;
         this.product_name = product_name;
         this.sku = sku;
         this.size = size;
+        this.qa_code = qa_code;
         this.quantity = quantity;
-        this.qc_status = qc_status;
-        this.current_stage = current_stage;
         this.latest_stage = latest_stage;
+        this.stage = stage;
         this.latest_status = latest_status;
-        this.latest_machine_no = latest_machine_no;
-        this.latest_comments = latest_comments;
+        this.latest_remarks = latest_remarks;
+        this.latestDefectsPoints = latestDefectsPoints;
+        this.tagId = tagId;
         this.created_at = created_at;
     }
 
-    // Getters and Setters
+    // Getters and setters
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -61,41 +63,32 @@ public class Product {
     public void setSku(String sku) { this.sku = sku; }
 
     public String getSize() { return size; }
+    public String getQAcode() { return qa_code; }
+
     public void setSize(String size) { this.size = size; }
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public String getQcStatus() { return qc_status; }
-    public void setQcStatus(String qc_status) { this.qc_status = qc_status; }
-
-    public String getCurrentStage() { return current_stage; }
-    public void setCurrentStage(String current_stage) { this.current_stage = current_stage; }
+    public String getQcStatus() { return status; }
+    public void setQcStatus(String status) { this.status = status; }
 
     public String getLatestStage() { return latest_stage; }
+    public String getStage() { return stage; }
     public void setLatestStage(String latest_stage) { this.latest_stage = latest_stage; }
 
     public String getLatestStatus() { return latest_status; }
     public void setLatestStatus(String latest_status) { this.latest_status = latest_status; }
 
-    public String getLatestMachineNo() { return latest_machine_no; }
-    public void setLatestMachineNo(String latest_machine_no) { this.latest_machine_no = latest_machine_no; }
+    public String getLatestRemarks() { return latest_remarks; }
+    public void setLatestRemarks(String latest_remarks) { this.latest_remarks = latest_remarks; }
 
-    public String getLatestComments() { return latest_comments; }
-    public void setLatestComments(String latest_comments) { this.latest_comments = latest_comments; }
+    public List<String> getLatestDefectsPoints() { return latestDefectsPoints; }
+    public void setLatestDefectsPoints(List<String> latestDefectsPoints) { this.latestDefectsPoints = latestDefectsPoints; }
+
+    public String getTagId() { return tagId; }
+    public void setTagId(String tagId) { this.tagId = tagId; }
 
     public String getCreatedAt() { return created_at; }
     public void setCreatedAt(String created_at) { this.created_at = created_at; }
-
-    private String rfid_tag;  // Add this field to hold the RFID tag (use the same name as backend JSON)
-
-    // Add rfid_tag getter and setter
-
-
-    public String getTagId() {
-        return tagId;
-    }
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
-    }
 }

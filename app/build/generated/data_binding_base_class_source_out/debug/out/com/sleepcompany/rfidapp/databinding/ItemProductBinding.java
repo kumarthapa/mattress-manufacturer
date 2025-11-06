@@ -24,6 +24,9 @@ public final class ItemProductBinding implements ViewBinding {
   public final MaterialTextView tvCreatedAt;
 
   @NonNull
+  public final MaterialTextView tvCurrentStage;
+
+  @NonNull
   public final MaterialTextView tvProductName;
 
   @NonNull
@@ -39,11 +42,13 @@ public final class ItemProductBinding implements ViewBinding {
   public final MaterialTextView tvSku;
 
   private ItemProductBinding(@NonNull MaterialCardView rootView,
-      @NonNull MaterialTextView tvCreatedAt, @NonNull MaterialTextView tvProductName,
-      @NonNull Chip tvQcStatus, @NonNull MaterialTextView tvQuantity,
-      @NonNull MaterialTextView tvSize, @NonNull MaterialTextView tvSku) {
+      @NonNull MaterialTextView tvCreatedAt, @NonNull MaterialTextView tvCurrentStage,
+      @NonNull MaterialTextView tvProductName, @NonNull Chip tvQcStatus,
+      @NonNull MaterialTextView tvQuantity, @NonNull MaterialTextView tvSize,
+      @NonNull MaterialTextView tvSku) {
     this.rootView = rootView;
     this.tvCreatedAt = tvCreatedAt;
+    this.tvCurrentStage = tvCurrentStage;
     this.tvProductName = tvProductName;
     this.tvQcStatus = tvQcStatus;
     this.tvQuantity = tvQuantity;
@@ -84,6 +89,12 @@ public final class ItemProductBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvCurrentStage;
+      MaterialTextView tvCurrentStage = ViewBindings.findChildViewById(rootView, id);
+      if (tvCurrentStage == null) {
+        break missingId;
+      }
+
       id = R.id.tvProductName;
       MaterialTextView tvProductName = ViewBindings.findChildViewById(rootView, id);
       if (tvProductName == null) {
@@ -114,8 +125,8 @@ public final class ItemProductBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemProductBinding((MaterialCardView) rootView, tvCreatedAt, tvProductName,
-          tvQcStatus, tvQuantity, tvSize, tvSku);
+      return new ItemProductBinding((MaterialCardView) rootView, tvCreatedAt, tvCurrentStage,
+          tvProductName, tvQcStatus, tvQuantity, tvSize, tvSku);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

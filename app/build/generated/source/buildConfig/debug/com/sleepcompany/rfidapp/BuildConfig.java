@@ -10,7 +10,7 @@ public final class BuildConfig {
   public static final int VERSION_CODE = 1;
   public static final String VERSION_NAME = "1.0.0-debug";
   // Field from default config.
-  public static final String APP_DISPLAY_NAME = "RFID App";
+  public static final String APP_DISPLAY_NAME = "Galla App";
   // Field from default config.
   public static final String APP_NAMESPACE = "com.sleepcompany.rfidapp";
   // Field from default config.

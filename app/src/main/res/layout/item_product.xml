@@ -69,6 +69,32 @@
 
         </LinearLayout>
 
+        <!-- Current stage Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCurrentStage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SKU: ABC123"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/tvSize"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Size: Large"-->
+<!--                android:textAppearance="?attr/textAppearanceBodyMedium"-->
+<!--                android:textColor="?attr/colorOnSurfaceVariant" />-->
+
+        </LinearLayout>
+
         <!-- Quantity and Created Date Row -->
         <LinearLayout
             android:layout_width="match_parent"

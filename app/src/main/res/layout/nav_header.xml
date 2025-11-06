@@ -11,13 +11,22 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:contentDescription="@string/nav_header_title"-->
+<!--        android:paddingTop="@dimen/nav_header_vertical_spacing"-->
+<!--        android:src="@mipmap/ic_launcher_round"-->
+<!--        android:layout_gravity="center_horizontal" />-->
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logoImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:contentDescription="@string/nav_header_title"
+        android:src="@drawable/ic_brand_logo"
+        android:scaleType="centerInside"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@mipmap/ic_launcher_round"
         android:layout_gravity="center_horizontal" />
 
     <TextView

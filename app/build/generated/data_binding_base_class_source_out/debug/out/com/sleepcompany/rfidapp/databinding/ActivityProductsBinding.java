@@ -4,6 +4,7 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,9 +31,6 @@ public final class ActivityProductsBinding implements ViewBinding {
   public final DrawerLayout drawerLayout;
 
   @NonNull
-  public final ExtendedFloatingActionButton fabAddProduct;
-
-  @NonNull
   public final NavigationView navView;
 
   @NonNull
@@ -40,6 +38,9 @@ public final class ActivityProductsBinding implements ViewBinding {
 
   @NonNull
   public final MaterialButton refreshProducts;
+
+  @NonNull
+  public final ExtendedFloatingActionButton scaneTag;
 
   @NonNull
   public final TextInputEditText searchInput;
@@ -54,24 +55,29 @@ public final class ActivityProductsBinding implements ViewBinding {
   public final MaterialTextView tvActiveProducts;
 
   @NonNull
+  public final TextView tvNoResults;
+
+  @NonNull
   public final MaterialTextView tvPassedProducts;
 
   private ActivityProductsBinding(@NonNull DrawerLayout rootView,
-      @NonNull DrawerLayout drawerLayout, @NonNull ExtendedFloatingActionButton fabAddProduct,
-      @NonNull NavigationView navView, @NonNull RecyclerView productsRecyclerView,
-      @NonNull MaterialButton refreshProducts, @NonNull TextInputEditText searchInput,
+      @NonNull DrawerLayout drawerLayout, @NonNull NavigationView navView,
+      @NonNull RecyclerView productsRecyclerView, @NonNull MaterialButton refreshProducts,
+      @NonNull ExtendedFloatingActionButton scaneTag, @NonNull TextInputEditText searchInput,
       @NonNull SwipeRefreshLayout swipeRefresh, @NonNull MaterialToolbar toolbar,
-      @NonNull MaterialTextView tvActiveProducts, @NonNull MaterialTextView tvPassedProducts) {
+      @NonNull MaterialTextView tvActiveProducts, @NonNull TextView tvNoResults,
+      @NonNull MaterialTextView tvPassedProducts) {
     this.rootView = rootView;
     this.drawerLayout = drawerLayout;
-    this.fabAddProduct = fabAddProduct;
     this.navView = navView;
     this.productsRecyclerView = productsRecyclerView;
     this.refreshProducts = refreshProducts;
+    this.scaneTag = scaneTag;
     this.searchInput = searchInput;
     this.swipeRefresh = swipeRefresh;
     this.toolbar = toolbar;
     this.tvActiveProducts = tvActiveProducts;
+    this.tvNoResults = tvNoResults;
     this.tvPassedProducts = tvPassedProducts;
   }
 
@@ -104,12 +110,6 @@ public final class ActivityProductsBinding implements ViewBinding {
     missingId: {
       DrawerLayout drawerLayout = (DrawerLayout) rootView;
 
-      id = R.id.fabAddProduct;
-      ExtendedFloatingActionButton fabAddProduct = ViewBindings.findChildViewById(rootView, id);
-      if (fabAddProduct == null) {
-        break missingId;
-      }
-
       id = R.id.nav_view;
       NavigationView navView = ViewBindings.findChildViewById(rootView, id);
       if (navView == null) {
@@ -125,6 +125,12 @@ public final class ActivityProductsBinding implements ViewBinding {
       id = R.id.refreshProducts;
       MaterialButton refreshProducts = ViewBindings.findChildViewById(rootView, id);
       if (refreshProducts == null) {
+        break missingId;
+      }
+
+      id = R.id.scaneTag;
+      ExtendedFloatingActionButton scaneTag = ViewBindings.findChildViewById(rootView, id);
+      if (scaneTag == null) {
         break missingId;
       }
 
@@ -152,15 +158,21 @@ public final class ActivityProductsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvNoResults;
+      TextView tvNoResults = ViewBindings.findChildViewById(rootView, id);
+      if (tvNoResults == null) {
+        break missingId;
+      }
+
       id = R.id.tvPassedProducts;
       MaterialTextView tvPassedProducts = ViewBindings.findChildViewById(rootView, id);
       if (tvPassedProducts == null) {
         break missingId;
       }
 
-      return new ActivityProductsBinding((DrawerLayout) rootView, drawerLayout, fabAddProduct,
-          navView, productsRecyclerView, refreshProducts, searchInput, swipeRefresh, toolbar,
-          tvActiveProducts, tvPassedProducts);
+      return new ActivityProductsBinding((DrawerLayout) rootView, drawerLayout, navView,
+          productsRecyclerView, refreshProducts, scaneTag, searchInput, swipeRefresh, toolbar,
+          tvActiveProducts, tvNoResults, tvPassedProducts);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

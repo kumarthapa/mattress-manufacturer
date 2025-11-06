@@ -2,6 +2,9 @@ package com.sleepcompany.rfidapp.network;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+import java.util.Map;
+
 public class LoginResponse {
 
     @SerializedName("success")
@@ -51,6 +54,10 @@ public class LoginResponse {
         @SerializedName("user")
         private User user;
 
+        // add this
+        @SerializedName("permissions")
+        private Map<String, List<String>> permissions;
+
         // Add getters/setters
         public String getToken() {
             return token;
@@ -67,6 +74,10 @@ public class LoginResponse {
         public void setUser(User user) {
             this.user = user;
         }
+
+        // new getters/setters for permissions
+        public Map<String, List<String>> getPermissions() { return permissions; }
+        public void setPermissions(Map<String, List<String>> permissions) { this.permissions = permissions; }
 
         // You can create a nested User class if needed
         public static class User {
