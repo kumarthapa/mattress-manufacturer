@@ -34,6 +34,8 @@
         android:name="android.hardware.bluetooth_le"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <permission
         android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
@@ -56,15 +58,21 @@
         android:usesCleartextTraffic="true" >
 
         <!-- Launcher -->
+
         <activity
-            android:name="com.sleepcompany.rfidapp.LoginActivity"
-            android:exported="true" >
+            android:name="com.sleepcompany.rfidapp.LauncherActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SleepCompanyWeb" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.sleepcompany.rfidapp.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SleepCompanyWeb" />
 
         <!-- Other Activities -->
         <activity
@@ -100,6 +108,15 @@
             android:label="Bluetooth Config"
             android:theme="@style/Theme.SleepCompanyWeb" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.sleepcompany.rfidapp.debug.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.sleepcompany.rfidapp.debug.androidx-startup"

@@ -681,6 +681,14 @@ private void setupProductEditorListeners() {
             }
         });
         scanThread.start();
+        // 🚀 AUTO STOP AFTER 5 SECONDS
+        mainHandler.postDelayed(() -> {
+            if (isScanning) {
+                Log.d("RFID_SCAN", "Auto-stop: Timeout reached");
+                stopRFIDScan();
+                Toast.makeText(ScannerActivity.this, "Scan timeout (4 seconds)", Toast.LENGTH_SHORT).show();
+            }
+        }, 4000);
         autoConnectSavedPrinterIfNeeded();
     }
     private void playScanSuccessSound() {

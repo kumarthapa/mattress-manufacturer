@@ -12,16 +12,20 @@
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/activity_write_tag_detail.xml"
     },
     {
-        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/dialog_license.xml",
-        "source": "com.sleepcompany.rfidapp-main-55:/layout/dialog_license.xml"
-    },
-    {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_recent_activity.xml",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/item_recent_activity.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_write_tags.xml",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/activity_write_tags.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/dialog_update_download.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/dialog_update_download.xml"
+    },
+    {
+        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_launcher.xml",
+        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/activity_launcher.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_product.xml",
@@ -36,12 +40,20 @@
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/item_stage.xml"
     },
     {
+        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/fragment_inventory.xml",
+        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/fragment_inventory.xml"
+    },
+    {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/list_item.xml",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/list_item.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/fragment_inventory.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/fragment_inventory.xml"
+        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/file_paths.xml",
+        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/file_paths.xml"
+    },
+    {
+        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/dialog_update_download.xml",
+        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/dialog_update_download.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_qc.xml",

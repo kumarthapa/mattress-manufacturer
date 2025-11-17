@@ -62,4 +62,13 @@ public interface ApiService {
     @POST("products/update-product-details")
     Call<TagResponse> updateProductDetails(@Body UpdateProductDetailsRequest request);
 
+
+    // in ApiService interface
+    @POST("device/check-update")
+    Call<UpdateCheckResponse> checkUpdate(@Body UpdateCheckRequest req);
+
+    @POST("device/mark-updated")
+    Call<GenericResponse> markUpdated(@Body MarkUpdatedRequest req);
+
+
 }

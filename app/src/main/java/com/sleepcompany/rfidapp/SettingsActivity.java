@@ -180,72 +180,175 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
     }
 
     /**
-     * Try various reflection-based methods on UHF SDK to apply power.
-     * Keeps local logging and toast for feedback.
+     * Ensure we have a valid, opened UHFService instance.
+     * Tries getInstance(Context) and open() if necessary.
+     * Returns true if device ready for calls.
+     */
+    private boolean ensureUhfOpen() {
+        try {
+            if (mDevice == null) {
+                // try getInstance with context if available
+                try {
+                    Method gi = Class.forName("com.seuic.uhf.UHFService")
+                            .getMethod("getInstance", Context.class);
+                    Object inst = gi.invoke(null, this);
+                    if (inst instanceof UHFService) mDevice = (UHFService) inst;
+                } catch (NoSuchMethodException nm) {
+                    // fallback to no-arg getInstance()
+                    try {
+                        Method gi2 = Class.forName("com.seuic.uhf.UHFService").getMethod("getInstance");
+                        Object inst = gi2.invoke(null);
+                        if (inst instanceof UHFService) mDevice = (UHFService) inst;
+                    } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Log.w(TAG, "ensureUhfOpen getInstance failed: " + e.getMessage());
+                }
+            }
+
+            if (mDevice == null) {
+                Log.w(TAG, "ensureUhfOpen: UHFService instance still null");
+                return false;
+            }
+
+            // Check open state via isOpen() or isopen()
+            boolean opened = false;
+            try {
+                Method isOpen = mDevice.getClass().getMethod("isOpen");
+                Object res = isOpen.invoke(mDevice);
+                opened = res instanceof Boolean && (Boolean) res;
+            } catch (NoSuchMethodException ex) {
+                try {
+                    Method isopen = mDevice.getClass().getMethod("isopen");
+                    Object res = isopen.invoke(mDevice);
+                    opened = res instanceof Boolean && (Boolean) res;
+                } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Log.w(TAG, "isOpen check failed: " + e.getMessage());
+            }
+
+            if (!opened) {
+                // attempt open()
+                try {
+                    Method open = mDevice.getClass().getMethod("open");
+                    Object result = open.invoke(mDevice);
+                    if (result instanceof Boolean) opened = (Boolean) result;
+                    Log.d(TAG, "UHFService.open() returned: " + result);
+                } catch (NoSuchMethodException nm) {
+                    Log.w(TAG, "ensureUhfOpen: open() not found on UHFService");
+                }
+            }
+
+            Log.d(TAG, "ensureUhfOpen: opened=" + opened);
+            return opened;
+        } catch (Exception e) {
+            Log.e(TAG, "ensureUhfOpen exception: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+    /**
+     * Apply power robustly: ensure opened, call setPower(int) or fallback to setParameters.
      */
     private void applyRfidPower(int power) {
-        if (mDevice == null) {
-            Toast.makeText(this, "RFID hardware not available", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "applyRfidPower request: " + power + " dBm");
+        if (!ensureUhfOpen()) {
+            Toast.makeText(this, "UHF not available / failed to open", Toast.LENGTH_LONG).show();
             return;
         }
 
         boolean applied = false;
-        String appliedMethod = "";
+        String methodUsed = null;
 
-        String[] candidateMethods = new String[]{
-                "setPower",
-                "setOutputPower",
-                "setRfPower",
-                "setTxPower",
-                "setPowerDbm"
-        };
-
-        for (String name : candidateMethods) {
-            try {
-                Method m = mDevice.getClass().getMethod(name, int.class);
-                m.setAccessible(true);
-                m.invoke(mDevice, power);
-                applied = true;
-                appliedMethod = name;
-                Log.d(TAG, "Applied power using: " + name);
-                break;
-            } catch (NoSuchMethodException e) {
-                // not present, continue
-            } catch (Exception e) {
-                Log.w(TAG, "applyRfidPower failed using " + name + ": " + e.getMessage());
-            }
+        // 1) Try direct setPower(int) if present (preferred)
+        try {
+            Method m = mDevice.getClass().getMethod("setPower", int.class);
+            m.setAccessible(true);
+            Object r = m.invoke(mDevice, power);
+            if (r instanceof Boolean) applied = (Boolean) r;
+            methodUsed = "setPower";
+            Log.d(TAG, "invoke setPower returned: " + r);
+        } catch (NoSuchMethodException ns) {
+            Log.d(TAG, "setPower method not present: " + ns.getMessage());
+        } catch (Exception e) {
+            Log.w(TAG, "setPower invocation failed: " + e.getMessage());
         }
 
+        // 2) Try other named methods via reflection (if setPower not present/succeeded)
         if (!applied) {
-            // fallback to setParameters(id, value) if available
-            try {
-                Method m = mDevice.getClass().getMethod("setParameters", int.class, int.class);
-                // some SDKs expect different parameter id for power; 0 is a best-effort fallback
-                m.invoke(mDevice, 0, power);
-                applied = true;
-                appliedMethod = "setParameters";
-                Log.d(TAG, "Applied power using setParameters");
-            } catch (Exception e) {
-                Log.w(TAG, "Fallback setParameters failed: " + e.getMessage());
+            String[] names = new String[]{"setOutputPower", "setRfPower", "setTxPower", "setPowerDbm"};
+            for (String name : names) {
+                try {
+                    Method m = mDevice.getClass().getMethod(name, int.class);
+                    m.setAccessible(true);
+                    Object r = m.invoke(mDevice, power);
+                    if (r instanceof Boolean) applied = (Boolean) r;
+                    methodUsed = name;
+                    Log.d(TAG, "invoke " + name + " returned: " + r);
+                    if (applied) break;
+                } catch (NoSuchMethodException ns) {
+                    // ignore
+                } catch (Exception e) {
+                    Log.w(TAG, "invoke " + name + " failed: " + e.getMessage());
+                }
             }
         }
 
-        // read-back if possible
+        // 3) Fallback to setParameters(paramId, value)
+        if (!applied) {
+            try {
+                Method sp = mDevice.getClass().getMethod("setParameters", int.class, int.class);
+                sp.setAccessible(true);
+
+                // Try parameter ids likely to be used by this SDK. The decompiled class didn't
+                // expose a PARAMETER_POWER constant, so we try a best-effort list.
+                int[] paramIdsToTry = new int[]{0, 3, 4, 18, 19}; // heuristic
+                for (int pid : paramIdsToTry) {
+                    try {
+                        Object r = sp.invoke(mDevice, pid, power);
+                        boolean ok = false;
+                        if (r instanceof Boolean) ok = (Boolean) r;
+                        Log.d(TAG, "setParameters(" + pid + "," + power + ") returned: " + r);
+                        if (ok) {
+                            applied = true;
+                            methodUsed = "setParameters(" + pid + ")";
+                            break;
+                        }
+                    } catch (Exception ignored) {}
+                }
+            } catch (NoSuchMethodException nm) {
+                Log.d(TAG, "setParameters not present");
+            } catch (Exception e) {
+                Log.w(TAG, "setParameters invocation failed: " + e.getMessage());
+            }
+        }
+
+        // Read-back attempt
         Integer currentPower = null;
         try {
             Method gp = mDevice.getClass().getMethod("getPower");
+            gp.setAccessible(true);
             Object res = gp.invoke(mDevice);
             if (res instanceof Integer) currentPower = (Integer) res;
             else if (res != null) currentPower = Integer.parseInt(String.valueOf(res));
-        } catch (Exception ignored) {}
+            Log.d(TAG, "read-back getPower() => " + res);
+        } catch (NoSuchMethodException ns) {
+            Log.d(TAG, "getPower not present for read-back");
+        } catch (Exception e) {
+            Log.w(TAG, "getPower read-back failed: " + e.getMessage());
+        }
 
-        String msg;
+        // Show result
         if (applied) {
-            msg = "RFID power requested: " + power + " dBm" + (appliedMethod.isEmpty() ? "" : " via " + appliedMethod);
-            if (currentPower != null) msg += " | current: " + currentPower + " dBm";
+            String msg = "Requested " + power + " dBm via " + (methodUsed == null ? "unknown" : methodUsed);
+            if (currentPower != null) msg += " | current " + currentPower + " dBm";
             Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            Log.i(TAG, "applyRfidPower succeeded: " + msg);
         } else {
-            Toast.makeText(this, "Failed to set RFID power (SDK unsupported)", Toast.LENGTH_LONG).show();
+            String msg = "Failed to set RFID power. methodUsed=" + methodUsed;
+            if (currentPower != null) msg += " | current " + currentPower + " dBm";
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            Log.e(TAG, msg);
         }
     }
 
@@ -571,17 +674,23 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
         }
     }
 
-    // call to read and show current power
+    /**
+     * Read and show current power with clearer logs.
+     */
     private void showCurrentPower() {
-        if (mDevice == null) {
-            Toast.makeText(this, "RFID hardware not available", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "showCurrentPower called");
+        if (!ensureUhfOpen()) {
+            Toast.makeText(this, "UHF not available / failed to open", Toast.LENGTH_LONG).show();
             return;
         }
         PrefHelper.PowerResult r = PrefHelper.readCurrentRfidPower(mDevice);
         if (r != null && r.power != null) {
-            Toast.makeText(this, "Current RFID power: " + r.power + " dBm (via " + r.method + ")", Toast.LENGTH_LONG).show();
+            String msg = "Current RFID power: " + r.power + " dBm (via " + r.method + ")";
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            Log.i(TAG, msg);
         } else {
-            Toast.makeText(this, "Unable to read current RFID power (SDK does not expose readable API)", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unable to read current RFID power (SDK may not expose readable API)", Toast.LENGTH_LONG).show();
+            Log.w(TAG, "showCurrentPower: readCurrentRfidPower returned null");
         }
     }
 }

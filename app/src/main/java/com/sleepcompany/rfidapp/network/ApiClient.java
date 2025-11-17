@@ -32,7 +32,7 @@ public class ApiClient {
 
     // Real production API path
     private static final String BASE_URL_PRODUCTION = "https://apps.galla.ai/sleepcompany/api/";
-    private static final String NGROK_URL = "https://657f965ffd0c.ngrok-free.app/api/";
+    private static final String NGROK_URL = "https://c9033e9febaf.ngrok-free.app/api/";
     private static boolean IS_PRODUCTION = false;
 
     private static final String PREFS_NAME = "app_prefs";
@@ -72,7 +72,8 @@ public class ApiClient {
         Log.d(TAG, "Token cleared");
     }
 
-    /** Switch environment (production / dev-ngrok) */
+    /** Switch
+     *  (production / dev-ngrok) */
     public static void setProduction(boolean isProd) {
         if (IS_PRODUCTION != isProd) {
             IS_PRODUCTION = isProd;
@@ -81,7 +82,11 @@ public class ApiClient {
             Log.d(TAG, "Environment switched. Production: " + IS_PRODUCTION);
         }
     }
-
+    public static void resetClients() {
+        retrofitPublic = null;
+        retrofitWithAuth = null;
+        Log.e(TAG, "Retrofit clients RESET");
+    }
     private static String getBaseUrl() {
         return IS_PRODUCTION ? BASE_URL_PRODUCTION : NGROK_URL;
     }

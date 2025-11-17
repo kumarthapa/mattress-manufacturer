@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setEnabled(false);
 
         // get saved license key
-        String savedLicenseKey = prefs.getString(KEY_LICENSE_KEY, "");
+        String savedLicenseKey = prefs.getString(KEY_LICENSE_KEY, "").trim();
 
         // build login request (server expects license_key, username, password)
         LoginRequest loginReq = new LoginRequest(savedLicenseKey, username, password);
@@ -193,30 +193,72 @@ public class LoginActivity extends AppCompatActivity {
                 LoginResponse loginResponse = null;
 
                 try {
-                    if (response.body() != null) {
+                    // Successful 2xx response
+                    if (response.isSuccessful() && response.body() != null) {
                         loginResponse = response.body();
-                    } else if (response.errorBody() != null) {
-                        // try parse message even for non-200 responses
-                        String err = response.errorBody().string();
-                        try {
-                            loginResponse = new Gson().fromJson(err, LoginResponse.class);
-                        } catch (Exception ex) {
-                            // fallback: try to extract message manually
+                    }
+                    // Non-2xx response: read error body ONCE and handle
+                    else if (response.errorBody() != null) {
+                        String raw = response.errorBody().string();
+                        Log.d(TAG, "Login API errorBody: " + raw);
+
+                        // 1) License missing (server 404 & specific message)
+                        if (response.code() == 404 && raw.contains("Invalid license key")) {
+                            showLicenseDialog(false, null);
+                            return;
+                        }
+
+                        // 2) Common license messages from server
+                        if (raw.contains("Invalid license key") ||
+                                raw.contains("License is inactive") ||
+                                raw.contains("License expired") ||
+                                raw.toLowerCase().contains("license")) {
+
+                            // display server message if present
                             try {
-                                JSONObject jo = new JSONObject(err);
-                                String msg = jo.has("message") ? jo.getString("message") : null;
-                                if (msg != null) {
+                                JSONObject jo = new JSONObject(raw);
+                                String msg = jo.has("message") ? jo.getString("message") : raw;
+                                passwordLayout.setError(msg);
+                                Log.w(TAG, "License/login error: " + msg);
+                            } catch (Exception ex) {
+                                passwordLayout.setError(raw);
+                                Log.w(TAG, "License/login error (raw): " + raw);
+                            }
+                            return;
+                        }
+
+                        // 3) Try to parse LoginResponse from error body (some APIs return the full object with success=false)
+                        try {
+                            loginResponse = new Gson().fromJson(raw, LoginResponse.class);
+                        } catch (Exception ex) {
+                            // fallback: try extract "message" field
+                            try {
+                                JSONObject jo = new JSONObject(raw);
+                                if (jo.has("message")) {
+                                    String msg = jo.getString("message");
                                     passwordLayout.setError(msg);
                                     Log.w(TAG, "Login error from server: " + msg);
                                     return;
                                 }
                             } catch (Exception ignored) { }
+                            passwordLayout.setError("Login failed. Code: " + response.code());
+                            Log.e(TAG, "Login API error, unparseable body");
+                            return;
                         }
+                    } else {
+                        // No body at all
+                        passwordLayout.setError("Server error: " + response.message());
+                        Log.e(TAG, "Login server error: " + response.message());
+                        return;
                     }
                 } catch (Exception e) {
+                    loginBtn.setEnabled(true);
+                    passwordLayout.setError("Response parse error: " + e.getMessage());
                     Log.e(TAG, "Exception parsing login response: " + e.getMessage());
+                    return;
                 }
 
+                // If we reach here, loginResponse may be populated (from success or parsed error)
                 if (loginResponse != null) {
                     if (loginResponse.isSuccess()) {
                         // Save token using ApiClient helper
@@ -257,8 +299,8 @@ public class LoginActivity extends AppCompatActivity {
                         Log.w(TAG, "Login failed: " + loginResponse.getMessage());
                     }
                 } else {
-                    passwordLayout.setError("Server error: " + response.message());
-                    Log.e(TAG, "Login server error: " + response.message());
+                    passwordLayout.setError("Unexpected server response");
+                    Log.e(TAG, "Login: loginResponse null after parsing");
                 }
             }
 
@@ -270,6 +312,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     // ---------- License dialog helpers ----------
     // Backwards-compatible no-arg method

@@ -3544,6 +3544,7 @@ int id jumpToEnd 0x7f09012e
 int id jumpToStart 0x7f09012f
 int id label_map 0x7f090130
 int id labeled 0x7f090131
+int id launchLogo 0x7f0902b8
 int id layout 0x7f090132
 int id left 0x7f090133
 int id leftToRight 0x7f090134
@@ -3704,6 +3705,7 @@ int id productStatus 0x7f0901ce
 int id productsRecyclerView 0x7f0901cf
 int id progress 0x7f0901d0
 int id progressBar 0x7f0901d1
+int id progressCircular 0x7f0902b9
 int id progressIndicator 0x7f0901d2
 int id progress_circular 0x7f0901d3
 int id progress_horizontal 0x7f0901d4
@@ -3833,9 +3835,11 @@ int id text 0x7f09024f
 int id text1 0x7f090250
 int id text2 0x7f090251
 int id textEnd 0x7f090252
+int id textPercent 0x7f0902bb
 int id textSpacerNoButtons 0x7f090253
 int id textSpacerNoTitle 0x7f090254
 int id textStart 0x7f090255
+int id textTitle 0x7f0902bc
 int id textTop 0x7f090256
 int id textView 0x7f090257
 int id textWatcher 0x7f090258
@@ -4050,6 +4054,7 @@ int layout abc_search_view 0x7f0c0019
 int layout abc_select_dialog_material 0x7f0c001a
 int layout abc_tooltip 0x7f0c001b
 int layout activity_dashboard 0x7f0c001c
+int layout activity_launcher 0x7f0c0085
 int layout activity_login 0x7f0c001d
 int layout activity_main 0x7f0c001e
 int layout activity_product_details 0x7f0c001f
@@ -4076,6 +4081,7 @@ int layout design_navigation_menu_item 0x7f0c0033
 int layout design_text_input_end_icon 0x7f0c0034
 int layout design_text_input_start_icon 0x7f0c0035
 int layout dialog_license 0x7f0c0036
+int layout dialog_update_download 0x7f0c0087
 int layout fragment_inventory 0x7f0c0037
 int layout fragment_settings 0x7f0c0038
 int layout ime_base_split_test_activity 0x7f0c0039

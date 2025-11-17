@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -83,7 +85,8 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
      * Examples: 1K, 10G, 1234K, 11WEK, 345KH
      */
     private static final Pattern INPUT_PATTERN = Pattern.compile("^[1-9][A-Z0-9]{1,4}$");
-
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private volatile boolean hasFirstTag = false;
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_write_tag_detail;
@@ -376,15 +379,27 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
             Toast.makeText(this, "UHF device not available", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // lock manual input while scanning
+        hasFirstTag = false;
+        // Disable manual input
         if (etExtraDetails.hasFocus()) etExtraDetails.clearFocus();
         etExtraDetails.setFocusable(false);
         etExtraDetails.setFocusableInTouchMode(false);
 
         isScanning.set(true);
         updateScanUI(true);
-        updateWriteButtonState(); // use parameterless helper
+        updateWriteButtonState();
+
+        // ---------- SET SCAN TIMEOUT ----------
+        final int SCAN_TIMEOUT_MS = 3000; // <<< CHANGE HERE
+        mainHandler.postDelayed(() -> {
+            if (isScanning.get()) {
+                Log.d(TAG, "Auto-stop: Timeout reached");
+                stopRFIDScan();
+                tvScanStatus.setText("Scan timeout (" + (SCAN_TIMEOUT_MS/1000) + " seconds)");
+                tvScanStatus.setVisibility(View.VISIBLE);
+            }
+        }, SCAN_TIMEOUT_MS);
+        // --------------------------------------
 
         scanFuture = executor.submit(() -> {
             EPC epc = new EPC();
@@ -392,22 +407,26 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
                 try {
                     if (mDevice != null && mDevice.inventoryOnce(epc, 300)) {
                         String tagId = epc.getId();
+
                         if (tagId != null && !tagId.isEmpty()) {
+
+                            // 🔥 IMPORTANT — IGNORE ALL NEXT TAGS
+                            if (hasFirstTag) continue;
+                            hasFirstTag = true;
+
                             runOnUiThread(() -> {
                                 Log.d(TAG, "Scanned Tag ID: " + tagId);
                                 scannedTagId = tagId.trim();
                                 tvScannedTag.setText(scannedTagId);
                                 tvScanStatus.setVisibility(View.VISIBLE);
                                 tvScanStatus.setText("Tag scanned. Enter extra details to create QA code.");
-                                // ✅ Play success sound
                                 playScanSuccessSound();
                                 stopRFIDScan();
                             });
                             break;
                         }
-                    } else {
-                        Log.d(TAG, "inventoryOnce returned false or no device");
                     }
+
                 } catch (Exception ex) {
                     Log.e(TAG, "Exception during inventory", ex);
                     break;
@@ -415,9 +434,12 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
 
                 try { Thread.sleep(100); } catch (InterruptedException e) { break; }
             }
+
             runOnUiThread(() -> updateScanUI(false));
         });
     }
+
+
     private void playScanSuccessSound() {
         try {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.scan);

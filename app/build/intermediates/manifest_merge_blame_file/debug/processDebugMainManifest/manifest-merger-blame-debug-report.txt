@@ -58,204 +58,235 @@
 35        android:required="false" />
 35-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:20:64-88
 36
-37    <permission
-37-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
-38        android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-38-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
-39        android:protectionLevel="signature" />
-39-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
-40
-41    <uses-permission android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-41-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-41-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+37    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+37-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:5-83
+37-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:22-80
+38
+39    <permission
+39-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+40        android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+40-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+41        android:protectionLevel="signature" />
+41-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 42
-43    <application
-43-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:22:5-60:19
-44        android:name="com.sleepcompany.rfidapp.MyApp"
-44-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:23:9-30
-45        android:allowBackup="true"
-45-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:26:9-35
-46        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-46-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
-47        android:debuggable="true"
-48        android:extractNativeLibs="false"
-49        android:icon="@drawable/ic_brand_logo"
-49-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:27:9-47
-50        android:label="@string/app_name"
-50-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:29:9-41
-51        android:networkSecurityConfig="@xml/network_security_config"
-51-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:24:9-69
-52        android:roundIcon="@drawable/ic_brand_logo"
-52-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:9-52
-53        android:supportsRtl="true"
-53-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:30:9-35
-54        android:testOnly="true"
-55        android:theme="@style/Theme.SleepCompanyWeb"
-55-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:9-53
-56        android:usesCleartextTraffic="true" >
-56-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:25:9-44
-57
-58        <!-- Launcher -->
-59        <activity
-59-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:34:9-41:20
-60            android:name="com.sleepcompany.rfidapp.LoginActivity"
-60-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:35:13-42
-61            android:exported="true" >
-61-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:36:13-36
-62            <intent-filter>
-62-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:37:13-40:29
-63                <action android:name="android.intent.action.MAIN" />
-63-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:38:17-69
-63-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:38:25-66
-64
-65                <category android:name="android.intent.category.LAUNCHER" />
-65-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:39:17-77
-65-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:39:27-74
-66            </intent-filter>
-67        </activity>
+43    <uses-permission android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+43-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+43-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+44
+45    <application
+45-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:24:5-78:19
+46        android:name="com.sleepcompany.rfidapp.MyApp"
+46-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:25:9-30
+47        android:allowBackup="true"
+47-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:28:9-35
+48        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+48-->[androidx.core:core:1.13.1] /home/treewalker/.gradle/caches/8.12/transforms/5ae9c4684023bd64fbe1dffcb2b79d19/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+49        android:debuggable="true"
+50        android:extractNativeLibs="false"
+51        android:icon="@drawable/ic_brand_logo"
+51-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:29:9-47
+52        android:label="@string/app_name"
+52-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:31:9-41
+53        android:networkSecurityConfig="@xml/network_security_config"
+53-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:26:9-69
+54        android:roundIcon="@drawable/ic_brand_logo"
+54-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:30:9-52
+55        android:supportsRtl="true"
+55-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:32:9-35
+56        android:testOnly="true"
+57        android:theme="@style/Theme.SleepCompanyWeb"
+57-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:33:9-53
+58        android:usesCleartextTraffic="true" >
+58-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:27:9-44
+59
+60        <!-- Launcher -->
+61
+62        <activity
+62-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:37:9-45:20
+63            android:name="com.sleepcompany.rfidapp.LauncherActivity"
+63-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:38:13-45
+64            android:exported="true"
+64-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:39:13-36
+65            android:theme="@style/Theme.SleepCompanyWeb" >
+65-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:40:13-57
+66            <intent-filter>
+66-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:41:13-44:29
+67                <action android:name="android.intent.action.MAIN" />
+67-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:42:17-69
+67-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:42:25-66
 68
-69        <!-- Other Activities -->
-70        <activity
-70-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:9-80
-71            android:name="com.sleepcompany.rfidapp.DashboardActivity"
-71-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:19-52
-72            android:exported="false" />
-72-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:44:53-77
-73        <activity
-73-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:45:9-79
-74            android:name="com.sleepcompany.rfidapp.ProductsActivity"
-74-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:45:19-51
-75            android:exported="false" />
-75-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:45:52-76
-76        <activity
-76-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:9-85
-77            android:name="com.sleepcompany.rfidapp.ProductDetailsActivity"
-77-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:19-57
-78            android:exported="false" />
-78-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:58-82
-79        <activity
-79-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:9-102
-80            android:name="com.sleepcompany.rfidapp.ScannerActivity"
-80-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:19-50
-81            android:exported="false"
-81-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:51-75
-82            android:label="Scanner" />
-82-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:76-99
-83        <activity
-83-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:9-73
-84            android:name="com.sleepcompany.rfidapp.QcActivity"
-84-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:19-45
-85            android:exported="false" />
-85-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:46-70
-86        <activity
-86-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:9-80
-87            android:name="com.sleepcompany.rfidapp.WriteTagsActivity"
-87-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:19-52
-88            android:exported="false" />
-88-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:53-77
-89        <activity
-89-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:50:9-85
-90            android:name="com.sleepcompany.rfidapp.WriteTagDetailActivity"
-90-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:50:19-57
-91            android:exported="false" />
-91-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:50:58-82
-92        <activity
-92-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:51:9-79
-93            android:name="com.sleepcompany.rfidapp.SettingsActivity"
-93-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:51:19-51
-94            android:exported="false" />
-94-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:51:52-76
-95
-96        <!-- ✅ BtConfigActivity added -->
+69                <category android:name="android.intent.category.LAUNCHER" />
+69-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:43:17-77
+69-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:43:27-74
+70            </intent-filter>
+71        </activity>
+72        <activity
+72-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:46:9-49:60
+73            android:name="com.sleepcompany.rfidapp.LoginActivity"
+73-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:47:13-42
+74            android:exported="false"
+74-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:48:13-37
+75            android:theme="@style/Theme.SleepCompanyWeb" />
+75-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:49:13-57
+76
+77        <!-- Other Activities -->
+78        <activity
+78-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:52:9-80
+79            android:name="com.sleepcompany.rfidapp.DashboardActivity"
+79-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:52:19-52
+80            android:exported="false" />
+80-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:52:53-77
+81        <activity
+81-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:53:9-79
+82            android:name="com.sleepcompany.rfidapp.ProductsActivity"
+82-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:53:19-51
+83            android:exported="false" />
+83-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:53:52-76
+84        <activity
+84-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:54:9-85
+85            android:name="com.sleepcompany.rfidapp.ProductDetailsActivity"
+85-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:54:19-57
+86            android:exported="false" />
+86-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:54:58-82
+87        <activity
+87-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:55:9-102
+88            android:name="com.sleepcompany.rfidapp.ScannerActivity"
+88-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:55:19-50
+89            android:exported="false"
+89-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:55:51-75
+90            android:label="Scanner" />
+90-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:55:76-99
+91        <activity
+91-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:56:9-73
+92            android:name="com.sleepcompany.rfidapp.QcActivity"
+92-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:56:19-45
+93            android:exported="false" />
+93-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:56:46-70
+94        <activity
+94-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:57:9-80
+95            android:name="com.sleepcompany.rfidapp.WriteTagsActivity"
+95-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:57:19-52
+96            android:exported="false" />
+96-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:57:53-77
 97        <activity
-97-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:54:9-58:60
-98            android:name="com.sleepcompany.rfidapp.BtConfigActivity"
-98-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:55:13-45
-99            android:exported="false"
-99-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:56:13-37
-100            android:label="Bluetooth Config"
-100-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:57:13-45
-101            android:theme="@style/Theme.SleepCompanyWeb" />
-101-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:58:13-57
-102
-103        <provider
-103-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-104            android:name="androidx.startup.InitializationProvider"
-104-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-105            android:authorities="com.sleepcompany.rfidapp.debug.androidx-startup"
-105-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-106            android:exported="false" >
-106-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-107            <meta-data
-107-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-108                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-108-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-109                android:value="androidx.startup" />
-109-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-110            <meta-data
-110-->[androidx.lifecycle:lifecycle-process:2.8.6] /home/treewalker/.gradle/caches/8.12/transforms/7f08ec66ad3c16443180e371626fe844/transformed/lifecycle-process-2.8.6/AndroidManifest.xml:29:13-31:52
-111                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-111-->[androidx.lifecycle:lifecycle-process:2.8.6] /home/treewalker/.gradle/caches/8.12/transforms/7f08ec66ad3c16443180e371626fe844/transformed/lifecycle-process-2.8.6/AndroidManifest.xml:30:17-78
-112                android:value="androidx.startup" />
-112-->[androidx.lifecycle:lifecycle-process:2.8.6] /home/treewalker/.gradle/caches/8.12/transforms/7f08ec66ad3c16443180e371626fe844/transformed/lifecycle-process-2.8.6/AndroidManifest.xml:31:17-49
-113            <meta-data
-113-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
-114                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-114-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
-115                android:value="androidx.startup" />
-115-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
-116        </provider>
-117
-118        <uses-library
-118-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
-119            android:name="androidx.window.extensions"
-119-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
-120            android:required="false" />
-120-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
-121        <uses-library
-121-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
-122            android:name="androidx.window.sidecar"
-122-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
-123            android:required="false" />
-123-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
-124
-125        <receiver
-125-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
-126            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-126-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
-127            android:directBootAware="false"
-127-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
-128            android:enabled="true"
-128-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
-129            android:exported="true"
-129-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
-130            android:permission="android.permission.DUMP" >
-130-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
-131            <intent-filter>
-131-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
-132                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-132-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
-132-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
-133            </intent-filter>
-134            <intent-filter>
-134-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
-135                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-135-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
-135-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
-136            </intent-filter>
-137            <intent-filter>
-137-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
-138                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-138-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
-138-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
-139            </intent-filter>
-140            <intent-filter>
-140-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
-141                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-141-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
-141-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
-142            </intent-filter>
-143        </receiver>
-144    </application>
-145
-146</manifest>
+97-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:58:9-85
+98            android:name="com.sleepcompany.rfidapp.WriteTagDetailActivity"
+98-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:58:19-57
+99            android:exported="false" />
+99-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:58:58-82
+100        <activity
+100-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:59:9-79
+101            android:name="com.sleepcompany.rfidapp.SettingsActivity"
+101-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:59:19-51
+102            android:exported="false" />
+102-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:59:52-76
+103
+104        <!-- ✅ BtConfigActivity added -->
+105        <activity
+105-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:62:9-66:60
+106            android:name="com.sleepcompany.rfidapp.BtConfigActivity"
+106-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:63:13-45
+107            android:exported="false"
+107-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:64:13-37
+108            android:label="Bluetooth Config"
+108-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:65:13-45
+109            android:theme="@style/Theme.SleepCompanyWeb" />
+109-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:66:13-57
+110
+111        <provider
+112            android:name="androidx.core.content.FileProvider"
+112-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:69:13-62
+113            android:authorities="com.sleepcompany.rfidapp.debug.fileprovider"
+113-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:70:13-64
+114            android:exported="false"
+114-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:71:13-37
+115            android:grantUriPermissions="true" >
+115-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:72:13-47
+116            <meta-data
+116-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:73:13-75:54
+117                android:name="android.support.FILE_PROVIDER_PATHS"
+117-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:74:17-67
+118                android:resource="@xml/file_paths" />
+118-->/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/AndroidManifest.xml:75:17-51
+119        </provider>
+120        <provider
+120-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+121            android:name="androidx.startup.InitializationProvider"
+121-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+122            android:authorities="com.sleepcompany.rfidapp.debug.androidx-startup"
+122-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+123            android:exported="false" >
+123-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+124            <meta-data
+124-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+125                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+125-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+126                android:value="androidx.startup" />
+126-->[androidx.emoji2:emoji2:1.3.0] /home/treewalker/.gradle/caches/8.12/transforms/dad800b7c00b04f6523dfa33b9827e63/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+127            <meta-data
+127-->[androidx.lifecycle:lifecycle-process:2.8.6] /home/treewalker/.gradle/caches/8.12/transforms/7f08ec66ad3c16443180e371626fe844/transformed/lifecycle-process-2.8.6/AndroidManifest.xml:29:13-31:52
+128                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+128-->[androidx.lifecycle:lifecycle-process:2.8.6] /home/treewalker/.gradle/caches/8.12/transforms/7f08ec66ad3c16443180e371626fe844/transformed/lifecycle-process-2.8.6/AndroidManifest.xml:30:17-78
+129                android:value="androidx.startup" />
+129-->[androidx.lifecycle:lifecycle-process:2.8.6] /home/treewalker/.gradle/caches/8.12/transforms/7f08ec66ad3c16443180e371626fe844/transformed/lifecycle-process-2.8.6/AndroidManifest.xml:31:17-49
+130            <meta-data
+130-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+131                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+131-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+132                android:value="androidx.startup" />
+132-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+133        </provider>
+134
+135        <uses-library
+135-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
+136            android:name="androidx.window.extensions"
+136-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
+137            android:required="false" />
+137-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
+138        <uses-library
+138-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
+139            android:name="androidx.window.sidecar"
+139-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
+140            android:required="false" />
+140-->[androidx.window:window:1.0.0] /home/treewalker/.gradle/caches/8.12/transforms/06cd813dff42af617d894e12667eb46a/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
+141
+142        <receiver
+142-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+143            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+143-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+144            android:directBootAware="false"
+144-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+145            android:enabled="true"
+145-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+146            android:exported="true"
+146-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+147            android:permission="android.permission.DUMP" >
+147-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+148            <intent-filter>
+148-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+149                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+149-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+149-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+150            </intent-filter>
+151            <intent-filter>
+151-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+152                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+152-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+152-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+153            </intent-filter>
+154            <intent-filter>
+154-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+155                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+155-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+155-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+156            </intent-filter>
+157            <intent-filter>
+157-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+158                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+158-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+158-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/treewalker/.gradle/caches/8.12/transforms/163e1e95c20b3dcaf22b67c5fc1dc0d2/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+159            </intent-filter>
+160        </receiver>
+161    </application>
+162
+163</manifest>

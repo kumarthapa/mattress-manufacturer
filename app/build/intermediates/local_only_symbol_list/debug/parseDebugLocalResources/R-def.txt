@@ -155,6 +155,7 @@ id ivFailedCardClear
 id ivFailedCardPrint
 id ivFailedCardRework
 id label_map
+id launchLogo
 id licenseInput
 id llDefectsContainer
 id llFailedDefectsContainer
@@ -187,6 +188,7 @@ id productStatus
 id productsRecyclerView
 id progress
 id progressBar
+id progressCircular
 id progressIndicator
 id qaCode
 id qcChecklistContainer
@@ -223,6 +225,8 @@ id startScanBtn
 id swipeRefresh
 id tagtype
 id text1
+id textPercent
+id textTitle
 id textView
 id tilExtra
 id toolbar
@@ -267,6 +271,7 @@ id updateStageBtn
 id usernameInput
 id usernameLayout
 layout activity_dashboard
+layout activity_launcher
 layout activity_login
 layout activity_main
 layout activity_product_details
@@ -277,6 +282,7 @@ layout activity_settings
 layout activity_write_tag_detail
 layout activity_write_tags
 layout dialog_license
+layout dialog_update_download
 layout fragment_inventory
 layout fragment_settings
 layout item_bluetooth_device
