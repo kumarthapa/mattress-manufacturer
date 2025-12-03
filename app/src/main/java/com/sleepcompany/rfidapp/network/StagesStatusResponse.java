@@ -18,6 +18,7 @@ public class StagesStatusResponse {
     public Data getData() { return data; }
 
     public static class Data {
+
         private Map<String, String> stages;
         private Map<String, String> status;
 
@@ -25,8 +26,29 @@ public class StagesStatusResponse {
         @SerializedName("defect_points")
         private Map<String, List<Map<String, String>>> defectPoints;
 
-        public Map<String, String> getStages() { return stages; }
-        public Map<String, String> getStatus() { return status; }
-        public Map<String, List<Map<String, String>>> getDefectPoints() { return defectPoints; }
+        // ⭐ NEW: allowed_stages from backend
+        @SerializedName("allowed_stages")
+        private List<String> allowedStages;
+
+        // ----------- GETTERS -----------
+        public Map<String, String> getStages() {
+            return stages;
+        }
+
+        public Map<String, String> getStatus() {
+            return status;
+        }
+
+        public Map<String, List<Map<String, String>>> getDefectPoints() {
+            return defectPoints;
+        }
+
+        public List<String> getAllowedStages() {
+            return allowedStages;
+        }
     }
+
+
+
+
 }

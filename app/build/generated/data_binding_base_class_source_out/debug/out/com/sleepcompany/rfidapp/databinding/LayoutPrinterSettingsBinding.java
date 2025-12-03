@@ -12,6 +12,7 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
@@ -26,6 +27,9 @@ public final class LayoutPrinterSettingsBinding implements ViewBinding {
   public final AutoCompleteTextView acPrinter;
 
   @NonNull
+  public final AutoCompleteTextView acPrinterLang;
+
+  @NonNull
   public final MaterialButton btnScan;
 
   @NonNull
@@ -35,17 +39,23 @@ public final class LayoutPrinterSettingsBinding implements ViewBinding {
   public final RecyclerView rvBluetoothDevices;
 
   @NonNull
+  public final TextInputLayout tilPrinterLang;
+
+  @NonNull
   public final MaterialTextView tvScanInfo;
 
   private LayoutPrinterSettingsBinding(@NonNull MaterialCardView rootView,
-      @NonNull AutoCompleteTextView acPrinter, @NonNull MaterialButton btnScan,
-      @NonNull MaterialCardView cardPrinter, @NonNull RecyclerView rvBluetoothDevices,
+      @NonNull AutoCompleteTextView acPrinter, @NonNull AutoCompleteTextView acPrinterLang,
+      @NonNull MaterialButton btnScan, @NonNull MaterialCardView cardPrinter,
+      @NonNull RecyclerView rvBluetoothDevices, @NonNull TextInputLayout tilPrinterLang,
       @NonNull MaterialTextView tvScanInfo) {
     this.rootView = rootView;
     this.acPrinter = acPrinter;
+    this.acPrinterLang = acPrinterLang;
     this.btnScan = btnScan;
     this.cardPrinter = cardPrinter;
     this.rvBluetoothDevices = rvBluetoothDevices;
+    this.tilPrinterLang = tilPrinterLang;
     this.tvScanInfo = tvScanInfo;
   }
 
@@ -82,6 +92,12 @@ public final class LayoutPrinterSettingsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.acPrinterLang;
+      AutoCompleteTextView acPrinterLang = ViewBindings.findChildViewById(rootView, id);
+      if (acPrinterLang == null) {
+        break missingId;
+      }
+
       id = R.id.btnScan;
       MaterialButton btnScan = ViewBindings.findChildViewById(rootView, id);
       if (btnScan == null) {
@@ -96,14 +112,20 @@ public final class LayoutPrinterSettingsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tilPrinterLang;
+      TextInputLayout tilPrinterLang = ViewBindings.findChildViewById(rootView, id);
+      if (tilPrinterLang == null) {
+        break missingId;
+      }
+
       id = R.id.tvScanInfo;
       MaterialTextView tvScanInfo = ViewBindings.findChildViewById(rootView, id);
       if (tvScanInfo == null) {
         break missingId;
       }
 
-      return new LayoutPrinterSettingsBinding((MaterialCardView) rootView, acPrinter, btnScan,
-          cardPrinter, rvBluetoothDevices, tvScanInfo);
+      return new LayoutPrinterSettingsBinding((MaterialCardView) rootView, acPrinter, acPrinterLang,
+          btnScan, cardPrinter, rvBluetoothDevices, tilPrinterLang, tvScanInfo);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

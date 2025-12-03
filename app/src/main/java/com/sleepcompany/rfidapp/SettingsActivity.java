@@ -18,6 +18,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.seuic.uhf.UHFService;
 import com.sleepcompany.rfidapp.adapter.BluetoothDeviceAdapter;
 import com.sleepcompany.rfidapp.util.PrefHelper;
@@ -44,7 +44,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * SettingsActivity - updated to show paired devices and scan on button press.
+ * SettingsActivity - updated to show paired devices and scan on button press,
+ * plus printer language dropdown and save-per-MAC behavior.
  */
 public class SettingsActivity extends AppCompatActivity implements BluetoothDeviceAdapter.Callback {
     private static final String TAG = "SettingsActivity";
@@ -53,7 +54,8 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
     private static final int REQ_ENABLE_BT = 3002;
 
     private MaterialToolbar toolbar;
-    private MaterialAutoCompleteTextView acRfidPower, acPrinter;
+    private AutoCompleteTextView acRfidPower, acPrinter; // changed to platform AutoCompleteTextView for layout compatibility
+    private AutoCompleteTextView acPrinterLang;
     private MaterialButton btnScan;
     private RecyclerView rvDevices;
     private BluetoothDeviceAdapter adapter;
@@ -67,6 +69,11 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
 
     private final String[] powerLabels = new String[]{"5 dBm", "10 dBm", "15 dBm", "20 dBm", "25 dBm", "30 dBm"};
     private final int[] powerValues = new int[]{5, 10, 15, 20, 25, 30};
+
+    // Printer language choices (UI labels)
+    private final String[] printerLangLabels = new String[]{"Auto", "ZPL", "TSPL", "ESC_POS"};
+    // Normalized language keys used in prefs
+    private String selectedPrinterLang = "AUTO"; // AUTO / ZPL / TSPL / ESC_POS
 
     private BluetoothAdapter btAdapter;
     private final ArrayList<BluetoothDevice> deviceList = new ArrayList<>();
@@ -84,6 +91,7 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
         toolbar = findViewById(R.id.toolbar_settings);
         acRfidPower = findViewById(R.id.acRfidPower);
         acPrinter = findViewById(R.id.acPrinter);
+        acPrinterLang = findViewById(R.id.acPrinterLang); // from updated layout
         btnScan = findViewById(R.id.btnScan);
         rvDevices = findViewById(R.id.rvBluetoothDevices);
         tvScanInfo = findViewById(R.id.tvScanInfo);
@@ -101,15 +109,22 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
         prefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE);
 
         try {
-            mDevice = UHFService.getInstance();
-        } catch (Exception e) {
-            mDevice = null;
-            Log.w(TAG, "UHFService not available: " + e.getMessage());
+            mDevice = UHFService.getInstance(this);   // MUST use context
+            Log.d(TAG, "UHFService instance created using context");
+        } catch (Exception e1) {
+            Log.w(TAG, "getInstance(context) failed, trying default");
+            try {
+                mDevice = UHFService.getInstance();
+            } catch (Exception e2) {
+                mDevice = null;
+                Log.w(TAG, "getInstance() also failed: " + e2.getMessage());
+            }
         }
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
         setupRfidDropdown();
+        setupPrinterLanguageDropdown();
         setupRecyclerView();
         setupButtonHandlers();
         loadSavedPrefs();
@@ -158,15 +173,15 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
             Toast.makeText(this, "RFID Power set to " + power + " dBm", Toast.LENGTH_SHORT).show();
         });
 
-        // Load saved RFID power or fallback to default (30 dBm)
+        // Load saved RFID power or fallback to default (5 dBm)
         int savedPower = PrefHelper.getRfidPower(this);
         if (savedPower <= 0) {
-            savedPower = 30;
+            savedPower = 5;
             PrefHelper.saveRfidPower(this, savedPower);
         }
 
         // Match saved power to label and set text
-        String selectedLabel = "30 dBm";
+        String selectedLabel = "5 dBm";
         for (int i = 0; i < powerValues.length; i++) {
             if (powerValues[i] == savedPower) {
                 selectedLabel = powerLabels[i];
@@ -177,6 +192,44 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
 
         // Show dropdown when tapped
         acRfidPower.setOnClickListener(v -> acRfidPower.showDropDown());
+    }
+
+    /* ---------- Printer language dropdown ---------- */
+    private void setupPrinterLanguageDropdown() {
+        ArrayAdapter<String> langAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                printerLangLabels
+        );
+        acPrinterLang.setAdapter(langAdapter);
+        acPrinterLang.setThreshold(0);
+        acPrinterLang.setOnClickListener(v -> acPrinterLang.showDropDown());
+
+        acPrinterLang.setOnItemClickListener((parent, view, position, id) -> {
+            String label = printerLangLabels[position];
+            switch (label) {
+                case "ZPL": selectedPrinterLang = "ZPL"; break;
+                case "TSPL": selectedPrinterLang = "TSPL"; break;
+                case "ESC_POS": selectedPrinterLang = "ESC_POS"; break;
+                default: selectedPrinterLang = "AUTO"; break;
+            }
+            // Save as global default
+            PrefHelper.savePrinterLanguageGlobal(this, selectedPrinterLang);
+            Toast.makeText(this, "Printer language set: " + label, Toast.LENGTH_SHORT).show();
+        });
+
+        // Load saved language (per-MAC if present, otherwise global)
+        String savedMac = PrefHelper.getPrinterMac(this);
+        String langToShow = savedMac != null ? PrefHelper.getPrinterLanguageForMac(this, savedMac)
+                : PrefHelper.getPrinterLanguageGlobal(this);
+        if (langToShow == null) langToShow = "AUTO";
+
+        if ("ZPL".equals(langToShow)) acPrinterLang.setText("ZPL", false);
+        else if ("TSPL".equals(langToShow)) acPrinterLang.setText("TSPL", false);
+        else if ("ESC_POS".equals(langToShow)) acPrinterLang.setText("ESC_POS", false);
+        else acPrinterLang.setText("Auto", false);
+
+        selectedPrinterLang = langToShow;
     }
 
     /**
@@ -378,7 +431,7 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
             applyRfidPower(savedPower);
         });
 
-        // <-- FIX: call existing method name showCurrentPower()
+        // <-- call existing method name showCurrentPower()
         btnTestPower.setOnClickListener(v -> showCurrentPower());
 
         acPrinter.setOnClickListener(v -> {
@@ -638,20 +691,45 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
                 UUID spp = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                 socket = device.createRfcommSocketToServiceRecord(spp);
                 try { if (btAdapter != null && btAdapter.isDiscovering()) btAdapter.cancelDiscovery(); } catch (Exception ignored) {}
+
+                // Connect and immediately close test socket to verify connectivity (we will save MAC & prefs)
                 socket.connect();
+                try {
+                    socket.close();
+                } catch (IOException ignoreClose) {}
+
                 mainHandler.post(() -> {
+                    // Save MAC
                     PrefHelper.savePrinterMac(SettingsActivity.this, device.getAddress());
                     String label = (device.getName() == null ? "Unknown" : device.getName()) + " (" + device.getAddress() + ")";
                     acPrinter.setText(label, false);
                     Toast.makeText(SettingsActivity.this, "Connected to " + label, Toast.LENGTH_LONG).show();
                     if (adapter != null) adapter.setSelectedMac(device.getAddress());
+
+                    // Decide language to save for this MAC
+                    String langToSave = selectedPrinterLang;
+                    if ("AUTO".equals(langToSave) || langToSave == null) {
+                        langToSave = detectPrinterLanguageFromName(device.getName());
+                    }
+                    if (langToSave == null) langToSave = PrefHelper.getPrinterLanguageGlobal(SettingsActivity.this);
+                    if (langToSave == null) langToSave = "AUTO";
+
+                    PrefHelper.savePrinterLanguageForMac(SettingsActivity.this, device.getAddress(), langToSave);
+
+                    // Update UI language dropdown to reflect saved value
+                    if ("ZPL".equals(langToSave)) acPrinterLang.setText("ZPL", false);
+                    else if ("TSPL".equals(langToSave)) acPrinterLang.setText("TSPL", false);
+                    else if ("ESC_POS".equals(langToSave)) acPrinterLang.setText("ESC_POS", false);
+                    else acPrinterLang.setText("Auto", false);
+
+                    selectedPrinterLang = langToSave;
                 });
             } catch (IOException ioe) {
-                Log.e(TAG, "Connect failed: " + ioe.getMessage());
+                Log.e(TAG, "Connect failed: " + ioe.getMessage(), ioe);
                 mainHandler.post(() -> Toast.makeText(SettingsActivity.this, "Connect failed: " + ioe.getMessage(), Toast.LENGTH_LONG).show());
                 try { if (socket != null) socket.close(); } catch (IOException ignored) {}
             } catch (SecurityException se) {
-                Log.e(TAG, "Missing permission: " + se.getMessage());
+                Log.e(TAG, "Missing permission: " + se.getMessage(), se);
                 mainHandler.post(() -> Toast.makeText(SettingsActivity.this, "Missing permission to connect", Toast.LENGTH_LONG).show());
             }
         });
@@ -669,8 +747,38 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
         }
         String savedMac = PrefHelper.getPrinterMac(this);
         if (savedMac != null) {
-            acPrinter.setText(savedMac, false);
+            // show as name (if discovered) or mac
+            String label = savedMac;
+            for (BluetoothDevice d : deviceList) {
+                if (d != null && savedMac.equalsIgnoreCase(d.getAddress())) {
+                    String n = d.getName();
+                    if (n != null) label = n + " (" + savedMac + ")";
+                    break;
+                }
+            }
+            acPrinter.setText(label, false);
             if (adapter != null) adapter.setSelectedMac(savedMac);
+
+            // load per-mac language or global fallback
+            String langForMac = PrefHelper.getPrinterLanguageForMac(this, savedMac);
+            if (langForMac == null) langForMac = PrefHelper.getPrinterLanguageGlobal(this);
+            if (langForMac == null) langForMac = "AUTO";
+
+            if ("ZPL".equals(langForMac)) acPrinterLang.setText("ZPL", false);
+            else if ("TSPL".equals(langForMac)) acPrinterLang.setText("TSPL", false);
+            else if ("ESC_POS".equals(langForMac)) acPrinterLang.setText("ESC_POS", false);
+            else acPrinterLang.setText("Auto", false);
+
+            selectedPrinterLang = langForMac;
+        } else {
+            // show global default
+            String g = PrefHelper.getPrinterLanguageGlobal(this);
+            if (g == null) g = "AUTO";
+            if ("ZPL".equals(g)) acPrinterLang.setText("ZPL", false);
+            else if ("TSPL".equals(g)) acPrinterLang.setText("TSPL", false);
+            else if ("ESC_POS".equals(g)) acPrinterLang.setText("ESC_POS", false);
+            else acPrinterLang.setText("Auto", false);
+            selectedPrinterLang = g;
         }
     }
 
@@ -692,5 +800,19 @@ public class SettingsActivity extends AppCompatActivity implements BluetoothDevi
             Toast.makeText(this, "Unable to read current RFID power (SDK may not expose readable API)", Toast.LENGTH_LONG).show();
             Log.w(TAG, "showCurrentPower: readCurrentRfidPower returned null");
         }
+    }
+
+    /**
+     * Try to detect likely language from bluetooth device name.
+     * Returns "ZPL", "TSPL", "ESC_POS" or "AUTO".
+     */
+    private String detectPrinterLanguageFromName(String name) {
+        if (name == null) return "AUTO";
+        String n = name.toUpperCase();
+        if (n.contains("ZEBRA") || n.contains("ZJ") || n.contains("ZCS") || n.contains("ZD") || n.contains("QL")) return "ZPL";
+        if (n.contains("DC") || n.contains("D-CODE") || n.contains("DC3M") || n.contains("D3M") ||
+                n.contains("TSC") || n.contains("TSPL") || n.contains("LP") || n.contains("XP") ) return "TSPL";
+        if (n.contains("ESC") || n.contains("EPSON") || n.contains("POS") || n.contains("RONGTA") || n.contains("RX")) return "ESC_POS";
+        return "AUTO";
     }
 }

@@ -4,6 +4,7 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -73,6 +74,9 @@ public final class ActivityDashboardBinding implements ViewBinding {
   @NonNull
   public final MaterialTextView tvTotalProduction;
 
+  @NonNull
+  public final TextView tvUpdateBanner;
+
   private ActivityDashboardBinding(@NonNull DrawerLayout rootView,
       @NonNull MaterialButton btnScanRFID, @NonNull MaterialButton btnViewProducts,
       @NonNull MaterialButton btnWriteTag, @NonNull ChipGroup chipGroupStages,
@@ -81,7 +85,8 @@ public final class ActivityDashboardBinding implements ViewBinding {
       @NonNull RecyclerView rvRecentActivities, @NonNull MaterialCardView satisfactionCard,
       @NonNull Toolbar toolbar, @NonNull MaterialCardView totalProductionCard,
       @NonNull MaterialTextView tvDefects, @NonNull MaterialTextView tvEfficiency,
-      @NonNull MaterialTextView tvSatisfaction, @NonNull MaterialTextView tvTotalProduction) {
+      @NonNull MaterialTextView tvSatisfaction, @NonNull MaterialTextView tvTotalProduction,
+      @NonNull TextView tvUpdateBanner) {
     this.rootView = rootView;
     this.btnScanRFID = btnScanRFID;
     this.btnViewProducts = btnViewProducts;
@@ -99,6 +104,7 @@ public final class ActivityDashboardBinding implements ViewBinding {
     this.tvEfficiency = tvEfficiency;
     this.tvSatisfaction = tvSatisfaction;
     this.tvTotalProduction = tvTotalProduction;
+    this.tvUpdateBanner = tvUpdateBanner;
   }
 
   @Override
@@ -220,10 +226,16 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvUpdateBanner;
+      TextView tvUpdateBanner = ViewBindings.findChildViewById(rootView, id);
+      if (tvUpdateBanner == null) {
+        break missingId;
+      }
+
       return new ActivityDashboardBinding((DrawerLayout) rootView, btnScanRFID, btnViewProducts,
           btnWriteTag, chipGroupStages, defectCard, drawerLayout, efficiencyCard, navView,
           rvRecentActivities, satisfactionCard, toolbar, totalProductionCard, tvDefects,
-          tvEfficiency, tvSatisfaction, tvTotalProduction);
+          tvEfficiency, tvSatisfaction, tvTotalProduction, tvUpdateBanner);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

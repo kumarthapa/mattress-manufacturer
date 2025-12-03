@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
@@ -16,6 +18,7 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 import com.sleepcompany.rfidapp.util.PrefHelper;
 import com.sleepcompany.rfidapp.util.SessionManager;
@@ -77,7 +80,8 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
 
     protected void setupNavigationDrawer() {
         if (navigationView != null) {
-            // get menu and write item
+
+            // ----------- PERMISSION CHECK --------------
             Menu menu = navigationView.getMenu();
             MenuItem writeItem = menu.findItem(R.id.nav_write_tags);
 
@@ -85,8 +89,45 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
             if (writeItem != null) {
                 writeItem.setVisible(canWriteBonding);
             }
+
+            // ----------- DRAWER HEADER SETUP --------------
+            View header = navigationView.getHeaderView(0);
+            if (header == null) {
+                header = navigationView.inflateHeaderView(R.layout.nav_header);
+            }
+
+            TextView tvUserName = header.findViewById(R.id.tvUserName);
+
+            // READ FROM PREFHELPER
+            String savedUserName = PrefHelper.getHeaderUserName(this);
+            String savedWorkingStage = PrefHelper.getHeaderWorkingStage(this);
+//============= Formating removing "_" from stage =================== START ==================
+            String formattedStage = savedWorkingStage.replace("_", " ").toLowerCase();
+            StringBuilder builder = new StringBuilder();
+            boolean capitalizeNext = true;
+            for (char c : formattedStage.toCharArray()) {
+                if (capitalizeNext && Character.isLetter(c)) {
+                    builder.append(Character.toUpperCase(c));
+                    capitalizeNext = false;
+                } else {
+                    builder.append(c);
+                }
+
+                if (c == ' ') {
+                    capitalizeNext = true;
+                }
+            }
+            formattedStage = builder.toString();
+            String finalText = savedUserName + " (" + formattedStage + ")";
+//============= Formating removing "_" from stage =================== END ==================
+            tvUserName.setText(finalText);
+
+            Log.e("HEADER_DEBUG", "User=" + savedUserName + " Stage=" + savedWorkingStage);
         }
     }
+
+
+
 
 
     @LayoutRes
@@ -100,6 +141,9 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
         return "Dashboard";
     }
 
+    /**
+     * Direct navigation to target activity (no LauncherActivity routing).
+     */
     protected void navigateTo(Class<?> activityClass) {
         if (!activityClass.isInstance(this)) {
             Intent intent = new Intent(this, activityClass);
@@ -111,57 +155,49 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Allow child activities to handle custom items first
-        if (handleNavigationItem(item)) return true;
+
+        if (handleNavigationItem(item))
+            return true;
 
         int id = item.getItemId();
 
-
         if (id == R.id.nav_dashboard) {
             navigateTo(DashboardActivity.class);
+
         } else if (id == R.id.nav_products) {
             navigateTo(ProductsActivity.class);
-        }
-//        else if (id == R.id.nav_quality_control) {
-//        navigateTo(QcActivity.class);}
-        else if (id == R.id.nav_rfid_scan) {
+
+        } else if (id == R.id.nav_rfid_scan) {
             navigateTo(ScannerActivity.class);
+
         } else if (id == R.id.nav_write_tags) {
             navigateTo(WriteTagsActivity.class);
-        }
-//        else if (id == R.id.nav_defects) {
-//            // TODO: navigateTo(DefectTrackingActivity.class);}
-        else if (id == R.id.nav_settings) {
 
+        } else if (id == R.id.nav_settings) {
             navigateTo(SettingsActivity.class);
-        } else if (id == R.id.nav_logout) {
-            // DEBUG DUMP (optional) - uncomment if you want to log prefs before/after:
-            // Log.d(TAG, "PREFS BEFORE LOGOUT:\n" + PrefHelper.dumpAllPrefs(this));
 
-            // Perform safe logout (clears token + session keys but keeps printer & credentials)
+        } else if (id == R.id.nav_logout) {
+
             SessionManager.logoutKeepPreferences(this);
 
-            // DEBUG DUMP (optional) - uncomment if you want to log prefs after logout:
-            // Log.d(TAG, "PREFS AFTER LOGOUT:\n" + PrefHelper.dumpAllPrefs(this));
-
-            // Navigate to login screen and clear activity stack
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
 
-        if (drawerLayout != null) drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayout != null)
+            drawerLayout.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
-
     protected boolean handleNavigationItem(@NonNull MenuItem item) {
-        return false; // default: not handled
+        return false;
     }
 
-
     private long backPressedTime = 0;
+
     @Override
     public void onBackPressed() {
         if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -175,5 +211,4 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
             }
         }
     }
-
 }

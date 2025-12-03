@@ -40,6 +40,23 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+
+                <!-- Update banner (hidden by default) -->
+                <TextView
+                    android:id="@+id/tvUpdateBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:padding="12dp"
+                    android:background="#F44336"
+                    android:textColor="#EDFDFBFC"
+                    android:text="Update available — tap to update"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"/>
+
+
                 <!-- KPI grid (2x2) -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

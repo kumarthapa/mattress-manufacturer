@@ -3,7 +3,10 @@ package com.sleepcompany.rfidapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +26,8 @@ import com.sleepcompany.rfidapp.model.Kpis;
 import com.sleepcompany.rfidapp.model.RecentActivity;
 import com.sleepcompany.rfidapp.network.ApiClient;
 import com.sleepcompany.rfidapp.network.ApiService;
+import com.sleepcompany.rfidapp.network.UpdateCheckRequest;
+import com.sleepcompany.rfidapp.network.UpdateCheckResponse;
 import com.sleepcompany.rfidapp.util.PrefHelper;
 
 import java.util.List;
@@ -32,11 +37,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * DashboardActivity - pulls dashboard summary from API and updates UI.
- * Uses ApiClient (with token management) to create ApiService.
- */
 public class DashboardActivity extends BaseDrawerActivity {
+
+    private static final String LOGTAG = "DashboardActivity";
 
     private MaterialCardView totalProductionCard, efficiencyCard, defectCard, satisfactionCard;
     private MaterialButton btnScanRFID, btnViewProducts, btnWriteTag;
@@ -46,10 +49,11 @@ public class DashboardActivity extends BaseDrawerActivity {
     private RecyclerView rvRecentActivities;
     private RecentActivityAdapter recentActivityAdapter;
 
+    private TextView tvUpdateBanner; // <-- update banner
+
     private final Handler handler = new Handler();
     private final int POLL_INTERVAL_MS = 8000;
 
-    // Keep reference to current call so we can cancel when activity pauses
     private Call<DashboardResponse> currentSummaryCall = null;
 
     private final Runnable pollRunnable = new Runnable() {
@@ -74,7 +78,6 @@ public class DashboardActivity extends BaseDrawerActivity {
         setupQuickActions();
         setupRecycler();
 
-        // initial load
         loadDashboardData();
     }
 
@@ -95,6 +98,23 @@ public class DashboardActivity extends BaseDrawerActivity {
 
         chipGroupStages = findViewById(R.id.chipGroupStages);
         rvRecentActivities = findViewById(R.id.rvRecentActivities);
+
+        // Update banner
+        tvUpdateBanner = findViewById(R.id.tvUpdateBanner);
+
+        if (tvUpdateBanner == null) {
+            Log.w(LOGTAG, "tvUpdateBanner is null — check your activity_dashboard layout (id: tvUpdateBanner).");
+        } else {
+            // ensure hidden by default
+            tvUpdateBanner.setVisibility(View.GONE);
+
+            tvUpdateBanner.setOnClickListener(v -> {
+                // Launch LauncherActivity to handle update. Pass current screen so Launcher can return here.
+                Intent i = new Intent(DashboardActivity.this, LauncherActivity.class);
+                i.putExtra(LauncherActivity.EXTRA_NEXT_SCREEN, DashboardActivity.class.getName());
+                startActivity(i);
+            });
+        }
     }
 
     private void setupRecycler() {
@@ -103,32 +123,39 @@ public class DashboardActivity extends BaseDrawerActivity {
         rvRecentActivities.setAdapter(recentActivityAdapter);
     }
 
+    /**
+     * ---------- DASHBOARD CARDS ----------
+     */
     private void setupDashboardCards() {
+
+        // direct navigation (fast)
         totalProductionCard.setOnClickListener(v ->
-                startActivity(new Intent(DashboardActivity.this, ProductsActivity.class)));
+                navigateTo(ProductsActivity.class));
 
         efficiencyCard.setOnClickListener(v ->
                 Snackbar.make(findViewById(R.id.drawer_layout),
                         "Production efficiency details", Snackbar.LENGTH_SHORT).show());
 
         defectCard.setOnClickListener(v ->
-                startActivity(new Intent(DashboardActivity.this, QcActivity.class)));
+                navigateTo(QcActivity.class));
 
         satisfactionCard.setOnClickListener(v ->
                 Snackbar.make(findViewById(R.id.drawer_layout),
                         "Quality control metrics", Snackbar.LENGTH_SHORT).show());
     }
 
+    /**
+     * ---------- QUICK ACTION BUTTONS ----------
+     */
     private void setupQuickActions() {
-        // Scan and view always available (assuming)
+
+        // Direct navigation (fast)
         btnScanRFID.setOnClickListener(v ->
-                startActivity(new Intent(DashboardActivity.this, ScannerActivity.class)));
+                navigateTo(ScannerActivity.class));
 
         btnViewProducts.setOnClickListener(v ->
-                startActivity(new Intent(DashboardActivity.this, ProductsActivity.class)));
+                navigateTo(ProductsActivity.class));
 
-        // Configure write button with permission check
-        // Set click listener regardless — the listener will guard on permission and show a message.
         btnWriteTag.setOnClickListener(v -> {
             boolean canWrite = PrefHelper.hasPermission(DashboardActivity.this, "write.bonding");
             if (!canWrite) {
@@ -136,30 +163,27 @@ public class DashboardActivity extends BaseDrawerActivity {
                         "You don't have permission to write tags", Snackbar.LENGTH_SHORT).show();
                 return;
             }
-            startActivity(new Intent(DashboardActivity.this, WriteTagsActivity.class));
+            navigateTo(WriteTagsActivity.class);
         });
 
-        // Apply initial enabled state (in case called during onCreate)
         boolean canWriteInitially = PrefHelper.hasPermission(this, "write.bonding");
         btnWriteTag.setEnabled(canWriteInitially);
-        btnWriteTag.setAlpha(canWriteInitially ? 1f : 0.56f); // visually indicate disabled
+        btnWriteTag.setAlpha(canWriteInitially ? 1f : 0.56f);
     }
 
-
+    /**
+     * ---------- DASHBOARD DATA UPDATE ----------
+     */
     private void updateKpis(Kpis kpis) {
         if (kpis == null) return;
 
-        // Defensive null-safe rendering
         tvTotalProduction.setText(String.valueOf(kpis.total_today != null ? kpis.total_today : 0));
-
         tvEfficiency.setText(kpis.efficiency_percent != null
                 ? String.format("%.2f%%", kpis.efficiency_percent)
                 : "—");
-
         tvDefects.setText(kpis.defect_rate_percent != null
                 ? String.format("%.2f%%", kpis.defect_rate_percent)
                 : "—");
-
         tvSatisfaction.setText(kpis.pass_today != null
                 ? kpis.pass_today + " pass"
                 : "—");
@@ -187,23 +211,19 @@ public class DashboardActivity extends BaseDrawerActivity {
         recentActivityAdapter.setItems(list);
     }
 
-    /**
-     * Load dashboard data via ApiClient -> ApiService
-     */
     private void loadDashboardData() {
-        // Cancel previous call if still running
+
         if (currentSummaryCall != null && !currentSummaryCall.isCanceled()) {
             currentSummaryCall.cancel();
             currentSummaryCall = null;
         }
 
         ApiService api = ApiClient.getClient(this).create(ApiService.class);
-        currentSummaryCall = api.getDashboardSummary(5); // ask backend to cache for 5s
+        currentSummaryCall = api.getDashboardSummary(5);
 
         currentSummaryCall.enqueue(new Callback<DashboardResponse>() {
             @Override
             public void onResponse(Call<DashboardResponse> call, Response<DashboardResponse> response) {
-                // clear reference (finished)
                 currentSummaryCall = null;
 
                 if (!response.isSuccessful() || response.body() == null) {
@@ -212,11 +232,10 @@ public class DashboardActivity extends BaseDrawerActivity {
                     return;
                 }
 
-                DashboardResponse body = response.body(); // top-level DashboardResponse
+                DashboardResponse body = response.body();
                 if (Boolean.TRUE.equals(body.success) && body.data != null) {
                     updateKpis(body.data.kpis);
                     updateStages(body.data.stages);
-//                    updateRecent(body.data.recent_activities);
                 } else {
                     Snackbar.make(findViewById(R.id.drawer_layout),
                             "Dashboard error: " + body.message, Snackbar.LENGTH_SHORT).show();
@@ -226,11 +245,62 @@ public class DashboardActivity extends BaseDrawerActivity {
             @Override
             public void onFailure(Call<DashboardResponse> call, Throwable t) {
                 currentSummaryCall = null;
-
                 if (call.isCanceled()) return;
 
                 Snackbar.make(findViewById(R.id.drawer_layout),
                         "Network error: " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Lightweight update check that only shows the banner (non-blocking).
+     */
+    private void checkUpdateForDashboard() {
+        String androidId = com.sleepcompany.rfidapp.LauncherActivity.getAndroidId(this);
+        int currentVersion = BuildConfig.VERSION_CODE;
+
+        UpdateCheckRequest req = new UpdateCheckRequest(androidId, currentVersion);
+        ApiService api = ApiClient.getPublicClient().create(ApiService.class);
+
+        Log.d(LOGTAG, "checkUpdateForDashboard: device=" + androidId + " currentVersion=" + currentVersion);
+
+        api.checkUpdate(req).enqueue(new Callback<UpdateCheckResponse>() {
+            @Override
+            public void onResponse(Call<UpdateCheckResponse> call, Response<UpdateCheckResponse> response) {
+                if (isFinishing() || isDestroyed()) return;
+
+                if (response.isSuccessful() && response.body() != null) {
+                    UpdateCheckResponse body = response.body();
+
+                    // SHOW if the server requests update (no version compare)
+                    final boolean show = body.isUpdate_required();
+                    Log.d(LOGTAG, "update check result: update_required=" + body.isUpdate_required()
+                            + " latest_version=" + body.getLatest_version_code() + " -> showBanner=" + show);
+
+                    runOnUiThread(() -> {
+                        if (tvUpdateBanner == null) {
+                            Log.w(LOGTAG, "tvUpdateBanner is null when trying to set visibility");
+                            return;
+                        }
+                        tvUpdateBanner.setVisibility(show ? View.VISIBLE : View.GONE);
+                    });
+                } else {
+                    Log.w(LOGTAG, "checkUpdateForDashboard response not successful or empty");
+                    // keep banner hidden on error
+                    runOnUiThread(() -> {
+                        if (tvUpdateBanner != null) tvUpdateBanner.setVisibility(View.GONE);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateCheckResponse> call, Throwable t) {
+                Log.w(LOGTAG, "checkUpdateForDashboard failed: " + (t != null ? t.getMessage() : "unknown"));
+                // ignore — do not block user; hide banner
+                runOnUiThread(() -> {
+                    if (tvUpdateBanner != null) tvUpdateBanner.setVisibility(View.GONE);
+                });
             }
         });
     }
@@ -240,16 +310,18 @@ public class DashboardActivity extends BaseDrawerActivity {
         super.onResume();
         handler.postDelayed(pollRunnable, POLL_INTERVAL_MS);
 
-        // Re-evaluate write permission each time activity resumes
         boolean canWrite = PrefHelper.hasPermission(this, "write.bonding");
         btnWriteTag.setEnabled(canWrite);
         btnWriteTag.setAlpha(canWrite ? 1f : 0.56f);
-    }
 
+        // Run lightweight update check (shows banner if available)
+        checkUpdateForDashboard();
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
+
         handler.removeCallbacks(pollRunnable);
 
         if (currentSummaryCall != null && !currentSummaryCall.isCanceled()) {
@@ -261,10 +333,12 @@ public class DashboardActivity extends BaseDrawerActivity {
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.nav_dashboard) {
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         }
+
         return super.onNavigationItemSelected(item);
     }
 }

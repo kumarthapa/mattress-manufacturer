@@ -3254,6 +3254,7 @@ id SYM
 id TOP_END
 id TOP_START
 id acPrinter
+id acPrinterLang
 id acRfidPower
 id accelerate
 id accessibility_action_clickable_span
@@ -3740,7 +3741,6 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
-id scanInstructionCard
 id scanProgress
 id scanResultCard
 id scanStatusText
@@ -3842,7 +3842,6 @@ id textSpacerNoTitle
 id textStart
 id textTitle
 id textTop
-id textView
 id textWatcher
 id text_input_end_icon
 id text_input_error_icon
@@ -3854,6 +3853,7 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id tilExtra
+id tilPrinterLang
 id time
 id title
 id titleDividerNoCustom
@@ -3877,6 +3877,7 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvActiveProducts
+id tvAppInfo
 id tvChangedAt
 id tvCreatedAt
 id tvCurrentStage
@@ -3903,6 +3904,8 @@ id tvTitleModel
 id tvTitleName
 id tvTitleQaCode
 id tvTotalProduction
+id tvUpdateBanner
+id tvUserName
 id tvValidation
 id tv_epc
 id tv_nums

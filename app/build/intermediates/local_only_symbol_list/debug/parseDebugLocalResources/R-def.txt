@@ -86,6 +86,7 @@ drawable scanner_area_bg
 drawable weibo_detail_buttombar_itembg_on
 drawable weibolist_bottombar_itembg_selector
 id acPrinter
+id acPrinterLang
 id acRfidPower
 id appBar
 id approveQCBtn
@@ -204,7 +205,6 @@ id rvBluetoothDevices
 id rvRecentActivities
 id rvSearchResults
 id satisfactionCard
-id scanInstructionCard
 id scanProgress
 id scanResultCard
 id scanStatusText
@@ -227,12 +227,13 @@ id tagtype
 id text1
 id textPercent
 id textTitle
-id textView
 id tilExtra
+id tilPrinterLang
 id toolbar
 id toolbar_settings
 id totalProductionCard
 id tvActiveProducts
+id tvAppInfo
 id tvChangedAt
 id tvCreatedAt
 id tvCurrentStage
@@ -259,6 +260,8 @@ id tvTitleModel
 id tvTitleName
 id tvTitleQaCode
 id tvTotalProduction
+id tvUpdateBanner
+id tvUserName
 id tvValidation
 id tv_epc
 id tv_nums
