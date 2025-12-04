@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/coordinatorLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true">
+
+	<com.google.android.material.appbar.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:elevation="0dp">
+
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			app:title="Scan RFID Tag"
+			app:titleTextColor="?attr/colorOnSurface"
+			app:navigationIcon="@drawable/ic_arrow_back"
+			style="@style/Widget.Material3.Toolbar" />
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<androidx.core.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"
+		android:padding="16dp"
+		android:fillViewport="true">
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal">
+
+			<!-- Instruction card -->
+<!--			<com.google.android.material.card.MaterialCardView-->
+<!--				android:id="@+id/scanInstructionCard"-->
+<!--				android:layout_width="280dp"-->
+<!--				android:layout_height="200dp"-->
+<!--				android:layout_marginBottom="32dp"-->
+<!--				android:padding="24dp"-->
+<!--				app:cardElevation="8dp"-->
+<!--				app:cardCornerRadius="16dp"-->
+<!--				app:cardBackgroundColor="?attr/colorSurfaceContainer">-->
+
+<!--				<LinearLayout-->
+<!--					android:orientation="vertical"-->
+<!--					android:layout_width="match_parent"-->
+<!--					android:layout_height="match_parent"-->
+<!--					android:gravity="center">-->
+
+<!--					<com.google.android.material.textview.MaterialTextView-->
+<!--						android:layout_width="wrap_content"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						android:text="📱"-->
+<!--						android:textSize="56sp"-->
+<!--						android:layout_marginBottom="16dp" />-->
+
+<!--					<com.google.android.material.textview.MaterialTextView-->
+<!--						android:layout_width="wrap_content"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						android:text="Hold device near RFID tag to scan"-->
+<!--						android:textSize="16sp"-->
+<!--						android:textColor="?attr/colorOnSurfaceVariant"-->
+<!--						android:textAlignment="center"-->
+<!--						android:textAppearance="?attr/textAppearanceBodyMedium"/>-->
+<!--				</LinearLayout>-->
+<!--			</com.google.android.material.card.MaterialCardView>-->
+
+			<!-- Scan controls -->
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginBottom="32dp">
+
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/startScanBtn"
+					android:layout_width="180dp"
+					android:layout_height="56dp"
+					android:text="Start Scan"
+					android:textSize="16sp"
+					app:cornerRadius="28dp"
+					app:icon="@drawable/ic_scan"
+					app:iconGravity="textStart"/>
+
+				<View
+					android:layout_width="16dp"
+					android:layout_height="1dp" />
+
+				<com.google.android.material.progressindicator.CircularProgressIndicator
+					android:id="@+id/scanProgress"
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					android:visibility="gone"
+					app:indicatorSize="40dp"
+					app:trackThickness="4dp"
+					app:indicatorColor="?attr/colorPrimary"/>
+
+				<com.google.android.material.textview.MaterialTextView
+					android:id="@+id/scanStatusText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="12dp"
+					android:text="Scanning..."
+					android:visibility="gone"/>
+			</LinearLayout>
+
+			<!-- Editable result card (existing) -->
+			<com.google.android.material.card.MaterialCardView
+				android:id="@+id/scanResultCard"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="24dp"
+				android:visibility="gone"
+				app:cardElevation="6dp"
+				app:cardCornerRadius="16dp"
+				app:cardBackgroundColor="?attr/colorSurface">
+
+				<FrameLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<LinearLayout
+						android:orientation="vertical"
+						android:padding="20dp"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<com.google.android.material.textview.MaterialTextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="Scan Result"
+							android:textAppearance="?attr/textAppearanceHeadlineSmall"
+							android:textStyle="bold"
+							android:layout_marginBottom="16dp"/>
+
+						<!-- QA Code -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="QA Code:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/qaCode"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Product -->
+						<!-- Product row with small edit icon -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="8dp"
+							android:gravity="center_vertical">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Product:"
+								android:textStyle="bold" />
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/scannedProduct"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1.6"
+								android:text="-" />
+
+							<!-- small edit icon next to product -->
+							<ImageButton
+								android:id="@+id/ivEditProduct"
+								android:layout_width="36dp"
+								android:layout_height="36dp"
+								android:layout_marginStart="8dp"
+								android:background="?attr/selectableItemBackgroundBorderless"
+								android:contentDescription="Edit product"
+								android:src="@drawable/ic_write"
+							app:tint="?attr/colorOnSurface" />
+						</LinearLayout>
+
+
+						<!-- Product SKU -->
+						<!-- Product SKU row (label fixed to "SKU:") -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="8dp"
+							android:gravity="center_vertical">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="SKU:"
+								android:textStyle="bold" />
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/scannedProductSKU"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1.6"
+								android:text="-" />
+
+							<ImageButton
+								android:id="@+id/ivEditProductSKU"
+								android:layout_width="36dp"
+								android:layout_height="36dp"
+								android:layout_marginStart="8dp"
+								android:background="?attr/selectableItemBackgroundBorderless"
+								android:contentDescription="Edit SKU"
+								android:tooltipText="Edit SKU"
+								android:src="@drawable/ic_write"
+								app:tint="?attr/colorOnSurface" />
+						</LinearLayout>
+
+						<!-- Inline editor for SKU (hidden by default) -->
+						<com.google.android.material.textfield.TextInputLayout
+							android:id="@+id/productSkuEditLayout"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="gone"
+							android:layout_marginBottom="12dp"
+							style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+							<com.google.android.material.textfield.TextInputEditText
+								android:id="@+id/etProductSkuEdit"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:hint="Enter new SKU"
+								android:imeOptions="actionDone"
+								android:inputType="text"
+								android:maxLines="1" />
+						</com.google.android.material.textfield.TextInputLayout>
+
+						<!-- Buttons for SKU edit -->
+						<LinearLayout
+							android:id="@+id/productSkuEditButtons"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:gravity="end"
+							android:visibility="gone"
+							android:layout_marginBottom="8dp">
+
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/btnCancelSkuEdit"
+								android:layout_width="wrap_content"
+								android:layout_height="40dp"
+								android:text="Cancel"
+								style="@style/Widget.Material3.Button.OutlinedButton"
+								android:layout_marginEnd="8dp" />
+
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/btnSaveSku"
+								android:layout_width="wrap_content"
+								android:layout_height="40dp"
+								android:text="Save" />
+						</LinearLayout>
+
+
+						<!-- Inline editor (hidden by default). Placed right below product row -->
+						<com.google.android.material.textfield.TextInputLayout
+							android:id="@+id/productEditLayout"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="gone"
+							android:layout_marginBottom="12dp"
+							style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+							<com.google.android.material.textfield.TextInputEditText
+								android:id="@+id/etProductNameEdit"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:hint="Enter new product name"
+								android:imeOptions="actionDone"
+								android:maxLines="1" />
+						</com.google.android.material.textfield.TextInputLayout>
+
+						<!-- Save + Cancel small buttons inline (optional) -->
+						<LinearLayout
+							android:id="@+id/productEditButtons"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:gravity="end"
+							android:visibility="gone"
+							android:layout_marginBottom="8dp">
+
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/btnCancelProductEdit"
+								android:layout_width="wrap_content"
+								android:layout_height="40dp"
+								android:text="Cancel"
+								style="@style/Widget.Material3.Button.OutlinedButton"
+								android:layout_marginEnd="8dp"/>
+
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/btnSaveProduct"
+								android:layout_width="wrap_content"
+								android:layout_height="40dp"
+								android:text="Save"
+								android:layout_marginEnd="0dp"/>
+						</LinearLayout>
+
+
+						<!-- Size -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Size:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/scannedSize"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Scanned Status -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Status:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/scannedStatus"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Stage dropdown -->
+						<com.google.android.material.textfield.TextInputLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="12dp"
+							style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+							<AutoCompleteTextView
+								android:id="@+id/scannedStage"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:hint="Select Stage"
+								android:inputType="none"/>
+						</com.google.android.material.textfield.TextInputLayout>
+
+						<!-- QC Status dropdown -->
+						<com.google.android.material.textfield.TextInputLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="12dp"
+							style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+							<AutoCompleteTextView
+								android:id="@+id/scannedQcStatus"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:hint="Select QC Status"
+								android:inputType="none"/>
+						</com.google.android.material.textfield.TextInputLayout>
+
+						<!-- Remarks -->
+						<com.google.android.material.textfield.TextInputLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:hint="Remarks (optional)"
+							android:layout_marginBottom="12dp"
+							style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+							<com.google.android.material.textfield.TextInputEditText
+								android:id="@+id/etRemarks"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:inputType="textMultiLine"
+								android:maxLines="3"/>
+						</com.google.android.material.textfield.TextInputLayout>
+
+						<!-- Defects card (hidden until Reject clicked) -->
+						<com.google.android.material.card.MaterialCardView
+							android:id="@+id/defectsCard"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="gone"
+							android:layout_marginBottom="12dp"
+							app:cardCornerRadius="12dp"
+							app:cardElevation="4dp">
+
+							<LinearLayout
+								android:orientation="vertical"
+								android:padding="12dp"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content">
+
+								<com.google.android.material.textview.MaterialTextView
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="Defect Points"
+									android:textStyle="bold"
+									android:layout_marginBottom="8dp"/>
+
+								<LinearLayout
+									android:id="@+id/llDefectsContainer"
+									android:orientation="vertical"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"/>
+							</LinearLayout>
+						</com.google.android.material.card.MaterialCardView>
+
+						<!-- Action buttons -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:gravity="center">
+
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/updateStageBtn"
+								android:layout_width="0dp"
+								android:layout_height="48dp"
+								android:layout_weight="1"
+								android:text="Update"
+								android:textSize="14sp"
+								style="@style/Widget.Material3.Button.TonalButton"
+								android:layout_marginEnd="8dp"/>
+
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/rejectBtn"
+								android:layout_width="0dp"
+								android:layout_height="48dp"
+								android:layout_weight="1"
+								android:text="Reject"
+								android:textSize="14sp"
+								style="@style/Widget.Material3.Button.OutlinedButton"/>
+						</LinearLayout>
+
+					</LinearLayout>
+
+					<!-- Small clear and print icon on top-right of the card -->
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal"
+						android:layout_gravity="end|top"
+						android:layout_margin="8dp">
+
+						<ImageButton
+							android:id="@+id/ivCardPrint"
+							android:layout_width="36dp"
+							android:layout_height="36dp"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							android:contentDescription="Print"
+							android:src="@drawable/ic_print"
+							app:tint="?attr/colorOnSurface"
+							android:visibility="gone"/>
+
+						<ImageButton
+							android:id="@+id/ivCardClear"
+							android:layout_width="36dp"
+							android:layout_height="36dp"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							app:tint="?attr/colorOnSurface"
+							android:contentDescription="Clear"
+							android:scaleType="center"
+							android:src="@drawable/ic_clear"/>
+					</LinearLayout>
+
+				</FrameLayout>
+			</com.google.android.material.card.MaterialCardView>
+
+			<!-- Read-only failed result card -->
+			<com.google.android.material.card.MaterialCardView
+				android:id="@+id/failedResultCard"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="24dp"
+				android:visibility="gone"
+				app:cardElevation="6dp"
+				app:cardCornerRadius="16dp"
+				app:cardBackgroundColor="?attr/colorSurface">
+
+				<FrameLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<LinearLayout
+						android:orientation="vertical"
+						android:padding="20dp"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+						<com.google.android.material.textview.MaterialTextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="Failed Product!"
+							android:textStyle="bold"
+							android:textSize="20sp"
+							android:textColor="#FF0000"
+						    android:layout_marginBottom="16dp"/>
+
+						<!-- Rework icon (visible only for failed card) -->
+						<Button
+							android:id="@+id/ivFailedCardRework"
+							android:layout_width="wrap_content"
+							android:layout_height="40dp"
+							android:layout_marginBottom="12dp"
+							android:layout_gravity="end"
+							android:text="REWORK"
+							android:textAllCaps="true"
+							android:textColor="@android:color/white"
+							android:backgroundTint="@color/amber_600"
+							android:paddingLeft="20dp"
+							android:paddingRight="20dp"
+							android:visibility="gone"
+							android:fontFamily="sans-serif-medium" />
+
+
+
+						<!-- QA Code -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="QA Code:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/failedQaCode"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Product -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Product:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/failedProduct"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Size -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Size:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/failedSize"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Stage -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Stage:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/failedStage"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- QC Status -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="QC Status:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/failedQcStatus"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Remarks -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"
+							android:layout_marginBottom="12dp">
+
+							<com.google.android.material.textview.MaterialTextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Remarks:"
+								android:textStyle="bold"/>
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/failedRemarks"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="2"
+								android:text="-"/>
+						</LinearLayout>
+
+						<!-- Defect points (read-only list) -->
+						<com.google.android.material.card.MaterialCardView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="8dp"
+							app:cardCornerRadius="8dp"
+							app:cardElevation="2dp">
+
+							<LinearLayout
+								android:orientation="vertical"
+								android:padding="12dp"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content">
+
+								<com.google.android.material.textview.MaterialTextView
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="Defect Points"
+									android:textStyle="bold"
+									android:layout_marginBottom="8dp"/>
+
+								<LinearLayout
+									android:id="@+id/llFailedDefectsContainer"
+									android:orientation="vertical"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"/>
+							</LinearLayout>
+						</com.google.android.material.card.MaterialCardView>
+
+					</LinearLayout>
+
+					<!-- Print & Clear buttons for failed card -->
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal"
+						android:layout_gravity="end|top"
+						android:layout_margin="8dp">
+
+						<ImageButton
+							android:id="@+id/ivFailedCardPrint"
+							android:layout_width="36dp"
+							android:layout_height="36dp"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							android:src="@drawable/ic_print"
+							app:tint="?attr/colorOnSurface"
+							android:contentDescription="Print"
+							android:visibility="gone"/>
+
+						<ImageButton
+							android:id="@+id/ivFailedCardClear"
+							android:layout_width="36dp"
+							android:layout_height="36dp"
+							android:background="?attr/selectableItemBackgroundBorderless"
+							android:src="@drawable/ic_clear"
+							app:tint="?attr/colorOnSurface"
+							android:contentDescription="Clear"/>
+					</LinearLayout>
+
+				</FrameLayout>
+			</com.google.android.material.card.MaterialCardView>
+
+		</LinearLayout>
+	</androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

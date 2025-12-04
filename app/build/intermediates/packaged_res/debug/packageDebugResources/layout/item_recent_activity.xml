@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:layout_marginHorizontal="12dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:strokeColor="@color/sc_primary"
+    app:strokeWidth="1dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/sc_primary"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStageStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stage • Status • Machine"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginTop="4dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChangedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2025-09-16 14:00"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:layout_marginTop="2dp"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

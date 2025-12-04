@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorOnSurface">
+
+    <!-- RFID Tag body -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M6,11h12a2,2 0 0,1 2,2v7a2,2 0 0,1 -2,2H6a2,2 0 0,1 -2,-2v-7a2,2 0 0,1 2,-2zM9,14a1,1 0 0,0 -1,1v2a1,1 0 0,0 1,1h6a1,1 0 0,0 1,-1v-2a1,1 0 0,0 -1,-1H9z"/>
+
+    <!-- Centered top signal waves (scaled larger to fill height) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M7,8c2,-1.8 8,-1.8 10,0M5,5c3,-3 11,-3 14,0"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.5"
+        android:fillAlpha="0"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+</vector>

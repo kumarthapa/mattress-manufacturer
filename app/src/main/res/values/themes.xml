@@ -1,6 +1,66 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.SleepCompanyWeb" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Main App Theme using Material 3 -->
+    <style name="Theme.SleepCompanyWeb" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand colors -->
         <item name="colorPrimary">@color/sc_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/sleep_secondary</item>
+        <item name="colorOnPrimaryContainer">@color/sc_primary</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/sleep_secondary</item>
+        <item name="colorOnSecondary">@color/sc_primary</item>
+        <item name="colorSecondaryContainer">@color/sleep_accent</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurfaceVariant">@color/light_grey</item>
+        <item name="colorOnSurfaceVariant">@color/grey_600</item>
+
+        <!-- Background -->
+        <item name="android:colorBackground">@color/light_grey</item>
+        <item name="colorOnBackground">@color/black</item>
+
+        <!-- Status bar -->
         <item name="android:statusBarColor">@color/sc_primary</item>
+        <item name="android:navigationBarColor">@color/sc_primary</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/red_700</item>
+        <item name="colorOnError">@color/white</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/grey_600</item>
+        <item name="android:windowBackground">@color/light_grey</item>
+    </style>
+
+    <!-- Custom Button Style (Updated for Material 3) -->
+    <style name="SleepButton" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+        <item name="backgroundTint">@color/sc_primary</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Custom Outlined Button Style -->
+    <style name="SleepButton.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/sc_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="strokeColor">@color/sc_primary</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Custom Text Input Style -->
+    <style name="SleepTextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/sc_primary</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="hintTextColor">@color/grey_600</item>
+        <item name="android:textColorHint">@color/grey_600</item>
     </style>
 </resources>

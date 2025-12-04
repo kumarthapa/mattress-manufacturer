@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootCoordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- AppBar / Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="Read / Update QA"
+            app:titleTextColor="@android:color/white"
+            app:navigationIcon="@drawable/ic_arrow_blue" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Scan button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:text="Start Scan" />
+
+            <!-- QA code (original) -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitleQaCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="QA Code: -"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"/>
+
+            <!-- Product name -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitleName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Product Name: -"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Product model -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitleModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Model: -"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Scanned tag display -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvScannedTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:layout_marginBottom="6dp"
+                android:contentDescription="scanned tag" />
+
+            <!-- Scan status (hidden by default) -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvScanStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Extra details input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilExtra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Extra details to append (max 5)"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etExtraDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
+                    android:maxLines="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:maxLength="5"
+                    android:textAllCaps="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Validation message -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvValidation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"
+                android:layout_marginTop="8dp" />
+
+            <!-- Write/Update button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWrite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update QA"
+                android:layout_marginTop="16dp"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

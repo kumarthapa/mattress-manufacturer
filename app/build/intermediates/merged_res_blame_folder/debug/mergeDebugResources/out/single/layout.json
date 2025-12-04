@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_settings.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/dialog_license.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/dialog_license.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/dialog_update_download.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/dialog_update_download.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_launcher.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_launcher.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_write_tag_detail.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_write_tag_detail.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/layout_printer_settings.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/layout_printer_settings.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_login.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/list_item.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/list_item.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_product_details.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_product_details.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_recent_activity.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_recent_activity.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_scanner.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_scanner.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_write_tags.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_write_tags.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/loader.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/loader.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_stage.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_stage.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/layout_general.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/layout_general.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_product.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_product.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_product_search.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_product_search.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_product_list.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_product_list.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_qc.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_qc.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_epc.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_epc.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/fragment_settings.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/nav_header.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/nav_header.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/item_bluetooth_device.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/item_bluetooth_device.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/fragment_inventory.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/fragment_inventory.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_main.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_dashboard.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_dashboard.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/activity_products.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/activity_products.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-mergeDebugResources-52:/layout/layout_rfid_settings.xml",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/layout_rfid_settings.xml"
+    }
+]

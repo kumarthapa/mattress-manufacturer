@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                
+
+	
+
+           
+            
+                                                        
+
+           
+                 
+                                                                    
+
+        
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical" android:tag="layout/fragment_inventory_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="50dp"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/bt_once"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/once"
+				android:visibility="gone"
+				android:tag="binding_1"                    />
+
+			<Button
+				android:id="@+id/bt_continue"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/continues"
+				android:background="@color/black"
+				android:textColor="@color/white"
+				android:tag="binding_2"                       />
+
+			<Button
+				android:id="@+id/bt_stop"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:enabled="false"
+				android:text="@string/stop"
+				android:tag="binding_3"                   />
+
+			<Button
+				android:id="@+id/bt_save_data"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:enabled="false"
+				android:text="@string/save_data"
+				android:tag="binding_4"                   />
+
+
+
+		</LinearLayout>
+
+		<View
+			android:layout_width="fill_parent"
+			android:layout_height="1dip"
+			android:background="#66000000" />
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="20dp"
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/tv_total"
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="6"
+				android:tag="binding_5"                                           
+
+				/>
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="fill_parent"
+				android:background="#6000" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1.2"
+				android:text="@string/nums"
+				android:gravity="center" />
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="fill_parent"
+				android:background="#6000" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="0.8"
+				android:text="@string/rssi"
+				android:gravity="center" />
+
+		</LinearLayout>
+
+		<View
+			android:layout_width="fill_parent"
+			android:layout_height="1dip"
+			android:background="#66000000" />
+
+
+		<ListView
+			android:id="@+id/lv_id"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="10">
+
+		</ListView>
+
+		<View
+			android:layout_width="fill_parent"
+			android:layout_height="1dip"
+			android:background="#66000000" />
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="30dp"
+			android:visibility="invisible"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:text="@string/bank"
+				android:gravity="center" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:text="@string/address"
+				android:gravity="center" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:text="@string/lenth"
+				android:gravity="center" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="2"
+				android:text="@string/password"
+				android:gravity="center" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="30dp"
+			android:visibility="invisible"
+			android:orientation="horizontal">
+
+			<EditText
+				android:id="@+id/et_bank"
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:background="@drawable/et"
+				android:tag="binding_6"   />
+
+			<EditText
+				android:id="@+id/et_address"
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:background="@drawable/et"
+				android:tag="binding_7"      />
+
+			<EditText
+				android:id="@+id/et_lenth"
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:background="@drawable/et"
+				android:tag="binding_8"     />
+
+			<EditText
+				android:id="@+id/et_password"
+				android:layout_width="0dp"
+				android:layout_height="fill_parent"
+				android:layout_weight="2"
+				android:gravity="center"
+				android:background="@drawable/et"
+				android:tag="binding_9"       />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="50dp"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/bt_read"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/read"
+				android:visibility="invisible"
+				android:tag="binding_10"                  />
+
+			<Button
+				android:id="@+id/bt_write"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/write"
+				android:visibility="invisible"
+				android:tag="binding_11"                   />
+
+			<Button
+				android:id="@+id/bt_clear"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/clear"
+				android:tag="binding_12"                   />
+
+		</LinearLayout>
+
+		<EditText
+			android:id="@+id/et_data"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:lines="3"
+			android:background="@drawable/et"
+			android:tag="binding_13"  />
+
+	</LinearLayout>
+         
