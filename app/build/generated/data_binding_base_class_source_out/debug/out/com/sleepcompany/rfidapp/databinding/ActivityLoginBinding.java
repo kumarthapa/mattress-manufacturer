@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -47,6 +48,9 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final MaterialCheckBox rememberMe;
 
   @NonNull
+  public final TextView tvAppInfo;
+
+  @NonNull
   public final TextInputEditText usernameInput;
 
   @NonNull
@@ -56,7 +60,8 @@ public final class ActivityLoginBinding implements ViewBinding {
       @NonNull MaterialCardView loginCard, @NonNull ImageView logoImage,
       @NonNull LinearLayout logoSection, @NonNull TextInputEditText passwordInput,
       @NonNull TextInputLayout passwordLayout, @NonNull MaterialCheckBox rememberMe,
-      @NonNull TextInputEditText usernameInput, @NonNull TextInputLayout usernameLayout) {
+      @NonNull TextView tvAppInfo, @NonNull TextInputEditText usernameInput,
+      @NonNull TextInputLayout usernameLayout) {
     this.rootView = rootView;
     this.loginBtn = loginBtn;
     this.loginCard = loginCard;
@@ -65,6 +70,7 @@ public final class ActivityLoginBinding implements ViewBinding {
     this.passwordInput = passwordInput;
     this.passwordLayout = passwordLayout;
     this.rememberMe = rememberMe;
+    this.tvAppInfo = tvAppInfo;
     this.usernameInput = usernameInput;
     this.usernameLayout = usernameLayout;
   }
@@ -138,6 +144,12 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvAppInfo;
+      TextView tvAppInfo = ViewBindings.findChildViewById(rootView, id);
+      if (tvAppInfo == null) {
+        break missingId;
+      }
+
       id = R.id.usernameInput;
       TextInputEditText usernameInput = ViewBindings.findChildViewById(rootView, id);
       if (usernameInput == null) {
@@ -151,7 +163,8 @@ public final class ActivityLoginBinding implements ViewBinding {
       }
 
       return new ActivityLoginBinding((ConstraintLayout) rootView, loginBtn, loginCard, logoImage,
-          logoSection, passwordInput, passwordLayout, rememberMe, usernameInput, usernameLayout);
+          logoSection, passwordInput, passwordLayout, rememberMe, tvAppInfo, usernameInput,
+          usernameLayout);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

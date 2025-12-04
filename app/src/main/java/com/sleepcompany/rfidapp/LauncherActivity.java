@@ -45,361 +45,394 @@ public class LauncherActivity extends AppCompatActivity {
     private static final String KEY_PENDING_UPDATE = "pending_update";
     private static final String KEY_PENDING_LATEST = "pending_latest";
     private static final String KEY_PENDING_APK_URL = "pending_apk_url";
-    private static final String KEY_PENDING_USE_PUBLIC = "pending_use_public";
+    private static final String KEY_PENDING_PUBLIC = "pending_public";
 
-    private static final int REQUEST_INSTALL_PERMISSION = 1200;
+    public static final String EXTRA_NEXT_SCREEN = "next_screen";
 
     private long downloadId = -1;
-    private DownloadReceiver downloadReceiver;
+    private boolean isDownloading = false;
+    private boolean usingPublicDownload = false;
 
     private AlertDialog progressDialog;
     private ProgressBar progressCircle;
     private TextView textPercent;
 
-    private boolean isDownloading = false;
-    private boolean usingPublicDownload = false;
+    private DownloadReceiver downloadReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // FORCE DEV MODE BEFORE ANY NETWORK CALL
-        ApiClient.setProduction(false);
+        ApiClient.setProduction(true);   // enable PRODUCTION mode
         ApiClient.resetClients();
 
         setContentView(R.layout.activity_launcher);
 
-        // 1) Check if we have a pending update that we've already installed (app restarted)
-        int currentVersion = BuildConfig.VERSION_CODE;
-        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
-        int pendingLatest = prefs.getInt(KEY_PENDING_LATEST, -1);
-        boolean pending = prefs.getBoolean(KEY_PENDING_UPDATE, false);
+        Log.i(TAG, "LauncherActivity started");
 
-        if (pending && pendingLatest > 0 && currentVersion >= pendingLatest) {
-            // App has been updated (new version installed). Notify server.
-            markDeviceUpdated(pendingLatest);
-            // clear pending state
-            prefs.edit()
-                    .remove(KEY_PENDING_UPDATE)
-                    .remove(KEY_PENDING_LATEST)
-                    .remove(KEY_PENDING_APK_URL)
-                    .remove(KEY_PENDING_USE_PUBLIC)
-                    .apply();
-            // proceed to login after marking
-            goToLogin();
-            return;
-        }
+        // 1) Check if pending update was installed — send current device version to server if pending.
+        if (handlePendingUpdateInstalled()) return;
 
-        // 2) Otherwise call server to check if update required dynamically
+        // 2) Otherwise check update from server (non-blocking)
         checkUpdateFromServer();
-    }
-
-    // ---------------------------
-    // Server check
-    // ---------------------------
-    private void checkUpdateFromServer() {
-        String androidId = getAndroidId(this);
-        int currentVersion = BuildConfig.VERSION_CODE;
-
-        UpdateCheckRequest req = new UpdateCheckRequest(androidId, currentVersion);
-        ApiService api = ApiClient.getPublicClient().create(ApiService.class);
-
-        api.checkUpdate(req).enqueue(new Callback<UpdateCheckResponse>() {
-            @Override
-            public void onResponse(Call<UpdateCheckResponse> call, Response<UpdateCheckResponse> response) {
-                if (!isFinishing()) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        UpdateCheckResponse body = response.body();
-                        if (body.isUpdate_required() && currentVersion < body.getLatest_version_code()) {
-                            // save pending info
-                            getSharedPreferences(PREFS, MODE_PRIVATE).edit()
-                                    .putBoolean(KEY_PENDING_UPDATE, true)
-                                    .putInt(KEY_PENDING_LATEST, body.getLatest_version_code())
-                                    .putString(KEY_PENDING_APK_URL, body.getApk_url())
-                                    .apply();
-
-                            showUpdateDialog(body.getApk_url(), body.getLatest_version_code(), true, false);
-                        } else {
-                            // not required -> continue
-                            goToLogin();
-                        }
-                    } else {
-                        Toast.makeText(LauncherActivity.this, "Update check failed", Toast.LENGTH_SHORT).show();
-                        goToLogin();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UpdateCheckResponse> call, Throwable t) {
-                Log.e(TAG, "checkUpdate error: " + t.getMessage());
-                Toast.makeText(LauncherActivity.this, "Network error", Toast.LENGTH_SHORT).show();
-                goToLogin();
-            }
-        });
-    }
-
-    // ---------------------------
-    // Dialog to prompt update
-    // ---------------------------
-    private void showUpdateDialog(String apkUrl, int latestVersion, boolean force, boolean usePublicDownload) {
-        new AlertDialog.Builder(this)
-                .setTitle("Update Available")
-                .setMessage("A new version is available. Update now?")
-                .setCancelable(!force)
-                .setPositiveButton("Update Now", (d, w) -> {
-                    // Check install permission for O+
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        if (!getPackageManager().canRequestPackageInstalls()) {
-                            Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                                    Uri.parse("package:" + getPackageName()));
-                            startActivity(intent);
-                            Toast.makeText(this, "Enable install permission & try again.", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                    }
-
-                    // mark pending and start download
-                    SharedPreferences.Editor e = getSharedPreferences(PREFS, MODE_PRIVATE).edit();
-                    e.putBoolean(KEY_PENDING_UPDATE, true);
-                    e.putInt(KEY_PENDING_LATEST, latestVersion);
-                    e.putString(KEY_PENDING_APK_URL, apkUrl);
-                    e.putBoolean(KEY_PENDING_USE_PUBLIC, usePublicDownload);
-                    e.apply();
-
-                    this.usingPublicDownload = usePublicDownload;
-                    startDownload(apkUrl, usePublicDownload);
-                })
-                .setNegativeButton(force ? "Exit" : "Skip", (d, w) -> {
-                    if (force) finish();
-                    else goToLogin();
-                })
-                .show();
-    }
-
-    // ---------------------------
-    // Start download (chooses destination for old vs modern devices)
-    // ---------------------------
-    private void startDownload(String apkUrl, boolean usePublic) {
-        try {
-            showProgressDialog();
-
-            DownloadManager.Request req = new DownloadManager.Request(Uri.parse(apkUrl));
-            req.setTitle(getString(R.string.app_name) + " Update");
-            req.setDescription("Downloading update…");
-            req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-            // on very old devices (Android 16) use public Download folder for installer compatibility
-            if (usePublic || Build.VERSION.SDK_INT <= 16) {
-                // public download
-                req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "rfid_update.apk");
-                usingPublicDownload = true;
-            } else {
-                // app-specific external files dir (FileProvider fallback)
-                File dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-                if (dir != null) {
-                    File apkFile = new File(dir, "rfid_update.apk");
-                    req.setDestinationUri(Uri.fromFile(apkFile));
-                } else {
-                    // fallback to public
-                    req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "rfid_update.apk");
-                    usingPublicDownload = true;
-                }
-            }
-
-            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-            downloadId = dm.enqueue(req);
-
-            registerDownloadReceiver();
-            startProgressUpdater();
-
-        } catch (Exception ex) {
-            hideProgressDialog();
-            Log.e(TAG, "startDownload error: " + ex.getMessage(), ex);
-            Toast.makeText(this, "Download failed: " + ex.getMessage(), Toast.LENGTH_LONG).show();
-            goToLogin();
-        }
-    }
-
-    // ---------------------------
-    // Progress UI
-    // ---------------------------
-    private void showProgressDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_update_download, null);
-        progressCircle = view.findViewById(R.id.progressCircular);
-        textPercent = view.findViewById(R.id.textPercent);
-        builder.setView(view);
-        builder.setCancelable(false);
-        progressDialog = builder.create();
-        progressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
-    }
-
-    // ---------------------------
-    // Progress updater thread
-    // ---------------------------
-    private void startProgressUpdater() {
-        isDownloading = true;
-
-        new Thread(() -> {
-            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-
-            while (isDownloading) {
-                DownloadManager.Query q = new DownloadManager.Query();
-                q.setFilterById(downloadId);
-                Cursor cursor = dm.query(q);
-
-                if (cursor != null && cursor.moveToFirst()) {
-                    int downloaded = cursor.getInt(cursor.getColumnIndexOrThrow(
-                            DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                    int total = cursor.getInt(cursor.getColumnIndexOrThrow(
-                            DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-
-                    if (total > 0) {
-                        int percent = (int) ((downloaded * 100L) / total);
-                        runOnUiThread(() -> {
-                            progressCircle.setIndeterminate(false);
-                            progressCircle.setMax(100);
-                            progressCircle.setProgress(percent);
-                            textPercent.setText(percent + "%");
-                        });
-                    }
-                    cursor.close();
-                }
-
-                try { Thread.sleep(300); } catch (Exception ignored) {}
-            }
-        }).start();
-    }
-
-    // ---------------------------
-    // Register download receiver
-    // ---------------------------
-    private void registerDownloadReceiver() {
-        if (downloadReceiver == null) {
-            downloadReceiver = new DownloadReceiver();
-            IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-                registerReceiver(downloadReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-            else
-                registerReceiver(downloadReceiver, filter);
-        }
-    }
-
-    private void unregisterDownloadReceiver() {
-        if (downloadReceiver != null) {
-            try { unregisterReceiver(downloadReceiver); } catch (Exception ignored) {}
-            downloadReceiver = null;
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isDownloading = false;
-        unregisterDownloadReceiver();
-        hideProgressDialog();
-    }
-
-    // ---------------------------
-    // Download complete receiver
-    // ---------------------------
-    public class DownloadReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context ctx, Intent intent) {
-            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            if (id == downloadId) {
-                isDownloading = false;
-                hideProgressDialog();
-
-                // prompt install depending on target device
-                promptInstall();
-            }
-        }
-    }
-
-    // ---------------------------
-    // Prompt installer (handles old + modern)
-    // ---------------------------
-    private void promptInstall() {
+        // Unregister receiver if registered
         try {
-            File apk;
-            if (usingPublicDownload) {
-                apk = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "rfid_update.apk");
-            } else {
-                apk = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "rfid_update.apk");
+            if (downloadReceiver != null) {
+                unregisterReceiver(downloadReceiver);
+                downloadReceiver = null;
+                Log.i(TAG, "DownloadReceiver unregistered");
             }
-
-            if (!apk.exists()) {
-                Toast.makeText(this, "Downloaded APK not found!", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !usingPublicDownload) {
-                // modern devices: use FileProvider
-                Uri contentUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", apk);
-                intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            } else {
-                // old devices: use file:// URI
-                Uri uri = Uri.fromFile(apk);
-                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            }
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-
-        } catch (Exception e) {
-            Log.e(TAG, "promptInstall error: " + e.getMessage(), e);
-            Toast.makeText(this, "Install error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (IllegalArgumentException ignored) {
+            // Not registered — ignore
         }
     }
 
-    // ---------------------------
-    // Mark updated API call
-    // ---------------------------
-    private void markDeviceUpdated(int installedVersion) {
-        String androidId = getAndroidId(this);
-        MarkUpdatedRequest req = new MarkUpdatedRequest(androidId, installedVersion);
+    // ---------------------------------------------------------
+    // (A) HANDLE PENDING UPDATE INSTALLED
+    // ---------------------------------------------------------
+    private boolean handlePendingUpdateInstalled() {
+        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        boolean pending = prefs.getBoolean(KEY_PENDING_UPDATE, false);
+
+        if (pending) {
+            int currentVersion = BuildConfig.VERSION_CODE;
+
+            Log.i(TAG, "Pending update found. Reporting current installed version: " + currentVersion);
+
+            // Inform server that this device now has currentVersion installed
+            markDeviceUpdated(currentVersion);
+
+            // Clear pending flags
+            prefs.edit().clear().apply();
+
+            // Continue normal flow
+            redirectToNext();
+            return true;
+        }
+
+        Log.i(TAG, "No pending update found");
+        return false;
+    }
+
+    // ---------------------------------------------------------
+    // (B) CHECK UPDATE FROM SERVER
+    // ---------------------------------------------------------
+    private void checkUpdateFromServer() {
+
+        UpdateCheckRequest req = new UpdateCheckRequest(
+                getAndroidId(this),
+                BuildConfig.VERSION_CODE
+        );
+
         ApiService api = ApiClient.getPublicClient().create(ApiService.class);
 
-        api.markUpdated(req).enqueue(new Callback<GenericResponse>() {
+        Log.i(TAG, "Checking update from server for device: " + getAndroidId(this) + " currentVersion: " + BuildConfig.VERSION_CODE);
+
+        api.checkUpdate(req).enqueue(new Callback<UpdateCheckResponse>() {
             @Override
-            public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
-                    Log.i(TAG, "Marked device as updated on server.");
-                } else {
-                    Log.w(TAG, "Failed to mark updated on server.");
+            public void onResponse(Call<UpdateCheckResponse> call, Response<UpdateCheckResponse> resp) {
+
+                if (!resp.isSuccessful() || resp.body() == null) {
+                    Log.w(TAG, "checkUpdate response unsuccessful or empty, code: " + (resp != null ? resp.code() : "null"));
+                    redirectToNext();
+                    return;
                 }
+
+                UpdateCheckResponse body = resp.body();
+
+                Log.i(TAG, "checkUpdate response body: update_required=" + body.isUpdate_required()
+                        + ", latest_version_code=" + body.getLatest_version_code()
+                        + ", apk_url=" + body.getApk_url());
+
+                // If the server doesn't require update, continue
+                if (!body.isUpdate_required()) {
+                    redirectToNext();
+                    return;
+                }
+
+                // Server requested an update. Save pending state (no extra checks).
+                SharedPreferences.Editor e = getSharedPreferences(PREFS, MODE_PRIVATE).edit();
+                e.putBoolean(KEY_PENDING_UPDATE, true);
+                e.putInt(KEY_PENDING_LATEST, body.getLatest_version_code());
+                e.putString(KEY_PENDING_APK_URL, body.getApk_url());
+                e.apply();
+
+                Log.i(TAG, "Saved pending update info to prefs and showing dialog");
+
+                showUpdateDialog(body.getApk_url(), body.getLatest_version_code());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse> call, Throwable t) {
-                Log.e(TAG, "markUpdated error: " + t.getMessage());
+            public void onFailure(Call<UpdateCheckResponse> call, Throwable t) {
+                Log.w(TAG, "Update check failed: " + (t != null ? t.getMessage() : "unknown"), t);
+                redirectToNext();
             }
         });
     }
 
-    // ---------------------------
-    // Utility
-    // ---------------------------
-    private void goToLogin() {
+    // ---------------------------------------------------------
+    // (C) UPDATE DIALOG
+    // ---------------------------------------------------------
+    private void showUpdateDialog(String apkUrl, int latestVersion) {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Update Available")
+                .setMessage("A new version is available. Update now?")
+                .setCancelable(false)
+                .setPositiveButton("Update", (d, w) -> {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                            !getPackageManager().canRequestPackageInstalls()) {
+
+                        startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                                Uri.parse("package:" + getPackageName())));
+
+                        Toast.makeText(this, "Enable permission and retry.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    downloadApk(apkUrl);
+                })
+                .setNegativeButton("Skip", (d, w) -> {
+                    // If user skips, still clear pending state so they aren't forced next app start.
+                    SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+                    prefs.edit().clear().apply();
+                    redirectToNext();
+                })
+                .show();
+    }
+
+    // ---------------------------------------------------------
+    // (D) DOWNLOAD APK
+    // ---------------------------------------------------------
+    private void downloadApk(String apkUrl) {
+        showProgressDialog();
+
+        if (apkUrl == null || apkUrl.isEmpty()) {
+            Toast.makeText(this, "Invalid APK URL", Toast.LENGTH_LONG).show();
+            hideProgressDialog();
+            redirectToNext();
+            return;
+        }
+
+        String fileName = apkUrl.substring(apkUrl.lastIndexOf("/") + 1);
+        if (fileName == null || fileName.isEmpty()) fileName = "rfid_update.apk";
+
+        DownloadManager.Request req = new DownloadManager.Request(Uri.parse(apkUrl));
+        req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        req.setTitle("Downloading update...");
+        req.setDescription("Updating application");
+
+        File dest;
+
+        if (Build.VERSION.SDK_INT <= 16) {
+            // Very old devices — use public downloads
+            req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+            usingPublicDownload = true;
+        } else {
+            // Modern devices — use app-private external files dir
+            File dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            dest = new File(dir, fileName);
+            req.setDestinationUri(Uri.fromFile(dest));
+            usingPublicDownload = false;
+        }
+
+        // Save the public/private choice and apk url so installApk() can pick correct location
+        SharedPreferences.Editor e = getSharedPreferences(PREFS, MODE_PRIVATE).edit();
+        e.putBoolean(KEY_PENDING_PUBLIC, usingPublicDownload);
+        e.putString(KEY_PENDING_APK_URL, apkUrl);
+        e.putBoolean(KEY_PENDING_UPDATE, true); // ensure pending remains true during download
+        e.apply();
+
+        Log.i(TAG, "Enqueuing download: fileName=" + fileName + " usingPublicDownload=" + usingPublicDownload);
+
+        DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloadId = dm.enqueue(req);
+
+        registerReceiver();
+        startProgressUpdater();
+        isDownloading = true;
+    }
+
+    // ---------------------------------------------------------
+    // (E) INSTALL APK
+    // ---------------------------------------------------------
+    private void installApk() {
+
+        // Load pending update data
+        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        String apkUrl = prefs.getString(KEY_PENDING_APK_URL, "");
+        boolean savedPublic = prefs.getBoolean(KEY_PENDING_PUBLIC, false);
+
+        // Extract filename from URL (e.g., app-debug.apk)
+        String fileName = "";
+        if (apkUrl != null && apkUrl.lastIndexOf("/") != -1) {
+            fileName = apkUrl.substring(apkUrl.lastIndexOf("/") + 1);
+        }
+
+        if (fileName.isEmpty()) {
+            Log.w(TAG, "installApk: filename empty, aborting");
+            Toast.makeText(this, "APK filename not found", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        File apk;
+        if (savedPublic || usingPublicDownload) {
+            // APK downloaded to public storage (/Download)
+            apk = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+        } else {
+            // APK downloaded to app-private storage
+            apk = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
+        }
+
+        Log.i(TAG, "Installing APK from path: " + apk.getAbsolutePath());
+
+        if (!apk.exists()) {
+            Toast.makeText(this, "APK not found: " + apk.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Log.w(TAG, "APK not found at path: " + apk.getAbsolutePath());
+            return;
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", apk);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            intent.setDataAndType(Uri.fromFile(apk), "application/vnd.android.package-archive");
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    // ---------------------------------------------------------
+    // (F) PENDING UPDATE CONFIRM WITH SERVER
+    // ---------------------------------------------------------
+    private void markDeviceUpdated(int version) {
+        ApiService api = ApiClient.getPublicClient().create(ApiService.class);
+        Log.i(TAG, "Calling markUpdated with version: " + version);
+        api.markUpdated(new MarkUpdatedRequest(getAndroidId(this), version))
+                .enqueue(new Callback<GenericResponse>() {
+                    @Override public void onResponse(Call<GenericResponse> call, Response<GenericResponse> resp) {
+                        Log.i(TAG, "markUpdated response: code=" + (resp != null ? resp.code() : -1)
+                                + " body=" + (resp != null && resp.body() != null ? resp.body().toString() : "null"));
+                    }
+                    @Override public void onFailure(Call<GenericResponse> call, Throwable t) {
+                        Log.w(TAG, "markUpdated failed: " + (t != null ? t.getMessage() : "unknown"));
+                    }
+                });
+    }
+
+    // ---------------------------------------------------------
+    // (G) AUTO REDIRECT AFTER CHECK
+    // ---------------------------------------------------------
+    private void redirectToNext() {
+        String next = getIntent().getStringExtra(EXTRA_NEXT_SCREEN);
+
+        if (next != null) {
+            try {
+                Class<?> cls = Class.forName(next);
+                startActivity(new Intent(this, cls));
+                finish();
+                return;
+            } catch (Exception ignored) {}
+        }
+
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
+    // ---------------------------------------------------------
+    // (H) UTIL
+    // ---------------------------------------------------------
     public static String getAndroidId(Context ctx) {
-        try {
-            String id = android.provider.Settings.Secure.getString(ctx.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-            return id != null ? id : "";
-        } catch (Exception e) {
-            Log.w(TAG, "Couldn't read ANDROID_ID: " + e.getMessage());
-            return "";
+        return Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    // ---------------------------------------------------------
+    // RECEIVER + PROGRESS
+    // ---------------------------------------------------------
+    private void registerReceiver() {
+        if (downloadReceiver == null) {
+            downloadReceiver = new DownloadReceiver();
+            IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                registerReceiver(downloadReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(downloadReceiver, filter);
+            }
+            Log.i(TAG, "DownloadReceiver registered");
         }
+    }
+
+    private void startProgressUpdater() {
+        new Thread(() -> {
+            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+
+            while (isDownloading) {
+                try {
+                    Cursor c = dm.query(new DownloadManager.Query().setFilterById(downloadId));
+                    if (c != null && c.moveToFirst()) {
+                        long total = c.getLong(c.getColumnIndexOrThrow(
+                                DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                        long downloaded = c.getLong(c.getColumnIndexOrThrow(
+                                DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+
+                        int percent = total > 0 ? (int) ((downloaded * 100) / total) : 0;
+
+                        runOnUiThread(() -> {
+                            if (progressCircle != null) progressCircle.setProgress(percent);
+                            if (textPercent != null) textPercent.setText(percent + "%");
+                        });
+
+                        c.close();
+                    }
+                } catch (Exception ex) {
+                    Log.w(TAG, "Progress updater exception: " + ex.getMessage(), ex);
+                }
+
+                try { Thread.sleep(250); } catch (Exception ignored) {}
+            }
+        }).start();
+    }
+
+    private void showProgressDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_update_download, null);
+        progressCircle = view.findViewById(R.id.progressCircular);
+        textPercent = view.findViewById(R.id.textPercent);
+
+        progressDialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .create();
+        progressDialog.show();
+    }
+
+    public class DownloadReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+
+            Log.i(TAG, "DownloadReceiver onReceive id=" + id + " expected=" + downloadId);
+
+            if (id == downloadId) {
+                isDownloading = false;
+                hideProgressDialog();
+                installApk();
+            }
+        }
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
     }
 }

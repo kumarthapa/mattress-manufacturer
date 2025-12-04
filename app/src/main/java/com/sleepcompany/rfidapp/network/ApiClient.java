@@ -32,8 +32,12 @@ public class ApiClient {
 
     // Real production API path
     private static final String BASE_URL_PRODUCTION = "https://apps.galla.ai/sleepcompany/api/";
-    private static final String NGROK_URL = "https://c9033e9febaf.ngrok-free.app/api/";
-    private static boolean IS_PRODUCTION = false;
+    private static final String NGROK_URL = "https://3a3382ff2ee3.ngrok-free.app/api/";
+    private static boolean IS_PRODUCTION = true;
+    // Note: If you want to run in production, set this to true.
+    // Then go to LauncherActivity inside the onCreate() method and call:
+    // ApiClient.setProduction(true); // Enable PRODUCTION mode
+
 
     private static final String PREFS_NAME = "app_prefs";
     private static final String KEY_TOKEN = "auth_token";

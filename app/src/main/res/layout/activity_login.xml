@@ -123,13 +123,15 @@
 
             <!-- Info Text -->
             <TextView
+                android:id="@+id/tvAppInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="POWERED BY Galla | Demo credentials: admin / admin123"
+                android:text="POWERED BY Galla"
                 android:textSize="12sp"
                 android:textColor="@color/grey_600"
                 android:gravity="center"
                 android:layout_marginTop="16dp" />
+
 
         </LinearLayout>
 

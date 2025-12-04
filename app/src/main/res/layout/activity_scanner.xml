@@ -36,39 +36,39 @@
 			android:gravity="center_horizontal">
 
 			<!-- Instruction card -->
-			<com.google.android.material.card.MaterialCardView
-				android:id="@+id/scanInstructionCard"
-				android:layout_width="280dp"
-				android:layout_height="200dp"
-				android:layout_marginBottom="32dp"
-				android:padding="24dp"
-				app:cardElevation="8dp"
-				app:cardCornerRadius="16dp"
-				app:cardBackgroundColor="?attr/colorSurfaceContainer">
+<!--			<com.google.android.material.card.MaterialCardView-->
+<!--				android:id="@+id/scanInstructionCard"-->
+<!--				android:layout_width="280dp"-->
+<!--				android:layout_height="200dp"-->
+<!--				android:layout_marginBottom="32dp"-->
+<!--				android:padding="24dp"-->
+<!--				app:cardElevation="8dp"-->
+<!--				app:cardCornerRadius="16dp"-->
+<!--				app:cardBackgroundColor="?attr/colorSurfaceContainer">-->
 
-				<LinearLayout
-					android:orientation="vertical"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:gravity="center">
+<!--				<LinearLayout-->
+<!--					android:orientation="vertical"-->
+<!--					android:layout_width="match_parent"-->
+<!--					android:layout_height="match_parent"-->
+<!--					android:gravity="center">-->
 
-					<com.google.android.material.textview.MaterialTextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="📱"
-						android:textSize="56sp"
-						android:layout_marginBottom="16dp" />
+<!--					<com.google.android.material.textview.MaterialTextView-->
+<!--						android:layout_width="wrap_content"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						android:text="📱"-->
+<!--						android:textSize="56sp"-->
+<!--						android:layout_marginBottom="16dp" />-->
 
-					<com.google.android.material.textview.MaterialTextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="Hold device near RFID tag to scan"
-						android:textSize="16sp"
-						android:textColor="?attr/colorOnSurfaceVariant"
-						android:textAlignment="center"
-						android:textAppearance="?attr/textAppearanceBodyMedium"/>
-				</LinearLayout>
-			</com.google.android.material.card.MaterialCardView>
+<!--					<com.google.android.material.textview.MaterialTextView-->
+<!--						android:layout_width="wrap_content"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						android:text="Hold device near RFID tag to scan"-->
+<!--						android:textSize="16sp"-->
+<!--						android:textColor="?attr/colorOnSurfaceVariant"-->
+<!--						android:textAlignment="center"-->
+<!--						android:textAppearance="?attr/textAppearanceBodyMedium"/>-->
+<!--				</LinearLayout>-->
+<!--			</com.google.android.material.card.MaterialCardView>-->
 
 			<!-- Scan controls -->
 			<LinearLayout

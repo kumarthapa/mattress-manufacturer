@@ -32,16 +32,16 @@
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/dialog_update_download.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/drawable_ic_clear.xml.flat",
+        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/drawable/ic_clear.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/layout_activity_scanner.xml.flat",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/activity_scanner.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/drawable_ic_clear.xml.flat",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/drawable/ic_clear.xml"
+        "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/drawable_ic_defects.xml.flat",
@@ -82,10 +82,6 @@
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/drawable_ic_production.xml.flat",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/drawable/ic_production.xml"
-    },
-    {
-        "merged": "com.sleepcompany.rfidapp-debug-53:/xml_file_paths.xml.flat",
-        "source": "com.sleepcompany.rfidapp-main-55:/xml/file_paths.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/drawable_ic_launcher_background.xml.flat",
@@ -150,6 +146,10 @@
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/layout_item_stage.xml.flat",
         "source": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-main-55:/layout/item_stage.xml"
+    },
+    {
+        "merged": "com.sleepcompany.rfidapp-debug-53:/layout_layout_printer_settings.xml.flat",
+        "source": "com.sleepcompany.rfidapp-main-55:/layout/layout_printer_settings.xml"
     },
     {
         "merged": "/home/treewalker/.gradle/daemon/8.12/com.sleepcompany.rfidapp-debug-53:/drawable_et.xml.flat",

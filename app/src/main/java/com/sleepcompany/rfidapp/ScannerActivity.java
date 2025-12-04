@@ -40,6 +40,7 @@ import com.seuic.uhf.EPC;
 import com.seuic.uhf.UHFService;
 import com.sleepcompany.rfidapp.databinding.ActivityScannerBinding;
 import com.sleepcompany.rfidapp.model.Product;
+import com.sleepcompany.rfidapp.model.StagesStatusRequest;
 import com.sleepcompany.rfidapp.model.UpdateProductDetailsRequest;
 import com.sleepcompany.rfidapp.model.UpdateStageRequest;
 import com.sleepcompany.rfidapp.network.ApiClient;
@@ -57,6 +58,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -147,7 +149,8 @@ public class ScannerActivity extends AppCompatActivity {
 
     // Executor for background printer connect (so we don't block UI)
     private final ExecutorService bgExecutor = Executors.newSingleThreadExecutor();
-
+    // Keep the allowed-stage keys returned by backend for the currently loaded product
+    private List<String> lastAllowedStageKeys = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,9 +180,7 @@ public class ScannerActivity extends AppCompatActivity {
             return;
         }
 
-        openBuletooth();
-        autoConnectSavedPrinterIfNeeded();
-        // init printer manager
+
         printerManager = new PrinterManager(this, this, new PrinterManager.PrinterCallback() {
             @Override
             public void onPrinterConnected(@NonNull String deviceInfo) {
@@ -201,6 +202,11 @@ public class ScannerActivity extends AppCompatActivity {
                 Toast.makeText(ScannerActivity.this, "Print error: " + error, Toast.LENGTH_LONG).show();
             }
         });
+
+        openBuletooth();
+        autoConnectSavedPrinterIfNeeded();
+        // init printer manager
+
 
         // Try to auto-connect to saved printer (if any)
         //autoConnectSavedPrinterIfNeeded();
@@ -438,7 +444,7 @@ public class ScannerActivity extends AppCompatActivity {
         // failed card button handlers (print/clear)
         if (ivFailedCardPrint != null) {
             ivFailedCardPrint.setOnClickListener(v -> {
-                if (selectedProduct != null && printerManager != null && printerManager.isConnected()) {
+                if (printerManager != null && printerManager.isConnected()) {
                     showConfirmPrintDialog(selectedProduct);
                 } else {
                     Toast.makeText(ScannerActivity.this, "Printer not connected", Toast.LENGTH_SHORT).show();
@@ -479,7 +485,7 @@ public class ScannerActivity extends AppCompatActivity {
 
         ivCardPrint.setOnClickListener(v -> {
 
-            if (selectedProduct != null && printerManager != null && printerManager.isConnected()) {
+            if (printerManager != null && printerManager.isConnected()) {
                 showConfirmPrintDialog(selectedProduct);
             } else {
                 Log.d("PRINTER", "Printer not connected");
@@ -635,15 +641,13 @@ private void setupProductEditorListeners() {
     }
 }
 
-
-
-
     private void startRFIDScan() {
         if (mDevice == null) {
             Toast.makeText(this, "UHF device not available", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        // Try to sync power right before scanning (in case another app changed it)
+        syncRfidPowerBeforeScan();
         isScanning = true;
         updateScanUI(true);
 
@@ -785,6 +789,9 @@ private void setupProductEditorListeners() {
 
         // Locking by stage (packaging etc)
         applyLockingByStage(product.getLatestStage());
+
+        // Also hide / show inline edit icons depending on stage (packaging => hide)
+        updateProductEditIconsVisibility(product.getLatestStage());
 
         String qc_status = product.getLatestStatus() == null ? "PENDING" : product.getLatestStatus();
         String remarks = product.getLatestRemarks() == null ? "" : product.getLatestRemarks();
@@ -1182,12 +1189,22 @@ private void setupProductEditorListeners() {
                             SnackbarHelper.showTopCenter(ScannerActivity.this, "✔ Stage updated successfully", true);
 
                             // Print label now that update succeeded (only for packaging)
-                            if (stageKey != null && stageKey.equalsIgnoreCase("packaging")) {
+                            List<String> printStages = Arrays.asList(
+                                    "packaging",
+                                    "tape_edge_qc",
+                                    "zip_cover_qc"
+                            );
+
+                            if (stageKey != null && printStages.contains(stageKey.toLowerCase())) {
                                 try {
                                     if (printerManager != null && printerManager.isConnected()) {
                                         showConfirmPrintDialog(selectedProduct);
                                     } else {
-                                        Toast.makeText(ScannerActivity.this, "Printer not connected — attempting to connect...", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ScannerActivity.this,
+                                                "Printer not connected — attempting to connect...",
+                                                Toast.LENGTH_LONG
+                                        ).show();
+
                                         Log.d("PRINT_ERROR", "Printer not connected; attempting to connect now.");
 
                                         if (printerManager != null) {
@@ -1203,7 +1220,10 @@ private void setupProductEditorListeners() {
                                     }
                                 } catch (Exception e) {
                                     Log.e("PRINT_ERROR", "Failed to print label: " + e.getMessage(), e);
-                                    Toast.makeText(ScannerActivity.this, "Failed to print label: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ScannerActivity.this,
+                                            "Failed to print label: " + e.getMessage(),
+                                            Toast.LENGTH_LONG
+                                    ).show();
                                 }
                             }
 
@@ -1304,17 +1324,54 @@ private void setupProductEditorListeners() {
     }
 
     private void showNoProductFound(String tagId) {
+        // Remember the tag we scanned (useful if user wants to create product later)
+        lastScannedTagId = tagId;
+
+        // Clear model reference
+        selectedProduct = null;
+
+        // Primary product fields
+        if (qaCode != null) qaCode.setText("-");                    // clear QA code
         if (scannedProduct != null) scannedProduct.setText("No product found");
+        if (scannedProductSKU != null) scannedProductSKU.setText("-"); // clear SKU
         if (scannedSize != null) scannedSize.setText("Unknown");
         if (scannedStatus != null) scannedStatus.setText("N/A");
+
+        // Dropdowns
         if (scannedStage != null) scannedStage.setText("", false);
         if (scannedQcStatus != null) scannedQcStatus.setText("", false);
+
+        // Show editable card (so operator can add product or try again)
         if (scanResultCard != null) scanResultCard.setVisibility(View.VISIBLE);
+
+        // Hide failed card (we are in "not found" path)
+        if (failedResultCard != null) failedResultCard.setVisibility(View.GONE);
+
+        // Hide print icons (no product to print)
+//        if (ivCardPrint != null) ivCardPrint.setVisibility(View.GONE);
+        if (ivCardPrint != null) ivCardPrint.setVisibility(View.VISIBLE);
+//        if (ivFailedCardPrint != null) ivFailedCardPrint.setVisibility(View.GONE);
+
+        // Show clear button so user can manually clear if needed
         if (ivCardClear != null) ivCardClear.setVisibility(View.VISIBLE);
 
+        // Hide rework button (not applicable)
+        if (ivFailedCardRework != null) ivFailedCardRework.setVisibility(View.GONE);
+
+        // Reset editors and defects area
+        if (productEditLayout != null) productEditLayout.setVisibility(View.GONE);
+        if (productEditButtons != null) productEditButtons.setVisibility(View.GONE);
+        if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
+        if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
+        if (etRemarks != null) etRemarks.setText("");
+        if (llDefectsContainer != null) llDefectsContainer.removeAllViews();
+        if (defectsCard != null) defectsCard.setVisibility(View.GONE);
+
+        // Buttons state
         if (updateStageBtn != null) updateStageBtn.setEnabled(false);
         if (rejectBtn != null) rejectBtn.setEnabled(false);
     }
+
 
     private void clearUI() {
         if (scannedProduct != null) scannedProduct.setText("-");
@@ -1386,12 +1443,15 @@ private void setupProductEditorListeners() {
     /**
      * Fetch allowed stages & statuses from server (and defect points).
      */
+    /**
+     * Fetch allowed stages & statuses from server (and defect points).
+     */
     private void fetchStagesAndStatuses(String latestStage, String latestStatus, String latestRemarks) {
         if (isFinishing() || isDestroyed()) return;
 
         ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
-        com.sleepcompany.rfidapp.model.StagesStatusRequest request =
-                new com.sleepcompany.rfidapp.model.StagesStatusRequest(latestStage, latestStatus, latestRemarks);
+        StagesStatusRequest request =
+                new StagesStatusRequest(latestStage, latestStatus, latestRemarks);
 
         apiService.getStagesAndStatus(request).enqueue(new Callback<StagesStatusResponse>() {
             @Override
@@ -1404,28 +1464,57 @@ private void setupProductEditorListeners() {
                 lastStatusMap = null;
                 lastDefectsMap.clear();
 
+                List<String> allowedStageKeys = new ArrayList<>();
+
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     StagesStatusResponse.Data data = response.body().getData();
                     if (data != null) {
-                        if (data.getStages() != null && !data.getStages().isEmpty()) {
+                        if (data.getStages() != null) {
                             lastStagesMap = data.getStages();
-                            stagesList.addAll(data.getStages().values()); // only labels go into dropdown
+                            stagesList.addAll(data.getStages().values());
                         }
-                        if (data.getStatus() != null && !data.getStatus().isEmpty()) {
+                        if (data.getStatus() != null) {
                             lastStatusMap = data.getStatus();
                             qcList.addAll(data.getStatus().values());
                         }
-                        if (data.getDefectPoints() != null && !data.getDefectPoints().isEmpty()) {
+                        if (data.getDefectPoints() != null) {
                             lastDefectsMap.putAll(data.getDefectPoints());
                         }
+                        if (data.getAllowedStages() != null) {
+                            allowedStageKeys = data.getAllowedStages();
+                        } else {
+                            allowedStageKeys = new ArrayList<>();
+                        }
+
+// store into activity field so current UI logic uses freshest list
+                        lastAllowedStageKeys = new ArrayList<>(allowedStageKeys);
+
+// also persist (optional) so other flows or future sessions have cache
+                        PrefHelper.saveAllowedStages(ScannerActivity.this, allowedStageKeys);
                     }
-                } else {
-                    Log.e("API_ERROR", "Failed to fetch stages/status: " +
-                            (response.errorBody() != null ? response.errorBody().toString() : "no-body"));
-                    Toast.makeText(ScannerActivity.this, "Failed to load stages/status", Toast.LENGTH_SHORT).show();
                 }
 
-                // Setup adapters
+                // ⭐⭐⭐ SAVE allowed stages locally
+                PrefHelper.saveAllowedStages(ScannerActivity.this, allowedStageKeys);
+
+                // ---------------------------
+                // Ensure CURRENT stage is added to dropdown ALWAYS
+                // ---------------------------
+                String displayStage = null;
+                if (latestStage != null && lastStagesMap != null) {
+                    displayStage = getValueForKey(lastStagesMap, latestStage);
+                }
+                if (displayStage == null && latestStage != null) {
+                    displayStage = latestStage;
+                }
+
+                if (displayStage != null && !stagesList.contains(displayStage)) {
+                    stagesList.add(0, displayStage);
+                }
+
+                // ---------------------------
+                // Set adapters
+                // ---------------------------
                 ArrayAdapter<String> stageAdapter = new ArrayAdapter<>(
                         ScannerActivity.this,
                         android.R.layout.simple_dropdown_item_1line,
@@ -1442,26 +1531,57 @@ private void setupProductEditorListeners() {
                 scannedQcStatus.setAdapter(qcAdapter);
                 scannedQcStatus.setThreshold(0);
 
-                // Pre-select latest stage/status if possible (convert key -> label)
-                if (latestStage != null && lastStagesMap != null) {
-                    String displayStage = getValueForKey(lastStagesMap, latestStage);
-                    if (displayStage != null) {
-                        scannedStage.setText(displayStage, false);
-                    }
+                scannedStage.setText("", false);
+                scannedQcStatus.setText("", false);
+
+                // ---------------------------
+                // PRE-SELECT stage + QC
+                // ---------------------------
+                if (displayStage != null) {
+                    String fs = displayStage;
+                    scannedStage.post(() -> scannedStage.setText(fs, false));
                 }
 
                 if (latestStatus != null && lastStatusMap != null) {
                     String displayStatus = getValueForKey(lastStatusMap, latestStatus);
                     if (displayStatus != null) {
-                        scannedQcStatus.setText(displayStatus, false);
+                        scannedQcStatus.post(() -> scannedQcStatus.setText(displayStatus, false));
                     }
                 }
 
-                // After adapters & pre-selection are set, decide whether to show defects / enable reject
-                handleQcStageSelection();
+                // ---------------------------
+                // Lock/Unlock stage dropdown depending on allowed_stages
+                // ---------------------------
+                boolean isUserAllowed = false;
 
-                // Apply locking logic and disable update button initially
+                if (latestStage != null && allowedStageKeys != null && !allowedStageKeys.isEmpty()) {
+                    for (String k : allowedStageKeys) {
+                        if (k != null && k.equalsIgnoreCase(latestStage)) {
+                            isUserAllowed = true;
+                            break;
+                        }
+                    }
+                } else {
+                    // No restrictions => editable
+                    isUserAllowed = true;
+                }
+
+                scannedStage.setEnabled(isUserAllowed);
+
+                if (!isUserAllowed) {
+                    scannedStage.setHint("Stage (read-only)");
+                } else {
+                    scannedStage.setHint("");
+                }
+
+                scannedQcStatus.setEnabled(true);
+
+                // ---------------------------
+                // Update buttons & defect logic
+                // ---------------------------
+                handleQcStageSelection();
                 applyLockingByStage(latestStage);
+                evaluateUpdateButtonState(); // ⭐ MUST RUN LAST ⭐
             }
 
             @Override
@@ -1469,10 +1589,11 @@ private void setupProductEditorListeners() {
                 if (isFinishing() || isDestroyed()) return;
                 Toast.makeText(ScannerActivity.this, "Error fetching stages/status: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 updateStageBtn.setEnabled(false);
-                Log.e("API_ERROR", "fetchStagesAndStatuses failed", t);
             }
         });
     }
+
+
 
     private String getValueForKey(Map<String, String> map, String key) {
         if (map == null || key == null) return null;
@@ -1498,36 +1619,199 @@ private void setupProductEditorListeners() {
         return null;
     }
 
-    private void evaluateUpdateButtonState() {
-        if (selectedProduct == null) {
-            if (updateStageBtn != null) updateStageBtn.setEnabled(false);
-            return;
-        }
-        String selectedStageDisplay = scannedStage.getText() == null ? "" : scannedStage.getText().toString().trim();
-        boolean hasSelection = selectedStageDisplay.length() > 0;
 
-        boolean locked = isStageLocked(selectedProduct.getLatestStage());
-        if (updateStageBtn != null) updateStageBtn.setEnabled(!locked && hasSelection);
+    /**
+     * Hide product/SKU inline edit icons when the product is in a final stage
+     * (packaging in your request). Accepts either a canonical stage key or a display value.
+     */
+    private void updateProductEditIconsVisibility(@Nullable String stageKeyOrDisplay) {
+        boolean hideEditors = false;
+
+        if (stageKeyOrDisplay != null) {
+            String s = stageKeyOrDisplay.trim();
+
+            // If we already have a canonical key (like "packaging"), check it directly
+            if ("packaging".equalsIgnoreCase(s)) {
+                hideEditors = true;
+            } else {
+                // Otherwise try to convert display -> key using lastStagesMap
+                String possibleKey = getKeyForValue(lastStagesMap, s);
+                if (possibleKey != null && "packaging".equalsIgnoreCase(possibleKey)) {
+                    hideEditors = true;
+                }
+            }
+        }
+
+        final int vis = hideEditors ? View.GONE : View.VISIBLE;
+
+        if (ivEditProduct != null) ivEditProduct.setVisibility(vis);
+        if (ivEditProductSKU != null) ivEditProductSKU.setVisibility(vis);
+
+        // If hiding editors, also make sure any open edit layouts/buttons are closed
+        if (hideEditors) {
+            if (productEditLayout != null) productEditLayout.setVisibility(View.GONE);
+            if (productEditButtons != null) productEditButtons.setVisibility(View.GONE);
+            if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
+            if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
+            // also clear edit text so nothing remains
+            if (etProductNameEdit != null) etProductNameEdit.setText("");
+            if (etProductSkuEdit != null) etProductSkuEdit.setText("");
+            hideKeyboard(etProductNameEdit);
+            hideKeyboard(etProductSkuEdit);
+        }
     }
 
 
+    /**
+     * Evaluate whether the Update button should be enabled.
+     * Final logic:
+     * - If stage is locked → update disabled.
+     * - If user can change stage → must have (stage + QC) and QC != PENDING.
+     * - If user cannot change stage → QC must be PASS only.
+     * - If QC = FAIL → reject button path only.
+     */
+    private void evaluateUpdateButtonState() {
+
+        if (updateStageBtn == null) return;
+        String stageDisplay = scannedStage.getText() == null ? "" :
+                scannedStage.getText().toString().trim();
+        String qcDisplay = scannedQcStatus.getText() == null ? "" :
+                scannedQcStatus.getText().toString().trim();
+
+        // if Working stage is not equal to selected stage then both the button will be disabled
+//        if (!stageDisplay.equalsIgnoreCase(selectedProduct.getLatestStage())) {
+//            updateStageBtn.setEnabled(false);
+//            rejectBtn.setEnabled(false);
+//            return;
+//        }
+
+        // No product loaded → disable
+        if (selectedProduct == null) {
+            updateStageBtn.setEnabled(false);
+            return;
+        }
+
+        // If packaging/ready-for-shipment/shipped → LOCKED
+        if (isStageLocked(selectedProduct.getLatestStage())) {
+            updateStageBtn.setEnabled(false);
+            return;
+        }
+
+
+
+        boolean hasStage = stageDisplay.length() > 0;
+        boolean hasQC = qcDisplay.length() > 0;
+
+        // Determine QC key
+        String qcKey = getKeyForValue(lastStatusMap, qcDisplay);
+        if (qcKey == null) qcKey = qcDisplay;
+        if (qcKey == null) qcKey = "";
+
+        // ---------------------------
+        // CASE 1: QC = FAIL → Update OFF
+        // ---------------------------
+        if ("FAIL".equalsIgnoreCase(qcKey)) {
+            updateStageBtn.setEnabled(false);
+            return;
+        }
+
+        // ---------------------------
+        // ALWAYS check ALLOWED STAGES (use freshest data from last fetch)
+        // ---------------------------
+        try {
+            List<String> allowedStageKeys = lastAllowedStageKeys; // use activity field (fresh)
+
+            if (allowedStageKeys != null && !allowedStageKeys.isEmpty()) {
+
+                // If user didn't touch the stage dropdown (empty display), fall back to product's latest stage
+                String selectedStageDisplay = stageDisplay;
+                if (selectedStageDisplay == null || selectedStageDisplay.isEmpty()) {
+                    selectedStageDisplay = selectedProduct != null ? selectedProduct.getLatestStage() : "";
+                }
+
+                // Convert display → key using map; if not found use raw text as fallback
+                String selectedStageKey = getKeyForValue(lastStagesMap, selectedStageDisplay);
+                if (selectedStageKey == null || selectedStageKey.trim().isEmpty()) {
+                    selectedStageKey = selectedStageDisplay;
+                }
+
+                boolean isAllowed = false;
+                for (String s : allowedStageKeys) {
+                    if (s != null && selectedStageKey != null &&
+                            s.trim().equalsIgnoreCase(selectedStageKey.trim())) {
+                        isAllowed = true;
+                        break;
+                    }
+                }
+
+                // ❌ NOT ALLOWED → UPDATE DISABLED
+                if (!isAllowed) {
+                    updateStageBtn.setEnabled(false);
+                    return;
+                }
+            }
+        } catch (Exception ignored) {}
+
+
+        // ---------------------------
+        // CASE 2: User CAN change stage
+        // ---------------------------
+        if (scannedStage.isEnabled()) {
+
+            if (hasStage && hasQC && !"PENDING".equalsIgnoreCase(qcKey)) {
+                updateStageBtn.setEnabled(true);
+            } else {
+                updateStageBtn.setEnabled(false);
+            }
+            return;
+        }
+
+        // ---------------------------
+        // CASE 3: User CANNOT change stage
+        // QC must be PASS
+        // ---------------------------
+        if (!scannedStage.isEnabled()) {
+            if ("PASS".equalsIgnoreCase(qcKey)) {
+                updateStageBtn.setEnabled(true);
+            } else {
+                updateStageBtn.setEnabled(false);
+            }
+            return;
+        }
+
+        updateStageBtn.setEnabled(false);
+    }
+
     private void showConfirmPrintDialog(Product product) {
-        if (product == null) return;
 
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Confirm Print")
                 .setMessage("Do you want to take print?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     try {
+
+                        // If product is not available → send test print values
+                        String qaCode         = product != null ? product.getQAcode()       : "TEST";
+                        String productName    = product != null ? product.getProductName()   : "TEST PRINT";
+                        String size           = product != null ? product.getSize()          : "-";
+                        String stage          = product != null ? product.getLatestStage()   : "-";
+                        String status         = product != null ? product.getLatestStatus()  : "-";
+                        String sku            = product != null ? product.getSku()           : "-";
+                        String referenceCode  = product != null ? product.getReferenceCode() : "-";
+
+                        // Now always print (normal or test)
                         printerManager.printProductLabel(
-                                product.getQAcode(),
-                                product.getProductName(),
-                                product.getSize(),
-                                product.getLatestStage(),
-                                product.getLatestStatus(),
-                                product.getSku()
+                                qaCode,
+                                productName,
+                                size,
+                                stage,
+                                status,
+                                sku,
+                                referenceCode
                         );
+
                         Log.d("PRINT_SUCCESS", "Label printed successfully");
+
                     } catch (Exception e) {
                         Log.e("PRINT_ERROR", "Failed to print: " + e.getMessage(), e);
                         Toast.makeText(this, "Print failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -1536,6 +1820,7 @@ private void setupProductEditorListeners() {
                 .setNegativeButton("No", null)
                 .show();
     }
+
     private void populateDefectsReadOnly(String stageKey, List<String> defectKeys) {
         if (llDefectsContainer == null) return;
         llDefectsContainer.removeAllViews();
@@ -1807,6 +2092,71 @@ private void hideProductEditor() {
                 .show();
     }
 
+    /**
+     * Ensure device power matches saved preference before scanning.
+     * Returns true if device is available/open (not necessarily that setPower succeeded).
+     */
+    private boolean syncRfidPowerBeforeScan() {
+        if (mDevice == null) {
+            Log.e("RFID_POWER", "mDevice is null in syncRfidPowerBeforeScan");
+            return false;
+        }
+
+        try {
+            // Ensure device is opened
+            if (!mDevice.open()) {
+                Log.e("RFID_POWER", "Failed to open UHF device in syncRfidPowerBeforeScan");
+                return false;
+            }
+
+            int savedPower = PrefHelper.getRfidPower(this);
+            int devicePower = mDevice.getPower();
+
+            Log.d("RFID_POWER", "Device power = " + devicePower + " | Saved power = " + savedPower);
+
+            if (devicePower != savedPower) {
+                Log.i("RFID_POWER", "Power mismatch detected. Attempting to set device to saved power: " + savedPower);
+
+                boolean setOk = false;
+                try {
+                    // Preferred: call direct API (returns boolean on most seuic libs)
+                    setOk = mDevice.setPower(savedPower);
+                } catch (Throwable t) {
+                    // Fallback to reflection for devices/SDKs where setPower is not public
+                    try {
+                        java.lang.reflect.Method m = mDevice.getClass().getMethod("setPower", int.class);
+                        m.invoke(mDevice, savedPower);
+                        setOk = true;
+                    } catch (Exception ex) {
+                        Log.w("RFID_POWER", "Reflection setPower failed: " + ex.getMessage());
+                        setOk = false;
+                    }
+                }
+
+                // Verify actual device power after attempt
+                int newDevicePower = mDevice.getPower();
+                Log.d("RFID_POWER", "After set attempt, device power = " + newDevicePower + " | setOk=" + setOk);
+
+                if (setOk && newDevicePower == savedPower) {
+                    // success — keep saved value consistent
+                    PrefHelper.saveRfidPower(this, savedPower);
+                    Log.i("RFID_POWER", "Power synced to saved value: " + savedPower);
+                } else {
+                    // failed or not matching — persist actual device power so app won't repeatedly try to set and fail
+                    PrefHelper.saveRfidPower(this, newDevicePower);
+                    Log.w("RFID_POWER", "Could not apply saved power. Persisting actual device power: " + newDevicePower);
+                }
+            } else {
+                // already matching — ensure prefs consistent
+                PrefHelper.saveRfidPower(this, devicePower);
+                Log.d("RFID_POWER", "Device power already matches saved power: " + devicePower);
+            }
+            return true;
+        } catch (Exception e) {
+            Log.e("RFID_POWER", "Exception in syncRfidPowerBeforeScan: " + e.getMessage(), e);
+            return false;
+        }
+    }
 
 
 

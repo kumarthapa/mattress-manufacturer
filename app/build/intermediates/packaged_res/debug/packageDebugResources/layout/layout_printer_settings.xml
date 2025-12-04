@@ -5,6 +5,7 @@
     android:id="@+id/cardPrinter"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
@@ -14,6 +15,7 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- Title -->
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,12 +23,15 @@
             android:textStyle="bold"
             android:textSize="16sp" />
 
+        <!-- Info -->
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Select a Bluetooth printer. Tap Scan to discover devices. Paired devices show 'Paired'." />
+            android:text="Select a Bluetooth printer and choose its command format (ZPL / TSPL / ESC_POS)."
+            android:textSize="13sp" />
 
+        <!-- Scan + Saved Printer -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,6 +39,7 @@
             android:layout_marginTop="12dp"
             android:gravity="center_vertical">
 
+            <!-- Scan button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnScan"
                 android:layout_width="wrap_content"
@@ -41,6 +47,7 @@
                 android:text="Scan"
                 style="@style/Widget.MaterialComponents.Button" />
 
+            <!-- Selected Printer dropdown -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -52,11 +59,38 @@
                     android:id="@+id/acPrinter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Previously selected device (saved MAC)"
-                    android:inputType="none" />
+                    android:hint="Saved Printer (MAC)"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:cursorVisible="false" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
+        <!-- Printer Language Dropdown -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPrinterLang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/acPrinterLang"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Printer Language"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:cursorVisible="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Device List -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBluetoothDevices"
             android:layout_width="match_parent"
@@ -64,6 +98,7 @@
             android:layout_marginTop="12dp"
             android:clipToPadding="false" />
 
+        <!-- Scan Status -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvScanInfo"
             android:layout_width="match_parent"

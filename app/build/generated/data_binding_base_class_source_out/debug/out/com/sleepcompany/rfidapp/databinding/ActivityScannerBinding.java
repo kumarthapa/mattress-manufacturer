@@ -123,9 +123,6 @@ public final class ActivityScannerBinding implements ViewBinding {
   public final MaterialButton rejectBtn;
 
   @NonNull
-  public final MaterialCardView scanInstructionCard;
-
-  @NonNull
   public final CircularProgressIndicator scanProgress;
 
   @NonNull
@@ -177,13 +174,13 @@ public final class ActivityScannerBinding implements ViewBinding {
       @NonNull LinearLayout llFailedDefectsContainer, @NonNull LinearLayout productEditButtons,
       @NonNull TextInputLayout productEditLayout, @NonNull LinearLayout productSkuEditButtons,
       @NonNull TextInputLayout productSkuEditLayout, @NonNull MaterialTextView qaCode,
-      @NonNull MaterialButton rejectBtn, @NonNull MaterialCardView scanInstructionCard,
-      @NonNull CircularProgressIndicator scanProgress, @NonNull MaterialCardView scanResultCard,
-      @NonNull MaterialTextView scanStatusText, @NonNull MaterialTextView scannedProduct,
-      @NonNull MaterialTextView scannedProductSKU, @NonNull AutoCompleteTextView scannedQcStatus,
-      @NonNull MaterialTextView scannedSize, @NonNull AutoCompleteTextView scannedStage,
-      @NonNull MaterialTextView scannedStatus, @NonNull MaterialButton startScanBtn,
-      @NonNull MaterialToolbar toolbar, @NonNull MaterialButton updateStageBtn) {
+      @NonNull MaterialButton rejectBtn, @NonNull CircularProgressIndicator scanProgress,
+      @NonNull MaterialCardView scanResultCard, @NonNull MaterialTextView scanStatusText,
+      @NonNull MaterialTextView scannedProduct, @NonNull MaterialTextView scannedProductSKU,
+      @NonNull AutoCompleteTextView scannedQcStatus, @NonNull MaterialTextView scannedSize,
+      @NonNull AutoCompleteTextView scannedStage, @NonNull MaterialTextView scannedStatus,
+      @NonNull MaterialButton startScanBtn, @NonNull MaterialToolbar toolbar,
+      @NonNull MaterialButton updateStageBtn) {
     this.rootView = rootView;
     this.btnCancelProductEdit = btnCancelProductEdit;
     this.btnCancelSkuEdit = btnCancelSkuEdit;
@@ -216,7 +213,6 @@ public final class ActivityScannerBinding implements ViewBinding {
     this.productSkuEditLayout = productSkuEditLayout;
     this.qaCode = qaCode;
     this.rejectBtn = rejectBtn;
-    this.scanInstructionCard = scanInstructionCard;
     this.scanProgress = scanProgress;
     this.scanResultCard = scanResultCard;
     this.scanStatusText = scanStatusText;
@@ -440,12 +436,6 @@ public final class ActivityScannerBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.scanInstructionCard;
-      MaterialCardView scanInstructionCard = ViewBindings.findChildViewById(rootView, id);
-      if (scanInstructionCard == null) {
-        break missingId;
-      }
-
       id = R.id.scanProgress;
       CircularProgressIndicator scanProgress = ViewBindings.findChildViewById(rootView, id);
       if (scanProgress == null) {
@@ -525,9 +515,9 @@ public final class ActivityScannerBinding implements ViewBinding {
           ivCardPrint, ivEditProduct, ivEditProductSKU, ivFailedCardClear, ivFailedCardPrint,
           ivFailedCardRework, llDefectsContainer, llFailedDefectsContainer, productEditButtons,
           productEditLayout, productSkuEditButtons, productSkuEditLayout, qaCode, rejectBtn,
-          scanInstructionCard, scanProgress, scanResultCard, scanStatusText, scannedProduct,
-          scannedProductSKU, scannedQcStatus, scannedSize, scannedStage, scannedStatus,
-          startScanBtn, toolbar, updateStageBtn);
+          scanProgress, scanResultCard, scanStatusText, scannedProduct, scannedProductSKU,
+          scannedQcStatus, scannedSize, scannedStage, scannedStatus, startScanBtn, toolbar,
+          updateStageBtn);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -1,22 +1,28 @@
 package com.sleepcompany.rfidapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Request model for fetching stages & status.
+ * Request model for fetching stages & statuses.
  */
 public class StagesStatusRequest {
 
-    private String stage;
-    private String status;
+    @SerializedName("latest_stage")
+    private String latestStage;
 
-    private String remarks;
+    @SerializedName("latest_status")
+    private String latestStatus;
+
+    @SerializedName("latest_remarks")
+    private String latestRemarks;
 
     public StagesStatusRequest(String stage, String status, String remarks) {
-        this.stage = stage;
-        this.status = status;
-        this.status = remarks;
+        this.latestStage = stage;
+        this.latestStatus = status;
+        this.latestRemarks = remarks;
     }
 
-    public String getCurrent_stage() { return stage; }
-    public String getCurrent_status() { return status; }
-    public String getCurrent_remarks() { return remarks; }
+    public String getLatestStage() { return latestStage; }
+    public String getLatestStatus() { return latestStatus; }
+    public String getLatestRemarks() { return latestRemarks; }
 }

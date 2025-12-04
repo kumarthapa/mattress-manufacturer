@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +52,9 @@ public class WriteTagsActivity extends BaseDrawerActivity {
 
     private static final int REQ_WRITE_DETAIL = 101;
 
+    // NEW: flag to block clicks while loading/refreshing
+    private boolean isLoading = false;
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_write_tags;
@@ -71,6 +73,13 @@ public class WriteTagsActivity extends BaseDrawerActivity {
         performSearch();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Auto-refresh on returning back from any screen
+        performSearch();
+    }
+
     private void initializeViews() {
         toolbar = findViewById(R.id.toolbar);
         etSearch = findViewById(R.id.etSearch);
@@ -79,8 +88,8 @@ public class WriteTagsActivity extends BaseDrawerActivity {
         tvNoResults = findViewById(R.id.tvNoResults);
         progressIndicator = findViewById(R.id.progressIndicator);
 
-        if (rvSearchResults != null) rvSearchResults.setVisibility(View.VISIBLE);
-        if (tvNoResults != null) tvNoResults.setVisibility(View.GONE);
+        rvSearchResults.setVisibility(View.VISIBLE);
+        tvNoResults.setVisibility(View.GONE);
     }
 
     private void setupToolbar() {
@@ -114,9 +123,15 @@ public class WriteTagsActivity extends BaseDrawerActivity {
     }
 
     private void performSearch() {
+        // Cancel any pending delayed search to avoid overlapping calls
+        if (searchRunnable != null) {
+            searchHandler.removeCallbacks(searchRunnable);
+            searchRunnable = null;
+        }
+
         String searchTerm = etSearch.getText() != null ? etSearch.getText().toString().trim() : "";
 
-        showProgress(true);
+        showProgress(true); // sets isLoading = true
 
         BondingProductsRequest request = new BondingProductsRequest();
         request.setSearch(searchTerm);
@@ -127,7 +142,7 @@ public class WriteTagsActivity extends BaseDrawerActivity {
         apiService.getPlanProducts(request).enqueue(new Callback<BondingResponse>() {
             @Override
             public void onResponse(Call<BondingResponse> call, Response<BondingResponse> response) {
-                showProgress(false);
+                showProgress(false); // sets isLoading = false
 
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     searchResults.clear();
@@ -137,31 +152,39 @@ public class WriteTagsActivity extends BaseDrawerActivity {
                         searchResults.addAll(fetched);
                         adapter.notifyDataSetChanged();
 
-                        if (rvSearchResults != null) rvSearchResults.setVisibility(View.VISIBLE);
-                        if (tvNoResults != null) tvNoResults.setVisibility(View.GONE);
+                        rvSearchResults.setVisibility(View.VISIBLE);
+                        tvNoResults.setVisibility(View.GONE);
                     } else {
-                        if (rvSearchResults != null) rvSearchResults.setVisibility(View.GONE);
-                        if (tvNoResults != null) {
-                            tvNoResults.setVisibility(View.VISIBLE);
-                            tvNoResults.setText("No products found.");
-                        }
+                        rvSearchResults.setVisibility(View.GONE);
+                        tvNoResults.setVisibility(View.VISIBLE);
+                        tvNoResults.setText("No products found.");
                     }
+
                 } else {
                     Toast.makeText(WriteTagsActivity.this,
-                            "Failed to fetch products: " + (response.body() != null ? response.body().getMessage() : "Unknown error"),
+                            "Failed to fetch products: " +
+                                    (response.body() != null ? response.body().getMessage() : "Unknown error"),
                             Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<BondingResponse> call, Throwable t) {
-                showProgress(false);
-                Toast.makeText(WriteTagsActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                showProgress(false); // sets isLoading = false
+                Toast.makeText(WriteTagsActivity.this,
+                        "Network error: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void onProductSelected(BondingProduct product) {
+        // NEW: when loading/refreshing, ignore clicks on already displayed items
+        if (isLoading) {
+            Toast.makeText(this, "Refreshing, please wait...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent i = new Intent(this, WriteTagDetailActivity.class);
         i.putExtra(WriteTagDetailActivity.EXTRA_PRODUCT_ID, product.getId());
         i.putExtra(WriteTagDetailActivity.EXTRA_QA_CODE, product.getQaCode());
@@ -171,9 +194,23 @@ public class WriteTagsActivity extends BaseDrawerActivity {
         startActivityForResult(i, REQ_WRITE_DETAIL);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQ_WRITE_DETAIL && resultCode == RESULT_OK) {
+            performSearch();  // Refresh after update/write
+        }
+    }
+
     private void showProgress(boolean show) {
-        if (progressIndicator != null) progressIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
-        if (btnSearch != null) btnSearch.setEnabled(!show);
+        isLoading = show; // NEW: maintain loading state
+        progressIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
+        btnSearch.setEnabled(!show);
+
+        // Optional subtle visual feedback: dim list when loading (unobtrusive)
+        rvSearchResults.setAlpha(show ? 0.6f : 1.0f);
+        rvSearchResults.setEnabled(!show); // disables scrolling/touch on RecyclerView itself (optional)
     }
 
     @Override
