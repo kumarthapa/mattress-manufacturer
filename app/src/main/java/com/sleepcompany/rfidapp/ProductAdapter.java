@@ -1,30 +1,37 @@
-package com.sleepcompany.rfidapp;
+package com.sleepcompany.rfidapp.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sleepcompany.rfidapp.model.Product;
+import com.sleepcompany.rfidapp.R;
+import com.sleepcompany.rfidapp.model.ProductNetwork;
+import com.sleepcompany.rfidapp.model.ProductNetwork.LastActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Adapter for displaying ProductNetwork items in the products list.
+ * Place this file in com/sleepcompany/rfidapp/adapter/ProductAdapter.java
+ */
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<Product> products;
+    private List<ProductNetwork> products;
     private OnProductClickListener listener;
 
     public interface OnProductClickListener {
-        void onProductClick(Product product);
+        void onProductClick(ProductNetwork product);
     }
 
-    public ProductAdapter(List<Product> products, OnProductClickListener listener) {
+    public ProductAdapter(List<ProductNetwork> products, OnProductClickListener listener) {
         this.products = products;
         this.listener = listener;
     }
@@ -33,19 +40,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_product, parent, false);
+                .inflate(R.layout.item_product_laundry, parent, false);  // ensure this XML exists
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = products.get(position);
+        ProductNetwork product = products.get(position);
         holder.bind(product);
 
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onProductClick(product);
-            }
+            if (listener != null) listener.onProductClick(product);
         });
     }
 
@@ -54,77 +59,84 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return products != null ? products.size() : 0;
     }
 
-    public void updateProducts(List<Product> newProducts) {
+    public void updateProducts(List<ProductNetwork> newProducts) {
         this.products = newProducts;
         notifyDataSetChanged();
     }
 
-    public void addProducts(List<Product> newProducts) {
+    public void addProducts(List<ProductNetwork> newProducts) {
         if (this.products != null && newProducts != null) {
             this.products.addAll(newProducts);
             notifyDataSetChanged();
         }
     }
 
+    /* ===================================================
+                     VIEW HOLDER
+    =================================================== */
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        private TextView productName, sku, size, quantity, qcStatus, currentStage, createdAt;
+
+        private final TextView tvProductName, tvProductCode, tvQuantity;
+        private final TextView tvLastActivityType, tvOpening, tvInward, tvOutward, tvClosing, tvUpdatedAt;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            productName = itemView.findViewById(R.id.tvProductName);
-            sku = itemView.findViewById(R.id.tvSku);
-            size = itemView.findViewById(R.id.tvSize);
-            currentStage = itemView.findViewById(R.id.tvCurrentStage);
-            quantity = itemView.findViewById(R.id.tvQuantity);
-            qcStatus = itemView.findViewById(R.id.tvQcStatus);
-            createdAt = itemView.findViewById(R.id.tvCreatedAt);
+
+            tvProductName = itemView.findViewById(R.id.tvProductName);
+            tvProductCode = itemView.findViewById(R.id.tvProductCode);
+            tvQuantity = itemView.findViewById(R.id.tvQuantity);
+
+            tvLastActivityType = itemView.findViewById(R.id.tvLastActivityType);
+            tvOpening = itemView.findViewById(R.id.tvOpeningStock);
+            tvInward = itemView.findViewById(R.id.tvInward);
+            tvOutward = itemView.findViewById(R.id.tvOutward);
+            tvClosing = itemView.findViewById(R.id.tvClosingStock);
+            tvUpdatedAt = itemView.findViewById(R.id.tvUpdatedAt);
         }
 
-        public void bind(Product product) {
-            productName.setText(product.getProductName());
-            sku.setText("SKU: " + product.getSku());
-            size.setText("Size: " + product.getSize());
-            quantity.setText("Qty: " + product.getQuantity());
-            qcStatus.setText(product.getQcStatus());
-            currentStage.setText("Current Stage: " + product.getStage());
-            // Set QC status color based on status
-            switch (product.getQcStatus()) {
-                case "PASS":
-                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_green_dark));
-                    break;
-                case "FAIL":
-                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_red_dark));
-                    break;
-                case "PENDING":
-                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_orange_dark));
-                    break;
-                default:
-                    qcStatus.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.darker_gray));
-                    break;
-            }
+        public void bind(ProductNetwork product) {
 
-            // Format and display created date
-            if (product.getCreatedAt() != null && !product.getCreatedAt().isEmpty()) {
-                try {
-                    // Assuming the date comes in format "2023-01-01 12:00:00"
-                    String formattedDate = formatDate(product.getCreatedAt());
-                    createdAt.setText(formattedDate);
-                } catch (Exception e) {
-                    createdAt.setText(product.getCreatedAt());
+            tvProductName.setText(product.getProductName() != null ? product.getProductName() : "-");
+            tvProductCode.setText("Code: " + (product.getProductCode() != null ? product.getProductCode() : "-"));
+            tvQuantity.setText("Qty: " + product.getQuantity());
+
+            LastActivity last = product.getLastActivity();
+
+            if (last != null) {
+                tvLastActivityType.setText("Last: " + safeString(last.getTransType()));
+                tvOpening.setText("Open: " + last.getOpeningStock());
+                tvInward.setText("In: " + last.getInward());
+                tvOutward.setText("Out: " + last.getOutward());
+                tvClosing.setText("Close: " + last.getClosingStock());
+
+                String at = last.getActivityDate(); // matches model getter name
+                if (at != null && !at.isEmpty()) {
+                    tvUpdatedAt.setText(formatDate(at));
+                } else {
+                    tvUpdatedAt.setText("Updated: N/A");
                 }
             } else {
-                createdAt.setText("N/A");
+                tvLastActivityType.setText("Last: N/A");
+                tvOpening.setText("Open: 0");
+                tvInward.setText("In: 0");
+                tvOutward.setText("Out: 0");
+                tvClosing.setText("Close: 0");
+                tvUpdatedAt.setText("Updated: N/A");
             }
+        }
+
+        private static String safeString(String s) {
+            return s == null ? "" : s;
         }
 
         private String formatDate(String dateString) {
             try {
-                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-                Date date = inputFormat.parse(dateString);
-                return outputFormat.format(date);
-            } catch (Exception e) {
-                return dateString; // Return original if parsing fails
+                SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat output = new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault());
+                Date date = input.parse(dateString);
+                return output.format(date);
+            } catch (ParseException e) {
+                return dateString;
             }
         }
     }

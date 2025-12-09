@@ -47,9 +47,9 @@ com.sleepcompany.rfidapp-activity-ktx-1.10.1-45 /home/treewalker/.gradle/caches/
 com.sleepcompany.rfidapp-navigation-fragment-2.8.2-46 /home/treewalker/.gradle/caches/8.12/transforms/de7d85ab29d8686a1e9788e60cd97398/transformed/navigation-fragment-2.8.2/res
 com.sleepcompany.rfidapp-appcompat-1.7.0-47 /home/treewalker/.gradle/caches/8.12/transforms/f70d15261402aed6a13b8a0808b64859/transformed/appcompat-1.7.0/res
 com.sleepcompany.rfidapp-coordinatorlayout-1.1.0-48 /home/treewalker/.gradle/caches/8.12/transforms/ffa2634b596569cc0e8c35e317529d08/transformed/coordinatorlayout-1.1.0/res
-com.sleepcompany.rfidapp-resValues-49 /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/build/generated/res/resValues/debug
-com.sleepcompany.rfidapp-packageDebugResources-50 /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.sleepcompany.rfidapp-packageDebugResources-51 /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.sleepcompany.rfidapp-debug-52 /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/build/intermediates/merged_res/debug/mergeDebugResources
-com.sleepcompany.rfidapp-debug-53 /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/debug/res
-com.sleepcompany.rfidapp-main-54 /home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/src/main/res
+com.sleepcompany.rfidapp-resValues-49 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/generated/res/resValues/debug
+com.sleepcompany.rfidapp-packageDebugResources-50 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.sleepcompany.rfidapp-packageDebugResources-51 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.sleepcompany.rfidapp-debug-52 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.sleepcompany.rfidapp-debug-53 /home/treewalker/treewalker/loundryApp/loundryApp/app/src/debug/res
+com.sleepcompany.rfidapp-main-54 /home/treewalker/treewalker/loundryApp/loundryApp/app/src/main/res

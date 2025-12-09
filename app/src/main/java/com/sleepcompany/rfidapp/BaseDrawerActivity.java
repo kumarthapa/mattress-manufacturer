@@ -170,10 +170,7 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_rfid_scan) {
             navigateTo(ScannerActivity.class);
 
-        } else if (id == R.id.nav_write_tags) {
-            navigateTo(WriteTagsActivity.class);
-
-        } else if (id == R.id.nav_settings) {
+        }else if (id == R.id.nav_settings) {
             navigateTo(SettingsActivity.class);
 
         } else if (id == R.id.nav_logout) {

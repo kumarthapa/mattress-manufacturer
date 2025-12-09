@@ -11,27 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
-import com.sleepcompany.rfidapp.adapter.RecentActivityAdapter;
 import com.sleepcompany.rfidapp.model.DashboardResponse;
 import com.sleepcompany.rfidapp.model.Kpis;
-import com.sleepcompany.rfidapp.model.RecentActivity;
 import com.sleepcompany.rfidapp.network.ApiClient;
 import com.sleepcompany.rfidapp.network.ApiService;
 import com.sleepcompany.rfidapp.network.UpdateCheckRequest;
 import com.sleepcompany.rfidapp.network.UpdateCheckResponse;
 import com.sleepcompany.rfidapp.util.PrefHelper;
-
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,15 +32,12 @@ public class DashboardActivity extends BaseDrawerActivity {
 
     private static final String LOGTAG = "DashboardActivity";
 
-    private MaterialCardView totalProductionCard, efficiencyCard, defectCard, satisfactionCard;
-    private MaterialButton btnScanRFID, btnViewProducts, btnWriteTag;
-    private MaterialTextView tvTotalProduction, tvEfficiency, tvDefects, tvSatisfaction;
+    private MaterialCardView totalProductionCard, efficiencyCard, monthTotalCard, inventoryCard;
+    private MaterialButton btnScanRFID, btnViewProducts, tagMapping;
+    private MaterialTextView tvTotalProduction, tvEfficiency;
+    private TextView tvTotalMonth, tvInventorySummary;
 
-    private ChipGroup chipGroupStages;
-    private RecyclerView rvRecentActivities;
-    private RecentActivityAdapter recentActivityAdapter;
-
-    private TextView tvUpdateBanner; // <-- update banner
+    private TextView tvUpdateBanner;
 
     private final Handler handler = new Handler();
     private final int POLL_INTERVAL_MS = 8000;
@@ -60,9 +48,10 @@ public class DashboardActivity extends BaseDrawerActivity {
         @Override
         public void run() {
             loadDashboardData();
-            handler.postDelayed(this, POLL_INTERVAL_MS);
+            handler.postDelayed(pollRunnable, POLL_INTERVAL_MS); // safe, handler exists now
         }
     };
+
 
     @Override
     protected int getLayoutResourceId() {
@@ -75,8 +64,7 @@ public class DashboardActivity extends BaseDrawerActivity {
 
         initializeViews();
         setupDashboardCards();
-        setupQuickActions();
-        setupRecycler();
+        setupQuickNavigation();
 
         loadDashboardData();
     }
@@ -84,32 +72,22 @@ public class DashboardActivity extends BaseDrawerActivity {
     private void initializeViews() {
         totalProductionCard = findViewById(R.id.totalProductionCard);
         efficiencyCard = findViewById(R.id.efficiencyCard);
-        defectCard = findViewById(R.id.defectCard);
-        satisfactionCard = findViewById(R.id.satisfactionCard);
+        monthTotalCard = findViewById(R.id.monthTotalCard);
+        inventoryCard = findViewById(R.id.inventoryCard);
 
-        tvTotalProduction = findViewById(R.id.tvTotalProduction);
-        tvEfficiency = findViewById(R.id.tvEfficiency);
-        tvDefects = findViewById(R.id.tvDefects);
-        tvSatisfaction = findViewById(R.id.tvSatisfaction);
+        tvTotalProduction = findViewById(R.id.tvTotalProduction);   // TOTAL TAGS
+        tvEfficiency = findViewById(R.id.tvEfficiency);             // INWARD / OUTWARD
+        tvTotalMonth = findViewById(R.id.tvTotalMonth);             // TOTAL PRODUCTS
+        tvInventorySummary = findViewById(R.id.tvInventorySummary); // MAPPED / UNMAPPED
 
         btnScanRFID = findViewById(R.id.btnScanRFID);
         btnViewProducts = findViewById(R.id.btnViewProducts);
-        btnWriteTag = findViewById(R.id.btnWriteTag);
+        tagMapping = findViewById(R.id.tagMapping);
 
-        chipGroupStages = findViewById(R.id.chipGroupStages);
-        rvRecentActivities = findViewById(R.id.rvRecentActivities);
-
-        // Update banner
         tvUpdateBanner = findViewById(R.id.tvUpdateBanner);
-
-        if (tvUpdateBanner == null) {
-            Log.w(LOGTAG, "tvUpdateBanner is null — check your activity_dashboard layout (id: tvUpdateBanner).");
-        } else {
-            // ensure hidden by default
+        if (tvUpdateBanner != null) {
             tvUpdateBanner.setVisibility(View.GONE);
-
             tvUpdateBanner.setOnClickListener(v -> {
-                // Launch LauncherActivity to handle update. Pass current screen so Launcher can return here.
                 Intent i = new Intent(DashboardActivity.this, LauncherActivity.class);
                 i.putExtra(LauncherActivity.EXTRA_NEXT_SCREEN, DashboardActivity.class.getName());
                 startActivity(i);
@@ -117,105 +95,64 @@ public class DashboardActivity extends BaseDrawerActivity {
         }
     }
 
-    private void setupRecycler() {
-        recentActivityAdapter = new RecentActivityAdapter();
-        rvRecentActivities.setLayoutManager(new LinearLayoutManager(this));
-        rvRecentActivities.setAdapter(recentActivityAdapter);
-    }
-
-    /**
-     * ---------- DASHBOARD CARDS ----------
-     */
+    /** ---------- DASHBOARD CARD CLICKS ---------- */
     private void setupDashboardCards() {
-
-        // direct navigation (fast)
         totalProductionCard.setOnClickListener(v ->
-                navigateTo(ProductsActivity.class));
+                Snackbar.make(findViewById(R.id.drawer_layout),
+                        "Total Tags", Snackbar.LENGTH_SHORT).show());
 
         efficiencyCard.setOnClickListener(v ->
                 Snackbar.make(findViewById(R.id.drawer_layout),
-                        "Production efficiency details", Snackbar.LENGTH_SHORT).show());
+                        "Inward / Outward Summary", Snackbar.LENGTH_SHORT).show());
 
-        defectCard.setOnClickListener(v ->
-                navigateTo(QcActivity.class));
-
-        satisfactionCard.setOnClickListener(v ->
+        monthTotalCard.setOnClickListener(v ->
                 Snackbar.make(findViewById(R.id.drawer_layout),
-                        "Quality control metrics", Snackbar.LENGTH_SHORT).show());
+                        "Total Products", Snackbar.LENGTH_SHORT).show());
+
+        inventoryCard.setOnClickListener(v ->
+                Snackbar.make(findViewById(R.id.drawer_layout),
+                        "Mapped / Unmapped Tags", Snackbar.LENGTH_SHORT).show());
     }
 
-    /**
-     * ---------- QUICK ACTION BUTTONS ----------
-     */
-    private void setupQuickActions() {
+    /** ---------- QUICK NAVIGATION ---------- */
+    private void setupQuickNavigation() {
 
-        // Direct navigation (fast)
-        btnScanRFID.setOnClickListener(v ->
-                navigateTo(ScannerActivity.class));
+        btnScanRFID.setOnClickListener(v -> navigateTo(TagDetailsActivity.class));
+        tagMapping.setOnClickListener(v -> navigateTo(ScannerActivity.class));
+        btnViewProducts.setOnClickListener(v -> navigateTo(ProductsActivity.class));
 
-        btnViewProducts.setOnClickListener(v ->
-                navigateTo(ProductsActivity.class));
-
-        btnWriteTag.setOnClickListener(v -> {
-            boolean canWrite = PrefHelper.hasPermission(DashboardActivity.this, "write.bonding");
-            if (!canWrite) {
-                Snackbar.make(findViewById(R.id.drawer_layout),
-                        "You don't have permission to write tags", Snackbar.LENGTH_SHORT).show();
-                return;
-            }
-            navigateTo(WriteTagsActivity.class);
-        });
-
-        boolean canWriteInitially = PrefHelper.hasPermission(this, "write.bonding");
-        btnWriteTag.setEnabled(canWriteInitially);
-        btnWriteTag.setAlpha(canWriteInitially ? 1f : 0.56f);
+        boolean canWrite = PrefHelper.hasPermission(this, "write.inventory");
+        tagMapping.setEnabled(canWrite);
+        tagMapping.setAlpha(canWrite ? 1f : 0.56f);
     }
 
-    /**
-     * ---------- DASHBOARD DATA UPDATE ----------
-     */
+    /** ---------- UPDATE KPI VALUES ---------- */
     private void updateKpis(Kpis kpis) {
         if (kpis == null) return;
 
-        tvTotalProduction.setText(String.valueOf(kpis.total_today != null ? kpis.total_today : 0));
-        tvEfficiency.setText(kpis.efficiency_percent != null
-                ? String.format("%.2f%%", kpis.efficiency_percent)
-                : "—");
-        tvDefects.setText(kpis.defect_rate_percent != null
-                ? String.format("%.2f%%", kpis.defect_rate_percent)
-                : "—");
-        tvSatisfaction.setText(kpis.pass_today != null
-                ? kpis.pass_today + " pass"
-                : "—");
+        // TOTAL TAGS
+        tvTotalProduction.setText(String.valueOf(kpis.total_tags != null ? kpis.total_tags : 0));
+
+        // INWARD / OUTWARD
+        int inward = kpis.total_inward != null ? kpis.total_inward : 0;
+        int outward = kpis.total_outward != null ? kpis.total_outward : 0;
+        tvEfficiency.setText(inward + " / " + outward);
+
+        // TOTAL PRODUCTS
+        tvTotalMonth.setText(String.valueOf(kpis.total_products != null ? kpis.total_products : 0));
+
+        // MAPPED / UNMAPPED
+        int mapped = kpis.total_tags_mapped != null ? kpis.total_tags_mapped : 0;
+        int unmapped = kpis.total_tags_unmapped != null ? kpis.total_tags_unmapped : 0;
+
+        tvInventorySummary.setText(mapped + " mapped / " + unmapped + " unmapped");
     }
 
-    private void updateStages(Map<String, Integer> stages) {
-        chipGroupStages.removeAllViews();
-        if (stages == null || stages.isEmpty()) return;
-
-        for (Map.Entry<String, Integer> e : stages.entrySet()) {
-            final String stage = e.getKey();
-            Integer count = e.getValue();
-
-            Chip chip = new Chip(this);
-            chip.setText(stage + " (" + (count != null ? count : 0) + ")");
-            chip.setCheckable(false);
-            chip.setOnClickListener(v ->
-                    Snackbar.make(findViewById(R.id.drawer_layout),
-                            "Stage: " + stage, Snackbar.LENGTH_SHORT).show());
-            chipGroupStages.addView(chip);
-        }
-    }
-
-    private void updateRecent(List<RecentActivity> list) {
-        recentActivityAdapter.setItems(list);
-    }
-
+    /** ---------- LOAD DASHBOARD FROM API ---------- */
     private void loadDashboardData() {
 
         if (currentSummaryCall != null && !currentSummaryCall.isCanceled()) {
             currentSummaryCall.cancel();
-            currentSummaryCall = null;
         }
 
         ApiService api = ApiClient.getClient(this).create(ApiService.class);
@@ -233,74 +170,42 @@ public class DashboardActivity extends BaseDrawerActivity {
                 }
 
                 DashboardResponse body = response.body();
-                if (Boolean.TRUE.equals(body.success) && body.data != null) {
+                if (Boolean.TRUE.equals(body.success) && body.data != null && body.data.kpis != null) {
                     updateKpis(body.data.kpis);
-                    updateStages(body.data.stages);
-                } else {
-                    Snackbar.make(findViewById(R.id.drawer_layout),
-                            "Dashboard error: " + body.message, Snackbar.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DashboardResponse> call, Throwable t) {
                 currentSummaryCall = null;
-                if (call.isCanceled()) return;
-
-                Snackbar.make(findViewById(R.id.drawer_layout),
-                        "Network error: " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                if (!call.isCanceled()) {
+                    Snackbar.make(findViewById(R.id.drawer_layout),
+                            "Network error: " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    /**
-     * Lightweight update check that only shows the banner (non-blocking).
-     */
+    /** ---------- UPDATE CHECK ---------- */
     private void checkUpdateForDashboard() {
-        String androidId = com.sleepcompany.rfidapp.LauncherActivity.getAndroidId(this);
+        String androidId = LauncherActivity.getAndroidId(this);
         int currentVersion = BuildConfig.VERSION_CODE;
 
         UpdateCheckRequest req = new UpdateCheckRequest(androidId, currentVersion);
         ApiService api = ApiClient.getPublicClient().create(ApiService.class);
 
-        Log.d(LOGTAG, "checkUpdateForDashboard: device=" + androidId + " currentVersion=" + currentVersion);
-
         api.checkUpdate(req).enqueue(new Callback<UpdateCheckResponse>() {
             @Override
             public void onResponse(Call<UpdateCheckResponse> call, Response<UpdateCheckResponse> response) {
-                if (isFinishing() || isDestroyed()) return;
-
-                if (response.isSuccessful() && response.body() != null) {
-                    UpdateCheckResponse body = response.body();
-
-                    // SHOW if the server requests update (no version compare)
-                    final boolean show = body.isUpdate_required();
-                    Log.d(LOGTAG, "update check result: update_required=" + body.isUpdate_required()
-                            + " latest_version=" + body.getLatest_version_code() + " -> showBanner=" + show);
-
-                    runOnUiThread(() -> {
-                        if (tvUpdateBanner == null) {
-                            Log.w(LOGTAG, "tvUpdateBanner is null when trying to set visibility");
-                            return;
-                        }
-                        tvUpdateBanner.setVisibility(show ? View.VISIBLE : View.GONE);
-                    });
-                } else {
-                    Log.w(LOGTAG, "checkUpdateForDashboard response not successful or empty");
-                    // keep banner hidden on error
-                    runOnUiThread(() -> {
-                        if (tvUpdateBanner != null) tvUpdateBanner.setVisibility(View.GONE);
-                    });
+                if (!isFinishing() && response.isSuccessful() && response.body() != null) {
+                    boolean show = response.body().isUpdate_required();
+                    if (tvUpdateBanner != null) tvUpdateBanner.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<UpdateCheckResponse> call, Throwable t) {
-                Log.w(LOGTAG, "checkUpdateForDashboard failed: " + (t != null ? t.getMessage() : "unknown"));
-                // ignore — do not block user; hide banner
-                runOnUiThread(() -> {
-                    if (tvUpdateBanner != null) tvUpdateBanner.setVisibility(View.GONE);
-                });
+                if (tvUpdateBanner != null) tvUpdateBanner.setVisibility(View.GONE);
             }
         });
     }
@@ -308,37 +213,30 @@ public class DashboardActivity extends BaseDrawerActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        handler.postDelayed(pollRunnable, POLL_INTERVAL_MS);
 
-        boolean canWrite = PrefHelper.hasPermission(this, "write.bonding");
-        btnWriteTag.setEnabled(canWrite);
-        btnWriteTag.setAlpha(canWrite ? 1f : 0.56f);
+        handler.removeCallbacks(pollRunnable);
+        handler.postDelayed(pollRunnable, POLL_INTERVAL_MS); // start loop here
 
-        // Run lightweight update check (shows banner if available)
+        boolean canWrite = PrefHelper.hasPermission(this, "write.inventory");
+        tagMapping.setEnabled(canWrite);
+        tagMapping.setAlpha(canWrite ? 1f : 0.56f);
+
         checkUpdateForDashboard();
     }
+
 
     @Override
     protected void onPause() {
         super.onPause();
-
         handler.removeCallbacks(pollRunnable);
-
-        if (currentSummaryCall != null && !currentSummaryCall.isCanceled()) {
-            currentSummaryCall.cancel();
-            currentSummaryCall = null;
-        }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_dashboard) {
+        if (item.getItemId() == R.id.nav_dashboard) {
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         }
-
         return super.onNavigationItemSelected(item);
     }
 }

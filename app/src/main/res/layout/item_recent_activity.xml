@@ -21,6 +21,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Product Name -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvProductName"
             android:layout_width="wrap_content"
@@ -30,15 +31,27 @@
             android:textStyle="bold"
             android:textColor="@color/sc_primary"/>
 
+        <!-- RFID Tag -->
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvStageStatus"
+            android:id="@+id/tvRfidTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stage • Status • Machine"
+            android:text="Tag: 123456789"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginTop="4dp"/>
 
+        <!-- Status -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStageStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: PASS"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Timestamp -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvChangedAt"
             android:layout_width="wrap_content"

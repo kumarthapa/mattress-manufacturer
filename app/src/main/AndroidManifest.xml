@@ -1,69 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ✅ Permissions -->
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Bluetooth pre-Android 12 -->
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
-    <!-- Bluetooth Android 12+ -->
+
+    <!-- Android 12+ -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <!-- Location permissions for scanning -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+    <!-- Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- Foreground service (optional for background scanning) -->
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!-- Hardware features -->
     <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-feature android:name="android.hardware.usb.host" android:required="false" />
 
     <application
         android:name=".MyApp"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:icon="@drawable/ic_brand_logo"
         android:roundIcon="@drawable/ic_brand_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SleepCompanyWeb">
-
-        <!-- Launcher -->
+        android:theme="@style/Theme.GallaRFIDAppTheme">
 
         <activity
             android:name=".LauncherActivity"
             android:exported="true"
-            android:theme="@style/Theme.SleepCompanyWeb">
+            android:theme="@style/Theme.GallaRFIDAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SleepCompanyWeb" />
 
-        <!-- Other Activities -->
+        <activity android:name=".LoginActivity" android:exported="false" />
         <activity android:name=".DashboardActivity" android:exported="false" />
         <activity android:name=".ProductsActivity" android:exported="false" />
         <activity android:name=".ProductDetailsActivity" android:exported="false" />
-        <activity android:name=".ScannerActivity" android:exported="false" android:label="Scanner" />
+        <activity android:name=".ScannerActivity" android:exported="false" />
         <activity android:name=".QcActivity" android:exported="false" />
-        <activity android:name=".WriteTagsActivity" android:exported="false" />
-        <activity android:name=".WriteTagDetailActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false" />
 
-        <!-- ✅ BtConfigActivity added -->
+        <!-- Newly added -->
+        <activity android:name=".TagDetailsActivity" android:exported="false" />
+
         <activity
             android:name=".BtConfigActivity"
             android:exported="false"
             android:label="Bluetooth Config"
-            android:theme="@style/Theme.SleepCompanyWeb" />
+            android:theme="@style/Theme.GallaRFIDAppTheme" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -76,4 +74,5 @@
         </provider>
 
     </application>
+
 </manifest>

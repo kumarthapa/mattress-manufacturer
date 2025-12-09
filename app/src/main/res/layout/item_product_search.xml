@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="8dp"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="2dp"
     android:clickable="true"
     android:focusable="true"
@@ -14,53 +15,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="14dp">
 
-        <!-- QA Code -->
-        <TextView
-            android:id="@+id/tvQaCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="QA Code: QA12345"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:layout_marginBottom="4dp" />
-
-        <!-- Product Name -->
-        <TextView
+        <!-- PRODUCT NAME -->
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Product Name"
-            android:textSize="14sp"
-            android:ellipsize="end"
+            android:text="Bath Towel"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
             android:maxLines="1"
-            android:layout_marginBottom="2dp" />
+            android:ellipsize="end"/>
 
-        <!-- Model -->
-        <TextView
-            android:id="@+id/tvProductModel"
+        <!-- PRODUCT CODE + CATEGORY -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Model: XYZ"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvProductCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Code: BT-001"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category: Linen"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <!-- QUANTITY -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty: 24"
             android:textSize="14sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:layout_marginBottom="2dp" />
-        <!-- Serial Number -->
-        <TextView
-            android:id="@+id/serialNumber"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginTop="6dp"/>
+
+        <!-- LAST ACTIVITY -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLastActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sl No: 123"
-            android:textSize="14sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:layout_marginBottom="2dp" />
-
+            android:text="Wash In | IN: 12 | OUT: 0 | Stock: 50 → 62"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="6dp"/>
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

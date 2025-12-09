@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Coordinator (toolbar + content) -->
+    <!-- CoordinatorLayout (Toolbar + Content) -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,7 +27,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Scrollable content -->
+        <!-- Scrollable Content -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,41 +40,37 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-
-                <!-- Update banner (hidden by default) -->
+                <!-- Update Banner -->
                 <TextView
                     android:id="@+id/tvUpdateBanner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
                     android:padding="12dp"
+                    android:layout_marginBottom="12dp"
                     android:background="#F44336"
-                    android:textColor="#EDFDFBFC"
+                    android:textColor="#FFFFFF"
                     android:text="Update available — tap to update"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    android:gravity="center_vertical"
                     android:visibility="gone"/>
 
-
-                <!-- KPI grid (2x2) -->
+                <!-- KPI GRID (2x2) -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp">
 
-                    <!-- Top-left: Total Production -->
+                    <!-- TOTAL TAGS -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/totalProductionCard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/efficiencyCard"
-                        app:layout_constraintHorizontal_chainStyle="spread">
+                        app:layout_constraintEnd_toStartOf="@id/efficiencyCard"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="6dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -93,23 +89,24 @@
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total Production"
+                                android:text="Total Tags"
                                 android:textSize="12sp"
-                                android:layout_marginTop="6dp" />
+                                android:layout_marginTop="6dp"/>
                         </LinearLayout>
+
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Top-right: Efficiency -->
+                    <!-- INWARD / OUTWARD -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/efficiencyCard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp"
                         app:layout_constraintStart_toEndOf="@id/totalProductionCard"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="6dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -121,32 +118,32 @@
                                 android:id="@+id/tvEfficiency"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0%"
+                                android:text="0 / 0"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Efficiency Rate"
+                                android:text="Inward / Outward"
                                 android:textSize="12sp"
-                                android:layout_marginTop="6dp" />
+                                android:layout_marginTop="6dp"/>
                         </LinearLayout>
+
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Bottom-left: Defect Rate -->
+                    <!-- TOTAL PRODUCTS -->
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/defectCard"
+                        android:id="@+id/monthTotalCard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/totalProductionCard"
-                        app:layout_constraintEnd_toStartOf="@+id/satisfactionCard"
-                        app:layout_constraintHorizontal_chainStyle="spread">
+                        app:layout_constraintEnd_toStartOf="@id/inventoryCard"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="6dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -155,34 +152,35 @@
                             android:padding="14dp">
 
                             <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tvDefects"
+                                android:id="@+id/tvTotalMonth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0%"
+                                android:text="0"
                                 android:textSize="28sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Defect Rate"
+                                android:text="Total Products"
                                 android:textSize="12sp"
-                                android:layout_marginTop="6dp" />
+                                android:layout_marginTop="6dp"/>
                         </LinearLayout>
+
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Bottom-right: Satisfaction / Quality -->
+                    <!-- TAG MAPPING SUMMARY -->
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/satisfactionCard"
+                        android:id="@+id/inventoryCard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:layout_marginStart="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp"
-                        app:layout_constraintStart_toEndOf="@id/defectCard"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toEndOf="@id/monthTotalCard"
                         app:layout_constraintTop_toBottomOf="@id/efficiencyCard"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="6dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -191,25 +189,27 @@
                             android:padding="14dp">
 
                             <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tvSatisfaction"
+                                android:id="@+id/tvInventorySummary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="—"
-                                android:textSize="28sp"
+                                android:text="0 mapped / 0 unmapped"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="QC Pass Count"
+                                android:text="Mapped / Unmapped Tags"
                                 android:textSize="12sp"
-                                android:layout_marginTop="6dp" />
+                                android:layout_marginTop="6dp"/>
                         </LinearLayout>
+
                     </com.google.android.material.card.MaterialCardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!-- Quick Actions -->
+
+                <!-- Quick Navigation -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -224,12 +224,12 @@
                         android:padding="16dp">
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Quick Actions"
+                            android:text="Quick Navigation"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:layout_marginBottom="12dp"/>
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -243,88 +243,40 @@
                                 android:layout_width="0dp"
                                 android:layout_height="48dp"
                                 android:layout_weight="1"
-                                android:minWidth="0dp"
                                 android:text="Scan RFID"
                                 android:textAllCaps="false"
-                                android:ellipsize="end"
-                                android:singleLine="true"
                                 app:icon="@drawable/ic_rfid_tag_scan"
                                 app:iconGravity="textStart"
-                                app:cornerRadius="8dp"
-                                app:iconPadding="8dp"/>
+                                app:iconPadding="8dp"
+                                app:cornerRadius="8dp"/>
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnViewProducts"
                                 android:layout_width="0dp"
                                 android:layout_height="48dp"
-                                android:layout_weight="1"
-                                android:minWidth="0dp"
                                 android:layout_marginStart="8dp"
+                                android:layout_weight="1"
                                 android:text="View Products"
                                 android:textAllCaps="false"
-                                android:ellipsize="end"
-                                android:singleLine="true"
                                 app:icon="@drawable/ic_products"
                                 app:iconGravity="textStart"
-                                app:cornerRadius="8dp"
-                                app:iconPadding="8dp"/>
+                                app:iconPadding="8dp"
+                                app:cornerRadius="8dp"/>
                         </LinearLayout>
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnWriteTag"
+                            android:id="@+id/tagMapping"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_marginTop="0dp"
-                            android:text="Write RFID Tag"
+                            android:text="Tag Mapping"
                             android:textAllCaps="false"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            app:icon="@drawable/ic_quality"
+                            app:icon="@drawable/ic_rfid_tag_scan"
                             app:iconGravity="textStart"
-                            app:cornerRadius="8dp"
-                            app:iconPadding="8dp"/>
+                            app:iconPadding="8dp"
+                            app:cornerRadius="8dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-
-                <!-- Stages Section -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Stages"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/chipGroupStages"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            app:singleSelection="false"
-                            app:chipSpacing="8dp"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Recent Activities -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvRecentActivities"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:nestedScrollingEnabled="false"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
@@ -336,8 +288,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

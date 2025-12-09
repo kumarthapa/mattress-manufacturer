@@ -1,5 +1,6 @@
 package com.sleepcompany.rfidapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import com.sleepcompany.rfidapp.model.RecentActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecentActivityAdapter extends RecyclerView.Adapter<RecentActivityAdapter.VH> {
@@ -39,21 +43,21 @@ public class RecentActivityAdapter extends RecyclerView.Adapter<RecentActivityAd
     public void onBindViewHolder(@NonNull VH holder, int position) {
         RecentActivity r = items.get(position);
 
-        // Product name
-        holder.tvProductName.setText(r.product_name != null ? r.product_name : "—");
+        // PRODUCT NAME
+        holder.tvProductName.setText(
+                r.productName != null ? r.productName : "Unnamed Product"
+        );
 
-        // Stage + status + machine
-        StringBuilder stageStatus = new StringBuilder();
-        stageStatus.append(r.stage != null ? r.stage : "—");
-        stageStatus.append(" • ");
-        stageStatus.append(r.status != null ? r.status : "—");
-        if (r.machine_no != null && !r.machine_no.trim().isEmpty()) {
-            stageStatus.append(" • ").append(r.machine_no);
-        }
-        holder.tvStageStatus.setText(stageStatus.toString());
+        // STATUS ONLY (since stages removed)
+        String status = (r.status != null ? r.status : "—");
+        holder.tvStageStatus.setText("Status: " + status);
 
-        // Changed at
-        holder.tvChangedAt.setText(r.changed_at != null ? r.changed_at : "—");
+        // RFID TAG OPTIONAL
+        String rfid = (r.rfidTag != null ? r.rfidTag : "No Tag");
+        holder.tvRfidTag.setText("Tag: " + rfid);
+
+        // DATE FORMAT
+        holder.tvChangedAt.setText(formatDate(r.changedAt));
     }
 
     @Override
@@ -61,8 +65,31 @@ public class RecentActivityAdapter extends RecyclerView.Adapter<RecentActivityAd
         return items.size();
     }
 
+    /** -----------------------------------------
+     * Format API datetime → "12 Jan, 10:22 AM"
+     * ----------------------------------------- */
+    private String formatDate(String raw) {
+        if (raw == null) return "—";
+
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat output = new SimpleDateFormat("dd MMM, hh:mm a");
+
+        try {
+            Date d = input.parse(raw);
+            return output.format(d);
+        } catch (ParseException e) {
+            return raw;
+        }
+    }
+
+    /** -----------------------------------------
+     * ViewHolder
+     * ----------------------------------------- */
     static class VH extends RecyclerView.ViewHolder {
-        MaterialTextView tvProductName, tvStageStatus, tvChangedAt;
+        MaterialTextView tvProductName, tvStageStatus, tvChangedAt, tvRfidTag;
         MaterialCardView rootCard;
 
         VH(@NonNull View itemView) {
@@ -70,6 +97,7 @@ public class RecentActivityAdapter extends RecyclerView.Adapter<RecentActivityAd
             rootCard = itemView.findViewById(R.id.rootCard);
             tvProductName = itemView.findViewById(R.id.tvProductName);
             tvStageStatus = itemView.findViewById(R.id.tvStageStatus);
+            tvRfidTag = itemView.findViewById(R.id.tvRfidTag);
             tvChangedAt = itemView.findViewById(R.id.tvChangedAt);
         }
     }

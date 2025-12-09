@@ -1,42 +1,32 @@
 package com.sleepcompany.rfidapp.network;
 
-import com.sleepcompany.rfidapp.model.Product;
+import com.sleepcompany.rfidapp.model.ProductNetwork;
+
 import java.util.List;
 
 public class ProductsResponse {
+
     private boolean success;
     private String message;
 
-    // Support old/new API: top-level fields
-    private List<Product> products;
+    private List<ProductNetwork> products;
     private Pagination pagination;
 
-    // ...and also existing data wrapper (if server uses it)
     private DataWrapper data;
 
-    // Nested class for the "data" wrapper (kept for backward compatibility)
+    // ---- DATA WRAPPER (BACKWARD COMPATIBILITY) ----
     public static class DataWrapper {
-        private List<Product> products;
+        private List<ProductNetwork> products;
         private Pagination pagination;
 
-        public List<Product> getProducts() {
-            return products;
-        }
+        public List<ProductNetwork> getProducts() { return products; }
+        public void setProducts(List<ProductNetwork> products) { this.products = products; }
 
-        public void setProducts(List<Product> products) {
-            this.products = products;
-        }
-
-        public Pagination getPagination() {
-            return pagination;
-        }
-
-        public void setPagination(Pagination pagination) {
-            this.pagination = pagination;
-        }
+        public Pagination getPagination() { return pagination; }
+        public void setPagination(Pagination pagination) { this.pagination = pagination; }
     }
 
-    // Pagination info
+    // ---- PAGINATION ----
     public static class Pagination {
         private int total;
         private int per_page;
@@ -68,7 +58,7 @@ public class ProductsResponse {
         }
     }
 
-    // Getters / setters for main fields
+    // ---- GETTERS ----
     public boolean isSuccess() { return success; }
     public void setSuccess(boolean success) { this.success = success; }
 
@@ -78,15 +68,15 @@ public class ProductsResponse {
     public DataWrapper getData() { return data; }
     public void setData(DataWrapper data) { this.data = data; }
 
-    // Top-level products/pagination getters (may be null if server uses data wrapper)
-    public List<Product> getProductsTopLevel() { return products; }
-    public void setProductsTopLevel(List<Product> products) { this.products = products; }
+    // TOP LEVEL
+    public List<ProductNetwork> getProductsTopLevel() { return products; }
+    public void setProductsTopLevel(List<ProductNetwork> products) { this.products = products; }
 
     public Pagination getPaginationTopLevel() { return pagination; }
     public void setPaginationTopLevel(Pagination pagination) { this.pagination = pagination; }
 
-    // Unified getters that return whichever is present (wrapper or top-level)
-    public List<Product> getProducts() {
+    // ---- UNIFIED ----
+    public List<ProductNetwork> getProducts() {
         if (data != null && data.getProducts() != null) return data.getProducts();
         return products;
     }
@@ -96,9 +86,8 @@ public class ProductsResponse {
         return pagination;
     }
 
-    // Convenience
     public boolean hasProducts() {
-        List<Product> p = getProducts();
+        List<ProductNetwork> p = getProducts();
         return success && p != null && !p.isEmpty();
     }
 }

@@ -1,23 +1,22 @@
 package com.sleepcompany.rfidapp.network;
 
-import com.sleepcompany.rfidapp.model.StagesStatusRequest;
-import com.sleepcompany.rfidapp.model.UpdateProductDetailsRequest;
-import com.sleepcompany.rfidapp.model.UpdateStageRequest;
 import com.sleepcompany.rfidapp.model.DashboardResponse;
-
+import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
 
-    // ---- START --- Login (your server expects license_key in payload if required)
+    /*--------------------------------------------------
+     *  AUTHENTICATION & LICENSE
+     *--------------------------------------------------*/
     @POST("user/login")
     Call<LoginResponse> loginUser(@Body LoginRequest req);
 
-    // Public endpoint: verify license (POST)
     @POST("device/verify-license")
     Call<LicenseResponse> verifyLicense(@Body LicenseRequest req);
 
@@ -27,48 +26,46 @@ public interface ApiService {
     @POST("device/check")
     Call<LicenseResponse> checkDevice(@Body DeviceCheckRequest req);
 
-    // ---- END ---
+    /*--------------------------------------------------
+     *  PRODUCTS API
+     *--------------------------------------------------*/
     @POST("products/get-products")
     Call<ProductsResponse> getProducts(@Body ProductsRequest request);
 
+    /*--------------------------------------------------
+     *  INVENTORY API (Matches Laravel)
+     *--------------------------------------------------*/
+    @POST("inventory/tag-mapping")
+    Call<Map<String, Object>> tagMapping(@Body Map<String, Object> payload);
 
-    @POST("products/get-stages-and-status")
-    Call<StagesStatusResponse> getStagesAndStatus(@Body StagesStatusRequest request);
+    @POST("inventory/record-stock-movement")
+    Call<Map<String, Object>> recordStockMovement(@Body Map<String, Object> payload);
 
+    @GET("inventory/tag-details/{epc}")
+    Call<Map<String, Object>> getTagDetails(@Path("epc") String epc);
 
+    /*--------------------------------------------------
+     *  DASHBOARD API
+     *--------------------------------------------------*/
 
-    // Simple GET request to fetch product by tag ID
-    @GET("products/get-product-details-by-tag-id")
-    Call<TagResponse> getProductDetailsByTagId(@Query("tag_id") String tagId);
-
-    //Update product stage and status
-    @POST("products/update-product-stage")
-    Call<TagResponse> updateProductStage(@Body UpdateStageRequest request);
-
-    // -----------Dashboard summary endpoint (cache_seconds controls server caching window)
-// -----------Dashboard summary endpoint (cache_seconds controls server caching window)
+    // Existing convenience call (keeps your current calls working)
     @GET("dashboard/summary")
     Call<DashboardResponse> getDashboardSummary(@Query("cache_seconds") int cacheSeconds);
 
+    // Overload to optionally pass date range / other params (start_date and end_date in YYYY-MM-DD or ISO format)
+    @GET("dashboard/summary")
+    Call<DashboardResponse> getDashboardSummaryWithRange(
+            @Query("cache_seconds") int cacheSeconds,
+            @Query("start_date") String startDate,
+            @Query("end_date") String endDate
+    );
 
-    @POST("products/get-plan-products")
-    Call<BondingResponse> getPlanProducts(@Body BondingProductsRequest request);
-
-    // Add QA code to bonding plan product
-    @POST("products/update-qa-code")
-    Call<BondingResponse> updateQaCode(@Body BondingProductsRequest request);
-
-    // example: POST /api/update-product-name
-    @POST("products/update-product-details")
-    Call<TagResponse> updateProductDetails(@Body UpdateProductDetailsRequest request);
-
-
-    // in ApiService interface
+    /*--------------------------------------------------
+     *  APP UPDATE CHECK
+     *--------------------------------------------------*/
     @POST("device/check-update")
     Call<UpdateCheckResponse> checkUpdate(@Body UpdateCheckRequest req);
 
     @POST("device/mark-updated")
     Call<GenericResponse> markUpdated(@Body MarkUpdatedRequest req);
-
-
 }

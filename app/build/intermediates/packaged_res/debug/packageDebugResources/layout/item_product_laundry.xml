@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- PRODUCT NAME -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laundry Towel"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <!-- PRODUCT CODE + QUANTITY -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="6dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvProductCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Code: L-TW-001"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qty: 45"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary" />
+        </LinearLayout>
+
+        <!-- DIVIDER -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutline"
+            android:layout_marginVertical="10dp"/>
+
+        <!-- LAST ACTIVITY LABEL -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLastActivityType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Activity: Wash In"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary" />
+
+        <!-- STOCK ROWS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvOpeningStock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Open: 50"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvInward"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="In: 12"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@android:color/holo_green_dark" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvOutward"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Out: 5"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@android:color/holo_red_dark" />
+        </LinearLayout>
+
+        <!-- CLOSING STOCK -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvClosingStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Closing: 57"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginTop="6dp"/>
+
+        <!-- UPDATED DATE -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvUpdatedAt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Updated: Jan 12, 2024 - 3:45 PM"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -31,9 +31,11 @@ public class ApiClient {
     private static Retrofit retrofitPublic = null;
 
     // Real production API path
-    private static final String BASE_URL_PRODUCTION = "https://apps.galla.ai/sleepcompany/api/";
-    private static final String NGROK_URL = "https://3a3382ff2ee3.ngrok-free.app/api/";
-    private static boolean IS_PRODUCTION = true;
+    private static final String BASE_URL_PRODUCTION = "https://apps.galla.ai/sleepcompany/api/TEST";
+    //private static final String NGROK_URL = "https://8228806dcbc1.ngrok-free.app/api/";
+    private static final String NGROK_URL = "http://192.168.1.56:8000/api/";
+
+    private static boolean IS_PRODUCTION = false;
     // Note: If you want to run in production, set this to true.
     // Then go to LauncherActivity inside the onCreate() method and call:
     // ApiClient.setProduction(true); // Enable PRODUCTION mode

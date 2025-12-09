@@ -6,122 +6,75 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
+    app:cardElevation="3dp"
     app:cardBackgroundColor="?attr/colorSurface"
-    style="@style/Widget.Material3.CardView.Elevated">
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="14dp">
 
-        <!-- Product Name and QC Status Row -->
+        <!-- Product Name -->
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bath Towel"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <!-- Product Code + Category row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_marginTop="4dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvProductName"
+            <TextView
+                android:id="@+id/tvProductCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Product Name"
-                android:textAppearance="?attr/textAppearanceBodyLarge"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tvQcStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="PENDING"
-                android:textSize="12sp"
-                style="@style/Widget.Material3.Chip.Assist" />
-
-        </LinearLayout>
-
-        <!-- SKU and Size Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvSku"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="SKU: ABC123"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:text="Code: BT001"
+                android:textSize="14sp"
                 android:textColor="?attr/colorOnSurfaceVariant" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvSize"
+            <TextView
+                android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Size: Large"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:text="Category: Linen"
+                android:textSize="14sp"
                 android:textColor="?attr/colorOnSurfaceVariant" />
 
         </LinearLayout>
 
-        <!-- Current stage Row -->
-        <LinearLayout
+        <!-- Quantity -->
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty: 50"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginTop="8dp" />
+
+        <!-- Last Activity -->
+        <TextView
+            android:id="@+id/tvLastActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvCurrentStage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="SKU: ABC123"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?attr/colorOnSurfaceVariant" />
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/tvSize"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Size: Large"-->
-<!--                android:textAppearance="?attr/textAppearanceBodyMedium"-->
-<!--                android:textColor="?attr/colorOnSurfaceVariant" />-->
-
-        </LinearLayout>
-
-        <!-- Quantity and Created Date Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvQuantity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Qty: 100"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvCreatedAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jan 15, 2024"
-                android:textAppearance="?attr/textAppearanceBodySmall"
-                android:textColor="?attr/colorOnSurfaceVariant" />
-
-        </LinearLayout>
+            android:text="Wash In | IN: 10 | OUT: 2 | Stock: 40 → 48"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="6dp" />
 
     </LinearLayout>
 

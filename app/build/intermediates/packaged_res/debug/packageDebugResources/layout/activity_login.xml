@@ -27,13 +27,13 @@
             android:layout_height="120dp"
             android:src="@drawable/ic_brand_logo"
             android:scaleType="centerInside"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/nav_header_subtitle" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The Sleep Company"
+            android:text="QUICK CLEAN"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manufacturing Tracker"
+            android:text="@string/nav_header_subtitle"
             android:textColor="@color/sleep_secondary"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"

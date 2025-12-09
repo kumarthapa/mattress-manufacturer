@@ -29,15 +29,20 @@ public final class ItemRecentActivityBinding implements ViewBinding {
   public final MaterialTextView tvProductName;
 
   @NonNull
+  public final MaterialTextView tvRfidTag;
+
+  @NonNull
   public final MaterialTextView tvStageStatus;
 
   private ItemRecentActivityBinding(@NonNull MaterialCardView rootView,
       @NonNull MaterialCardView rootCard, @NonNull MaterialTextView tvChangedAt,
-      @NonNull MaterialTextView tvProductName, @NonNull MaterialTextView tvStageStatus) {
+      @NonNull MaterialTextView tvProductName, @NonNull MaterialTextView tvRfidTag,
+      @NonNull MaterialTextView tvStageStatus) {
     this.rootView = rootView;
     this.rootCard = rootCard;
     this.tvChangedAt = tvChangedAt;
     this.tvProductName = tvProductName;
+    this.tvRfidTag = tvRfidTag;
     this.tvStageStatus = tvStageStatus;
   }
 
@@ -82,6 +87,12 @@ public final class ItemRecentActivityBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvRfidTag;
+      MaterialTextView tvRfidTag = ViewBindings.findChildViewById(rootView, id);
+      if (tvRfidTag == null) {
+        break missingId;
+      }
+
       id = R.id.tvStageStatus;
       MaterialTextView tvStageStatus = ViewBindings.findChildViewById(rootView, id);
       if (tvStageStatus == null) {
@@ -89,7 +100,7 @@ public final class ItemRecentActivityBinding implements ViewBinding {
       }
 
       return new ItemRecentActivityBinding((MaterialCardView) rootView, rootCard, tvChangedAt,
-          tvProductName, tvStageStatus);
+          tvProductName, tvRfidTag, tvStageStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

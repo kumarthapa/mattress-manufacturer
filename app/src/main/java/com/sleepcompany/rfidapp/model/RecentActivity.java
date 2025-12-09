@@ -2,29 +2,33 @@ package com.sleepcompany.rfidapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Single recent activity entry as returned by the API.
+ */
 public class RecentActivity {
-
     @SerializedName("product_id")
-    public Integer product_id;
+    public Integer productId;
 
     @SerializedName("product_name")
-    public String product_name;
+    public String productName;
 
     @SerializedName("rfid_tag")
-    public String rfid_tag;
+    public String rfidTag;
 
+    // 'stage' value may still be returned by API for historical reasons; keep it if present.
     @SerializedName("stage")
     public String stage;
 
     @SerializedName("status")
     public String status;
 
-    @SerializedName("machine_no")
-    public String machine_no;
+    @SerializedName("defects")
+    public Integer defects;
 
-    @SerializedName("comments")
-    public String comments;
+    @SerializedName("remarks")
+    public String remarks;
 
+    // Server returns ISO datetime string; keep as String for display/parsing later.
     @SerializedName("changed_at")
-    public String changed_at; // consider Date if backend uses ISO8601
+    public String changedAt;
 }

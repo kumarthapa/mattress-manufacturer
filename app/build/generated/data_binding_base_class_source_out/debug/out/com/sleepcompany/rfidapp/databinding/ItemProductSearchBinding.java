@@ -4,12 +4,12 @@ package com.sleepcompany.rfidapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -20,25 +20,30 @@ public final class ItemProductSearchBinding implements ViewBinding {
   private final MaterialCardView rootView;
 
   @NonNull
-  public final TextView serialNumber;
+  public final MaterialTextView tvCategory;
 
   @NonNull
-  public final TextView tvProductModel;
+  public final MaterialTextView tvLastActivity;
 
   @NonNull
-  public final TextView tvProductName;
+  public final MaterialTextView tvProductCode;
 
   @NonNull
-  public final TextView tvQaCode;
+  public final MaterialTextView tvProductName;
+
+  @NonNull
+  public final MaterialTextView tvQuantity;
 
   private ItemProductSearchBinding(@NonNull MaterialCardView rootView,
-      @NonNull TextView serialNumber, @NonNull TextView tvProductModel,
-      @NonNull TextView tvProductName, @NonNull TextView tvQaCode) {
+      @NonNull MaterialTextView tvCategory, @NonNull MaterialTextView tvLastActivity,
+      @NonNull MaterialTextView tvProductCode, @NonNull MaterialTextView tvProductName,
+      @NonNull MaterialTextView tvQuantity) {
     this.rootView = rootView;
-    this.serialNumber = serialNumber;
-    this.tvProductModel = tvProductModel;
+    this.tvCategory = tvCategory;
+    this.tvLastActivity = tvLastActivity;
+    this.tvProductCode = tvProductCode;
     this.tvProductName = tvProductName;
-    this.tvQaCode = tvQaCode;
+    this.tvQuantity = tvQuantity;
   }
 
   @Override
@@ -68,32 +73,38 @@ public final class ItemProductSearchBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.serialNumber;
-      TextView serialNumber = ViewBindings.findChildViewById(rootView, id);
-      if (serialNumber == null) {
+      id = R.id.tvCategory;
+      MaterialTextView tvCategory = ViewBindings.findChildViewById(rootView, id);
+      if (tvCategory == null) {
         break missingId;
       }
 
-      id = R.id.tvProductModel;
-      TextView tvProductModel = ViewBindings.findChildViewById(rootView, id);
-      if (tvProductModel == null) {
+      id = R.id.tvLastActivity;
+      MaterialTextView tvLastActivity = ViewBindings.findChildViewById(rootView, id);
+      if (tvLastActivity == null) {
+        break missingId;
+      }
+
+      id = R.id.tvProductCode;
+      MaterialTextView tvProductCode = ViewBindings.findChildViewById(rootView, id);
+      if (tvProductCode == null) {
         break missingId;
       }
 
       id = R.id.tvProductName;
-      TextView tvProductName = ViewBindings.findChildViewById(rootView, id);
+      MaterialTextView tvProductName = ViewBindings.findChildViewById(rootView, id);
       if (tvProductName == null) {
         break missingId;
       }
 
-      id = R.id.tvQaCode;
-      TextView tvQaCode = ViewBindings.findChildViewById(rootView, id);
-      if (tvQaCode == null) {
+      id = R.id.tvQuantity;
+      MaterialTextView tvQuantity = ViewBindings.findChildViewById(rootView, id);
+      if (tvQuantity == null) {
         break missingId;
       }
 
-      return new ItemProductSearchBinding((MaterialCardView) rootView, serialNumber, tvProductModel,
-          tvProductName, tvQaCode);
+      return new ItemProductSearchBinding((MaterialCardView) rootView, tvCategory, tvLastActivity,
+          tvProductCode, tvProductName, tvQuantity);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

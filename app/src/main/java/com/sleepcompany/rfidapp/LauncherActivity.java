@@ -63,7 +63,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ApiClient.setProduction(true);   // enable PRODUCTION mode
+        ApiClient.setProduction(false);   // enable PRODUCTION mode
         ApiClient.resetClients();
 
         setContentView(R.layout.activity_launcher);

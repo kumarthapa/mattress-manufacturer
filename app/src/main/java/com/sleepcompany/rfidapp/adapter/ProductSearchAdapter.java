@@ -4,25 +4,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sleepcompany.rfidapp.R;
-import com.sleepcompany.rfidapp.network.BondingProduct;
+import com.sleepcompany.rfidapp.model.ProductNetwork;
+import com.sleepcompany.rfidapp.model.ProductNetwork.LastActivity;
 
 import java.util.List;
 
 public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdapter.ProductViewHolder> {
 
-    private final List<BondingProduct> products;
+    private final List<ProductNetwork> products;
     private final OnProductSelectedListener listener;
 
     public interface OnProductSelectedListener {
-        void onProductSelected(BondingProduct product);
+        void onProductSelected(ProductNetwork product);
     }
 
-    public ProductSearchAdapter(List<BondingProduct> products, OnProductSelectedListener listener) {
+    public ProductSearchAdapter(List<ProductNetwork> products, OnProductSelectedListener listener) {
         this.products = products;
         this.listener = listener;
     }
@@ -37,38 +37,58 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        BondingProduct product = products.get(position);
+        ProductNetwork product = products.get(position);
         holder.bind(product, listener);
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return products != null ? products.size() : 0;
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView tvQaCode, tvProductName, tvProductModel, serialNumber;
+        private final TextView tvProductName, tvProductCode, tvCategory, tvQuantity, tvLastActivity;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvQaCode = itemView.findViewById(R.id.tvQaCode);
+
             tvProductName = itemView.findViewById(R.id.tvProductName);
-            tvProductModel = itemView.findViewById(R.id.tvProductModel);
-            serialNumber = itemView.findViewById(R.id.serialNumber);
+            tvProductCode = itemView.findViewById(R.id.tvProductCode);
+            tvCategory = itemView.findViewById(R.id.tvCategory);
+            tvQuantity = itemView.findViewById(R.id.tvQuantity);
+            tvLastActivity = itemView.findViewById(R.id.tvLastActivity);
         }
 
-        public void bind(BondingProduct product, OnProductSelectedListener listener) {
-            tvQaCode.setText(product.getQaCode() != null ? product.getQaCode() : "-");
-            tvProductName.setText(product.getProductName() != null ? "Name: " + product.getProductName() : "-");
-            tvProductModel.setText(product.getModel() != null ? "Model: " + product.getModel() : "-");
-            serialNumber.setText(product.getSerialNumber() != 0 ? "Sl No: " + product.getSerialNumber() : "-");
+        public void bind(ProductNetwork product, OnProductSelectedListener listener) {
+
+            tvProductName.setText(product.getProductName());
+            tvProductCode.setText("Code: " + product.getProductCode());
+            tvCategory.setText("Category: " + product.getCategory());
+            tvQuantity.setText("Qty: " + product.getQuantity());
+
+            // Last activity handling
+            LastActivity la = product.getLastActivity();
+            if (la != null) {
+                String activityText = safeString(la.getTransType())
+                        + " | IN: " + la.getInward()
+                        + " | OUT: " + la.getOutward()
+                        + "\nStock: " + la.getOpeningStock() + " → " + la.getClosingStock();
+
+                tvLastActivity.setText(activityText);
+            } else {
+                tvLastActivity.setText("No activity yet");
+            }
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onProductSelected(product);
                 }
             });
+        }
+
+        private static String safeString(String s) {
+            return s == null ? "" : s;
         }
     }
 }

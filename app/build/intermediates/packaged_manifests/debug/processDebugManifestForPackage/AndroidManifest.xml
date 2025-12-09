@@ -8,23 +8,27 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="34" />
 
-    <!-- ✅ Permissions -->
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Bluetooth pre-Android 12 -->
     <uses-permission
         android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
     <uses-permission
         android:name="android.permission.BLUETOOTH_ADMIN"
         android:maxSdkVersion="30" />
-    <!-- Bluetooth Android 12+ -->
+
+    <!-- Android 12+ -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <!-- Location permissions for scanning -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+    <!-- Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- Foreground service (optional for background scanning) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!-- Hardware features -->
     <uses-feature
@@ -33,8 +37,9 @@
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="false" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="false" />
 
     <permission
         android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -53,15 +58,13 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/ic_brand_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SleepCompanyWeb"
+        android:testOnly="true"
+        android:theme="@style/Theme.GallaRFIDAppTheme"
         android:usesCleartextTraffic="true" >
-
-        <!-- Launcher -->
-
         <activity
             android:name="com.sleepcompany.rfidapp.LauncherActivity"
             android:exported="true"
-            android:theme="@style/Theme.SleepCompanyWeb" >
+            android:theme="@style/Theme.GallaRFIDAppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,10 +73,7 @@
         </activity>
         <activity
             android:name="com.sleepcompany.rfidapp.LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SleepCompanyWeb" />
-
-        <!-- Other Activities -->
+            android:exported="false" />
         <activity
             android:name="com.sleepcompany.rfidapp.DashboardActivity"
             android:exported="false" />
@@ -85,27 +85,23 @@
             android:exported="false" />
         <activity
             android:name="com.sleepcompany.rfidapp.ScannerActivity"
-            android:exported="false"
-            android:label="Scanner" />
+            android:exported="false" />
         <activity
             android:name="com.sleepcompany.rfidapp.QcActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.WriteTagsActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.WriteTagDetailActivity"
             android:exported="false" />
         <activity
             android:name="com.sleepcompany.rfidapp.SettingsActivity"
             android:exported="false" />
 
-        <!-- ✅ BtConfigActivity added -->
+        <!-- Newly added -->
+        <activity
+            android:name="com.sleepcompany.rfidapp.TagDetailsActivity"
+            android:exported="false" />
         <activity
             android:name="com.sleepcompany.rfidapp.BtConfigActivity"
             android:exported="false"
             android:label="Bluetooth Config"
-            android:theme="@style/Theme.SleepCompanyWeb" />
+            android:theme="@style/Theme.GallaRFIDAppTheme" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

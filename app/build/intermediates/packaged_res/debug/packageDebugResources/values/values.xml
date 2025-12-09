@@ -81,8 +81,8 @@
     <string name="map">Map</string>
     <string name="map_record" translatable="false">Map Tags</string>
     <string name="mapped">Mapped</string>
-    <string name="nav_header_subtitle">Manufacturing Tracker</string>
-    <string name="nav_header_title">The Sleep Company</string>
+    <string name="nav_header_subtitle">Galla Laundry Solutions</string>
+    <string name="nav_header_title">QUICK CLEAN</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="nums">Nums</string>
@@ -140,7 +140,7 @@
         <item name="hintTextColor">@color/grey_600</item>
         <item name="android:textColorHint">@color/grey_600</item>
     </style>
-    <style name="Theme.SleepCompanyWeb" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.GallaRFIDAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         
         <item name="colorPrimary">@color/sc_primary</item>
         <item name="colorOnPrimary">@color/white</item>

@@ -9,12 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sleepcompany.rfidapp.R;
@@ -33,28 +31,22 @@ public final class ActivityDashboardBinding implements ViewBinding {
   public final MaterialButton btnViewProducts;
 
   @NonNull
-  public final MaterialButton btnWriteTag;
-
-  @NonNull
-  public final ChipGroup chipGroupStages;
-
-  @NonNull
-  public final MaterialCardView defectCard;
-
-  @NonNull
   public final DrawerLayout drawerLayout;
 
   @NonNull
   public final MaterialCardView efficiencyCard;
 
   @NonNull
+  public final MaterialCardView inventoryCard;
+
+  @NonNull
+  public final MaterialCardView monthTotalCard;
+
+  @NonNull
   public final NavigationView navView;
 
   @NonNull
-  public final RecyclerView rvRecentActivities;
-
-  @NonNull
-  public final MaterialCardView satisfactionCard;
+  public final MaterialButton tagMapping;
 
   @NonNull
   public final Toolbar toolbar;
@@ -63,13 +55,13 @@ public final class ActivityDashboardBinding implements ViewBinding {
   public final MaterialCardView totalProductionCard;
 
   @NonNull
-  public final MaterialTextView tvDefects;
-
-  @NonNull
   public final MaterialTextView tvEfficiency;
 
   @NonNull
-  public final MaterialTextView tvSatisfaction;
+  public final MaterialTextView tvInventorySummary;
+
+  @NonNull
+  public final MaterialTextView tvTotalMonth;
 
   @NonNull
   public final MaterialTextView tvTotalProduction;
@@ -79,30 +71,26 @@ public final class ActivityDashboardBinding implements ViewBinding {
 
   private ActivityDashboardBinding(@NonNull DrawerLayout rootView,
       @NonNull MaterialButton btnScanRFID, @NonNull MaterialButton btnViewProducts,
-      @NonNull MaterialButton btnWriteTag, @NonNull ChipGroup chipGroupStages,
-      @NonNull MaterialCardView defectCard, @NonNull DrawerLayout drawerLayout,
-      @NonNull MaterialCardView efficiencyCard, @NonNull NavigationView navView,
-      @NonNull RecyclerView rvRecentActivities, @NonNull MaterialCardView satisfactionCard,
-      @NonNull Toolbar toolbar, @NonNull MaterialCardView totalProductionCard,
-      @NonNull MaterialTextView tvDefects, @NonNull MaterialTextView tvEfficiency,
-      @NonNull MaterialTextView tvSatisfaction, @NonNull MaterialTextView tvTotalProduction,
-      @NonNull TextView tvUpdateBanner) {
+      @NonNull DrawerLayout drawerLayout, @NonNull MaterialCardView efficiencyCard,
+      @NonNull MaterialCardView inventoryCard, @NonNull MaterialCardView monthTotalCard,
+      @NonNull NavigationView navView, @NonNull MaterialButton tagMapping, @NonNull Toolbar toolbar,
+      @NonNull MaterialCardView totalProductionCard, @NonNull MaterialTextView tvEfficiency,
+      @NonNull MaterialTextView tvInventorySummary, @NonNull MaterialTextView tvTotalMonth,
+      @NonNull MaterialTextView tvTotalProduction, @NonNull TextView tvUpdateBanner) {
     this.rootView = rootView;
     this.btnScanRFID = btnScanRFID;
     this.btnViewProducts = btnViewProducts;
-    this.btnWriteTag = btnWriteTag;
-    this.chipGroupStages = chipGroupStages;
-    this.defectCard = defectCard;
     this.drawerLayout = drawerLayout;
     this.efficiencyCard = efficiencyCard;
+    this.inventoryCard = inventoryCard;
+    this.monthTotalCard = monthTotalCard;
     this.navView = navView;
-    this.rvRecentActivities = rvRecentActivities;
-    this.satisfactionCard = satisfactionCard;
+    this.tagMapping = tagMapping;
     this.toolbar = toolbar;
     this.totalProductionCard = totalProductionCard;
-    this.tvDefects = tvDefects;
     this.tvEfficiency = tvEfficiency;
-    this.tvSatisfaction = tvSatisfaction;
+    this.tvInventorySummary = tvInventorySummary;
+    this.tvTotalMonth = tvTotalMonth;
     this.tvTotalProduction = tvTotalProduction;
     this.tvUpdateBanner = tvUpdateBanner;
   }
@@ -146,29 +134,23 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btnWriteTag;
-      MaterialButton btnWriteTag = ViewBindings.findChildViewById(rootView, id);
-      if (btnWriteTag == null) {
-        break missingId;
-      }
-
-      id = R.id.chipGroupStages;
-      ChipGroup chipGroupStages = ViewBindings.findChildViewById(rootView, id);
-      if (chipGroupStages == null) {
-        break missingId;
-      }
-
-      id = R.id.defectCard;
-      MaterialCardView defectCard = ViewBindings.findChildViewById(rootView, id);
-      if (defectCard == null) {
-        break missingId;
-      }
-
       DrawerLayout drawerLayout = (DrawerLayout) rootView;
 
       id = R.id.efficiencyCard;
       MaterialCardView efficiencyCard = ViewBindings.findChildViewById(rootView, id);
       if (efficiencyCard == null) {
+        break missingId;
+      }
+
+      id = R.id.inventoryCard;
+      MaterialCardView inventoryCard = ViewBindings.findChildViewById(rootView, id);
+      if (inventoryCard == null) {
+        break missingId;
+      }
+
+      id = R.id.monthTotalCard;
+      MaterialCardView monthTotalCard = ViewBindings.findChildViewById(rootView, id);
+      if (monthTotalCard == null) {
         break missingId;
       }
 
@@ -178,15 +160,9 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.rvRecentActivities;
-      RecyclerView rvRecentActivities = ViewBindings.findChildViewById(rootView, id);
-      if (rvRecentActivities == null) {
-        break missingId;
-      }
-
-      id = R.id.satisfactionCard;
-      MaterialCardView satisfactionCard = ViewBindings.findChildViewById(rootView, id);
-      if (satisfactionCard == null) {
+      id = R.id.tagMapping;
+      MaterialButton tagMapping = ViewBindings.findChildViewById(rootView, id);
+      if (tagMapping == null) {
         break missingId;
       }
 
@@ -202,21 +178,21 @@ public final class ActivityDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvDefects;
-      MaterialTextView tvDefects = ViewBindings.findChildViewById(rootView, id);
-      if (tvDefects == null) {
-        break missingId;
-      }
-
       id = R.id.tvEfficiency;
       MaterialTextView tvEfficiency = ViewBindings.findChildViewById(rootView, id);
       if (tvEfficiency == null) {
         break missingId;
       }
 
-      id = R.id.tvSatisfaction;
-      MaterialTextView tvSatisfaction = ViewBindings.findChildViewById(rootView, id);
-      if (tvSatisfaction == null) {
+      id = R.id.tvInventorySummary;
+      MaterialTextView tvInventorySummary = ViewBindings.findChildViewById(rootView, id);
+      if (tvInventorySummary == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTotalMonth;
+      MaterialTextView tvTotalMonth = ViewBindings.findChildViewById(rootView, id);
+      if (tvTotalMonth == null) {
         break missingId;
       }
 
@@ -233,9 +209,9 @@ public final class ActivityDashboardBinding implements ViewBinding {
       }
 
       return new ActivityDashboardBinding((DrawerLayout) rootView, btnScanRFID, btnViewProducts,
-          btnWriteTag, chipGroupStages, defectCard, drawerLayout, efficiencyCard, navView,
-          rvRecentActivities, satisfactionCard, toolbar, totalProductionCard, tvDefects,
-          tvEfficiency, tvSatisfaction, tvTotalProduction, tvUpdateBanner);
+          drawerLayout, efficiencyCard, inventoryCard, monthTotalCard, navView, tagMapping, toolbar,
+          totalProductionCard, tvEfficiency, tvInventorySummary, tvTotalMonth, tvTotalProduction,
+          tvUpdateBanner);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- CoordinatorLayout to host AppBar + content -->
+    <!-- MAIN SCREEN -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- App Bar with Material Toolbar -->
+        <!-- TOP BAR -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,17 +24,17 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="Product Details"
                 app:titleTextColor="?attr/colorOnSurface"
-                app:navigationIcon="@drawable/ic_menu_24dp"
-                style="@style/Widget.Material3.Toolbar" />
+                app:navigationIcon="@drawable/ic_back_24"
+                style="@style/Widget.Material3.Toolbar"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Scrollable content -->
+        <!-- PAGE CONTENT -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:padding="16dp"
+            android:fillViewport="true"
             android:background="@color/light_grey">
 
             <LinearLayout
@@ -42,131 +42,171 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Your original content -->
-
+                <!-- MAIN TITLE -->
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/productName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Product Name"
-                    android:textSize="24sp"
+                    android:text="Bath Towel"
                     android:textStyle="bold"
+                    android:textSize="22sp"
                     android:textColor="@color/black"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="12dp"/>
 
+                <!-- PRODUCT BASIC INFO CARD -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/infoCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp"
                     app:cardBackgroundColor="@color/white"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="20dp">
 
                     <LinearLayout
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="18dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <!-- Product ID -->
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
+                        <!-- ROW -->
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Product ID:"
-                            android:textStyle="bold"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/productId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"/>
+                            android:layout_marginBottom="10dp">
 
-                        <!-- Size -->
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Size:"
-                            android:textStyle="bold"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/productSize"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"/>
+                            <TextView
+                                android:text="Product ID:"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/productId"
+                                android:layout_marginStart="6dp"/>
+                        </LinearLayout>
 
-                        <!-- RFID Tag -->
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="RFID Tag:"
-                            android:textStyle="bold"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/productRfid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"/>
+                            android:layout_marginBottom="10dp">
 
-                        <!-- Status -->
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:text="Category:"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/productCategory"
+                                android:layout_marginStart="6dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Status:"
-                            android:textStyle="bold"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/productStatus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_marginBottom="10dp">
+
+                            <TextView
+                                android:text="Current Stock:"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/productStock"
+                                android:layout_marginStart="6dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:text="Last Updated:"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/productUpdatedAt"
+                                android:layout_marginStart="6dp"/>
+                        </LinearLayout>
+
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
+                <!-- LAST ACTIVITY CARD -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Production Progress"
-                    android:textSize="16sp"
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:padding="18dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Last Activity"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView android:id="@+id/lastActivityType"/>
+                        <TextView android:id="@+id/lastActivityStock"/>
+                        <TextView android:id="@+id/lastActivityDate"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- PROGRESS BAR SECTION -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:text="Product Workflow Progress"
                     android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="8dp"/>
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/productProgressBar"
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_height="10dp"
                     app:indicatorColor="@color/sc_primary"
-                    app:trackColor="@color/light_grey"
-                    app:trackThickness="4dp"
-                    android:max="100"
-                    android:progress="0"/>
+                    app:trackThickness="6dp"
+                    android:layout_marginBottom="4dp"/>
 
-                <com.google.android.material.textview.MaterialTextView
+                <TextView
                     android:id="@+id/productProgressText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"/>
+                    android:text="0%"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="20dp"/>
 
+                <!-- TIMELINE TITLE -->
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Stages Timeline"
-                    android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="16dp"/>
 
                 <LinearLayout
                     android:id="@+id/stagesTimelineLayout"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- Navigation drawer -->
+    <!-- DRAWER -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_menu"
-        style="@style/Widget.Material3.NavigationView" />
-
+        app:menu="@menu/drawer_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>
