@@ -47,6 +47,7 @@ public class PrinterManager {
             "00:32:04:81:17:45",  // CC3 ZPL
             "00:40:43:37:68:21",  // CC3 ZPL
             "C0:40:43:37:68:21",  // CC3 ZPL
+            "44:B7:D0:2B:FC:D6",  // Desktop printer --- New
     };
     // ---------------------------------------------------------------------
 
@@ -104,6 +105,8 @@ public class PrinterManager {
             predefined.put("00:32:04:81:17:45", LANG_ZPL);      // CC3 ZPL
             predefined.put("00:40:43:37:68:21", LANG_ZPL);      // CC3 ZPL
             predefined.put("C0:40:43:37:68:21", LANG_ZPL);      // CC3 ZPL
+            predefined.put("44:B7:D0:2B:FC:D6", LANG_AUTO);      // Desktop printer -- new
+
             //predefined.put("11:22:33:44:55:66", LANG_ESC);      // Generic thermal receipt
 
             for (Map.Entry<String, String> entry : predefined.entrySet()) {
