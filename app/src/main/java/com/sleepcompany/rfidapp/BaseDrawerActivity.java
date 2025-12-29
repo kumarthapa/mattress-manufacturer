@@ -90,6 +90,13 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
                 writeItem.setVisible(canWriteBonding);
             }
 
+            // ----------- Reprocess PERMISSION CHECK --------------
+            MenuItem reprocess = menu.findItem(R.id.nav_reprocess);
+            boolean ReprocessAct = PrefHelper.hasPermission(this, "write.bonding");
+            if (reprocess != null) {
+                reprocess.setVisible(ReprocessAct);
+            }
+
             // ----------- DRAWER HEADER SETUP --------------
             View header = navigationView.getHeaderView(0);
             if (header == null) {
@@ -173,7 +180,10 @@ public abstract class BaseDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_write_tags) {
             navigateTo(WriteTagsActivity.class);
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_reprocess) {
+            navigateTo(ReprocessActivity.class);
+
+        }else if (id == R.id.nav_settings) {
             navigateTo(SettingsActivity.class);
 
         } else if (id == R.id.nav_logout) {

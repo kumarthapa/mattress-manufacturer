@@ -266,7 +266,7 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
             }
 
             final String finalQa = (initialQaCode != null ? initialQaCode : "") + extra;
-            showConfirmDialogAndUpdate(scannedTagId, finalQa);
+            showConfirmDialogAndUpdate(scannedTagId, finalQa,extra);
         });
     }
 
@@ -475,17 +475,17 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
 
     /* ---------- Confirmation + Server update ---------- */
 
-    private void showConfirmDialogAndUpdate(String epcId, String finalQa) {
+    private void showConfirmDialogAndUpdate(String epcId, String finalQa,String extraCode) {
         String message = "Final QA: " + finalQa + "\n\nUpdate this for tag " + epcId + " ?";
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Confirm Update")
                 .setMessage(message)
-                .setPositiveButton("Update", (dialog, which) -> updateQaCodeInBackend(epcId, finalQa))
+                .setPositiveButton("Update", (dialog, which) -> updateQaCodeInBackend(epcId, finalQa,extraCode))
                 .setNegativeButton("Cancel", null)
                 .show();
     }
 
-    private void updateQaCodeInBackend(String tagId, String finalQa) {
+    private void updateQaCodeInBackend(String tagId, String finalQa,String extraCode) {
         tvScanStatus.setVisibility(View.VISIBLE);
         tvScanStatus.setText("Updating server...");
 
@@ -493,8 +493,9 @@ public class WriteTagDetailActivity extends BaseDrawerActivity {
 
         BondingProductsRequest request = new BondingProductsRequest();
         request.setProductId(getIntent().getIntExtra(EXTRA_PRODUCT_ID, 0)); // product_id
-        request.setQaCode(finalQa);                                         // qa_code
-        request.setRfidTag(tagId);                                          // rfid_tag
+        request.setQaCode(finalQa);// qa_code
+        request.setRfidTag(tagId); // rfid_tag
+        request.setLastCode(extraCode); // extraCode
 
         apiService.updateQaCode(request).enqueue(new Callback<BondingResponse>() {
             @Override

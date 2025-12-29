@@ -14,6 +14,9 @@ public class BondingProductsRequest {
     @SerializedName("rfid_tag")
     private String rfidTag;
 
+    @SerializedName("lastCode")
+    private String lastCode;
+
     // For search
     @SerializedName("search")
     private String search;
@@ -27,10 +30,11 @@ public class BondingProductsRequest {
     public BondingProductsRequest() {}
 
     // Constructor for QA update
-    public BondingProductsRequest(int productId, String qaCode, String rfidTag) {
+    public BondingProductsRequest(int productId, String qaCode, String rfidTag, String lastCode) {
         this.productId = productId;
         this.qaCode = qaCode;
         this.rfidTag = rfidTag;
+        this.lastCode = lastCode;
     }
 
     // Getters and setters
@@ -51,4 +55,8 @@ public class BondingProductsRequest {
 
     public int getLimit() { return limit; }
     public void setLimit(int limit) { this.limit = limit; }
+
+
+    public void getLastCode(String lastCode) { this.lastCode = lastCode; }
+    public void setLastCode(String lastCode) { this.lastCode = lastCode; }
 }

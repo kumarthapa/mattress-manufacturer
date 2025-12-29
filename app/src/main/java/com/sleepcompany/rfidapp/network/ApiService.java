@@ -2,6 +2,7 @@ package com.sleepcompany.rfidapp.network;
 
 import com.sleepcompany.rfidapp.model.StagesStatusRequest;
 import com.sleepcompany.rfidapp.model.UpdateProductDetailsRequest;
+import com.sleepcompany.rfidapp.model.UpdateReprocessProductRequest;
 import com.sleepcompany.rfidapp.model.UpdateStageRequest;
 import com.sleepcompany.rfidapp.model.DashboardResponse;
 
@@ -45,8 +46,6 @@ public interface ApiService {
     @POST("products/update-product-stage")
     Call<TagResponse> updateProductStage(@Body UpdateStageRequest request);
 
-    // -----------Dashboard summary endpoint (cache_seconds controls server caching window)
-// -----------Dashboard summary endpoint (cache_seconds controls server caching window)
     @GET("dashboard/summary")
     Call<DashboardResponse> getDashboardSummary(@Query("cache_seconds") int cacheSeconds);
 
@@ -63,6 +62,8 @@ public interface ApiService {
     Call<TagResponse> updateProductDetails(@Body UpdateProductDetailsRequest request);
 
 
+@POST("products/update-reprocess-product-stage")
+Call<ReprocessTagResponse> updateReprocessProductStage(@Body UpdateReprocessProductRequest request);
     // in ApiService interface
     @POST("device/check-update")
     Call<UpdateCheckResponse> checkUpdate(@Body UpdateCheckRequest req);

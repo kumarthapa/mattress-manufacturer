@@ -36,7 +36,7 @@ public class Product {
     @SerializedName("status")
     private String status;
 
-    // Latest process info (from product_process_history)
+    // Latest process info
     @SerializedName("stage")
     private String stage;
 
@@ -56,8 +56,20 @@ public class Product {
     @SerializedName("created_at")
     private String created_at;
 
+    // --------------------------------------------------
+    // ✅ REQUIRED NO-ARG CONSTRUCTOR
+    // --------------------------------------------------
+    // Needed for:
+    // - Gson
+    // - Retrofit
+    // - Manual object mapping
+    // - Legacy compatibility
+    public Product() {
+    }
 
-    // -------------------- CONSTRUCTOR --------------------
+    // --------------------------------------------------
+    // FULL CONSTRUCTOR (KEEP FOR LEGACY / MANUAL USE)
+    // --------------------------------------------------
     public Product(
             String id,
             String product_name,
@@ -90,8 +102,9 @@ public class Product {
         this.created_at = created_at;
     }
 
-
-    // -------------------- GETTERS --------------------
+    // --------------------------------------------------
+    // GETTERS
+    // --------------------------------------------------
 
     public String getId() { return id; }
 
@@ -123,14 +136,17 @@ public class Product {
 
     public String getCreatedAt() { return created_at; }
 
-
-    // -------------------- SETTERS --------------------
+    // --------------------------------------------------
+    // SETTERS
+    // --------------------------------------------------
 
     public void setId(String id) { this.id = id; }
 
     public void setProductName(String product_name) { this.product_name = product_name; }
 
     public void setSku(String sku) { this.sku = sku; }
+
+    public void setQAcode(String qa_code) { this.qa_code = qa_code; }
 
     public void setReferenceCode(String reference_code) { this.reference_code = reference_code; }
 

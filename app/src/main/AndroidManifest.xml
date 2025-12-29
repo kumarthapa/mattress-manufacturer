@@ -51,11 +51,10 @@
         <!-- Other Activities -->
         <activity android:name=".DashboardActivity" android:exported="false" />
         <activity android:name=".ProductsActivity" android:exported="false" />
-        <activity android:name=".ProductDetailsActivity" android:exported="false" />
         <activity android:name=".ScannerActivity" android:exported="false" android:label="Scanner" />
-        <activity android:name=".QcActivity" android:exported="false" />
         <activity android:name=".WriteTagsActivity" android:exported="false" />
         <activity android:name=".WriteTagDetailActivity" android:exported="false" />
+        <activity android:name=".ReprocessActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false" />
 
         <!-- ✅ BtConfigActivity added -->

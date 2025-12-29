@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ReprocessActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Reprocess Mattress"
+            app:titleTextColor="?attr/colorOnSurface"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            android:contentDescription="Navigate back"
+            style="@style/Widget.Material3.Toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <!-- Scan controls -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="32dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/startScanBtn"
+                    android:layout_width="180dp"
+                    android:layout_height="56dp"
+                    android:text="Start Scan"
+                    android:textSize="16sp"
+                    android:contentDescription="Start or stop RFID scan"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/ic_scan"
+                    app:iconGravity="textStart"/>
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/scanProgress"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    app:indicatorSize="40dp"
+                    app:trackThickness="4dp"
+                    app:indicatorColor="?attr/colorPrimary"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/scanStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="Scanning..."
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <!-- Editable result card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/scanResultCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="?attr/colorSurface">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/selectedModel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select Model First"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="16dp"/>
+
+                        <!-- QA Code Display -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="QA Code:"
+                                android:textStyle="bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/qaCode"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+                                android:text="-" />
+
+                            <!-- Edit QA -->
+                            <ImageButton
+                                android:id="@+id/ivEditQaCode"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginStart="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Edit QA Code"
+                                android:src="@drawable/ic_write"
+                                app:tint="?attr/colorOnSurface"/>
+                        </LinearLayout>
+
+                        <!-- QA inline editor -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/qaEditLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_marginBottom="8dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etQaEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter QA Code"
+                                android:maxLines="1"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- QA Edit Buttons -->
+                        <LinearLayout
+                            android:id="@+id/qaEditButtons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="end"
+                            android:visibility="gone"
+                            android:layout_marginBottom="16dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnCancelQa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Cancel"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_marginEnd="8dp"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnSaveQa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Save"/>
+                        </LinearLayout>
+
+                        <!-- Product -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Product:"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/scannedProduct"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+                                android:text="-" />
+
+                            <!-- small edit icon next to product -->
+                            <ImageButton
+                                android:id="@+id/ivEditProduct"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginStart="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Edit product"
+                                android:src="@drawable/ic_write"
+                                app:tint="?attr/colorOnSurface" />
+                        </LinearLayout>
+
+                        <!-- Inline editor for Product Name (hidden by default) -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/productEditLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProductNameEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter new product name"
+                                android:imeOptions="actionDone"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Buttons for Product Name edit -->
+                        <LinearLayout
+                            android:id="@+id/productEditButtons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="end"
+                            android:visibility="gone"
+                            android:layout_marginBottom="8dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnCancelProductEdit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Cancel"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_marginEnd="8dp"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnSaveProduct"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Save"/>
+                        </LinearLayout>
+
+                        <!-- Product SKU -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="SKU:"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/scannedProductSKU"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+                                android:text="-" />
+
+                            <ImageButton
+                                android:id="@+id/ivEditProductSKU"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginStart="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Edit SKU"
+                                android:tooltipText="Edit SKU"
+                                android:src="@drawable/ic_write"
+                                app:tint="?attr/colorOnSurface" />
+                        </LinearLayout>
+
+                        <!-- Inline editor for SKU (hidden by default) -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/productSkuEditLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProductSkuEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter new SKU"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Buttons for SKU edit -->
+                        <LinearLayout
+                            android:id="@+id/productSkuEditButtons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="end"
+                            android:visibility="gone"
+                            android:layout_marginBottom="8dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnCancelSkuEdit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Cancel"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_marginEnd="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnSaveSku"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Save" />
+                        </LinearLayout>
+
+                        <!-- PRODUCT SIZE (single unified editable Size field) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Size:"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/scannedProductSize"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+                                android:text="-" />
+
+                            <ImageButton
+                                android:id="@+id/ivEditProductSize"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginStart="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Edit Size"
+                                android:tooltipText="Edit Size"
+                                android:src="@drawable/ic_write"
+                                app:tint="?attr/colorOnSurface" />
+                        </LinearLayout>
+
+                        <!-- Inline editor for Size (hidden by default) -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/productSizeEditLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProductSizeEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter new Size"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Buttons for Size edit -->
+                        <LinearLayout
+                            android:id="@+id/productSizeEditButtons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="end"
+                            android:visibility="gone"
+                            android:layout_marginBottom="8dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnCancelSizeEdit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Cancel"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_marginEnd="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnSaveSize"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:text="Save" />
+                        </LinearLayout>
+
+                        <!-- Scanned Status -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Status:"
+                                android:textStyle="bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/scannedStatus"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="-"/>
+                        </LinearLayout>
+
+                        <!-- Stage dropdown (MaterialAutoCompleteTextView) -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/scannedStage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Select Stage"
+                                android:focusable="false"
+                                android:inputType="none"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- QC Status dropdown -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/scannedQcStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Select QC Status"
+                                android:focusable="false"
+                                android:inputType="none"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Remarks -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Remarks (optional)"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etRemarks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Defects card -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/defectsCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:layout_marginBottom="12dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="4dp">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:padding="12dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Defect Points"
+                                    android:textStyle="bold"
+                                    android:layout_marginBottom="8dp"/>
+
+                                <LinearLayout
+                                    android:id="@+id/llDefectsContainer"
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Action buttons -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/updateStageBtn"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_weight="1"
+                                android:text="Update"
+                                android:textSize="14sp"
+                                android:contentDescription="Update stage to reprocess"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_marginEnd="8dp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Small clear and print icon on top-right of the card -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="end|top"
+                        android:layout_margin="8dp">
+
+                        <ImageButton
+                            android:id="@+id/ivCardPrint"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Print label"
+                            android:src="@drawable/ic_print"
+                            app:tint="?attr/colorOnSurface"
+                            android:visibility="gone"/>
+
+                        <ImageButton
+                            android:id="@+id/ivCardClear"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Clear product"
+                            app:tint="?attr/colorOnSurface"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_clear"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

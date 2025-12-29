@@ -132,16 +132,16 @@ public class DashboardActivity extends BaseDrawerActivity {
         totalProductionCard.setOnClickListener(v ->
                 navigateTo(ProductsActivity.class));
 
-        efficiencyCard.setOnClickListener(v ->
-                Snackbar.make(findViewById(R.id.drawer_layout),
-                        "Production efficiency details", Snackbar.LENGTH_SHORT).show());
-
-        defectCard.setOnClickListener(v ->
-                navigateTo(QcActivity.class));
-
-        satisfactionCard.setOnClickListener(v ->
-                Snackbar.make(findViewById(R.id.drawer_layout),
-                        "Quality control metrics", Snackbar.LENGTH_SHORT).show());
+//        efficiencyCard.setOnClickListener(v ->
+//                Snackbar.make(findViewById(R.id.drawer_layout),
+//                        "Production efficiency details", Snackbar.LENGTH_SHORT).show());
+//
+//        defectCard.setOnClickListener(v ->
+//                navigateTo(QcActivity.class));
+//
+//        satisfactionCard.setOnClickListener(v ->
+//                Snackbar.make(findViewById(R.id.drawer_layout),
+//                        "Quality control metrics", Snackbar.LENGTH_SHORT).show());
     }
 
     /**

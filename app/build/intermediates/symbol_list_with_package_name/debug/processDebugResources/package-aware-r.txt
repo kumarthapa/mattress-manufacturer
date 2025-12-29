@@ -3326,7 +3326,6 @@ id animateToStart
 id antiClockwise
 id anticipate
 id appBar
-id approveQCBtn
 id arc
 id asConfigured
 id async
@@ -3360,8 +3359,12 @@ id bt_writepower
 id btnAction
 id btnApplySavedPower
 id btnCancelProductEdit
+id btnCancelQa
+id btnCancelSizeEdit
 id btnCancelSkuEdit
 id btnSaveProduct
+id btnSaveQa
+id btnSaveSize
 id btnSaveSku
 id btnScan
 id btnScanRFID
@@ -3464,9 +3467,12 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id escape
+id etDialogSearch
 id etExtraDetails
 id etProductNameEdit
+id etProductSizeEdit
 id etProductSkuEdit
+id etQaEdit
 id etRemarks
 id etSearch
 id et_address
@@ -3530,7 +3536,6 @@ id immediateStop
 id included
 id indeterminate
 id info
-id infoCard
 id invisible
 id inward
 id italic
@@ -3539,6 +3544,8 @@ id ivCardClear
 id ivCardPrint
 id ivEditProduct
 id ivEditProductSKU
+id ivEditProductSize
+id ivEditQaCode
 id ivFailedCardClear
 id ivFailedCardPrint
 id ivFailedCardRework
@@ -3632,6 +3639,7 @@ id nav_dashboard
 id nav_host_fragment_container
 id nav_logout
 id nav_products
+id nav_reprocess
 id nav_rfid_scan
 id nav_settings
 id nav_view
@@ -3687,6 +3695,7 @@ id passwordLayout
 id password_toggle
 id path
 id pathRelative
+id pbDialogLoading
 id peekHeight
 id percent
 id pin
@@ -3695,15 +3704,10 @@ id postLayout
 id pressed
 id productEditButtons
 id productEditLayout
-id productId
-id productName
-id productProgressBar
-id productProgressText
-id productRfid
-id productSize
+id productSizeEditButtons
+id productSizeEditLayout
 id productSkuEditButtons
 id productSkuEditLayout
-id productStatus
 id productsRecyclerView
 id progress
 id progressBar
@@ -3712,15 +3716,13 @@ id progressIndicator
 id progress_circular
 id progress_horizontal
 id qaCode
-id qcChecklistContainer
-id qcItemsLayout
-id qcProductSpinner
+id qaEditButtons
+id qaEditLayout
 id radio
 id ratio
 id rectangles
 id refreshProducts
 id rejectBtn
-id rejectQCBtn
 id rememberMe
 id report_drawn
 id reverseSawtooth
@@ -3734,6 +3736,7 @@ id rounded
 id row_index_key
 id rtl
 id rvBluetoothDevices
+id rvDialogResults
 id rvRecentActivities
 id rvSearchResults
 id satisfactionCard
@@ -3747,6 +3750,7 @@ id scanStatusText
 id scaneTag
 id scannedProduct
 id scannedProductSKU
+id scannedProductSize
 id scannedQcStatus
 id scannedSize
 id scannedStage
@@ -3770,6 +3774,7 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id selected
+id selectedModel
 id selection_type
 id serialNumber
 id sharedValueSet
@@ -3802,7 +3807,6 @@ id src_in
 id src_over
 id stageDetails
 id stageName
-id stagesTimelineLayout
 id standard
 id start
 id startHorizontal
@@ -3884,6 +3888,7 @@ id tvCurrentStage
 id tvDefects
 id tvDeviceMac
 id tvDeviceName
+id tvDialogNoResults
 id tvEfficiency
 id tvNoResults
 id tvPaired
@@ -3893,6 +3898,10 @@ id tvProductName
 id tvQaCode
 id tvQcStatus
 id tvQuantity
+id tvRowModel
+id tvRowName
+id tvRowQa
+id tvRowSl
 id tvSatisfaction
 id tvScanInfo
 id tvScanStatus
@@ -4061,9 +4070,8 @@ layout activity_dashboard
 layout activity_launcher
 layout activity_login
 layout activity_main
-layout activity_product_details
 layout activity_products
-layout activity_qc
+layout activity_reprocess
 layout activity_scanner
 layout activity_settings
 layout activity_write_tag_detail
@@ -4085,6 +4093,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_license
+layout dialog_product_select
 layout dialog_update_download
 layout fragment_inventory
 layout fragment_settings
@@ -4095,6 +4104,7 @@ layout item_epc
 layout item_product
 layout item_product_list
 layout item_product_search
+layout item_product_select_row
 layout item_recent_activity
 layout item_stage
 layout layout_general

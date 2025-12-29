@@ -63,6 +63,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 //import com.google.android.material.textfield.TextInputLayout;
@@ -145,6 +146,9 @@ public class ScannerActivity extends AppCompatActivity {
     private TextInputEditText etProductNameEdit;
     private LinearLayout productEditButtons;
     private MaterialButton btnSaveProduct, btnCancelProductEdit;
+    // print dialog guard
+    private final Object printLock = new Object();
+    private volatile boolean isPrintDialogShown = false;
 
 
     // Executor for background printer connect (so we don't block UI)
@@ -512,134 +516,134 @@ public class ScannerActivity extends AppCompatActivity {
         });
     }
 
-//    --------------- kumar----------------
-private void setupProductEditorListeners() {
-    // PRODUCT NAME editor (existing)
-    if (ivEditProduct != null) {
-        ivEditProduct.setOnClickListener(v -> {
-            String current = scannedProduct == null ? "" : scannedProduct.getText().toString();
-            etProductNameEdit.setText(current.equals("-") ? "" : current);
-            productEditLayout.setVisibility(View.VISIBLE);
-            productEditButtons.setVisibility(View.VISIBLE);
-            etProductNameEdit.requestFocus();
-            showKeyboard(etProductNameEdit);
-
-            // hide SKU editor if visible
-            if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
-            if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
-        });
-    }
-
-    if (btnCancelProductEdit != null) {
-        btnCancelProductEdit.setOnClickListener(v -> hideProductEditor());
-    }
-
-    if (btnSaveProduct != null) {
-        btnSaveProduct.setOnClickListener(v -> {
-            String newName = etProductNameEdit.getText() == null ? "" : etProductNameEdit.getText().toString().trim();
-
-            if (newName.isEmpty()) {
-                productEditLayout.setError("Product name cannot be empty");
+    //    --------------- kumar----------------
+    private void setupProductEditorListeners() {
+        // PRODUCT NAME editor (existing)
+        if (ivEditProduct != null) {
+            ivEditProduct.setOnClickListener(v -> {
+                String current = scannedProduct == null ? "" : scannedProduct.getText().toString();
+                etProductNameEdit.setText(current.equals("-") ? "" : current);
+                productEditLayout.setVisibility(View.VISIBLE);
+                productEditButtons.setVisibility(View.VISIBLE);
                 etProductNameEdit.requestFocus();
-                return;
-            }
+                showKeyboard(etProductNameEdit);
 
-            String current = scannedProduct == null ? "" : scannedProduct.getText().toString();
-            if (newName.equals(current)) {
-                hideProductEditor();
-                return;
-            }
-
-            btnSaveProduct.setEnabled(false);
-            productEditLayout.setError(null);
-
-            // Use unified API call: pass productName, null sku
-            saveProductFields(lastScannedTagId, newName, null, () -> {
-                // onSuccess callback - already handled inside saveProductFields; nothing needed
-            }, (errorMsg) -> {
-                // onError callback - re-enable button
-                runOnUiThread(() -> {
-                    btnSaveProduct.setEnabled(true);
-                    productEditLayout.setError(errorMsg);
-                });
-            });
-        });
-    }
-
-    // IME action for product name
-    etProductNameEdit.setOnEditorActionListener((v, actionId, event) -> {
-        if (btnSaveProduct != null) btnSaveProduct.performClick();
-        return true;
-    });
-
-    // ---------------------------
-    // SKU editor listeners
-    // ---------------------------
-    if (ivEditProductSKU != null) {
-        ivEditProductSKU.setOnClickListener(v -> {
-            String currentSku = scannedProductSKU == null ? "" : scannedProductSKU.getText().toString();
-            etProductSkuEdit.setText(currentSku.equals("-") ? "" : currentSku);
-            productSkuEditLayout.setVisibility(View.VISIBLE);
-            productSkuEditButtons.setVisibility(View.VISIBLE);
-            etProductSkuEdit.requestFocus();
-            showKeyboard(etProductSkuEdit);
-
-            // hide product name editor if visible
-            if (productEditLayout != null) productEditLayout.setVisibility(View.GONE);
-            if (productEditButtons != null) productEditButtons.setVisibility(View.GONE);
-        });
-    }
-
-    if (btnCancelSkuEdit != null) {
-        btnCancelSkuEdit.setOnClickListener(v -> {
-            if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
-            if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
-            if (etProductSkuEdit != null) etProductSkuEdit.setText("");
-            hideKeyboard(etProductSkuEdit);
-            if (btnSaveSku != null) btnSaveSku.setEnabled(true);
-        });
-    }
-
-    if (btnSaveSku != null) {
-        btnSaveSku.setOnClickListener(v -> {
-            String newSku = etProductSkuEdit.getText() == null ? "" : etProductSkuEdit.getText().toString().trim();
-
-            if (newSku.isEmpty()) {
-                productSkuEditLayout.setError("SKU cannot be empty");
-                etProductSkuEdit.requestFocus();
-                return;
-            }
-
-            String currentSku = scannedProductSKU == null ? "" : scannedProductSKU.getText().toString();
-            if (newSku.equals(currentSku)) {
-                // nothing changed
+                // hide SKU editor if visible
                 if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
                 if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
-                return;
-            }
+            });
+        }
 
-            btnSaveSku.setEnabled(false);
-            productSkuEditLayout.setError(null);
+        if (btnCancelProductEdit != null) {
+            btnCancelProductEdit.setOnClickListener(v -> hideProductEditor());
+        }
 
-            // Use unified API call: pass sku, null productName
-            saveProductFields(lastScannedTagId, null, newSku, () -> {
-                // on success handled inside saveProductFields
-            }, (errorMsg) -> {
-                // on error re-enable ui
-                runOnUiThread(() -> {
-                    btnSaveSku.setEnabled(true);
-                    productSkuEditLayout.setError(errorMsg);
+        if (btnSaveProduct != null) {
+            btnSaveProduct.setOnClickListener(v -> {
+                String newName = etProductNameEdit.getText() == null ? "" : etProductNameEdit.getText().toString().trim();
+
+                if (newName.isEmpty()) {
+                    productEditLayout.setError("Product name cannot be empty");
+                    etProductNameEdit.requestFocus();
+                    return;
+                }
+
+                String current = scannedProduct == null ? "" : scannedProduct.getText().toString();
+                if (newName.equals(current)) {
+                    hideProductEditor();
+                    return;
+                }
+
+                btnSaveProduct.setEnabled(false);
+                productEditLayout.setError(null);
+
+                // Use unified API call: pass productName, null sku
+                saveProductFields(lastScannedTagId, newName, null, () -> {
+                    // onSuccess callback - already handled inside saveProductFields; nothing needed
+                }, (errorMsg) -> {
+                    // onError callback - re-enable button
+                    runOnUiThread(() -> {
+                        btnSaveProduct.setEnabled(true);
+                        productEditLayout.setError(errorMsg);
+                    });
                 });
             });
-        });
+        }
 
-        // IME action for SKU edit -> press done triggers save
-        etProductSkuEdit.setOnEditorActionListener((v, actionId, event) -> {
-            if (btnSaveSku != null) btnSaveSku.performClick();
+        // IME action for product name
+        etProductNameEdit.setOnEditorActionListener((v, actionId, event) -> {
+            if (btnSaveProduct != null) btnSaveProduct.performClick();
             return true;
         });
+
+        // ---------------------------
+        // SKU editor listeners
+        // ---------------------------
+        if (ivEditProductSKU != null) {
+            ivEditProductSKU.setOnClickListener(v -> {
+                String currentSku = scannedProductSKU == null ? "" : scannedProductSKU.getText().toString();
+                etProductSkuEdit.setText(currentSku.equals("-") ? "" : currentSku);
+                productSkuEditLayout.setVisibility(View.VISIBLE);
+                productSkuEditButtons.setVisibility(View.VISIBLE);
+                etProductSkuEdit.requestFocus();
+                showKeyboard(etProductSkuEdit);
+
+                // hide product name editor if visible
+                if (productEditLayout != null) productEditLayout.setVisibility(View.GONE);
+                if (productEditButtons != null) productEditButtons.setVisibility(View.GONE);
+            });
+        }
+
+        if (btnCancelSkuEdit != null) {
+            btnCancelSkuEdit.setOnClickListener(v -> {
+                if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
+                if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
+                if (etProductSkuEdit != null) etProductSkuEdit.setText("");
+                hideKeyboard(etProductSkuEdit);
+                if (btnSaveSku != null) btnSaveSku.setEnabled(true);
+            });
+        }
+
+        if (btnSaveSku != null) {
+            btnSaveSku.setOnClickListener(v -> {
+                String newSku = etProductSkuEdit.getText() == null ? "" : etProductSkuEdit.getText().toString().trim();
+
+                if (newSku.isEmpty()) {
+                    productSkuEditLayout.setError("SKU cannot be empty");
+                    etProductSkuEdit.requestFocus();
+                    return;
+                }
+
+                String currentSku = scannedProductSKU == null ? "" : scannedProductSKU.getText().toString();
+                if (newSku.equals(currentSku)) {
+                    // nothing changed
+                    if (productSkuEditLayout != null) productSkuEditLayout.setVisibility(View.GONE);
+                    if (productSkuEditButtons != null) productSkuEditButtons.setVisibility(View.GONE);
+                    return;
+                }
+
+                btnSaveSku.setEnabled(false);
+                productSkuEditLayout.setError(null);
+
+                // Use unified API call: pass sku, null productName
+                saveProductFields(lastScannedTagId, null, newSku, () -> {
+                    // on success handled inside saveProductFields
+                }, (errorMsg) -> {
+                    // on error re-enable ui
+                    runOnUiThread(() -> {
+                        btnSaveSku.setEnabled(true);
+                        productSkuEditLayout.setError(errorMsg);
+                    });
+                });
+            });
+
+            // IME action for SKU edit -> press done triggers save
+            etProductSkuEdit.setOnEditorActionListener((v, actionId, event) -> {
+                if (btnSaveSku != null) btnSaveSku.performClick();
+                return true;
+            });
+        }
     }
-}
 
     private void startRFIDScan() {
         if (mDevice == null) {
@@ -772,7 +776,6 @@ private void setupProductEditorListeners() {
             }
         });
     }
-
 
     private void displayProductDetails(String tagId, Product product) {
         if (product == null) return;
@@ -1014,7 +1017,13 @@ private void setupProductEditorListeners() {
         if (qcIsFail && stageKey != null) {
             populateDefectsForStage(stageKey);
             if (defectsCard != null) defectsCard.setVisibility(View.VISIBLE);
-            if (rejectBtn != null) rejectBtn.setEnabled(true);
+            if (rejectBtn != null){
+                if ("packaging".equalsIgnoreCase(selectedProduct.getLatestStage())){
+                    rejectBtn.setEnabled(false);
+                }else{
+                    rejectBtn.setEnabled(true);
+                }
+            }
             if (updateStageBtn != null) updateStageBtn.setEnabled(false);
         } else {
             if (defectsCard != null) defectsCard.setVisibility(View.GONE);
@@ -1121,6 +1130,15 @@ private void setupProductEditorListeners() {
             qcToSend = selectedQcDisplay.length() > 0 ? selectedQcDisplay : null;
         }
 
+        if ("reprocess".equalsIgnoreCase(selectedStageDisplay)) {
+            SnackbarHelper.showTopCenter(
+                    this,
+                    "❌ Invalid Stage Selected",
+                    false
+            );
+            return;
+        }
+
         List<String> selectedDefects = new ArrayList<>();
         if (llDefectsContainer != null) {
             int childCount = llDefectsContainer.getChildCount();
@@ -1154,6 +1172,20 @@ private void setupProductEditorListeners() {
             return;
         }
 
+        if (qcText.equalsIgnoreCase("RETURN")) {
+            SnackbarHelper.showTopCenter(ScannerActivity.this, "❌ Already in RETURN status", false);
+            return;
+        }
+        String selectedStage = scannedStage.getText() == null ? "" : scannedStage.getText().toString().trim();
+        if ("reprocess".equalsIgnoreCase(selectedStage)) {
+            SnackbarHelper.showTopCenter(
+                    this,
+                    "❌ Invalid Stage Selected.",
+                    false
+            );
+            return;
+        }
+
         if (scanStatusText != null) {
             scanStatusText.setText("Updating stage...");
             scanStatusText.setVisibility(View.VISIBLE);
@@ -1174,7 +1206,19 @@ private void setupProductEditorListeners() {
                         TagResponse body = response.body();
                         if (body.isSuccess()) {
                             // ✅ Success path
-                            selectedProduct = body.getProduct();
+                            final Product productToPrint = body.getProduct();
+
+                            if (productToPrint == null) {
+                                // server returned success but no product — avoid print races and show info
+                                Log.e("PRINT_ERROR", "Stage updated but product is NULL from server");
+                                SnackbarHelper.showTopCenter(ScannerActivity.this, "✔ Stage updated (no product returned)", true);
+                                // update UI conservatively: clear UI to avoid showing stale product
+                                mainHandler.post(() -> clearUI());
+                                return;
+                            }
+
+                            // update UI model AFTER capturing print product
+                            selectedProduct = productToPrint;
 
                             // If this update was a REWORK from the failed card, clear UI immediately
                             if (qcKey != null && qcKey.equalsIgnoreCase("REWORK")) {
@@ -1187,7 +1231,8 @@ private void setupProductEditorListeners() {
                             // default behavior for other statuses: show updated product
                             displayProductDetails(tagId, selectedProduct);
                             SnackbarHelper.showTopCenter(ScannerActivity.this, "✔ Stage updated successfully", true);
-
+                            // ✅ CLEAR UI AFTER SUCCESS
+                            mainHandler.postDelayed(() -> clearUI(), 1000);
                             // Print label now that update succeeded (only for packaging)
                             List<String> printStages = Arrays.asList(
                                     "packaging",
@@ -1197,9 +1242,16 @@ private void setupProductEditorListeners() {
 
                             if (stageKey != null && printStages.contains(stageKey.toLowerCase())) {
                                 try {
+                                    // productToPrint is non-null here
+
                                     if (printerManager != null && printerManager.isConnected()) {
-                                        showConfirmPrintDialog(selectedProduct);
+                                        // mark dialog shown and show it
+                                        synchronized (printLock) { isPrintDialogShown = true; }
+                                        showConfirmPrintDialog(productToPrint);
                                     } else {
+                                        // mark dialog shown to prevent clearUI racing before we can show dialog
+                                        synchronized (printLock) { isPrintDialogShown = true; }
+
                                         Toast.makeText(ScannerActivity.this,
                                                 "Printer not connected — attempting to connect...",
                                                 Toast.LENGTH_LONG
@@ -1209,13 +1261,46 @@ private void setupProductEditorListeners() {
 
                                         if (printerManager != null) {
                                             bgExecutor.execute(() -> {
-                                                printerManager.connectBluetooth();
-                                                if (printerManager.isConnected()) {
-                                                    runOnUiThread(() -> showConfirmPrintDialog(selectedProduct));
-                                                } else {
-                                                    Log.d("PRINT_ERROR", "Reconnect attempt failed");
+                                                boolean connected = false;
+                                                try {
+                                                    // Try to initiate a connect (may be async depending on your PrinterManager)
+                                                    try {
+                                                        printerManager.connectBluetooth();
+                                                    } catch (Exception connEx) {
+                                                        Log.w("PRINT_ERROR", "connectBluetooth threw: " + connEx.getMessage(), connEx);
+                                                    }
+
+                                                    // Poll for connection up to ~5 seconds (10 * 500ms)
+                                                    int attempts = 0;
+                                                    while (attempts < 10) {
+                                                        if (printerManager.isConnected()) {
+                                                            connected = true;
+                                                            break;
+                                                        }
+                                                        try { Thread.sleep(500); } catch (InterruptedException ignored) { break; }
+                                                        attempts++;
+                                                    }
+
+                                                    if (connected) {
+                                                        Log.d("PRINT", "Printer connected after reconnect attempts");
+                                                        runOnUiThread(() -> showConfirmPrintDialog(productToPrint));
+                                                    } else {
+                                                        Log.d("PRINT_ERROR", "Reconnect attempt failed after polling");
+                                                        runOnUiThread(() -> Toast.makeText(ScannerActivity.this,
+                                                                "Failed to connect to printer", Toast.LENGTH_LONG).show());
+                                                        // clear guard so UI can be cleared later
+                                                        synchronized (printLock) { isPrintDialogShown = false; }
+                                                    }
+                                                } catch (Exception e) {
+                                                    Log.e("PRINT_ERROR", "Background connect exception: " + e.getMessage(), e);
+                                                    runOnUiThread(() -> Toast.makeText(ScannerActivity.this,
+                                                            "Printer reconnect error: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                                                    synchronized (printLock) { isPrintDialogShown = false; }
                                                 }
                                             });
+                                        } else {
+                                            // no printer manager
+                                            synchronized (printLock) { isPrintDialogShown = false; }
                                         }
                                     }
                                 } catch (Exception e) {
@@ -1224,11 +1309,24 @@ private void setupProductEditorListeners() {
                                             "Failed to print label: " + e.getMessage(),
                                             Toast.LENGTH_LONG
                                     ).show();
+                                    // ensure guard cleared on unexpected error
+                                    synchronized (printLock) { isPrintDialogShown = false; }
                                 }
                             }
 
+
+
                             if (updateStageBtn != null) updateStageBtn.setEnabled(false);
-                            mainHandler.postDelayed(() -> clearUI(), 1000);
+                            mainHandler.postDelayed(() -> {
+                                synchronized (printLock) {
+                                    if (!isPrintDialogShown) {
+                                        clearUI();
+                                    } else {
+                                        Log.d("UI_CLEAR", "Skipping clearUI because print dialog is shown");
+                                    }
+                                }
+                            }, 1000);
+
                             return;
                         } else {
                             // success=false returned inside 2xx response (common in your backend)
@@ -1348,9 +1446,7 @@ private void setupProductEditorListeners() {
         if (failedResultCard != null) failedResultCard.setVisibility(View.GONE);
 
         // Hide print icons (no product to print)
-//        if (ivCardPrint != null) ivCardPrint.setVisibility(View.GONE);
-        if (ivCardPrint != null) ivCardPrint.setVisibility(View.VISIBLE);
-//        if (ivFailedCardPrint != null) ivFailedCardPrint.setVisibility(View.GONE);
+        if (ivCardPrint != null) ivCardPrint.setVisibility(View.GONE);
 
         // Show clear button so user can manually clear if needed
         if (ivCardClear != null) ivCardClear.setVisibility(View.VISIBLE);
@@ -1633,6 +1729,9 @@ private void setupProductEditorListeners() {
             // If we already have a canonical key (like "packaging"), check it directly
             if ("packaging".equalsIgnoreCase(s)) {
                 hideEditors = true;
+                scannedStage.setEnabled(false);
+                scannedQcStatus.setEnabled(false);
+                rejectBtn.setEnabled(false);
             } else {
                 // Otherwise try to convert display -> key using lastStagesMap
                 String possibleKey = getKeyForValue(lastStagesMap, s);
@@ -1782,44 +1881,59 @@ private void setupProductEditorListeners() {
         updateStageBtn.setEnabled(false);
     }
 
-    private void showConfirmPrintDialog(Product product) {
+    private void showConfirmPrintDialog(final Product product) {
+        if (product == null) {
+            Toast.makeText(this, "Product not available. Cannot print.", Toast.LENGTH_SHORT).show();
+            Log.w("PRINT_BLOCKED", "Product is null, print skipped");
+            return;
+        }
 
-        new androidx.appcompat.app.AlertDialog.Builder(this)
+        // mark dialog shown
+        synchronized (printLock) { isPrintDialogShown = true; }
+
+        androidx.appcompat.app.AlertDialog dlg = new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Confirm Print")
                 .setMessage("Do you want to take print?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    try {
-
-                        // If product is not available → send test print values
-                        String qaCode         = product != null ? product.getQAcode()       : "TEST";
-                        String productName    = product != null ? product.getProductName()   : "TEST PRINT";
-                        String size           = product != null ? product.getSize()          : "-";
-                        String stage          = product != null ? product.getLatestStage()   : "-";
-                        String status         = product != null ? product.getLatestStatus()  : "-";
-                        String sku            = product != null ? product.getSku()           : "-";
-                        String referenceCode  = product != null ? product.getReferenceCode() : "-";
-
-                        // Now always print (normal or test)
-                        printerManager.printProductLabel(
-                                qaCode,
-                                productName,
-                                size,
-                                stage,
-                                status,
-                                sku,
-                                referenceCode
-                        );
-
-                        Log.d("PRINT_SUCCESS", "Label printed successfully");
-
-                    } catch (Exception e) {
-                        Log.e("PRINT_ERROR", "Failed to print: " + e.getMessage(), e);
-                        Toast.makeText(this, "Print failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    // run actual print on background thread to avoid blocking UI
+                    bgExecutor.execute(() -> {
+                        try {
+                            printerManager.printProductLabel(
+                                    product.getQAcode(),
+                                    product.getProductName(),
+                                    product.getSize(),
+                                    product.getLatestStage(),
+                                    product.getLatestStatus(),
+                                    product.getSku(),
+                                    product.getReferenceCode()
+                            );
+                            Log.d("PRINT_SUCCESS", "Label printed successfully for QA: " + product.getQAcode());
+                        } catch (Exception e) {
+                            Log.e("PRINT_ERROR", "Failed to print", e);
+                            runOnUiThread(() -> Toast.makeText(ScannerActivity.this,
+                                    "Print failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                        }
+                    });
                 })
                 .setNegativeButton("No", null)
-                .show();
+                .create();
+
+        dlg.setOnDismissListener(dialog -> {
+            // clear flag and then (if needed) perform UI clear which might have been delayed earlier
+            synchronized (printLock) { isPrintDialogShown = false; }
+            mainHandler.post(() -> {
+                // If UI clear wasn't performed earlier because dialog was open, clear now.
+                // Only clear if product is not currently being displayed as selected (safety).
+                if (selectedProduct == null || !Objects.equals(selectedProduct.getQAcode(), product.getQAcode())) {
+                    clearUI();
+                }
+            });
+        });
+
+        dlg.show();
     }
+
+
 
     private void populateDefectsReadOnly(String stageKey, List<String> defectKeys) {
         if (llDefectsContainer == null) return;
@@ -1883,14 +1997,14 @@ private void setupProductEditorListeners() {
         float density = getResources().getDisplayMetrics().density;
         return Math.round(dp * density);
     }
-//-------------------kumar----------------------
-private void hideProductEditor() {
-    if (productEditLayout != null) productEditLayout.setVisibility(View.GONE);
-    if (productEditButtons != null) productEditButtons.setVisibility(View.GONE);
-    if (etProductNameEdit != null) etProductNameEdit.setText("");
-    hideKeyboard(etProductNameEdit);
-    if (btnSaveProduct != null) btnSaveProduct.setEnabled(true);
-}
+    //-------------------kumar----------------------
+    private void hideProductEditor() {
+        if (productEditLayout != null) productEditLayout.setVisibility(View.GONE);
+        if (productEditButtons != null) productEditButtons.setVisibility(View.GONE);
+        if (etProductNameEdit != null) etProductNameEdit.setText("");
+        hideKeyboard(etProductNameEdit);
+        if (btnSaveProduct != null) btnSaveProduct.setEnabled(true);
+    }
 
     /* Keyboard helpers */
     private void showKeyboard(View v) {

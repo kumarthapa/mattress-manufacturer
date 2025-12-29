@@ -44,9 +44,11 @@ public class PrinterManager {
             "DC:0D:30:1F:65:BD",   // DCode DC-3M (example) TSPL
             "DC:0D:30:1F:63:10",   // DCode DC-3M (example) TSPL
             "DC:0D:30:1F:63:E7",   // DCode DC-3M (example) TSPL
+            "DC:0D:30:1F:62:F1",   // DCode DC-3M (example) TSPL ------- new
             "00:32:04:81:17:45",  // CC3 ZPL
             "00:40:43:37:68:21",  // CC3 ZPL
             "C0:40:43:37:68:21",  // CC3 ZPL
+            "00:42:18:85:58:42",  // CC3 ZPL
             "44:B7:D0:2B:FC:D6",  // Desktop printer --- New
     };
     // ---------------------------------------------------------------------
@@ -102,9 +104,11 @@ public class PrinterManager {
             predefined.put("DC:0D:30:1F:65:BD", LANG_TSPL);     // DCode DC-3M
             predefined.put("DC:0D:30:1F:63:10", LANG_TSPL);     // DCode DC-3M
             predefined.put("DC:0D:30:1F:63:E7", LANG_TSPL);     // DCode DC-3M -----------
+            predefined.put("DC:0D:30:1F:62:F1", LANG_TSPL);     // DCode DC-3M -----------new
             predefined.put("00:32:04:81:17:45", LANG_ZPL);      // CC3 ZPL
             predefined.put("00:40:43:37:68:21", LANG_ZPL);      // CC3 ZPL
             predefined.put("C0:40:43:37:68:21", LANG_ZPL);      // CC3 ZPL
+            predefined.put("00:42:18:85:58:42", LANG_ZPL);      // CC3 ZPL
             predefined.put("44:B7:D0:2B:FC:D6", LANG_AUTO);      // Desktop printer -- new
 
             //predefined.put("11:22:33:44:55:66", LANG_ESC);      // Generic thermal receipt
@@ -394,7 +398,16 @@ public class PrinterManager {
     /**
      * ZPL generator (keeps your existing layout)
      */
-    private String generateProductLabelZPL(String qaCode, String productName, String size, String stage, String status, String sku, String referenceCode) {
+    // ---------------------- MEDIUM BOLD ----------------------------
+    private String generateProductLabelZPL(
+            String qaCode,
+            String productName,
+            String size,
+            String stage,
+            String status,
+            String sku,
+            String referenceCode
+    ) {
         qaCode = qaCode == null ? "" : qaCode;
         productName = productName == null ? "" : productName;
         size = size == null ? "" : size;
@@ -402,24 +415,86 @@ public class PrinterManager {
         referenceCode = referenceCode == null ? "" : referenceCode;
 
         return "^XA" +
-                // Make text appear bolder
-                "^MD30" +
 
-                // QA Code — full left, font size 30
+                // 🔥 Ultra dark print (safe range)
+                "^MD40" +
+
+                // ================= QA CODE =================
                 "^FO50,40^A0N,30,30^FD" + escapeZpl(qaCode) + "^FS" +
+                "^FO51,40^A0N,30,30^FD" + escapeZpl(qaCode) + "^FS" +
 
-                // QR Code (left side) — SMALL: model 2, magnification 3
-                // Include QA, prefix to ensure full QA encoded
+                // ================= QR CODE =================
                 "^FO50,120^BQN,2,3^FDQA," + escapeZpl(qaCode) + "^FS" +
 
-                // All product detail text fields at FO200 with same font size (30) and bold appearance
+                // ================= NAME =================
                 "^FO160,120^A0N,30,30^FDName: " + escapeZpl(productName) + "^FS" +
+                "^FO161,120^A0N,30,30^FDName: " + escapeZpl(productName) + "^FS" +
+
+                // ================= SIZE =================
                 "^FO160,170^A0N,30,30^FDSize: " + escapeZpl(size) + "^FS" +
+                "^FO161,170^A0N,30,30^FDSize: " + escapeZpl(size) + "^FS" +
+
+                // ================= SKU =================
                 "^FO160,220^A0N,30,30^FDSKU: " + escapeZpl(sku) + "^FS" +
+                "^FO161,220^A0N,30,30^FDSKU: " + escapeZpl(sku) + "^FS" +
+
+                // ================= REF CODE =================
                 "^FO160,270^A0N,30,30^FDRef Code: " + escapeZpl(referenceCode) + "^FS" +
+                "^FO161,270^A0N,30,30^FDRef Code: " + escapeZpl(referenceCode) + "^FS" +
 
                 "^XZ";
     }
+// ---------------------- UlTRA BOLD ----------------------------
+//    private String generateProductLabelZPL(
+//            String qaCode,
+//            String productName,
+//            String size,
+//            String stage,
+//            String status,
+//            String sku,
+//            String referenceCode
+//    ) {
+//        qaCode = qaCode == null ? "" : qaCode;
+//        productName = productName == null ? "" : productName;
+//        size = size == null ? "" : size;
+//        sku = sku == null ? "" : sku;
+//        referenceCode = referenceCode == null ? "" : referenceCode;
+//
+//        return "^XA" +
+//
+//                // 🔥 Maximum safe darkness (203 DPI printers)
+//                "^MD42" +
+//
+//                // ================= QA CODE =================
+//                "^FO50,40^A0N,30,30^FD" + escapeZpl(qaCode) + "^FS" +
+//                "^FO51,40^A0N,30,30^FD" + escapeZpl(qaCode) + "^FS" +
+//                "^FO52,40^A0N,30,30^FD" + escapeZpl(qaCode) + "^FS" +
+//
+//                // ================= QR CODE =================
+//                "^FO50,120^BQN,2,3^FDQA," + escapeZpl(qaCode) + "^FS" +
+//
+//                // ================= NAME =================
+//                "^FO160,120^A0N,30,30^FDName: " + escapeZpl(productName) + "^FS" +
+//                "^FO161,120^A0N,30,30^FDName: " + escapeZpl(productName) + "^FS" +
+//                "^FO162,120^A0N,30,30^FDName: " + escapeZpl(productName) + "^FS" +
+//
+//                // ================= SIZE =================
+//                "^FO160,170^A0N,30,30^FDSize: " + escapeZpl(size) + "^FS" +
+//                "^FO161,170^A0N,30,30^FDSize: " + escapeZpl(size) + "^FS" +
+//                "^FO162,170^A0N,30,30^FDSize: " + escapeZpl(size) + "^FS" +
+//
+//                // ================= SKU =================
+//                "^FO160,220^A0N,30,30^FDSKU: " + escapeZpl(sku) + "^FS" +
+//                "^FO161,220^A0N,30,30^FDSKU: " + escapeZpl(sku) + "^FS" +
+//                "^FO162,220^A0N,30,30^FDSKU: " + escapeZpl(sku) + "^FS" +
+//
+//                // ================= REF CODE =================
+//                "^FO160,270^A0N,30,30^FDRef Code: " + escapeZpl(referenceCode) + "^FS" +
+//                "^FO161,270^A0N,30,30^FDRef Code: " + escapeZpl(referenceCode) + "^FS" +
+//                "^FO162,270^A0N,30,30^FDRef Code: " + escapeZpl(referenceCode) + "^FS" +
+//
+//                "^XZ";
+//    }
 
     private String escapeZpl(String s) {
         if (s == null) return "";
