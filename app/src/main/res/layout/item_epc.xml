@@ -8,7 +8,7 @@
 
         <variable
             name="handler"
-            type="com.sleepcompany.rfidapp.InventoryFragment.HandlerClick" />
+            type="com.galla.rfidapp.InventoryFragment.HandlerClick" />
 
 
     </data>

@@ -1,4 +1,4 @@
-com.sleepcompany.rfidapp.test
+com.galla.rfidapp.test
 string app_name
 style WhiteBackgroundDialogTheme
 style WhiteBackgroundTheme

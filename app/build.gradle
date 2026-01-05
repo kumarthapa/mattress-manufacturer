@@ -4,12 +4,12 @@ plugins {
 
 android {
     // Use centralized properties from gradle.properties
-    namespace findProperty('app.namespace') ?: 'com.sleepcompany.rfidapp'
+    namespace findProperty('app.namespace') ?: 'com.galla.rfidapp'
     compileSdk  35
 
     defaultConfig {
         // Application ID (Package Name) from gradle.properties
-        applicationId findProperty('app.packageName') ?: 'com.sleepcompany.rfidapp'
+        applicationId findProperty('app.packageName') ?: 'com.galla.rfidapp'
 
         // SDK versions from gradle.properties
         minSdk findProperty('app.minSdk') as Integer ?: 27

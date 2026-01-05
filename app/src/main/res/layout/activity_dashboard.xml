@@ -256,7 +256,7 @@
                                 android:layout_height="48dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_weight="1"
-                                android:text="View Products"
+                                android:text="View Items"
                                 android:textAllCaps="false"
                                 app:icon="@drawable/ic_products"
                                 app:iconGravity="textStart"

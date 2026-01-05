@@ -1,4 +1,4 @@
-com.sleepcompany.rfidapp
+com.galla.rfidapp
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -3264,6 +3264,8 @@ id TOP_START
 id acPrinter
 id acPrinterLang
 id acRfidPower
+id acStage
+id acStatus
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -3374,6 +3376,7 @@ id btnScanRFID
 id btnScanSingleTag
 id btnSearch
 id btnTestPower
+id btnUpdateStage
 id btnViewProducts
 id btnWrite
 id btn_map
@@ -3528,8 +3531,10 @@ id info
 id inventoryCard
 id invisible
 id inward
+id inwardBtn
 id italic
 id item_touch_helper_previous_elevation
+id items_inventory
 id jumpToEnd
 id jumpToStart
 id label_map
@@ -3538,6 +3543,7 @@ id lastActivityDate
 id lastActivityStock
 id lastActivityType
 id launchLogo
+id laundry_tage_control
 id layout
 id left
 id leftToRight
@@ -3586,6 +3592,7 @@ id matrix
 id message
 id middle
 id mini
+id modeSwitch
 id monthTotalCard
 id month_grid
 id month_navigation_bar
@@ -3623,10 +3630,8 @@ id nav_dashboard
 id nav_host_fragment_container
 id nav_logout
 id nav_products
-id nav_rfid_scan
 id nav_settings
 id nav_view
-id nav_write_tags
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3666,6 +3671,7 @@ id open_search_view_toolbar
 id open_search_view_toolbar_container
 id outline
 id outward
+id outwardBtn
 id overshoot
 id packed
 id parallax
@@ -3801,6 +3807,7 @@ id tag_accessibility_actions
 id tag_accessibility_clickable_spans
 id tag_accessibility_heading
 id tag_accessibility_pane_title
+id tag_mapping
 id tag_on_apply_window_listener
 id tag_on_receive_content_listener
 id tag_on_receive_content_mime_types
@@ -3833,6 +3840,8 @@ id textinput_prefix_text
 id textinput_suffix_text
 id tilExtra
 id tilPrinterLang
+id tilStage
+id tilStatus
 id time
 id title
 id titleDividerNoCustom
@@ -3865,6 +3874,7 @@ id tvDeviceName
 id tvEfficiency
 id tvInventorySummary
 id tvInward
+id tvItem
 id tvLastActivity
 id tvLastActivityType
 id tvNoResults
@@ -3884,7 +3894,6 @@ id tvScannedCount
 id tvScannedTag
 id tvSku
 id tvStageStatus
-id tvStatus
 id tvTag
 id tvTagEpc
 id tvTitleModel
@@ -4046,6 +4055,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_dashboard
+layout activity_inventory
 layout activity_launcher
 layout activity_login
 layout activity_main
@@ -4080,6 +4090,7 @@ layout fragment_settings
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_bluetooth_device
+layout item_dropdown
 layout item_epc
 layout item_mapped_product
 layout item_product

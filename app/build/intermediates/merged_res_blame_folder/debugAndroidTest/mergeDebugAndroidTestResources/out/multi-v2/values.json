@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.sleepcompany.rfidapp.test.app-mergeDebugAndroidTestResources-2:/values/values.xml",
+            "outputFile": "com.galla.rfidapp.test.app-mergeDebugAndroidTestResources-2:/values/values.xml",
             "map": [
                 {
-                    "source": "/home/treewalker/treewalker/RFIDApp/SleepCompanyTrackerApp/app/build/generated/res/resValues/androidTest/debug/values/gradleResValues.xml",
+                    "source": "/home/treewalker/treewalker/loundryApp/loundryApp/app/build/generated/res/resValues/androidTest/debug/values/gradleResValues.xml",
                     "from": {
                         "startLines": "6",
                         "startColumns": "4",

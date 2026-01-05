@@ -4,11 +4,11 @@
     <data>
         <variable
             name="vm"
-            type="com.sleepcompany.rfidapp.SettingViewModel" />
+            type="com.galla.rfidapp.SettingViewModel" />
 
         <variable
             name="listener"
-            type="com.sleepcompany.rfidapp.SettingsFragment.HandlerClick" />
+            type="com.galla.rfidapp.SettingsFragment.HandlerClick" />
 
     </data>
 

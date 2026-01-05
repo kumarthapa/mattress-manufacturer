@@ -96,6 +96,8 @@ drawable weibolist_bottombar_itembg_selector
 id acPrinter
 id acPrinterLang
 id acRfidPower
+id acStage
+id acStatus
 id appBar
 id approveQCBtn
 id bt_clear
@@ -119,6 +121,7 @@ id btnScanRFID
 id btnScanSingleTag
 id btnSearch
 id btnTestPower
+id btnUpdateStage
 id btnViewProducts
 id btnWrite
 id btn_map
@@ -143,11 +146,14 @@ id et_power
 id et_region
 id et_temperature
 id inventoryCard
+id inwardBtn
+id items_inventory
 id label_map
 id lastActivityDate
 id lastActivityStock
 id lastActivityType
 id launchLogo
+id laundry_tage_control
 id licenseInput
 id loading_message
 id loginBtn
@@ -156,14 +162,14 @@ id logoImage
 id logoSection
 id lv_id
 id mapTagsBtn
+id modeSwitch
 id monthTotalCard
 id nav_dashboard
 id nav_logout
 id nav_products
-id nav_rfid_scan
 id nav_settings
 id nav_view
-id nav_write_tags
+id outwardBtn
 id passwordInput
 id passwordLayout
 id productCategory
@@ -202,12 +208,15 @@ id stagesTimelineLayout
 id startScanBtn
 id swipeRefresh
 id tagMapping
+id tag_mapping
 id tagtype
 id text1
 id textPercent
 id textTitle
 id tilExtra
 id tilPrinterLang
+id tilStage
+id tilStatus
 id toolbar
 id toolbar_settings
 id totalProductionCard
@@ -221,6 +230,7 @@ id tvDeviceName
 id tvEfficiency
 id tvInventorySummary
 id tvInward
+id tvItem
 id tvLastActivity
 id tvLastActivityType
 id tvNoResults
@@ -240,7 +250,6 @@ id tvScannedCount
 id tvScannedTag
 id tvSku
 id tvStageStatus
-id tvStatus
 id tvTag
 id tvTagEpc
 id tvTitleModel
@@ -262,6 +271,7 @@ id tv_version
 id usernameInput
 id usernameLayout
 layout activity_dashboard
+layout activity_inventory
 layout activity_launcher
 layout activity_login
 layout activity_main
@@ -278,6 +288,7 @@ layout dialog_update_download
 layout fragment_inventory
 layout fragment_settings
 layout item_bluetooth_device
+layout item_dropdown
 layout item_epc
 layout item_mapped_product
 layout item_product

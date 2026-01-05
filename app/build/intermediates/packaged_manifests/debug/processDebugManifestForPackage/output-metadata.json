@@ -4,15 +4,15 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.sleepcompany.rfidapp.debug",
+  "applicationId": "com.galla.rfidapp.debug",
   "variantName": "debug",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 5,
-      "versionName": "1.0.5-debug",
+      "versionCode": 1,
+      "versionName": "1.0.1-debug",
       "outputFile": "AndroidManifest.xml"
     }
   ],
