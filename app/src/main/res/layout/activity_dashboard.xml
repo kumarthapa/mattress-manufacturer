@@ -4,291 +4,135 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <!-- CoordinatorLayout (Toolbar + Content) -->
+    <!-- MAIN CONTENT -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- AppBar -->
+        <!-- APP BAR -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/sc_primary"
-                app:titleTextColor="@android:color/white"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
+                app:title="Dashboard"
+                style="@style/Widget.Material3.Toolbar"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Scrollable Content -->
-        <androidx.core.widget.NestedScrollView
+        <!-- CONTENT -->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:fillViewport="true">
+            android:padding="16dp"
+            android:background="?colorSurfaceVariant"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="vertical">
 
-                <!-- Update Banner -->
-                <TextView
-                    android:id="@+id/tvUpdateBanner"
+
+                <!-- KPI GRID -->
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="#F44336"
-                    android:textColor="#FFFFFF"
-                    android:text="Update available — tap to update"
+                    android:columnCount="2"
+                    android:useDefaultMargins="true">
+
+                    <include
+                        android:id="@+id/kpiTotalStock"
+                        layout="@layout/item_kpi_material"/>
+
+                    <include
+                        android:id="@+id/kpiTotalSkus"
+                        layout="@layout/item_kpi_material"/>
+
+                    <include
+                        android:id="@+id/kpiAudited"
+                        layout="@layout/item_kpi_material"/>
+
+                    <include
+                        android:id="@+id/kpiVariance"
+                        layout="@layout/item_kpi_material"/>
+                </GridLayout>
+
+                <!-- SECTION TITLE -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Last Audit Report"
                     android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:visibility="gone"/>
+                    android:textSize="18sp"
+                    android:textColor="?colorOnSurface"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp"/>
 
-                <!-- KPI GRID (2x2) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp">
-
-                    <!-- TOTAL TAGS -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/totalProductionCard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/efficiencyCard"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:orientation="vertical"
-                            android:padding="14dp">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tvTotalProduction"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textSize="28sp"
-                                android:textStyle="bold" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Tags"
-                                android:textSize="12sp"
-                                android:layout_marginTop="6dp"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- INWARD / OUTWARD -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/efficiencyCard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintStart_toEndOf="@id/totalProductionCard"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:orientation="vertical"
-                            android:padding="14dp">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tvEfficiency"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0 / 0"
-                                android:textSize="28sp"
-                                android:textStyle="bold" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Inward / Outward"
-                                android:textSize="12sp"
-                                android:layout_marginTop="6dp"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- TOTAL PRODUCTS -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/monthTotalCard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/totalProductionCard"
-                        app:layout_constraintEnd_toStartOf="@id/inventoryCard"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:orientation="vertical"
-                            android:padding="14dp">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tvTotalMonth"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textSize="28sp"
-                                android:textStyle="bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Products"
-                                android:textSize="12sp"
-                                android:layout_marginTop="6dp"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- TAG MAPPING SUMMARY -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/inventoryCard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="12dp"
-                        app:layout_constraintStart_toEndOf="@id/monthTotalCard"
-                        app:layout_constraintTop_toBottomOf="@id/efficiencyCard"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:orientation="vertical"
-                            android:padding="14dp">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tvInventorySummary"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0 mapped / 0 unmapped"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Mapped / Unmapped Tags"
-                                android:textSize="12sp"
-                                android:layout_marginTop="6dp"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <!-- Quick Navigation -->
+                <!-- TABLE CARD -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp">
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp"
+                    android:backgroundTint="?colorSurface">
 
-                    <LinearLayout
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                        android:stretchColumns="*">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:text="Quick Navigation"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="12dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        <!-- HEADER -->
+                        <TableRow
+                            android:background="?colorPrimaryContainer">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_marginBottom="12dp">
+                            <TextView
+                                style="@style/TableHeader"
+                                android:text="Audit Date"/>
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnScanRFID"
-                                android:layout_width="0dp"
-                                android:layout_height="48dp"
-                                android:layout_weight="1"
-                                android:text="Scan RFID"
-                                android:textAllCaps="false"
-                                app:icon="@drawable/ic_rfid_tag_scan"
-                                app:iconGravity="textStart"
-                                app:iconPadding="8dp"
-                                app:cornerRadius="8dp"/>
+                            <TextView
+                                style="@style/TableHeader"
+                                android:text="Items Audited"/>
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnViewProducts"
-                                android:layout_width="0dp"
-                                android:layout_height="48dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_weight="1"
-                                android:text="View Products"
-                                android:textAllCaps="false"
-                                app:icon="@drawable/ic_products"
-                                app:iconGravity="textStart"
-                                app:iconPadding="8dp"
-                                app:cornerRadius="8dp"/>
-                        </LinearLayout>
+                            <TextView
+                                style="@style/TableHeader"
+                                android:text="Variance"/>
+                        </TableRow>
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/tagMapping"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:text="Tag Mapping"
-                            android:textAllCaps="false"
-                            app:icon="@drawable/ic_rfid_tag_scan"
-                            app:iconGravity="textStart"
-                            app:iconPadding="8dp"
-                            app:cornerRadius="8dp"/>
-                    </LinearLayout>
+                        <!-- ROW 1 -->
+                        <TableRow android:background="?colorSurface">
+                            <TextView style="@style/TableCell" android:text="22 Dec 2025"/>
+                            <TextView style="@style/TableCell" android:text="100"/>
+                            <TextView style="@style/TableCell" android:text="+12"/>
+                        </TableRow>
+
+                        <!-- ROW 2 -->
+                        <TableRow android:background="?colorSurface">
+                            <TextView style="@style/TableCell" android:text="22 Dec 2025"/>
+                            <TextView style="@style/TableCell" android:text="100"/>
+                            <TextView style="@style/TableCell" android:text="+12"/>
+                        </TableRow>
+
+                    </TableLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- Navigation Drawer -->
+    <!-- DRAWER -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

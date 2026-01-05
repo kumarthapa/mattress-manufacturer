@@ -7,51 +7,46 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- Main content -->
+    <!-- MAIN CONTENT -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- App Bar -->
+        <!-- APP BAR -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Production Tracking"
-                app:titleTextColor="?attr/colorOnSurface"
+                app:title="Items"
                 app:navigationIcon="@drawable/ic_menu_24dp"
                 style="@style/Widget.Material3.Toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- SwipeRefreshLayout wrapping the main content -->
+        <!-- CONTENT -->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Use vertical LinearLayout: header + fixed search + label + RecyclerView (fill) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:background="?attr/colorSurfaceVariant">
+                android:padding="16dp">
 
-                <!-- Header card (fixed) -->
+                <!-- HEADER CARD -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    app:cardElevation="2dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceContainer">
+                    app:cardElevation="2dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -69,28 +64,23 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Production Overview"
+                                android:text="Assets Overview"
                                 android:textAppearance="?attr/textAppearanceHeadlineSmall"
-                                android:textStyle="bold"
-                                android:textColor="?attr/colorOnSurface" />
+                                android:textStyle="bold"/>
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/refreshProducts"
                                 android:layout_width="wrap_content"
                                 android:layout_height="40dp"
-                                android:text="Refresh"
-                                app:icon="@drawable/ic_refresh_24dp"
-                                app:iconGravity="textStart"
-                                android:textAllCaps="false" />
+                                android:text="Refresh"/>
                         </LinearLayout>
 
-                        <!-- Simple stats row (keeps original ids) -->
+                        <!-- STATS -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:layout_marginTop="12dp">
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -104,23 +94,18 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textAppearance="?attr/textAppearanceHeadlineMedium"
-                                    android:textColor="?attr/colorPrimary"
-                                    android:textStyle="bold" />
+                                    android:textAppearance="?attr/textAppearanceHeadlineMedium"/>
 
                                 <com.google.android.material.textview.MaterialTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Total Products"
-                                    android:textAppearance="?attr/textAppearanceBodySmall"
-                                    android:textColor="?attr/colorOnSurfaceVariant" />
-
+                                    android:text="Total Assets"/>
                             </LinearLayout>
 
                             <View
                                 android:layout_width="1dp"
                                 android:layout_height="40dp"
-                                android:background="?attr/colorOutlineVariant" />
+                                android:background="?attr/colorOutline"/>
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -134,104 +119,59 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textAppearance="?attr/textAppearanceHeadlineMedium"
-                                    android:textColor="?attr/colorSecondary"
-                                    android:textStyle="bold" />
+                                    android:textAppearance="?attr/textAppearanceHeadlineMedium"/>
 
                                 <com.google.android.material.textview.MaterialTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Total Tags"
-                                    android:textAppearance="?attr/textAppearanceBodySmall"
-                                    android:textColor="?attr/colorOnSurfaceVariant" />
-
+                                    android:text="Total Tags"/>
                             </LinearLayout>
 
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Search input card (fixed) -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- SEARCH -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    app:cardElevation="1dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="?attr/colorSurface">
+                    android:hint="Search items">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/searchInput"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
-                        android:hint="Search products, SKU..."
-                        app:startIconDrawable="@drawable/ic_search_24dp"
-                        app:endIconMode="clear_text">
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/searchInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLines="1" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Section title (fixed above list) -->
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Production Products"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="?attr/colorOnSurface"
-                    android:layout_marginBottom="8dp" />
-
-                <!-- RecyclerView fills remaining area and scrolls -->
+                <!-- LIST -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/productsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:overScrollMode="always"
-                    android:scrollbars="vertical"
-                    android:clipToPadding="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_weight="1"/>
 
-                <!-- No-results message (shown when empty) -->
+                <!-- EMPTY -->
                 <TextView
                     android:id="@+id/tvNoResults"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No products found."
-                    android:visibility="gone"
+                    android:text="No items found"
                     android:gravity="center"
-                    android:padding="24dp" />
+                    android:visibility="gone"
+                    android:padding="16dp"/>
 
             </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <!-- FAB -->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/scaneTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:text="Scan Tag"
-            app:icon="@drawable/ic_scan" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- Navigation Drawer -->
+    <!-- DRAWER -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

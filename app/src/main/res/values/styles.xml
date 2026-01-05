@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ========================================================= -->
+    <!-- APP THEME (Material 3 - FIXED) -->
+    <!-- ========================================================= -->
+    <style name="Theme.StockAudit" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Primary -->
+        <item name="colorPrimary">@color/sc_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Containers -->
+        <item name="colorPrimaryContainer">@color/light_grey</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
+
+        <!-- Surface -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <item name="colorSurfaceVariant">@color/light_grey</item>
+        <item name="colorOnSurfaceVariant">@color/grey_600</item>
+
+        <!-- Background (Material 3 way) -->
+        <item name="android:colorBackground">@color/light_grey</item>
+
+        <!-- System bars -->
+        <item name="android:statusBarColor">@color/sc_primary</item>
+        <item name="android:navigationBarColor">@color/sc_primary</item>
+
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- TABLE HEADER STYLE -->
+    <!-- ========================================================= -->
+    <style name="TableHeader">
+        <item name="android:padding">12dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorOnPrimaryContainer</item>
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- TABLE CELL STYLE -->
+    <!-- ========================================================= -->
+    <style name="TableCell">
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorOnSurface</item>
+    </style>
+    <!-- circular shape for image -->
+    <style name="ShapeAppearance.Circular" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

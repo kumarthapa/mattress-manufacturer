@@ -8,8 +8,12 @@
 
     <item
         android:id="@+id/nav_products"
-        android:title="Products"
+        android:title="Assets"
         android:icon="@drawable/ic_inventory" />
+<!--    <item-->
+<!--        android:id="@+id/laundry_tage_control"-->
+<!--        android:title="Laundry Process"-->
+<!--        android:icon="@drawable/ic_write" />-->
 
 <!--    <item-->
 <!--        android:id="@+id/nav_quality_control"-->
@@ -17,13 +21,18 @@
 <!--        android:icon="@drawable/ic_quality" />-->
 
     <item
-        android:id="@+id/nav_rfid_scan"
-        android:title="Scan RFID Tag"
+        android:id="@+id/tag_mapping"
+        android:title="Tag Mapping"
         android:icon="@drawable/ic_rfid_tag_scan" />
 
     <item
-        android:id="@+id/nav_write_tags"
-        android:title="Write Tags"
+        android:id="@+id/items_inventory"
+        android:title="Inventory"
+        android:icon="@drawable/ic_rfid_tag_scan" />
+
+    <item
+        android:id="@+id/stock_audit"
+        android:title="Stock Audit"
         android:icon="@drawable/ic_write" />
 
 <!--    <item-->
@@ -36,9 +45,9 @@
         android:title="Settings"
         android:icon="@drawable/ic_settings" />
 
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Logout"
-        android:icon="@drawable/ic_logout" />
+<!--    <item-->
+<!--        android:id="@+id/nav_logout"-->
+<!--        android:title="Logout"-->
+<!--        android:icon="@drawable/ic_logout" />-->
 
 </menu>

@@ -22,7 +22,7 @@
         android:strokeWidth="3"
         android:pathData="M54,54m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0" />
 
-    <!-- Sleep Company Text -->
+    <!-- Galla  App Text -->
     <path
         android:fillColor="@color/white"
         android:pathData="M30,35 L30,45 L45,45 L45,40 L35,40 L35,35 Z

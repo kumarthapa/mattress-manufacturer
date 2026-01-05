@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sleepcompany.rfidapp.debug"
-    android:versionCode="5"
-    android:versionName="1.0.5-debug" >
+    package="com.galla.rfidapp.debug"
+    android:versionCode="1"
+    android:versionName="1.0.1-debug" >
 
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="34" />
 
-    <!-- Permissions -->
+    <!-- ================= PERMISSIONS ================= -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.BLUETOOTH"
@@ -30,7 +31,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <!-- Hardware features -->
+    <!-- ================= FEATURES ================= -->
+
     <uses-feature
         android:name="android.hardware.bluetooth"
         android:required="true" />
@@ -42,13 +44,12 @@
         android:required="false" />
 
     <permission
-        android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.galla.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.sleepcompany.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-
+    <uses-permission android:name="com.galla.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" /> <!-- ================= APPLICATION ================= -->
     <application
-        android:name="com.sleepcompany.rfidapp.MyApp"
+        android:name="com.galla.rfidapp.MyApp"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -61,8 +62,13 @@
         android:testOnly="true"
         android:theme="@style/Theme.GallaRFIDAppTheme"
         android:usesCleartextTraffic="true" >
+
+        <!-- ================================================= -->
+        <!-- 🚀 DIRECT LAUNCH : PRODUCTS (UPDATED) -->
+        <!-- ================================================= -->
+
         <activity
-            android:name="com.sleepcompany.rfidapp.LauncherActivity"
+            android:name="com.galla.rfidapp.DashboardActivity"
             android:exported="true"
             android:theme="@style/Theme.GallaRFIDAppTheme" >
             <intent-filter>
@@ -71,41 +77,67 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.sleepcompany.rfidapp.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.DashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.ProductsActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.ProductDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.ScannerActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.QcActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.sleepcompany.rfidapp.SettingsActivity"
-            android:exported="false" />
 
-        <!-- Newly added -->
+        <!-- ================================================= -->
+        <!-- 📦 INVENTORY (NO LONGER LAUNCHER) -->
+        <!-- ================================================= -->
+
         <activity
-            android:name="com.sleepcompany.rfidapp.TagDetailsActivity"
+            android:name="com.galla.rfidapp.InventoryActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GallaRFIDAppTheme" />
+
+        <!-- ================================================= -->
+        <!-- ⛔ TEMPORARILY DISABLED (LOGIN FLOW) -->
+        <!-- ================================================= -->
+
+
+        <!--
+        <activity
+            android:name=".LauncherActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GallaRFIDAppTheme" />
+        -->
+
+
+        <!--
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        -->
+
+
+        <!-- ================= OTHER SCREENS ================= -->
+
+        <activity
+            android:name="com.galla.rfidapp.ProductsActivity"
             android:exported="false" />
         <activity
-            android:name="com.sleepcompany.rfidapp.BtConfigActivity"
+            android:name="com.galla.rfidapp.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.galla.rfidapp.TagMappingActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.galla.rfidapp.QcActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.galla.rfidapp.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.galla.rfidapp.StockAuditActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.galla.rfidapp.BtConfigActivity"
             android:exported="false"
             android:label="Bluetooth Config"
             android:theme="@style/Theme.GallaRFIDAppTheme" />
 
+        <!-- ================= FILE PROVIDER ================= -->
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.sleepcompany.rfidapp.debug.fileprovider"
+            android:authorities="com.galla.rfidapp.debug.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -114,7 +146,7 @@
         </provider>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.sleepcompany.rfidapp.debug.androidx-startup"
+            android:authorities="com.galla.rfidapp.debug.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

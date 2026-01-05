@@ -1,0 +1,35 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Box outline -->
+    <path
+        android:fillColor="?colorOnSurfaceVariant"
+        android:pathData="
+            M3,7
+            L12,2
+            L21,7
+            L21,17
+            L12,22
+            L3,17
+            Z"/>
+
+    <!-- Box top fold -->
+    <path
+        android:fillColor="?colorSurface"
+        android:pathData="
+            M12,2
+            L3,7
+            L12,12
+            L21,7
+            Z"/>
+
+    <!-- Middle vertical line -->
+    <path
+        android:strokeColor="?colorOnSurfaceVariant"
+        android:strokeWidth="1"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M12,12 L12,22"/>
+</vector>

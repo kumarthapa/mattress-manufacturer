@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.galla.rfidapp">
 
-    <!-- Permissions -->
+    <!-- ================= PERMISSIONS ================= -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
@@ -20,10 +22,13 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <!-- Hardware features -->
+    <!-- ================= FEATURES ================= -->
+
     <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
+
+    <!-- ================= APPLICATION ================= -->
 
     <application
         android:name=".MyApp"
@@ -36,26 +41,56 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GallaRFIDAppTheme">
 
+        <!-- ================================================= -->
+        <!-- 🚀 DIRECT LAUNCH : PRODUCTS (UPDATED) -->
+        <!-- ================================================= -->
+
         <activity
-            android:name=".LauncherActivity"
+            android:name=".DashboardActivity"
             android:exported="true"
             android:theme="@style/Theme.GallaRFIDAppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-        <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".DashboardActivity" android:exported="false" />
-        <activity android:name=".ProductsActivity" android:exported="false" />
+        <!-- ================================================= -->
+        <!-- 📦 INVENTORY (NO LONGER LAUNCHER) -->
+        <!-- ================================================= -->
+
+        <activity
+            android:name=".InventoryActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GallaRFIDAppTheme" />
+
+        <!-- ================================================= -->
+        <!-- ⛔ TEMPORARILY DISABLED (LOGIN FLOW) -->
+        <!-- ================================================= -->
+
+        <!--
+        <activity
+            android:name=".LauncherActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GallaRFIDAppTheme" />
+        -->
+
+        <!--
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        -->
+
+        <!-- ================= OTHER SCREENS ================= -->
+
+         <activity android:name=".ProductsActivity" android:exported="false" />
         <activity android:name=".ProductDetailsActivity" android:exported="false" />
-        <activity android:name=".ScannerActivity" android:exported="false" />
+        <activity android:name=".TagMappingActivity" android:exported="false" />
         <activity android:name=".QcActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false" />
-
-        <!-- Newly added -->
-        <activity android:name=".TagDetailsActivity" android:exported="false" />
+        <activity android:name=".StockAuditActivity" android:exported="false" />
 
         <activity
             android:name=".BtConfigActivity"
@@ -63,11 +98,14 @@
             android:label="Bluetooth Config"
             android:theme="@style/Theme.GallaRFIDAppTheme" />
 
+        <!-- ================= FILE PROVIDER ================= -->
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
+
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
