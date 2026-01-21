@@ -1,5 +1,5 @@
-com.galla.rfidapp.test.app-core-1.6.1-0 /home/treewalker/.gradle/caches/8.12/transforms/eb7061abb8b33b31c4b56c37ef9ca46e/transformed/core-1.6.1/res
-com.galla.rfidapp.test.app-androidTest-1 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/generated/res/resValues/androidTest/debug
-com.galla.rfidapp.test.app-mergeDebugAndroidTestResources-2 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.galla.rfidapp.test.app-mergeDebugAndroidTestResources-3 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.galla.rfidapp.test.app-debugAndroidTest-4 /home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
+com.treewalker.rfidapp.test.app-core-1.6.1-0 /home/treewalker/.gradle/caches/8.12/transforms/eb7061abb8b33b31c4b56c37ef9ca46e/transformed/core-1.6.1/res
+com.treewalker.rfidapp.test.app-androidTest-1 /home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/generated/res/resValues/androidTest/debug
+com.treewalker.rfidapp.test.app-mergeDebugAndroidTestResources-2 /home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.treewalker.rfidapp.test.app-mergeDebugAndroidTestResources-3 /home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.treewalker.rfidapp.test.app-debugAndroidTest-4 /home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

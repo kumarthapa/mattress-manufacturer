@@ -47,46 +47,52 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:orientation="horizontal"
-						android:gravity="center_vertical"
+						android:orientation="vertical"
 						android:layout_marginBottom="12dp">
 
-						<com.google.android.material.button.MaterialButton
-							android:id="@+id/startScanBtn"
-							android:layout_width="0dp"
-							android:layout_height="48dp"
-							android:layout_weight="1.4"
-							android:text="Start Scan"
-							android:icon="@drawable/ic_scan"
-							app:iconGravity="textStart"
-							app:cornerRadius="24dp" />
-
-						<com.google.android.material.materialswitch.MaterialSwitch
-							android:id="@+id/modeSwitch"
+						<!-- Row 1: Start / Stop + progress -->
+						<LinearLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:text="Use Continuous Fast Mode"
-							android:checked="false"
-							android:layout_marginTop="8dp"
-							android:layout_marginBottom="8dp"
-							/>
+							android:orientation="horizontal"
+							android:gravity="center_vertical">
 
-						<com.google.android.material.progressindicator.CircularProgressIndicator
-							android:id="@+id/scanProgress"
-							android:layout_width="40dp"
-							android:layout_height="40dp"
-							android:layout_marginStart="12dp"
-							android:visibility="gone"
-							app:indicatorSize="40dp"
-							app:trackThickness="4dp" />
+							<com.google.android.material.button.MaterialButton
+								android:id="@+id/startScanBtn"
+								android:layout_width="0dp"
+								android:layout_height="48dp"
+								android:layout_weight="1"
+								android:text="Start Scan"
+								android:icon="@drawable/ic_scan"
+								app:iconGravity="textStart"
+								app:cornerRadius="24dp" />
 
-						<com.google.android.material.textview.MaterialTextView
-							android:id="@+id/scanStatusText"
+							<com.google.android.material.progressindicator.CircularProgressIndicator
+								android:id="@+id/scanProgress"
+								android:layout_width="40dp"
+								android:layout_height="40dp"
+								android:layout_marginStart="12dp"
+								android:visibility="gone"
+								app:indicatorSize="40dp"
+								app:trackThickness="4dp" />
+
+							<com.google.android.material.textview.MaterialTextView
+								android:id="@+id/scanStatusText"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginStart="8dp"
+								android:text="Scanning..."
+								android:visibility="gone" />
+						</LinearLayout>
+
+						<!-- Row 2: Continuous Fast Mode switch -->
+						<com.google.android.material.switchmaterial.SwitchMaterial
+							android:id="@+id/modeSwitch"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:layout_marginStart="12dp"
-							android:text="Scanning..."
-							android:visibility="gone" />
+							android:layout_marginTop="6dp"
+							android:text="Use Continuous Fast Mode"
+							android:checked="false" />
 					</LinearLayout>
 
 					<!-- Product select card -->
@@ -143,7 +149,8 @@
 							android:orientation="vertical"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:padding="12dp">
+							android:padding="12dp"
+							android:minHeight="300dp">
 
 							<com.google.android.material.textview.MaterialTextView
 								android:layout_width="wrap_content"
@@ -159,6 +166,7 @@
 								android:overScrollMode="ifContentScrolls" />
 						</LinearLayout>
 					</com.google.android.material.card.MaterialCardView>
+
 
 					<!-- Controls moved BELOW scanned tags -->
 					<LinearLayout

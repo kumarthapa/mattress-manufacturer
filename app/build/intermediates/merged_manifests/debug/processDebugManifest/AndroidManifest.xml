@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.galla.rfidapp.debug"
-    android:versionCode="1"
-    android:versionName="1.0.1-debug" >
+    package="com.treewalker.rfidapp.debug"
+    android:versionCode="10"
+    android:versionName="1.0.10-debug" >
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -22,13 +22,15 @@
     <uses-permission
         android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" /> -->
+
 
     <!-- Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
+
 
     <!-- Hardware features -->
     <uses-feature
@@ -42,13 +44,13 @@
         android:required="false" />
 
     <permission
-        android:name="com.galla.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.treewalker.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.galla.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.treewalker.rfidapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
-        android:name="com.galla.rfidapp.MyApp"
+        android:name="com.treewalker.rfidapp.MyApp"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -58,11 +60,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/ic_brand_logo"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.GallaRFIDAppTheme"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.galla.rfidapp.LauncherActivity"
+            android:name="com.treewalker.rfidapp.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.GallaRFIDAppTheme" >
             <intent-filter>
@@ -71,44 +72,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- <activity android:name=".LoginActivity" android:exported="false" /> -->
         <activity
-            android:name="com.galla.rfidapp.LoginActivity"
+            android:name="com.treewalker.rfidapp.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.DashboardActivity"
+            android:name="com.treewalker.rfidapp.ProductsActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.ProductsActivity"
+            android:name="com.treewalker.rfidapp.ProductDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.ProductDetailsActivity"
+            android:name="com.treewalker.rfidapp.ScannerActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.ScannerActivity"
+            android:name="com.treewalker.rfidapp.InventoryActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.InventoryActivity"
+            android:name="com.treewalker.rfidapp.QcActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.QcActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.galla.rfidapp.SettingsActivity"
+            android:name="com.treewalker.rfidapp.SettingsActivity"
             android:exported="false" />
 
         <!-- Newly added -->
         <activity
-            android:name="com.galla.rfidapp.TagDetailsActivity"
+            android:name="com.treewalker.rfidapp.TagDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.galla.rfidapp.BtConfigActivity"
+            android:name="com.treewalker.rfidapp.BtConfigActivity"
             android:exported="false"
             android:label="Bluetooth Config"
             android:theme="@style/Theme.GallaRFIDAppTheme" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.galla.rfidapp.debug.fileprovider"
+            android:authorities="com.treewalker.rfidapp.debug.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -117,7 +117,7 @@
         </provider>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.galla.rfidapp.debug.androidx-startup"
+            android:authorities="com.treewalker.rfidapp.debug.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

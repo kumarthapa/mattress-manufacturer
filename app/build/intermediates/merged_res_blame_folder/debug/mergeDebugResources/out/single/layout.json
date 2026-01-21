@@ -1,142 +1,138 @@
 [
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_write_tag_detail.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_write_tag_detail.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_qc.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_qc.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/loader.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/loader.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_mapped_product.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_mapped_product.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/dialog_update_download.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/dialog_update_download.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/list_item.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/list_item.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_qc.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_qc.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_tag_details.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_tag_details.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_dropdown.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_dropdown.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_login.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_login.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_product_list.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_product_list.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_main.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_main.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_tag_details.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_tag_details.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_write_tags.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_write_tags.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/layout_printer_settings.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/layout_printer_settings.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_product_details.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_product_details.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/dialog_license.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/dialog_license.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/layout_printer_settings.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/layout_printer_settings.xml"
     },
     {
-        "merged": "com.galla.rfidapp-mergeDebugResources-52:/layout/activity_inventory.xml",
-        "source": "com.galla.rfidapp-main-55:/layout/activity_inventory.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_scanner.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_scanner.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_scanned_tag.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_scanned_tag.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_products.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_products.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_product_laundry.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_product_laundry.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_dashboard.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_dashboard.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_bluetooth_device.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_bluetooth_device.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/loader.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/loader.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_stage.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_stage.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_dropdown.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_dropdown.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_mapped_product.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_mapped_product.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/nav_header.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/nav_header.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_main.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_main.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_settings.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_settings.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_login.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_login.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/fragment_settings.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/fragment_settings.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_product_details.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_product_details.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/dialog_update_download.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/dialog_update_download.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_settings.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_settings.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_product_laundry.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_product_laundry.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/fragment_settings.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/fragment_settings.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_product_list.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_product_list.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_product_search.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_product_search.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/fragment_inventory.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/fragment_inventory.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/nav_header.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/nav_header.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_recent_activity.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_recent_activity.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/layout_general.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/layout_general.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_stage.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_stage.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_scanner.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_scanner.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_scanned_tag.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_scanned_tag.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_products.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_products.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/dialog_license.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/dialog_license.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/layout_rfid_settings.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/layout_rfid_settings.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/layout_rfid_settings.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/layout_rfid_settings.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_inventory.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_inventory.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_epc.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_epc.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_product.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_product.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_bluetooth_device.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_bluetooth_device.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_launcher.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_launcher.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_inventory.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_inventory.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/fragment_inventory.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/fragment_inventory.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_launcher.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_launcher.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_recent_activity.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_recent_activity.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/activity_write_tag_detail.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/activity_write_tag_detail.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_write_tags.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_write_tags.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_product_search.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_product_search.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/list_item.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/list_item.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/item_product.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/item_product.xml"
     },
     {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/item_epc.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/item_epc.xml"
-    },
-    {
-        "merged": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-mergeDebugResources-52:/layout/activity_dashboard.xml",
-        "source": "/home/treewalker/.gradle/daemon/8.12/com.galla.rfidapp-main-55:/layout/activity_dashboard.xml"
+        "merged": "com.treewalker.rfidapp-mergeDebugResources-52:/layout/layout_general.xml",
+        "source": "com.treewalker.rfidapp-main-55:/layout/layout_general.xml"
     }
 ]

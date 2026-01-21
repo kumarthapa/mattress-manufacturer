@@ -6,11 +6,11 @@
 
 		<variable
 			name="vm"
-			type="com.galla.rfidapp.InventoryViewModel" />
+			type="com.treewalker.rfidapp.InventoryViewModel" />
 
 		<variable
 			name="handler"
-			type="com.galla.rfidapp.InventoryFragment.HandlerClick" />
+			type="com.treewalker.rfidapp.InventoryFragment.HandlerClick" />
 
 	</data>
 

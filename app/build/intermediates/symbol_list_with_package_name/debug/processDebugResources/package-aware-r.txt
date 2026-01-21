@@ -1,4 +1,4 @@
-com.galla.rfidapp
+com.treewalker.rfidapp
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -3147,6 +3147,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_nfc
+drawable ic_old_brand_logo
 drawable ic_print
 drawable ic_production
 drawable ic_products

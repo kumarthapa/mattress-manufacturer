@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.galla.rfidapp-mergeDebugResources-51:/values-port/values-port.xml",
+            "outputFile": "com.treewalker.rfidapp-mergeDebugResources-51:/values-port/values-port.xml",
             "map": [
                 {
                     "source": "/home/treewalker/.gradle/caches/8.12/transforms/f70d15261402aed6a13b8a0808b64859/transformed/appcompat-1.7.0/res/values-port/values-port.xml",

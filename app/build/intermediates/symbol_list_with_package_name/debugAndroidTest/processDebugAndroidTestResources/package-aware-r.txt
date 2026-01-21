@@ -1,4 +1,4 @@
-com.galla.rfidapp.test
+com.treewalker.rfidapp.test
 string app_name
 style WhiteBackgroundDialogTheme
 style WhiteBackgroundTheme

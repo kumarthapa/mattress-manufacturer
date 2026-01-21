@@ -1,10 +1,10 @@
-#Fri Dec 12 19:59:35 IST 2025
-base.0=/home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/dex/debugAndroidTest/mergeExtDexDebugAndroidTest/classes.dex
-base.1=/home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/0/classes.dex
-base.2=/home/treewalker/treewalker/loundryApp/loundryApp/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/2/classes.dex
+#Wed Jan 14 14:01:01 IST 2026
+base.0=/home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/intermediates/dex/debugAndroidTest/mergeExtDexDebugAndroidTest/classes.dex
+base.1=/home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/0/classes.dex
+base.2=/home/treewalker/TreewalkerProjects/loundryApp/quick_clean/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/13/classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
-path.2=2/classes.dex
+path.2=13/classes.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex

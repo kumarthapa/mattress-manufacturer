@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.galla.rfidapp.debug",
+  "applicationId": "com.treewalker.rfidapp.debug",
   "variantName": "debug",
   "elements": []
 }

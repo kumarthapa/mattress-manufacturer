@@ -70,6 +70,7 @@ drawable ic_logout
 drawable ic_menu
 drawable ic_menu_24dp
 drawable ic_nfc
+drawable ic_old_brand_logo
 drawable ic_print
 drawable ic_production
 drawable ic_products

@@ -4,11 +4,11 @@
     <data>
         <variable
             name="vm"
-            type="com.galla.rfidapp.SettingViewModel" />
+            type="com.treewalker.rfidapp.SettingViewModel" />
 
         <variable
             name="listener"
-            type="com.galla.rfidapp.SettingsFragment.HandlerClick" />
+            type="com.treewalker.rfidapp.SettingsFragment.HandlerClick" />
 
     </data>
 

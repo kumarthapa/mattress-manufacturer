@@ -2,8 +2,8 @@
     <string name="app_name">Galla App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">QUICK CLEAN</string>
-    <string name="nav_header_subtitle">Galla Laundry Solutions</string>
+    <string name="nav_header_title">Quick Clean</string>
+    <string name="nav_header_subtitle">Galla RFID Solutions</string>
 
     <string name="action_settings">Settings</string>
     <string name="hide">Hide</string>

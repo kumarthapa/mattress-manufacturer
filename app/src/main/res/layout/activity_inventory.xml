@@ -83,13 +83,13 @@
                         </LinearLayout>
 
                         <!-- Row 2: Continuous mode switch -->
-                        <com.google.android.material.materialswitch.MaterialSwitch
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/modeSwitch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
                             android:text="Use Continuous Fast Mode"
-                            android:checked="false"
-                            android:layout_marginTop="6dp" />
+                            android:checked="false" />
                     </LinearLayout>
 
 
@@ -105,7 +105,8 @@
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="12dp">
+                            android:padding="12dp"
+                            android:minHeight="350dp">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -121,6 +122,7 @@
                                 android:overScrollMode="ifContentScrolls" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
+
 
                     <!-- Controls -->
                     <LinearLayout

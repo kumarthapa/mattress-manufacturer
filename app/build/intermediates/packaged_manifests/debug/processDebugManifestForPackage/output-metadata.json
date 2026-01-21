@@ -4,15 +4,15 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.galla.rfidapp.debug",
+  "applicationId": "com.treewalker.rfidapp.debug",
   "variantName": "debug",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 1,
-      "versionName": "1.0.1-debug",
+      "versionCode": 10,
+      "versionName": "1.0.10-debug",
       "outputFile": "AndroidManifest.xml"
     }
   ],

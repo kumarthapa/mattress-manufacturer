@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="QUICK CLEAN"
+            android:text="@string/nav_header_title"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"

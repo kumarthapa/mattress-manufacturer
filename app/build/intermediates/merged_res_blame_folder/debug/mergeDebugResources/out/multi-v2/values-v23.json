@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.galla.rfidapp-mergeDebugResources-51:/values-v23/values-v23.xml",
+            "outputFile": "com.treewalker.rfidapp-mergeDebugResources-51:/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/home/treewalker/.gradle/caches/8.12/transforms/d92e5367844453643f1b10f1ee743fec/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",

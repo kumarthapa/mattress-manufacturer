@@ -29,6 +29,9 @@ android {
 
         // Generate string resources dynamically
         resValue "string", "app_name", findProperty('app.displayName') ?: 'RFID App'
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
     }
 
     buildTypes {
